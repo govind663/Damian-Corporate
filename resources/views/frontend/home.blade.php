@@ -94,7 +94,8 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="tp-project-2-item">
                             <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/1.png') }}" alt=""></a>
+                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/1.png') }}"
+                                        alt=""></a>
                             </div>
                             <div class="project-info">
                                 <h4 class="tp-project-2-title">
@@ -107,7 +108,8 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="tp-project-2-item">
                             <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/2.jpg') }}" alt=""></a>
+                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/2.jpg') }}"
+                                        alt=""></a>
                             </div>
                             <div class="project-info">
                                 <h4 class="tp-project-2-title">
@@ -120,7 +122,8 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="tp-project-2-item">
                             <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/3.png') }}" alt=""></a>
+                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/3.png') }}"
+                                        alt=""></a>
                             </div>
                             <div class="project-info">
                                 <h4 class="tp-project-2-title">
@@ -133,7 +136,8 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="tp-project-2-item">
                             <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/4.png') }}" alt=""></a>
+                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/4.png') }}"
+                                        alt=""></a>
                             </div>
                             <div class="project-info">
                                 <h4 class="tp-project-2-title">
@@ -146,7 +150,8 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="tp-project-2-item">
                             <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/5.png') }}" alt=""></a>
+                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/5.png') }}"
+                                        alt=""></a>
                             </div>
                             <div class="project-info">
                                 <h4 class="tp-project-2-title">
@@ -159,7 +164,8 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="tp-project-2-item">
                             <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/6.png') }}" alt=""></a>
+                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/6.png') }}"
+                                        alt=""></a>
                             </div>
                             <div class="project-info">
                                 <h4 class="tp-project-2-title">
@@ -172,7 +178,8 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="tp-project-2-item">
                             <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/7.jpeg') }}" alt=""></a>
+                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/7.jpeg') }}"
+                                        alt=""></a>
                             </div>
                             <div class="project-info">
                                 <h4 class="tp-project-2-title">
@@ -185,7 +192,8 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="tp-project-2-item">
                             <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/8.jpg') }}" alt=""></a>
+                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/8.jpg') }}"
+                                        alt=""></a>
                             </div>
                             <div class="project-info">
                                 <h4 class="tp-project-2-title"><a href="#">Armstrong</a></h4>
@@ -196,7 +204,8 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="tp-project-2-item">
                             <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/9.jpg') }}" alt=""></a>
+                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/9.jpg') }}"
+                                        alt=""></a>
                             </div>
                             <div class="project-info">
                                 <h4 class="tp-project-2-title">
@@ -209,7 +218,8 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="tp-project-2-item">
                             <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/10.jpg') }}" alt=""></a>
+                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/10.jpg') }}"
+                                        alt=""></a>
                             </div>
                             <div class="project-info">
                                 <h4 class="tp-project-2-title">
@@ -222,7 +232,8 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="tp-project-2-item">
                             <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/11.jpg') }}" alt=""></a>
+                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/11.jpg') }}"
+                                        alt=""></a>
                             </div>
                             <div class="project-info">
                                 <h4 class="tp-project-2-title">
@@ -235,7 +246,8 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="tp-project-2-item">
                             <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/12.jpg') }}" alt=""></a>
+                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/12.jpg') }}"
+                                        alt=""></a>
                             </div>
                             <div class="project-info">
                                 <h4 class="tp-project-2-title">
@@ -299,11 +311,11 @@
                                         </h3>
                                     </li>
                                     <!-- <li>
-                                   <h3 class="pbmit-title-data-hover"><a class="pbmit-svg-btn" href="#">
-                                         <span class="pbminfotech-box-number">05</span>
-                                         <span>Partition Systems</span><i class="fa fa-up-right"></i></a>
-                                   </h3>
-                                </li> -->
+                                       <h3 class="pbmit-title-data-hover"><a class="pbmit-svg-btn" href="#">
+                                             <span class="pbminfotech-box-number">05</span>
+                                             <span>Partition Systems</span><i class="fa fa-up-right"></i></a>
+                                       </h3>
+                                    </li> -->
                                 </ul>
                             </div>
                             <div class="swiper-hover-slide-images col-md-12 col-lg-6">
@@ -312,7 +324,8 @@
                                         <div class="swiper-slide">
                                             <div class="pbmit-featured-img-wrapper">
                                                 <div class="pbmit-featured-wrapper">
-                                                    <video src="{{ asset('frontend/assets/video/Architectural-Design-Build.mp4') }}"
+                                                    <video
+                                                        src="{{ asset('frontend/assets/video/Architectural-Design-Build.mp4') }}"
                                                         autoplay muted loop height="425" width="570"></video>
                                                     <!--<img src="frontend/assets/img/service/architecture-design-build.png"-->
                                                     <!--   height="500px" alt="">-->
@@ -322,7 +335,8 @@
                                         <div class="swiper-slide">
                                             <div class="pbmit-featured-img-wrapper">
                                                 <div class="pbmit-featured-wrapper">
-                                                    <video src="{{ asset('frontend/assets/video/Residential-Design-Build.mp4') }}"
+                                                    <video
+                                                        src="{{ asset('frontend/assets/video/Residential-Design-Build.mp4') }}"
                                                         autoplay muted loop height="425" width="570"></video>
                                                     <!--<img src="frontend/assets/img/service/Residential Design & Build.jpeg"-->
                                                     <!--   height="500px" alt="">-->
@@ -332,8 +346,9 @@
                                         <div class="swiper-slide">
                                             <div class="pbmit-featured-img-wrapper">
                                                 <div class="pbmit-featured-wrapper">
-                                                    <video src="{{ asset('frontend/assets/video/Commercial-Design-Build.mp4') }}" autoplay
-                                                        muted loop height="425" width="570"></video>
+                                                    <video
+                                                        src="{{ asset('frontend/assets/video/Commercial-Design-Build.mp4') }}"
+                                                        autoplay muted loop height="425" width="570"></video>
                                                     <!--<img src="frontend/assets/img/service/Commercial Design & Build.jpeg"-->
                                                     <!--   height="500" alt="" />-->
                                                 </div>
@@ -342,7 +357,8 @@
                                         <div class="swiper-slide">
                                             <div class="pbmit-featured-img-wrapper">
                                                 <div class="pbmit-featured-wrapper">
-                                                    <video src="{{ asset('frontend/assets/video/Modular-Furniture-Design-Build.mp4') }}"
+                                                    <video
+                                                        src="{{ asset('frontend/assets/video/Modular-Furniture-Design-Build.mp4') }}"
                                                         autoplay muted loop height="425" width="570"></video>
                                                     <!--<img src="frontend/assets/img/service/Partition Systems.jpeg" height="500"-->
                                                     <!--   alt="" />-->
@@ -350,12 +366,12 @@
                                             </div>
                                         </div>
                                         <!-- <div class="swiper-slide">
-                                      <div class="pbmit-featured-img-wrapper">
-                                         <div class="pbmit-featured-wrapper">
-                                            <img src="frontend/assets/img/service/services-3.jpg" height="500" alt="" />
-                                         </div>
-                                      </div>
-                                   </div> -->
+                                          <div class="pbmit-featured-img-wrapper">
+                                             <div class="pbmit-featured-wrapper">
+                                                <img src="frontend/assets/img/service/services-3.jpg" height="500" alt="" />
+                                             </div>
+                                          </div>
+                                       </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -507,22 +523,24 @@
                         </div>
                         <div class="tp-testimonial-2-arrow-box d-none d-xl-block">
                             <button class="testimonial-prev">
-                                <img src="{{ asset('frontend/assets/img/icon/left-chevron.png') }}" width="30" alt="">
+                                <img src="{{ asset('frontend/assets/img/icon/left-chevron.png') }}" width="30"
+                                    alt="">
                                 <!-- <svg width="56" height="24" viewBox="0 0 56 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                   d="M0.939335 10.9393C0.35355 11.5251 0.35355 12.4749 0.939335 13.0607L10.4853 22.6066C11.0711 23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 20.4853L4.12132 12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97919 12.6066 1.3934C12.0208 0.807611 11.0711 0.807611 10.4853 1.3934L0.939335 10.9393ZM56 10.5L2 10.5V13.5L56 13.5V10.5Z"
-                                   fill="currentcolor" />
-                             </svg> -->
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                       d="M0.939335 10.9393C0.35355 11.5251 0.35355 12.4749 0.939335 13.0607L10.4853 22.6066C11.0711 23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 20.4853L4.12132 12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97919 12.6066 1.3934C12.0208 0.807611 11.0711 0.807611 10.4853 1.3934L0.939335 10.9393ZM56 10.5L2 10.5V13.5L56 13.5V10.5Z"
+                                       fill="currentcolor" />
+                                 </svg> -->
                             </button>
                             <button class="testimonial-next">
-                                <img src="{{ asset('frontend/assets/img/icon/right-chevron.png') }}" width="30" alt="">
+                                <img src="{{ asset('frontend/assets/img/icon/right-chevron.png') }}" width="30"
+                                    alt="">
                                 <!-- <svg width="56" height="24" viewBox="0 0 56 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                   d="M55.0607 10.9393C55.6465 11.5251 55.6465 12.4749 55.0607 13.0607L45.5147 22.6066C44.9289 23.1924 43.9792 23.1924 43.3934 22.6066C42.8076 22.0208 42.8076 21.0711 43.3934 20.4853L51.8787 12L43.3934 3.51472C42.8076 2.92893 42.8076 1.97919 43.3934 1.3934C43.9792 0.807611 44.9289 0.807611 45.5147 1.3934L55.0607 10.9393ZM0 10.5L54 10.5V13.5L0 13.5L0 10.5Z"
-                                   fill="currentcolor" />
-                             </svg> -->
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                       d="M55.0607 10.9393C55.6465 11.5251 55.6465 12.4749 55.0607 13.0607L45.5147 22.6066C44.9289 23.1924 43.9792 23.1924 43.3934 22.6066C42.8076 22.0208 42.8076 21.0711 43.3934 20.4853L51.8787 12L43.3934 3.51472C42.8076 2.92893 42.8076 1.97919 43.3934 1.3934C43.9792 0.807611 44.9289 0.807611 45.5147 1.3934L55.0607 10.9393ZM0 10.5L54 10.5V13.5L0 13.5L0 10.5Z"
+                                       fill="currentcolor" />
+                                 </svg> -->
                             </button>
                         </div>
                     </div>
@@ -546,7 +564,8 @@
                                         <input type="text" placeholder="Full Name">
                                         <div class="tp-contact-icon">
                                             <span>
-                                                <img width="17px" src="{{ asset('frontend/assets/img/icon/user.png') }}" />
+                                                <img width="17px"
+                                                    src="{{ asset('frontend/assets/img/icon/user.png') }}" />
                                             </span>
                                         </div>
                                     </div>
