@@ -120,6 +120,7 @@
                     </a>
                     <ul class="submenu
                         {{ ($currentRoute === 'banner.index') || ($currentRoute === 'banner.create') || ($currentRoute === 'banner.edit')
+                        || ($currentRoute === 'project.index') || ($currentRoute === 'project.create') || ($currentRoute === 'project.edit')
                         ? 'show' : '' }}">
                         <li>
                             <a href="{{ route('banner.index') }}" class="{{ ($currentRoute === 'banner.index') || ($currentRoute === 'banner.create') || ($currentRoute === 'banner.edit') ? 'active' : '' }}">
@@ -127,7 +128,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="" class="">
+                            <a href="{{ route('project.index') }}" class="{{ ($currentRoute === 'project.index') || ($currentRoute === 'project.create') || ($currentRoute === 'project.edit') ? 'active' : '' }}">
                                 Projects
                             </a>
                         </li>

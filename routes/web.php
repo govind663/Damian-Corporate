@@ -21,6 +21,7 @@ use App\Http\Controllers\backend\Auth\ForgotPasswordController;
 use App\Http\Controllers\backend\Auth\ResetPasswordController;
 use App\Http\Controllers\backend\HomeController;
 use App\Http\Controllers\backend\BannerController;
+use App\Http\Controllers\backend\ProjectController;
 
 // ==== Frontend
 Route::group(['prefix'=> '', 'middleware'=>[PreventBackHistoryMiddleware::class]],function(){
@@ -81,5 +82,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', PreventBackHisto
 
     // ==== Banners Management
     Route::resource('banner', BannerController::class);
+
+    // ==== Project Management
+    Route::resource('project', ProjectController::class);
 
 });
