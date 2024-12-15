@@ -51,11 +51,14 @@ class PreventBackHistoryMiddleware
             if (time() - $request->session()->get('last_activity') > 3600) { // 30 minutes
                 $request->session()->invalidate();
                 $request->session()->regenerate();
-                return redirect()->route('admin.login');
+                $request->session()->put('logged_in', false);
+                return redirect()->route('admin.login')->with('error', 'Your session has expired. Please log in again.');
             } else {
+                $request->session()->put('logged_in', true);
                 $request->session()->put('last_activity', time());
             }
         } else {
+            $request->session()->put('logged_in', false);
             $request->session()->put('last_activity', time());
         }
 

@@ -55,7 +55,9 @@
                         {{-- <img src="{{ asset('frontend/assets/fav-dp.png') }}" alt=""/> --}}
                         <i class="fa fa-user fa-2x text-dark" aria-hidden="true"></i>
                     </span>
-                    <span class="user-name">{{ Auth::user()->name }}</span>
+                    <span class="user-name">
+                        Welcome - <b class="font-weight-bold text-capitalize">{{ Auth::user()->name }}</b>
+                    </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                     <a class="dropdown-item" href="{{ route('change-password') }}">

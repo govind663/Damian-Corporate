@@ -96,8 +96,8 @@
 <div class="left-side-bar">
     <div class="brand-logo">
         <a href="{{ route('admin.dashboard') }}">
-            <img src="{{ asset('/frontend/assets/img/logo/damian-logo.png') }}" alt="" class="dark-logo" />
-            <img src="{{ asset('/frontend/assets/img/logo/damian-logo.png') }}" alt="" class="light-logo" />
+            <img src="{{ asset('/frontend/assets/img/logo/logo.png') }}" alt="" class="dark-logo" />
+            <img src="{{ asset('/frontend/assets/img/logo/logo-1.png') }}" alt="" class="light-logo" />
         </a>
         <div class="close-sidebar" data-toggle="left-sidebar-close">
             <i class="ion-close-round"></i>
@@ -109,9 +109,44 @@
                 <li>
                     <a href="{{ route('admin.dashboard') }}" class="dropdown-toggle no-arrow {{ ($currentRoute === 'admin.dashboard') ? 'active' : '' }}">
                         <span class="micon fa fa-desktop"></span>
-
                         <span class="mtext">Dashboard</span>
                     </a>
+                </li>
+
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon bi bi-house"></span>
+                        <span class="mtext">Home</span>
+                    </a>
+                    <ul class="submenu
+                        {{ ($currentRoute === 'banner.index') || ($currentRoute === 'banner.create') || ($currentRoute === 'banner.edit')
+                        ? 'show' : '' }}">
+                        <li>
+                            <a href="{{ route('banner.index') }}" class="{{ ($currentRoute === 'banner.index') || ($currentRoute === 'banner.create') || ($currentRoute === 'banner.edit') ? 'active' : '' }}">
+                                Banner
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" class="">
+                                Projects
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" class="">
+                                Project Details
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" class="">
+                                Testimonial
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" class="">
+                                Company Information
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
             </ul>
