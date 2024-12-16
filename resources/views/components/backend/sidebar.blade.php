@@ -120,11 +120,20 @@
                     </a>
                     <ul class="submenu
                         {{ ($currentRoute === 'banner.index') || ($currentRoute === 'banner.create') || ($currentRoute === 'banner.edit')
+                        || ($currentRoute === 'category.index') || ($currentRoute === 'category.create') || ($currentRoute === 'category.edit')
                         || ($currentRoute === 'project.index') || ($currentRoute === 'project.create') || ($currentRoute === 'project.edit')
+                        || ($currentRoute === 'project-details.index') || ($currentRoute === 'project-details.create') || ($currentRoute === 'project-details.edit')
+                        || ($currentRoute === 'service.index') || ($currentRoute === 'service.create') || ($currentRoute === 'service.edit')
+                        || ($currentRoute === 'service-details.index') || ($currentRoute === 'service-details.create') || ($currentRoute === 'service-details.edit')
                         ? 'show' : '' }}">
                         <li>
                             <a href="{{ route('banner.index') }}" class="{{ ($currentRoute === 'banner.index') || ($currentRoute === 'banner.create') || ($currentRoute === 'banner.edit') ? 'active' : '' }}">
                                 Banner
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('category.index') }}" class="{{ ($currentRoute === 'category.index') || ($currentRoute === 'category.create') || ($currentRoute === 'category.edit') ? 'active' : '' }}">
+                                Category
                             </a>
                         </li>
                         <li>
@@ -133,17 +142,17 @@
                             </a>
                         </li>
                         <li>
-                            <a href="" class="">
+                            <a href="{{ route('project-details.index') }}" class="{{ ($currentRoute === 'project-details.index') || ($currentRoute === 'project-details.create') || ($currentRoute === 'project-details.edit') ? 'active' : '' }}">
                                 Project Details
                             </a>
                         </li>
                         <li>
-                            <a href="" class="">
+                            <a href="{{ route('testimonial.index') }}" class="{{ ($currentRoute === 'testimonial.index') || ($currentRoute === 'testimonial.create') || ($currentRoute === 'testimonial.edit') ? 'active' : '' }}">
                                 Testimonial
                             </a>
                         </li>
                         <li>
-                            <a href="" class="">
+                            <a href="{{ route('companyInformation.index') }}" class="{{ ($currentRoute === 'companyInformation.index') || ($currentRoute === 'companyInformation.create') || ($currentRoute === 'companyInformation.edit') ? 'active' : '' }}">
                                 Company Information
                             </a>
                         </li>

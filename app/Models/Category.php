@@ -6,17 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Project extends Model
+class Category extends Model
 {
     use HasFactory, SoftDeletes;
     public $timestamps = false;
     protected $fillable = [
         'id',
-        'banner_image',
-        'project_name',
-        'slug',
-        'category_id',
-        'status',
+        'category_name',
         'inserted_by',
         'inserted_at',
         'modified_by',
@@ -30,10 +26,4 @@ class Project extends Model
         'modified_at',
         'deleted_at',
     ];
-
-    // Relationships with category models
-    public function category()
-    {
-        return $this->belongsTo(Category::class, 'category_id');
-    }
 }

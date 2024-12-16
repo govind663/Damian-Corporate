@@ -21,7 +21,11 @@ use App\Http\Controllers\backend\Auth\ForgotPasswordController;
 use App\Http\Controllers\backend\Auth\ResetPasswordController;
 use App\Http\Controllers\backend\HomeController;
 use App\Http\Controllers\backend\BannerController;
+use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\ProjectController;
+use App\Http\Controllers\backend\ProjectDetailsController;
+use App\Http\Controllers\backend\TestimonialController;
+use App\Http\Controllers\backend\CompanyInformationController;
 
 // ==== Frontend
 Route::group(['prefix'=> '', 'middleware'=>[PreventBackHistoryMiddleware::class]],function(){
@@ -83,7 +87,22 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', PreventBackHisto
     // ==== Banners Management
     Route::resource('banner', BannerController::class);
 
+    // ==== Cateegory Management
+    Route::resource('category', CategoryController::class);
+
     // ==== Project Management
     Route::resource('project', ProjectController::class);
+
+    // ==== Project Details Management
+    Route::resource('project-details', ProjectDetailsController::class);
+
+    // ==== Fetch Slug for Project Details
+    Route::post('fetch-project-slug', [ProjectDetailsController::class, 'fetchProjectSlug'])->name('fetch-project-slug');
+
+    // ==== Testimonial Management
+    Route::resource('testimonial', TestimonialController::class);
+
+    // ==== Company Information
+    Route::resource('companyInformation', CompanyInformationController::class);
 
 });

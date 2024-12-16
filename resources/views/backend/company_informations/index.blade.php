@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-Damian Corporate | Manaage Projects
+Damian Corporate | Manaage Company Information
 @endsection
 
 @push('styles')
@@ -19,7 +19,7 @@ Damian Corporate | Manaage Projects
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="title">
-                        <h4>Manage Projects</h4>
+                        <h4>Manage Company Information</h4>
                     </div>
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
@@ -27,7 +27,7 @@ Damian Corporate | Manaage Projects
                                 <a href="{{ route('admin.dashboard') }}">Home</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Manage Projects
+                                Manage Company Information
                             </li>
                         </ol>
                     </nav>
@@ -35,8 +35,8 @@ Damian Corporate | Manaage Projects
 
                 <div class="col-md-6 col-sm-12 text-right">
                     <div class="dropdown">
-                        <a class="btn btn-primary" href="{{ route('project.create') }}">
-                            <i class="fa fa-plus" aria-hidden="true"> </i> Project
+                        <a class="btn btn-primary" href="{{ route('companyInformation.create') }}">
+                            <i class="fa fa-plus" aria-hidden="true"> </i> Company Information
                         </a>
 
                     </div>
@@ -47,54 +47,43 @@ Damian Corporate | Manaage Projects
         <!-- Export Datatable start -->
         <div class="card-box mb-30">
             <div class="pd-20">
-                <h4 class="text-blue h4">All Projects List</h4>
+                <h4 class="text-blue h4">All Company Information List</h4>
             </div>
             <div class="pb-20">
                 <table class="table hover multiple-select-row data-table-export1 nowrap p-3">
                     <thead>
                         <tr>
                             <th>Sr. No.</th>
-                            <th>Image</th>
-                            <th>Project Name</th>
-                            <th>Slug</th>
-                            <th>Category</th>
-                            <th>Status</th>
+                            <th>Company Logo</th>
+                            <th>Description</th>
+                            <th>Phone Number</th>
+                            <th>Email Id</th>
                             <th class="no-export">Edit</th>
                             <th class="no-export">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($projects as $key => $value)
+                        @foreach ($company_informations as $key => $value)
                         <tr>
                             <td>{{ ++$key }}</td>
 
-                            <td class="text-wrap text-justify">
-                                @if($value->project_image)
-                                    <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}" alt="{{ $value->image }}" style="width: 100px; height: auto;">
-                                @endif
-                            </td>
+                            <td class="text-wrap text-justify">{{ $value->company_logo }}</td>
 
-                            <td class="text-wrap text-justify">{{ $value->project_name }}</td>
+                            <td class="text-wrap text-justify">{!! $value->company_description !!}</td>
 
-                            <td class="text-wrap text-justify">{{ $value->slug }}</td>
+                            <td class="text-wrap text-justify">{{ $value->company_phone }}</td>
 
-                            <td class="text-wrap text-justify">{{ $value->category->category_name }}</td>
-
-                            @if ($value->status == 1)
-                                <td class="text-wrap text-justify"><span class="badge badge-success">Active</span></td>
-                            @elseif ($value->status == 2)
-                                <td class="text-wrap text-justify"><span class="badge badge-danger">Inactive</span></td>
-                            @endif
+                            <td class="text-wrap text-justify">{{ $value->company_email }}</td>
 
                             <td class="no-export">
-                                <a href="{{ route('project.edit', $value->id) }}">
+                                <a href="{{ route('companyInformation.edit', $value->id) }}">
                                     <button class="btn btn-warning btn-sm">
                                         <i class="micon dw dw-pencil-1"></i> Edit
                                     </button>
                                 </a>
                             </td>
                             <td class="no-export">
-                                <form action="{{ route('project.destroy', $value->id) }}" method="post">
+                                <form action="{{ route('companyInformation.destroy', $value->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <input name="_method" type="hidden" value="DELETE">
@@ -163,7 +152,7 @@ Damian Corporate | Manaage Projects
                     columns: ':not(.no-export)',
                 },
                header: true,
-               title: 'All Projects List',
+               title: 'All Company Information List',
                orientation: 'landscape',
                pageSize: 'A4',
                customize: function(doc) {

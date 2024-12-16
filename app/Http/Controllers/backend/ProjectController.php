@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Requests\Backend\ProjectRequest;
+use App\Models\Category;
 use App\Models\Project;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,8 +17,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::orderBy("id","desc")->whereNull('deleted_at')->get();
-
+        $projects = Project::with('category')->orderBy("id","desc")->whereNull('deleted_at')->get();
+        // dd($projects);
         return view('backend.projects.index', [
             'projects' => $projects
         ]);
@@ -28,7 +29,11 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('backend.projects.create');
+        $categories = Category::orderBy("id","desc")->whereNull('deleted_at')->get();
+
+        return view('backend.projects.create', [
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -54,7 +59,7 @@ class ProjectController extends Controller
 
             $project->project_name = $request->project_name;
             $project->slug = $request->slug;
-            $project->category = $request->category;
+            $project->category_id = $request->category_id;
             $project->status = $request->status;
             $project->inserted_at = Carbon::now();
             $project->inserted_by = Auth::user()->id;
@@ -83,8 +88,11 @@ class ProjectController extends Controller
     {
         $project = Project::findOrFail($id);
 
+        $categories = Category::orderBy("id","desc")->whereNull('deleted_at')->get();
+
         return view('backend.projects.edit', [
-            'project' => $project
+            'project' => $project,
+            'categories' => $categories
         ]);
     }
 
@@ -120,7 +128,7 @@ class ProjectController extends Controller
 
             $project->project_name = $request->project_name;
             $project->slug = $request->slug;
-            $project->category = $request->category;
+            $project->category_id = $request->category_id;
             $project->status = $request->status;
             $project->modified_at = Carbon::now();
             $project->modified_by = Auth::user()->id;

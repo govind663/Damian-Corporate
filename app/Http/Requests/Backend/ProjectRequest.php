@@ -25,16 +25,16 @@ class ProjectRequest extends FormRequest
             $rule = [
                 'project_image' => 'mimes:jpeg,png,jpg|max:2048',
                 'project_name' => 'required|max:255|string',
-                'slug' => 'required|max:255|string|unique:projects,slug',
-                'category' => 'required|max:255|string',
+                'slug' => 'required|max:255|string',
+                'category_id' => 'required|max:3|numeric',
                 'status' => 'required|numeric',
             ];
         }else{
             $rule = [
-                'project_image' => 'mimes:jpeg,png,jpg|max:2048',
+                'project_image' => 'required|mimes:jpeg,png,jpg|max:2048',
                 'project_name' => 'required|max:255|string',
                 'slug' => 'required|max:255|string|unique:projects,slug',
-                'category' => 'required|max:255|string',
+                'category_id' => 'required|max:3|numeric',
                 'status' => 'required|numeric',
             ];
         }
@@ -48,7 +48,7 @@ class ProjectRequest extends FormRequest
             'project_image.mimes' => __('Project image must be a file of type: jpeg, png, jpg'),
             'project_image.max' => __('The size of project image should not exceed 2 MB.'),
 
-            'project_name.required' => __('Project name is required'),
+            'project_name.required' => __('Project Name is required'),
             'project_name.max' => __('The size of project name should not exceed 255 characters.'),
             'project_name.string' => __('Project name must be a string.'),
 
@@ -57,9 +57,9 @@ class ProjectRequest extends FormRequest
             'slug.string' => __('Slug must be a string.'),
             'slug.unique' => __('Slug must be unique.'),
 
-            'category.required' => __('Category is required'),
-            'category.max' => __('The size of category should not exceed 255 characters.'),
-            'category.string' => __('Category must be a string.'),
+            'category_id.required' => __('Category is required'),
+            'category_id.numeric' => __('Category must be a number.'),
+            'category_id.max' => __('The size of category should not exceed 3 characters.'),
 
             'status.required' => __('Status is required'),
             'status.numeric' => __('Status must be a number.'),
