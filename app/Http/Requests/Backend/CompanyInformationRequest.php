@@ -25,20 +25,20 @@ class CompanyInformationRequest extends FormRequest
             $rule = [
                 'company_logo' => 'nullable|mimes:jpeg,png,jpg|max:2048',
                 'company_description' => 'required|min:5|string',
-                'company_address' => 'required|string',
-                'location_name' => 'required|string',
-                'location_link' => 'required|string',
-                'company_phone' => 'required|max:255|string',
+                'company_address.*' => 'required|string',
+                'location_name.*' => 'required|string',
+                'location_link.*' => 'required',
+                'company_phone' => 'required|string',
                 'company_email' => 'required|max:255|string',
             ];
         }else{
             $rule = [
                 'company_logo' => 'required|mimes:jpeg,png,jpg|max:2048',
                 'company_description' => 'required|min:5|string',
-                'company_address' => 'required|string',
-                'location_name' => 'required|string',
-                'location_link' => 'required|string',
-                'company_phone' => 'required|max:255|numeric',
+                'company_address.*' => 'required|string',
+                'location_name.*' => 'required|string',
+                'location_link.*' => 'required',
+                'company_phone' => 'required|numeric',
                 'company_email' => 'required|max:255|string',
             ];
         }
@@ -56,17 +56,16 @@ class CompanyInformationRequest extends FormRequest
             'company_description.min' => 'Company Description must be at least 5 characters.',
             'company_description.string' => 'Company Description must be a string.',
 
-            'company_address.required' => 'Company Address is required',
-            'company_address.string' => 'Company Address must be a string.',
+            'company_address.*.required' => 'Office Address is required',
+            'company_address.*.string' => 'Office Address must be a string.',
 
-            'location_name.required' => 'Location Name is required',
-            'location_name.string' => 'Location Name must be a string.',
+            'location_name.*.required' => 'Office Name is required',
+            'location_name.*.string' => 'Office Name must be a string.',
 
-            'location_link.required' => 'Location Link is required',
-            'location_link.string' => 'Location Link must be a string.',
+            'location_link.*.required' => 'Office location link is required',
+            'location_link.*.string' => 'Office location link must be a string.',
 
             'company_phone.required' => 'Company Phone Number is required',
-            'company_phone.max' => 'Company Phone Number may not be greater than 255 characters.',
             'company_phone.numeric' => 'Company Phone Number must be a number.',
 
             'company_email.required' => 'Company Email is required',

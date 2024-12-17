@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('company_logo')->nullable();
             $table->text('company_description')->nullable();
             $table->text('company_address')->nullable();
-            $table->string('location_name')->nullable();
+            $table->text('location_name')->nullable();
             $table->text('location_link')->nullable();
             $table->string('company_phone')->nullable();
             $table->string('company_email')->nullable();

@@ -62,7 +62,7 @@ Damian Corporate | Edit Banner
                         <br>
                         <div class="col-sm-6 col-md-6">
                             @if(!empty($banner->banner_image))
-                            <img src="{{ asset('damian_corporate/banner/banner_image/' . $banner->banner_image) }}" alt="Banner Image" style="width: 100px; height: auto;">
+                                <img src="{{ asset('damian_corporate/banner/banner_image/' . $banner->banner_image) }}" alt="Banner Image" style="width: 100px; height: auto;">
                             @endif
                         </div>
                     </div>

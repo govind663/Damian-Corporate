@@ -50,14 +50,14 @@ Damian Corporate | Manaage Company Information
                 <h4 class="text-blue h4">All Company Information List</h4>
             </div>
             <div class="pb-20">
-                <table class="table hover multiple-select-row data-table-export1 nowrap p-3">
+                <table class="table hover  data-table-export1 nowrap p-3">
                     <thead>
                         <tr>
                             <th>Sr. No.</th>
                             <th>Company Logo</th>
-                            <th>Description</th>
                             <th>Phone Number</th>
                             <th>Email Id</th>
+                            <th>Description</th>
                             <th class="no-export">Edit</th>
                             <th class="no-export">Delete</th>
                         </tr>
@@ -67,13 +67,13 @@ Damian Corporate | Manaage Company Information
                         <tr>
                             <td>{{ ++$key }}</td>
 
-                            <td class="text-wrap text-justify">{{ $value->company_logo }}</td>
+                            <td class="text-justify">{{ $value->company_logo }}</td>
 
-                            <td class="text-wrap text-justify">{!! $value->company_description !!}</td>
+                            <td class="text-justify">{{ $value->company_phone }}</td>
 
-                            <td class="text-wrap text-justify">{{ $value->company_phone }}</td>
+                            <td class="text-justify">{{ $value->company_email }}</td>
 
-                            <td class="text-wrap text-justify">{{ $value->company_email }}</td>
+                            <td class="text-justify">{!! $value->company_description !!}</td>
 
                             <td class="no-export">
                                 <a href="{{ route('companyInformation.edit', $value->id) }}">
