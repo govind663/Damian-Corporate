@@ -21,10 +21,10 @@
 <script src="{{ asset('backend/assets/src/plugins/datatables/js/vfs_fonts.js') }}"></script>
 
 <!-- Datatable Setting js -->
-<script src="{{ asset('assets/vendors/scripts/datatable-setting.js') }}"></script>
+<script src="{{ asset('backend/assets/vendors/scripts/datatable-setting.js') }}"></script>
 
 <!-- bootstrap-tagsinput js -->
-<script src="{{ asset('assets/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
+<script src="{{ asset('backend/assets/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
 
 <!-- Toaster Java Script -->
 <script>

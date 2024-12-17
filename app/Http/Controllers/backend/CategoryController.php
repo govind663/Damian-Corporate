@@ -80,6 +80,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, string $id)
     {
         $request->validated();
+
         try {
 
             $category = Category::findOrFail($id);

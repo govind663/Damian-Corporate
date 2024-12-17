@@ -26,6 +26,10 @@ use App\Http\Controllers\backend\ProjectController;
 use App\Http\Controllers\backend\ProjectDetailsController;
 use App\Http\Controllers\backend\TestimonialController;
 use App\Http\Controllers\backend\CompanyInformationController;
+use App\Http\Controllers\backend\AwardMediaController;
+use App\Http\Controllers\backend\BlogCategoryController;
+use App\Http\Controllers\backend\BlogController;
+use App\Http\Controllers\backend\CareerController;
 
 // ==== Frontend
 Route::group(['prefix'=> '', 'middleware'=>[PreventBackHistoryMiddleware::class]],function(){
@@ -102,7 +106,19 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', PreventBackHisto
     // ==== Testimonial Management
     Route::resource('testimonial', TestimonialController::class);
 
-    // ==== Company Information
+    // ==== Company Information Management
     Route::resource('companyInformation', CompanyInformationController::class);
+
+    // ==== Awards & Media Management
+    Route::resource('awards-media', AwardMediaController::class);
+
+    // ==== Manage Blog Category Management
+    Route::resource('blog-category', BlogCategoryController::class);
+
+    // ==== Manage Blog Management
+    Route::resource('blogs', BlogController::class);
+
+    // ==== Manage Careers Management
+    Route::resource('careers', CareerController::class);
 
 });

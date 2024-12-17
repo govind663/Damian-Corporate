@@ -184,4 +184,16 @@ Damian Corporate | Edit Project
         }
     }
 </script>
+
+<script>
+    document.getElementById('project_name').addEventListener('input', function () {
+        const projectName = this.value;
+        const slug = projectName
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '') // Remove invalid characters
+            .trim()                       // Remove whitespace from both sides
+            .replace(/\s+/g, '-');        // Replace spaces with dashes
+        document.getElementById('slug').value = slug;
+    });
+</script>
 @endpush

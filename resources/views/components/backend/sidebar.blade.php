@@ -159,6 +159,62 @@
                     </ul>
                 </li>
 
+                <li>
+                    <a href="{{ route('awards-media.index') }}" class="dropdown-toggle no-arrow {{ ($currentRoute === 'awards-media.index') || ($currentRoute === 'awards-media.create') || ($currentRoute === 'awards-media.edit') ? 'active' : '' }}">
+                        <span class="micon fa fa-trophy"></span>
+                        <span class="mtext">Awards & Media</span>
+                    </a>
+                </li>
+
+                <li class="dropdown {{ ($currentRoute === 'blog-category.index') || ($currentRoute === 'blog-category.create') || ($currentRoute === 'blog-category.edit') || ($currentRoute === 'blogs.index') || ($currentRoute === 'blogs.create') || ($currentRoute === 'blogs.edit') ? 'show' : '' }}">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon bi bi-file-post"></span>
+                        <span class="mtext">Blog</span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="{{ route('blog-category.index') }}" class="{{ ($currentRoute === 'blog-category.index') || ($currentRoute === 'blog-category.create') || ($currentRoute === 'blog-category.edit') ? 'active' : '' }}">
+                                <span class="mtext">Blog Category</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('blogs.index') }}" class="{{ ($currentRoute === 'blogs.index') || ($currentRoute === 'blogs.create') || ($currentRoute === 'blogs.edit') ? 'active' : '' }}">
+                                <span class="mtext">Blog</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown {{ ($currentRoute === 'careers.index') || ($currentRoute === 'careers.create') || ($currentRoute === 'careers.edit')  ? 'show' : '' }}">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon bi bi-briefcase"></span>
+                        <span class="mtext">Career</span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="{{ route('careers.index') }}" class="{{ ($currentRoute === 'careers.index') || ($currentRoute === 'careers.create') || ($currentRoute === 'careers.edit') ? 'active' : '' }}">
+                                <span class="mtext">Career</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="mtext">About Career</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="mtext">Position</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="mtext">Position Details</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
         </div>
     </div>
