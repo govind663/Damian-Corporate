@@ -107,7 +107,7 @@
         <div class="sidebar-menu">
             <ul id="accordion-menu">
                 <li>
-                    <a href="{{ route('admin.dashboard') }}" class="dropdown-toggle no-arrow {{ ($currentRoute === 'admin.dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('admin.dashboard') }}" class="dropdown-toggle no-arrow {{ (Route::currentRouteName() === 'admin.dashboard') ? 'active' : '' }}">
                         <span class="micon fa fa-desktop"></span>
                         <span class="mtext">Dashboard</span>
                     </a>
@@ -119,40 +119,40 @@
                         <span class="mtext">Home</span>
                     </a>
                     <ul class="submenu
-                        {{ ($currentRoute === 'banner.index') || ($currentRoute === 'banner.create') || ($currentRoute === 'banner.edit')
-                        || ($currentRoute === 'category.index') || ($currentRoute === 'category.create') || ($currentRoute === 'category.edit')
-                        || ($currentRoute === 'project.index') || ($currentRoute === 'project.create') || ($currentRoute === 'project.edit')
-                        || ($currentRoute === 'project-details.index') || ($currentRoute === 'project-details.create') || ($currentRoute === 'project-details.edit')
-                        || ($currentRoute === 'service.index') || ($currentRoute === 'service.create') || ($currentRoute === 'service.edit')
-                        || ($currentRoute === 'service-details.index') || ($currentRoute === 'service-details.create') || ($currentRoute === 'service-details.edit')
+                        {{ (Route::currentRouteName() === 'banner.index') || (Route::currentRouteName() === 'banner.create') || (Route::currentRouteName() === 'banner.edit')
+                        || (Route::currentRouteName() === 'category.index') || (Route::currentRouteName() === 'category.create') || (Route::currentRouteName() === 'category.edit')
+                        || (Route::currentRouteName() === 'project.index') || (Route::currentRouteName() === 'project.create') || (Route::currentRouteName() === 'project.edit')
+                        || (Route::currentRouteName() === 'project-details.index') || (Route::currentRouteName() === 'project-details.create') || (Route::currentRouteName() === 'project-details.edit')
+                        || (Route::currentRouteName() === 'service.index') || (Route::currentRouteName() === 'service.create') || (Route::currentRouteName() === 'service.edit')
+                        || (Route::currentRouteName() === 'service-details.index') || (Route::currentRouteName() === 'service-details.create') || (Route::currentRouteName() === 'service-details.edit')
                         ? 'show' : '' }}">
                         <li>
-                            <a href="{{ route('banner.index') }}" class="{{ ($currentRoute === 'banner.index') || ($currentRoute === 'banner.create') || ($currentRoute === 'banner.edit') ? 'active' : '' }}">
+                            <a href="{{ route('banner.index') }}" class="{{ (Route::currentRouteName() === 'banner.index') || (Route::currentRouteName() === 'banner.create') || (Route::currentRouteName() === 'banner.edit') ? 'active' : '' }}">
                                 Banner
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('category.index') }}" class="{{ ($currentRoute === 'category.index') || ($currentRoute === 'category.create') || ($currentRoute === 'category.edit') ? 'active' : '' }}">
+                            <a href="{{ route('category.index') }}" class="{{ (Route::currentRouteName() === 'category.index') || (Route::currentRouteName() === 'category.create') || (Route::currentRouteName() === 'category.edit') ? 'active' : '' }}">
                                 Category
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('project.index') }}" class="{{ ($currentRoute === 'project.index') || ($currentRoute === 'project.create') || ($currentRoute === 'project.edit') ? 'active' : '' }}">
+                            <a href="{{ route('project.index') }}" class="{{ (Route::currentRouteName() === 'project.index') || (Route::currentRouteName() === 'project.create') || (Route::currentRouteName() === 'project.edit') ? 'active' : '' }}">
                                 Projects
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('project-details.index') }}" class="{{ ($currentRoute === 'project-details.index') || ($currentRoute === 'project-details.create') || ($currentRoute === 'project-details.edit') ? 'active' : '' }}">
+                            <a href="{{ route('project-details.index') }}" class="{{ (Route::currentRouteName() === 'project-details.index') || (Route::currentRouteName() === 'project-details.create') || (Route::currentRouteName() === 'project-details.edit') ? 'active' : '' }}">
                                 Project Details
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('testimonial.index') }}" class="{{ ($currentRoute === 'testimonial.index') || ($currentRoute === 'testimonial.create') || ($currentRoute === 'testimonial.edit') ? 'active' : '' }}">
+                            <a href="{{ route('testimonial.index') }}" class="{{ (Route::currentRouteName() === 'testimonial.index') || (Route::currentRouteName() === 'testimonial.create') || (Route::currentRouteName() === 'testimonial.edit') ? 'active' : '' }}">
                                 Testimonial
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('companyInformation.index') }}" class="{{ ($currentRoute === 'companyInformation.index') || ($currentRoute === 'companyInformation.create') || ($currentRoute === 'companyInformation.edit') ? 'active' : '' }}">
+                            <a href="{{ route('companyInformation.index') }}" class="{{ (Route::currentRouteName() === 'companyInformation.index') || (Route::currentRouteName() === 'companyInformation.create') || (Route::currentRouteName() === 'companyInformation.edit') ? 'active' : '' }}">
                                 Company Information
                             </a>
                         </li>
@@ -160,40 +160,40 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('awards-media.index') }}" class="dropdown-toggle no-arrow {{ ($currentRoute === 'awards-media.index') || ($currentRoute === 'awards-media.create') || ($currentRoute === 'awards-media.edit') ? 'active' : '' }}">
+                    <a href="{{ route('awards-media.index') }}" class="dropdown-toggle no-arrow {{ (Route::currentRouteName() === 'awards-media.index') || (Route::currentRouteName() === 'awards-media.create') || (Route::currentRouteName() === 'awards-media.edit') ? 'active' : '' }}">
                         <span class="micon fa fa-trophy"></span>
                         <span class="mtext">Awards & Media</span>
                     </a>
                 </li>
 
-                <li class="dropdown {{ ($currentRoute === 'blog-category.index') || ($currentRoute === 'blog-category.create') || ($currentRoute === 'blog-category.edit') || ($currentRoute === 'blogs.index') || ($currentRoute === 'blogs.create') || ($currentRoute === 'blogs.edit') ? 'show' : '' }}">
+                <li class="dropdown {{ (Route::currentRouteName() === 'blog-category.index') || (Route::currentRouteName() === 'blog-category.create') || (Route::currentRouteName() === 'blog-category.edit') || (Route::currentRouteName() === 'blogs.index') || (Route::currentRouteName() === 'blogs.create') || (Route::currentRouteName() === 'blogs.edit') ? 'show' : '' }}">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon bi bi-file-post"></span>
                         <span class="mtext">Blog</span>
                     </a>
                     <ul class="submenu">
                         <li>
-                            <a href="{{ route('blog-category.index') }}" class="{{ ($currentRoute === 'blog-category.index') || ($currentRoute === 'blog-category.create') || ($currentRoute === 'blog-category.edit') ? 'active' : '' }}">
+                            <a href="{{ route('blog-category.index') }}" class="{{ (Route::currentRouteName() === 'blog-category.index') || (Route::currentRouteName() === 'blog-category.create') || (Route::currentRouteName() === 'blog-category.edit') ? 'active' : '' }}">
                                 <span class="mtext">Blog Category</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ route('blogs.index') }}" class="{{ ($currentRoute === 'blogs.index') || ($currentRoute === 'blogs.create') || ($currentRoute === 'blogs.edit') ? 'active' : '' }}">
+                            <a href="{{ route('blogs.index') }}" class="{{ (Route::currentRouteName() === 'blogs.index') || (Route::currentRouteName() === 'blogs.create') || (Route::currentRouteName() === 'blogs.edit') ? 'active' : '' }}">
                                 <span class="mtext">Blog</span>
                             </a>
                         </li>
                     </ul>
                 </li>
 
-                <li class="dropdown {{ ($currentRoute === 'careers.index') || ($currentRoute === 'careers.create') || ($currentRoute === 'careers.edit')  ? 'show' : '' }}">
+                <li class="dropdown {{ (Route::currentRouteName() === 'careers.index') || (Route::currentRouteName() === 'careers.create') || (Route::currentRouteName() === 'careers.edit')  ? 'show' : '' }}">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon bi bi-briefcase"></span>
                         <span class="mtext">Career</span>
                     </a>
                     <ul class="submenu">
                         <li>
-                            <a href="{{ route('careers.index') }}" class="{{ ($currentRoute === 'careers.index') || ($currentRoute === 'careers.create') || ($currentRoute === 'careers.edit') ? 'active' : '' }}">
+                            <a href="{{ route('careers.index') }}" class="{{ (Route::currentRouteName() === 'careers.index') || (Route::currentRouteName() === 'careers.create') || (Route::currentRouteName() === 'careers.edit') ? 'active' : '' }}">
                                 <span class="mtext">Career</span>
                             </a>
                         </li>
