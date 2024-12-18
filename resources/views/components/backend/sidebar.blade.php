@@ -211,6 +211,20 @@
                     </ul>
                 </li>
 
+                <li class="dropdown ">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon bi bi-briefcase"></span>
+                        <span class="mtext">Services</span>
+                    </a>
+                    <ul class="submenu {{ (Route::currentRouteName() === 'our-services.index') || (Route::currentRouteName() === 'our-services.create') || (Route::currentRouteName() === 'our-services.edit') ? 'show' : '' }}">
+                        <li>
+                            <a href="{{ route('our-services.index') }}" class="{{ (Route::currentRouteName() === 'our-services.index') || (Route::currentRouteName() === 'our-services.create') || (Route::currentRouteName() === 'our-services.edit') ? 'active' : '' }}">
+                                <span class="mtext">Our Services</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li>
                     <a href="{{ route('awards-media.index') }}" class="dropdown-toggle no-arrow {{ (Route::currentRouteName() === 'awards-media.index') || (Route::currentRouteName() === 'awards-media.create') || (Route::currentRouteName() === 'awards-media.edit') ? 'active' : '' }}">
                         <span class="micon fa fa-trophy"></span>

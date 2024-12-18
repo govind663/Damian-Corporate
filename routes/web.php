@@ -40,8 +40,7 @@ use App\Http\Controllers\backend\VisionController;
 use App\Http\Controllers\backend\TeamController;
 use App\Http\Controllers\backend\TeamMemberController;
 use App\Http\Controllers\backend\InternationalAssociatesController;
-
-
+use App\Http\Controllers\backend\OurServiceController;
 
 Route::get('/login', function () {
     return redirect()->route('admin.login');
@@ -167,5 +166,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', PreventBackHisto
 
     // ==== Manage International Associates Management
     Route::resource('international-associates', InternationalAssociatesController::class);
+
+    // ==== Manage Our Services Management
+    Route::resource('our-services', OurServiceController::class);
 
 });
