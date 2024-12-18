@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
-            $table->string('sub_title')->nullable();
+            $table->text('sub_title')->nullable();
             $table->text('sub_description')->nullable();
             $table->string('status')->nullable()->comment('1 => Active, 2 => Inactive');
             $table->integer('inserted_by')->nullable();

@@ -38,6 +38,12 @@ use App\Http\Controllers\backend\ShowroomController;
 use App\Http\Controllers\backend\ManufacturingFacilityController;
 use App\Http\Controllers\backend\VisionController;
 
+
+Route::get('/login', function () {
+    return redirect()->route('admin.login');
+})->name('login');
+
+
 // ==== Frontend
 Route::group(['prefix'=> '', 'middleware'=>[PreventBackHistoryMiddleware::class]],function(){
 
