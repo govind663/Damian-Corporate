@@ -30,6 +30,9 @@ use App\Http\Controllers\backend\AwardMediaController;
 use App\Http\Controllers\backend\BlogCategoryController;
 use App\Http\Controllers\backend\BlogController;
 use App\Http\Controllers\backend\CareerController;
+use App\Http\Controllers\backend\AboutCareerController;
+use App\Http\Controllers\backend\JobPositionController;
+
 
 // ==== Frontend
 Route::group(['prefix'=> '', 'middleware'=>[PreventBackHistoryMiddleware::class]],function(){
@@ -120,5 +123,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', PreventBackHisto
 
     // ==== Manage Careers Management
     Route::resource('careers', CareerController::class);
+
+    // ==== Manage About Careers Management
+    Route::resource('about-careers', AboutCareerController::class);
+
+    // ==== Manage Job Position Management
+    Route::resource('job-position', JobPositionController::class);
+
+    // ==== Manage Job Position Details Management
+    Route::resource('job-position-details', JobPositionDetailsController::class);
 
 });

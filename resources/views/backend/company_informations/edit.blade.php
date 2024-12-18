@@ -114,65 +114,65 @@ Damian Corporate | Add Company Information
                     <tbody>
                         @php
                             // Safely decode or convert into arrays
-                            $locationNames = is_array($company_information->location_name) 
-                                                ? $company_information->location_name 
+                            $locationNames = is_array($company_information->location_name)
+                                                ? $company_information->location_name
                                                 : json_decode($company_information->location_name, true) ?? [];
 
-                            $companyAddresses = is_array($company_information->company_address) 
-                                                ? $company_information->company_address 
+                            $companyAddresses = is_array($company_information->company_address)
+                                                ? $company_information->company_address
                                                 : json_decode($company_information->company_address, true) ?? [];
 
-                            $locationLinks = is_array($company_information->location_link) 
-                                                ? $company_information->location_link 
+                            $locationLinks = is_array($company_information->location_link)
+                                                ? $company_information->location_link
                                                 : json_decode($company_information->location_link, true) ?? [];
                         @endphp
-                
-                @if(count($locationNames) > 0)
-                    @foreach($locationNames as $index => $name)
-                    <tr>
-                        <td>
-                            <input type="text" name="location_name[]" id="location_name" class="form-control @error('location_name.' . $index) is-invalid @enderror" value="{{ $name }}" placeholder="Enter Office Name">
-                            @error('location_name.' . $index)
-                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                            @enderror
-                        </td>
-                        <td>
-                            <textarea name="company_address[]" id="company_address" class="form-control @error('company_address.' . $index) is-invalid @enderror" style="height: 60px !important" placeholder="Enter Office Address">{{ $companyAddresses[$index] }}</textarea>
-                            @error('company_address.' . $index)
-                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                            @enderror
-                        </td>
-                        <td>
-                            <input type="text" name="location_link[]" id="location_link" class="form-control @error('location_link.' . $index) is-invalid @enderror" value="{{ $locationLinks[$index] }}" placeholder="Enter Office location link">
-                            @error('location_link.' . $index)
-                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                            @enderror
-                        </td>
-                        <td>
-                            @if($loop->first)
-                                <button type="button" class="btn btn-primary" id="addCompanyLocationRow">+ Add</button>
-                            @else
-                                <button type="button" class="btn btn-danger removeRow">Remove</button>
-                            @endif
-                        </td>
-                    </tr>
-                    @endforeach
-                @else
-                    <tr>
-                        <td>
-                            <input type="text" name="location_name[]" id="location_name" class="form-control" placeholder="Enter Office Name">
-                        </td>
-                        <td>
-                            <textarea type="text" style="height: 60px !important" name="company_address[]" id="company_address" class="form-control" placeholder="Enter Office Address"></textarea>
-                        </td>
-                        <td>
-                            <input type="text" name="location_link[]" id="location_link" class="form-control" placeholder="Enter Office location link">
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary" id="addCompanyLocationRow">+ Add</button>
-                        </td>
-                    </tr>
-                @endif            
+
+                        @if(count($locationNames) > 0)
+                            @foreach($locationNames as $index => $name)
+                            <tr>
+                                <td>
+                                    <input type="text" name="location_name[]" id="location_name" class="form-control @error('location_name.' . $index) is-invalid @enderror" value="{{ $name }}" placeholder="Enter Office Name">
+                                    @error('location_name.' . $index)
+                                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                    @enderror
+                                </td>
+                                <td>
+                                    <textarea name="company_address[]" id="company_address" class="form-control @error('company_address.' . $index) is-invalid @enderror" style="height: 60px !important" placeholder="Enter Office Address">{{ $companyAddresses[$index] }}</textarea>
+                                    @error('company_address.' . $index)
+                                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                    @enderror
+                                </td>
+                                <td>
+                                    <input type="text" name="location_link[]" id="location_link" class="form-control @error('location_link.' . $index) is-invalid @enderror" value="{{ $locationLinks[$index] }}" placeholder="Enter Office location link">
+                                    @error('location_link.' . $index)
+                                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                    @enderror
+                                </td>
+                                <td>
+                                    @if($loop->first)
+                                        <button type="button" class="btn btn-primary" id="addCompanyLocationRow">+ Add</button>
+                                    @else
+                                        <button type="button" class="btn btn-danger removeRow">Remove</button>
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td>
+                                    <input type="text" name="location_name[]" id="location_name" class="form-control" placeholder="Enter Office Name">
+                                </td>
+                                <td>
+                                    <textarea type="text" style="height: 60px !important" name="company_address[]" id="company_address" class="form-control" placeholder="Enter Office Address"></textarea>
+                                </td>
+                                <td>
+                                    <input type="text" name="location_link[]" id="location_link" class="form-control" placeholder="Enter Office location link">
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" id="addCompanyLocationRow">+ Add</button>
+                                </td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
 

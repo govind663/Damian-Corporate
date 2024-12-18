@@ -198,18 +198,18 @@
                             </a>
                         </li>
                         <li>
-                            <a>
+                            <a href="{{ route('about-careers.index') }}" class="{{ (Route::currentRouteName() === 'about-careers.index') || (Route::currentRouteName() === 'about-careers.create') || (Route::currentRouteName() === 'about-careers.edit') ? 'active' : '' }}">
                                 <span class="mtext">About Career</span>
                             </a>
                         </li>
                         <li>
-                            <a>
-                                <span class="mtext">Position</span>
+                            <a href="{{ route('job-position.index') }}" class="{{ (Route::currentRouteName() === 'job-position.index') || (Route::currentRouteName() === 'job-position.create') || (Route::currentRouteName() === 'job-position.edit') ? 'active' : '' }}">
+                                <span class="mtext">Job Position</span>
                             </a>
                         </li>
                         <li>
                             <a>
-                                <span class="mtext">Position Details</span>
+                                <span class="mtext">Job Position Details</span>
                             </a>
                         </li>
                     </ul>
