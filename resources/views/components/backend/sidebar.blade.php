@@ -169,6 +169,8 @@
                         || (Route::currentRouteName() === 'showroom.index') || (Route::currentRouteName() === 'showroom.create') || (Route::currentRouteName() === 'showroom.edit')
                         || (Route::currentRouteName() === 'manufacturing-facility.index') || (Route::currentRouteName() === 'manufacturing-facility.create') || (Route::currentRouteName() === 'manufacturing-facility.edit')
                         || (Route::currentRouteName() === 'vision.index') || (Route::currentRouteName() === 'vision.create') || (Route::currentRouteName() === 'vision.edit')
+                        || (Route::currentRouteName() === 'team.index') || (Route::currentRouteName() === 'team.create') || (Route::currentRouteName() === 'team.edit')
+                        || (Route::currentRouteName() === 'team-member.index') || (Route::currentRouteName() === 'team-member.create') || (Route::currentRouteName() === 'team-member.edit')
                         ? 'show' : '' }}">
                         <li>
                             <a href="{{ route('introduction.index') }}" class="{{ (Route::currentRouteName() === 'introduction.index') || (Route::currentRouteName() === 'introduction.create') || (Route::currentRouteName() === 'introduction.edit') ? 'active' : '' }}">
@@ -191,12 +193,12 @@
                             </a>
                         </li>
                         <li>
-                            <a>
+                            <a href="{{ route('team.index') }}" class="{{ (Route::currentRouteName() === 'team.index') || (Route::currentRouteName() === 'team.create') || (Route::currentRouteName() === 'team.edit') ? 'active' : '' }}">
                                 <span class="mtext">Team</span>
                             </a>
                         </li>
                         <li>
-                            <a>
+                            <a href="{{ route('team-member.index') }}" class="{{ (Route::currentRouteName() === 'team-member.index') || (Route::currentRouteName() === 'team-member.create') || (Route::currentRouteName() === 'team-member.edit') ? 'active' : '' }}">
                                 <span class="mtext">Team Member</span>
                             </a>
                         </li>

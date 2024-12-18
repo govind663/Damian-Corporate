@@ -37,6 +37,8 @@ use App\Http\Controllers\backend\IntroductionController;
 use App\Http\Controllers\backend\ShowroomController;
 use App\Http\Controllers\backend\ManufacturingFacilityController;
 use App\Http\Controllers\backend\VisionController;
+use App\Http\Controllers\backend\TeamController;
+use App\Http\Controllers\backend\TeamMemberController;
 
 
 Route::get('/login', function () {
@@ -154,5 +156,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', PreventBackHisto
 
     // ==== Manage Vision Management
     Route::resource('vision', VisionController::class);
+
+    // ==== Manage Team Management
+    Route::resource('team', TeamController::class);
+
+    // ==== Manage Team Member Management
+    Route::resource('team-member', TeamMemberController::class);
 
 });
