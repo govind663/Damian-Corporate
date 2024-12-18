@@ -208,8 +208,13 @@
                             </a>
                         </li>
                         <li>
-                            <a>
+                            <a href="{{ route('job-position-details.index') }}" class="{{ (Route::currentRouteName() === 'job-position-details.index') || (Route::currentRouteName() === 'job-position-details.create') || (Route::currentRouteName() === 'job-position-details.edit') ? 'active' : '' }}">
                                 <span class="mtext">Job Position Details</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="mtext">All Applied Job Application List </span>
                             </a>
                         </li>
                     </ul>

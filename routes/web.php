@@ -32,6 +32,7 @@ use App\Http\Controllers\backend\BlogController;
 use App\Http\Controllers\backend\CareerController;
 use App\Http\Controllers\backend\AboutCareerController;
 use App\Http\Controllers\backend\JobPositionController;
+use App\Http\Controllers\backend\JobPositionDetailsController;
 
 
 // ==== Frontend
