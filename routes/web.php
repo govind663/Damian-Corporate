@@ -39,6 +39,8 @@ use App\Http\Controllers\backend\ManufacturingFacilityController;
 use App\Http\Controllers\backend\VisionController;
 use App\Http\Controllers\backend\TeamController;
 use App\Http\Controllers\backend\TeamMemberController;
+use App\Http\Controllers\backend\InternationalAssociatesController;
+
 
 
 Route::get('/login', function () {
@@ -162,5 +164,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', PreventBackHisto
 
     // ==== Manage Team Member Management
     Route::resource('team-member', TeamMemberController::class);
+
+    // ==== Manage International Associates Management
+    Route::resource('international-associates', InternationalAssociatesController::class);
 
 });

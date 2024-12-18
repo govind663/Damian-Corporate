@@ -171,6 +171,7 @@
                         || (Route::currentRouteName() === 'vision.index') || (Route::currentRouteName() === 'vision.create') || (Route::currentRouteName() === 'vision.edit')
                         || (Route::currentRouteName() === 'team.index') || (Route::currentRouteName() === 'team.create') || (Route::currentRouteName() === 'team.edit')
                         || (Route::currentRouteName() === 'team-member.index') || (Route::currentRouteName() === 'team-member.create') || (Route::currentRouteName() === 'team-member.edit')
+                        || (Route::currentRouteName() === 'international-associates.index') || (Route::currentRouteName() === 'international-associates.create') || (Route::currentRouteName() === 'international-associates.edit')
                         ? 'show' : '' }}">
                         <li>
                             <a href="{{ route('introduction.index') }}" class="{{ (Route::currentRouteName() === 'introduction.index') || (Route::currentRouteName() === 'introduction.create') || (Route::currentRouteName() === 'introduction.edit') ? 'active' : '' }}">
@@ -203,7 +204,7 @@
                             </a>
                         </li>
                         <li>
-                            <a>
+                            <a href="{{ route('international-associates.index') }}" class="{{ (Route::currentRouteName() === 'international-associates.index') || (Route::currentRouteName() === 'international-associates.create') || (Route::currentRouteName() === 'international-associates.edit') ? 'active' : '' }}">
                                 <span class="mtext">International Associates</span>
                             </a>
                         </li>
