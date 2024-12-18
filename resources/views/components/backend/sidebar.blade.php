@@ -159,6 +159,55 @@
                     </ul>
                 </li>
 
+                <li class="dropdown ">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon bi bi-info-circle"></span>
+                        <span class="mtext">About Us</span>
+                    </a>
+                    <ul class="submenu
+                        {{ (Route::currentRouteName() === 'introduction.index') || (Route::currentRouteName() === 'introduction.create') || (Route::currentRouteName() === 'introduction.edit')
+                        || (Route::currentRouteName() === 'showroom.index') || (Route::currentRouteName() === 'showroom.create') || (Route::currentRouteName() === 'showroom.edit')
+                        || (Route::currentRouteName() === 'manufacturing-facility.index') || (Route::currentRouteName() === 'manufacturing-facility.create') || (Route::currentRouteName() === 'manufacturing-facility.edit')
+                        || (Route::currentRouteName() === 'vision.index') || (Route::currentRouteName() === 'vision.create') || (Route::currentRouteName() === 'vision.edit')
+                        ? 'show' : '' }}">
+                        <li>
+                            <a href="{{ route('introduction.index') }}" class="{{ (Route::currentRouteName() === 'introduction.index') || (Route::currentRouteName() === 'introduction.create') || (Route::currentRouteName() === 'introduction.edit') ? 'active' : '' }}">
+                                <span class="mtext">Introduction</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('showroom.index') }}" class="{{ (Route::currentRouteName() === 'showroom.index') || (Route::currentRouteName() === 'showroom.create') || (Route::currentRouteName() === 'showroom.edit') ? 'active' : '' }}">
+                                <span class="mtext">Showroom</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('manufacturing-facility.index') }}" class="{{ (Route::currentRouteName() === 'manufacturing-facility.index') || (Route::currentRouteName() === 'manufacturing-facility.create') || (Route::currentRouteName() === 'manufacturing-facility.edit') ? 'active' : '' }}">
+                                <span class="mtext">Manufacturing Facility</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('vision.index') }}" class="{{ (Route::currentRouteName() === 'vision.index') || (Route::currentRouteName() === 'vision.create') || (Route::currentRouteName() === 'vision.edit') ? 'active' : '' }}">
+                                <span class="mtext">Vision</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="mtext">Team</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="mtext">Team Member</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="mtext">International Associates</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li>
                     <a href="{{ route('awards-media.index') }}" class="dropdown-toggle no-arrow {{ (Route::currentRouteName() === 'awards-media.index') || (Route::currentRouteName() === 'awards-media.create') || (Route::currentRouteName() === 'awards-media.edit') ? 'active' : '' }}">
                         <span class="micon fa fa-trophy"></span>

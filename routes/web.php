@@ -33,7 +33,10 @@ use App\Http\Controllers\backend\CareerController;
 use App\Http\Controllers\backend\AboutCareerController;
 use App\Http\Controllers\backend\JobPositionController;
 use App\Http\Controllers\backend\JobPositionDetailsController;
-
+use App\Http\Controllers\backend\IntroductionController;
+use App\Http\Controllers\backend\ShowroomController;
+use App\Http\Controllers\backend\ManufacturingFacilityController;
+use App\Http\Controllers\backend\VisionController;
 
 // ==== Frontend
 Route::group(['prefix'=> '', 'middleware'=>[PreventBackHistoryMiddleware::class]],function(){
@@ -133,5 +136,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', PreventBackHisto
 
     // ==== Manage Job Position Details Management
     Route::resource('job-position-details', JobPositionDetailsController::class);
+
+    // ==== Manage Introduction Management
+    Route::resource('introduction', IntroductionController::class);
+
+    // ==== Manage Showroom Management
+    Route::resource('showroom', ShowroomController::class);
+
+    // ==== Manage Manufacturing Facility Management
+    Route::resource('manufacturing-facility', ManufacturingFacilityController::class);
+
+    // ==== Manage Vision Management
+    Route::resource('vision', VisionController::class);
 
 });
