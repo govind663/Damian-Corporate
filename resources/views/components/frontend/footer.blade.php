@@ -1,3 +1,11 @@
+@php
+    $company_informations = App\Models\CompanyInformation::orderBy("id","desc")->whereNull('deleted_at')->first();
+
+    // Decode JSON data from the database
+    $location_name = json_decode($company_informations->location_name ?? '[]', true);
+    $company_address = json_decode($company_informations->company_address ?? '[]', true);
+    $location_link = json_decode($company_informations->location_link ?? '[]', true);
+@endphp
 <footer class="main-footer">
     <div class="tp-footer-area tp-footer-style-2 pt-50 pb-50">
         <div class="container-fluid home-container">
@@ -5,15 +13,16 @@
                 <div class="col-xl-5 col-lg-5 col-md-12 col-sm-6 mb-20">
                     <div class="tp-footer-widget footer-cols-2-1">
                         <div class="tp-footer-logo">
-                            <a href="index.html">
-                                <img src="{{ asset('frontend/assets/img/logo/damian-logo.png') }}" alt="">
+                            <a href="{{ route('frontend.home') }}">
+                                @if($company_informations->company_logo)
+                                    <img src="{{ asset('/damian_corporate/company_information/company_logo/' . $company_informations->company_logo) }}" alt="{{ $company_informations->company_name }}">
+                                @else
+                                    <img src="{{ asset('frontend/assets/img/logo/damian-logo.png') }}" alt="">
+                                @endif
                             </a>
                         </div>
-                        <div class="tp-footer-logo tp-footer-para pb-10">
-                            <p>Exemplifying unparalleled luxury, meticulous craftsmanship and unmatched quality, the
-                                Damian Group (Damian Corporate Pvt. Ltd., Damian Realty LLP & Damian Hospitality Pvt.
-                                Ltd.) offers Bespoke Holistic Design Services, Luxury Real Estate Projects, and
-                                Exceptional Hospitality Experiences.</p>
+                        <div class="tp-footer-logo tp-footer-para pb-10" style="color: #ffffff !important; text-align: justify !important;">
+                            <p>{!! $company_informations->company_description ?? '' !!}</p>
                         </div>
                         <div class="tp-footer-input-box">
                             <input type="email" placeholder="Email here">
@@ -35,12 +44,12 @@
                         <h4 class="tp-footer-title">Quick Links</h4>
                         <div class="tp-footer-list">
                             <ul>
-                                <li><a href="about-us.html"><i class="fa-solid fa-angles-right"></i>About Us</a></li>
-                                <li><a href="services.html"><i class="fa-solid fa-angles-right"></i>Services</a></li>
-                                <li><a href="#"><i class="fa-solid fa-angles-right"></i>Store</a></li>
-                                <li><a href="awards-media.html"><i class="fa-solid fa-angles-right"></i>Awards & Media</a></li>
-                                <li><a href="blog.html"><i class="fa-solid fa-angles-right"></i>Blogs</a> </li>
-                                <li><a href="careers.html"><i class="fa-solid fa-angles-right"></i>Careers</a></li>
+                                <li><a href="{{ route('frontend.about') }}"><i class="fa-solid fa-angles-right"></i>About Us</a></li>
+                                <li><a href="{{ route('frontend.services') }}"><i class="fa-solid fa-angles-right"></i>Services</a></li>
+                                <li><a href="{{ route('frontend.store') }}"><i class="fa-solid fa-angles-right"></i>Store</a></li>
+                                <li><a href="{{ route('frontend.awards') }}"><i class="fa-solid fa-angles-right"></i>Awards & Media</a></li>
+                                <li><a href="{{ route('frontend.blogs') }}"><i class="fa-solid fa-angles-right"></i>Blogs</a> </li>
+                                <li><a href="{{ route('frontend.careers') }}"><i class="fa-solid fa-angles-right"></i>Careers</a></li>
                             </ul>
                         </div>
                     </div>
@@ -50,55 +59,24 @@
                         <div class="tp-footer-contact-box">
                             <div class="tp-footer-contact">
                                 <ul>
-                                    <li>
-                                        <span>
-                                            <svg width="11" height="15" viewBox="0 0 11 15" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M4.59375 14.4219C3.17188 12.6445 0 8.40625 0 6C0 3.10156 2.32422 0.75 5.25 0.75C8.14844 0.75 10.5 3.10156 10.5 6C10.5 8.40625 7.30078 12.6445 5.87891 14.4219C5.55078 14.832 4.92188 14.832 4.59375 14.4219ZM5.25 7.75C6.20703 7.75 7 6.98438 7 6C7 5.04297 6.20703 4.25 5.25 4.25C4.26562 4.25 3.5 5.04297 3.5 6C3.5 6.98438 4.26562 7.75 5.25 7.75Z"
-                                                    fill="currentcolor" />
-                                            </svg>
-                                        </span>
-                                        <a href="https://maps.app.goo.gl/dScBPHf5xH9zF7fg7" target="_blank">
-                                            <b>Corporate Office</b><br>
-                                            Damian Corporate Pvt Ltd,
-                                            Damian House Ground Floor,
-                                            14, Hill Rd, Bandra West,
-                                            Mumbai, Maharashtra 400050
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <svg width="11" height="15" viewBox="0 0 11 15" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M4.59375 14.4219C3.17188 12.6445 0 8.40625 0 6C0 3.10156 2.32422 0.75 5.25 0.75C8.14844 0.75 10.5 3.10156 10.5 6C10.5 8.40625 7.30078 12.6445 5.87891 14.4219C5.55078 14.832 4.92188 14.832 4.59375 14.4219ZM5.25 7.75C6.20703 7.75 7 6.98438 7 6C7 5.04297 6.20703 4.25 5.25 4.25C4.26562 4.25 3.5 5.04297 3.5 6C3.5 6.98438 4.26562 7.75 5.25 7.75Z"
-                                                    fill="currentcolor" />
-                                            </svg>
-                                        </span>
-                                        <a href="https://maps.app.goo.gl/Jj7RcFK1qKisKVss9" target="_blank">
-                                            <b>Registered Office</b><br>
-                                            Damian Corporate Pvt Ltd,
-                                            Bldg No. F10 Unit No. 19 & 20,
-                                            Bhumi Industrial Park, Mumbai Nasik Highway,
-                                            Pimplas, Bhiwandi, Maharashtra 421302
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <svg width="11" height="15" viewBox="0 0 11 15" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M4.59375 14.4219C3.17188 12.6445 0 8.40625 0 6C0 3.10156 2.32422 0.75 5.25 0.75C8.14844 0.75 10.5 3.10156 10.5 6C10.5 8.40625 7.30078 12.6445 5.87891 14.4219C5.55078 14.832 4.92188 14.832 4.59375 14.4219ZM5.25 7.75C6.20703 7.75 7 6.98438 7 6C7 5.04297 6.20703 4.25 5.25 4.25C4.26562 4.25 3.5 5.04297 3.5 6C3.5 6.98438 4.26562 7.75 5.25 7.75Z"
-                                                    fill="currentcolor" />
-                                            </svg>
-                                        </span>
-                                        <a href="https://maps.app.goo.gl/UBtf7FXZr9dXGnJn6" target="_blank">
-                                            <b>Goa Office & Showroom</b><br>
-                                            Damian de Goa 903/1, Damian House,
-                                            Porvorim, Goa - 403501
-                                        </a>
-                                    </li>
+                                    @if (!empty($location_name) && !empty($company_address) && !empty($location_link))
+                                        @foreach ($location_name as $index => $name)
+                                            <li>
+                                                <span>
+                                                    <svg width="11" height="15" viewBox="0 0 11 15" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M4.59375 14.4219C3.17188 12.6445 0 8.40625 0 6C0 3.10156 2.32422 0.75 5.25 0.75C8.14844 0.75 10.5 3.10156 10.5 6C10.5 8.40625 7.30078 12.6445 5.87891 14.4219C5.55078 14.832 4.92188 14.832 4.59375 14.4219ZM5.25 7.75C6.20703 7.75 7 6.98438 7 6C7 5.04297 6.20703 4.25 5.25 4.25C4.26562 4.25 3.5 5.04297 3.5 6C3.5 6.98438 4.26562 7.75 5.25 7.75Z"
+                                                            fill="currentcolor" />
+                                                    </svg>
+                                                </span>
+                                                <a href="{{ $location_link[$index] ?? '#' }}" target="_blank">
+                                                    <b>{{ $name }}</b><br>
+                                                    {{ $company_address[$index] ?? '' }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    @endif
 
                                     <li>
                                         <span>
@@ -109,7 +87,7 @@
                                                     fill="currentcolor" />
                                             </svg>
                                         </span>
-                                        <a href="tel:+91-8433934664">+91-84339 34664</a>
+                                        <a href="tel:+91-{{ $company_informations->company_phone ?? '' }}">+91-{{ $company_informations->company_phone ?? '' }}</a>
                                     </li>
                                     <li>
                                         <span>
@@ -120,7 +98,7 @@
                                                     fill="currentcolor" />
                                             </svg>
                                         </span>
-                                        <a href="mailto:contact@damiancorporate.com">contact@damiancorporate.com</a>
+                                        <a href="mailto:{{ $company_informations->company_email ?? '' }}">{{ $company_informations->company_email ?? '' }}</a>
                                     </li>
                                 </ul>
                             </div>

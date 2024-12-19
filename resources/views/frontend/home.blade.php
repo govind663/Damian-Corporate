@@ -10,9 +10,11 @@
 @section('content')
     <!-- Start Hero Area -->
     <div class="hero-slider">
-        <video autoplay loop muted width="100%" height="auto" src="{{ asset('frontend/assets/video/banner-video.mp4') }}"
-            type="video/mp4">
-        </video>
+        @if (!empty($banners->banner_image))
+            <img src="{{ asset('/damian_corporate/banner/banner_image/' . $banners->banner_image) }}" alt="{{ $banners->banner_image }}">
+        @elseif (!empty($banners->banner_video))
+            <video src="{{ asset('/damian_corporate/banner/banner_video/' . $banners->banner_video) }}" autoplay muted loop alt="{{ $banners->banner_video }}"></video>
+        @endif
         <div class="container-fluid home-container">
             <div data-wow-duration="0.15" class="hero-info text-center wow fadeInDownBig">
                 <h1>Design meets Luxury</h1>
@@ -21,53 +23,28 @@
     </div>
     <!-- End Hero Area -->
 
-    <div class="tp-about-area tp-about-bg p-relative pt-150">
+    {{-- Start About Area --}}
+    <div class="tp-about-area tp-about-bg p-relative pt-40">
         <div class="container-fluid home-container">
             <div class="row align-items-center">
                 <div class="col-xl-5 col-lg-5">
                     <div class="tp-hero-thumb-box home-about-us-area p-relative pr-40">
                         <div class="tp-hero-thumb wow fadeInLeft">
-                            <img src="{{ asset('frontend/assets/img/about/about-us-img.jpeg') }}" alt="">
+                            @if (!empty($introductions->introduction_image))
+                                <img src="{{ asset('/damian_corporate/introduction/introduction_image/'. $introductions->introduction_image) }}" alt="{{ $introductions->introduction_image }}">
+                            @endif
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-7 col-lg-7">
                     <div class="tp-about-content">
                         <div class="tp-about-title-box mb-20">
-                            <h3 class="tp-section-title tp-split-text tp-split-in-right">About Us</h3>
+                            <h3 class="tp-section-title tp-split-text tp-split-in-right">{{ $introductions->title ?? '' }}</h3>
                         </div>
                         <div class="tp-about-text wow fadeInRight mb-25">
-                            <p>The Damian Group was established in 1962 through the foresight,
-                                determination, and wisdom of its founder, Mr. Damian Pereira. Over the
-                                years, the group has grown by leaps and bounds under the visionary
-                                leadership of Mr. Damian Pereira’s eldest son, Mr. Anselm Pereira. Along
-                                with his two sons, Mr. Craig Pereira and Mr. Kyle Pereira, Mr. Anselm
-                                Pereira has aggressively led the expansion of the group for the Design and
-                                Build offerings of Luxury Interior Projects under the well-known brand name
-                                of Damian Corporate Pvt. Ltd.
-                            </p>
-                            <p>The company now has its own 30,000 sq. ft. highly automated manufacturing
-                                facility, fully equipped with automated CNC machines to ensure the highest
-                                level of quality, precision, and workmanship in Bhiwandi, along with display
-                                showrooms in both Mumbai and Goa. The dynamic promoters have additionally
-                                ventured into the Construction Business under the brand name - Damian Realty
-                                LLP, which is developing ultra-luxury bespoke homes in Goa, and also into
-                                the Hospitality Business - under the brand name - Damian Hospitality Pvt.
-                                Ltd. which operates a well known restaurant in Mumbai.
-                            </p>
-                            <p>Damian Corporate also prides itself on having strong international
-                                affiliations with many well-known brands and having business expertise in
-                                various design avenues such as Architectural Design, Corporate & Residential
-                                Interior Design, Hospitality Design and Institution Design. Backed by a rich
-                                65-year legacy of excellence that streams down from its promoters, the
-                                latest cutting-edge technology being used in its factory, and a passionate
-                                and talented team of 50+ professionals along with a workforce of over 250+
-                                individuals, we ensure we deliver to our clients on our promise of
-                                excellence for every project, be it in any part of India or abroad. Our
-                                expertise speaks for itself.
-                            </p>
+                            <p class="text-justify">{!! $introductions->description ?? '' !!}</p>
                         </div>
-                        <a class="tp-btn-black" href="about-us.html">
+                        <a class="tp-btn-black" href="{{ route('frontend.about') }}">
                             <span>Know More</span>
                         </a>
                     </div>
@@ -75,8 +52,9 @@
             </div>
         </div>
     </div>
+    {{-- End About Area --}}
 
-    <!-- Portfolio Section -->
+    <!-- Start Project Area -->
     <div class="tp-project-2-area home-portfolio-area pt-135 fix pb-60">
         <div class="container-fluid home-container">
             <div class="row">
@@ -269,6 +247,7 @@
 
         </div>
     </div>
+    <!-- End Project Area -->
 
     <!-- Portfolio Start -->
     <section class="section-lgx modern-digital-agency-portfolio overflow-hidden">
@@ -284,10 +263,12 @@
                                 </div>
                                 <ul class="pbmit-hover-inner">
                                     <li>
-                                        <h3 class="pbmit-title-data-hover"><a class="pbmit-svg-btn" href="services.html">
+                                        <h3 class="pbmit-title-data-hover">
+                                            <a class="pbmit-svg-btn" href="services.html">
                                                 <span class="pbminfotech-box-number">01</span>
-                                                <span>Architecture Design & Build
-                                                </span><i class="fa fa-up-right"></i></a>
+                                                <span>Architecture Design & Build </span>
+                                                <i class="fa fa-up-right"></i>
+                                            </a>
                                         </h3>
                                     </li>
                                     <li>
@@ -399,148 +380,32 @@
                         <img src="{{ asset('frontend/assets/img/testimonial/testimonials-img.jpg') }}" />
                     </div>
                 </div>
-                <img src="{{ asset('frontend/assets/img/testimonial/chair.png') }}" style="animation-duration:3s;"
-                    class="shape-chair wow bounceInRight" />
+                <img src="{{ asset('frontend/assets/img/testimonial/chair.png') }}" style="animation-duration:3s;" class="shape-chair wow bounceInRight" />
                 <div class="col-xl-9 col-lg-9 col-md-9">
                     <div class="tp-testimonial-2-wrapper p-relative">
                         <div class="swiper-container tp-testimonial-2-active">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="tp-testimonial-2-content">
-                                        <div class="tp-testimonial-2-author-info">
-                                            <h5>Mr. Sanjay Ahuja</h5>
-                                            <p>Businessman</p>
-                                        </div>
-                                        <div class="tp-testimonial-2-text">
-                                            <p>We got our home done by Damian Corporate; we loved the
-                                                overall design; the quality of wood workmanship was
-                                                excellent; and the best part about working with them was the
-                                                team led by Kyle. I look forward to getting our next home
-                                                done by them soon as well.</p>
+                                @foreach ($testimonials as $key => $value)
+                                    <div class="swiper-slide">
+                                        <div class="tp-testimonial-2-content">
+                                            <div class="tp-testimonial-2-author-info">
+                                                <h5>{{ $value->name ?? '' }}</h5>
+                                                <p>{{ $value->designation ?? '' }}</p>
+                                            </div>
+                                            <div class="tp-testimonial-2-text">
+                                                <p class="text-justify">{!! $value->description ?? '' !!}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="tp-testimonial-2-content">
-                                        <div class="tp-testimonial-2-author-info">
-                                            <h5>Mrs. Amisha Ahuja</h5>
-                                            <p>Businesswoman</p>
-                                        </div>
-                                        <div class="tp-testimonial-2-text">
-                                            <p>Kyle, as a designer, transforms spaces, blending aesthetics
-                                                with functionality. He and his design team curate elements
-                                                like colours, furniture, and lighting to create harmonious
-                                                environments that reflect your tastes, preferences, and
-                                                lifestyles perfectly.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="tp-testimonial-2-content">
-                                        <div class="tp-testimonial-2-author-info">
-                                            <!-- <h5>Wade Warren</h5> -->
-                                            <h5>Malcolm Monteiro</h5>
-                                            <p>CEO, DHL (Asia Pacific)</p>
-                                        </div>
-                                        <div class="tp-testimonial-2-text">
-                                            <p>We have had a long and fruitful association with Damian
-                                                Corporate... Since the beginning of the 1990s to date, they
-                                                have planned, designed, and effectively executed the entire
-                                                interior of our residences in Mumbai and Goa. Their
-                                                professionalism, personal touch, expertise, quality of
-                                                materials used, and timely execution impressed us.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="tp-testimonial-2-content">
-                                        <div class="tp-testimonial-2-author-info">
-                                            <!-- <h5>Wade Warren</h5> -->
-                                            <h5>Dr. Shishir Kumar</h5>
-                                            <p class="mb-0">Chief Diabetologist, Bombay Hospital</p>
-                                        </div>
-                                        <div class="tp-testimonial-2-text">
-                                            <p>Damian Corporate and Anslem Pereira have been part of every
-                                                home I have ever owned and lived in.. Starting with our
-                                                first apartment that they did for us in 1989, they have
-                                                since done multiple homes for us and the key to us going
-                                                back to them repeatedly is that they know how to convert an
-                                                apartment to a home. It is a rare talent that they possess
-                                                to look beyond space and create something special. For us as
-                                                a family, Interior Design =Damian Corporate</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="swiper-slide">
-                                    <div class="tp-testimonial-2-content">
-                                        <div class="tp-testimonial-2-author-info">
-                                            <!-- <h5>Wade Warren</h5> -->
-                                            <h5>Pooja Hingorani</h5>
-                                            <p class="mb-0">Brand Vertical Head & Chief Manager, Bennett
-                                                Coleman & Co. Ltd. (Times Group)</p>
-                                        </div>
-                                        <div class="tp-testimonial-2-text">
-                                            <p>Damian... One of the oldest names in the furniture world. I
-                                                grew up seeing this brand. When I first met the Damian
-                                                team—Kyle and U. Anselm—I was sure that there was no going
-                                                back. I actually went there to see their furniture without
-                                                realising that my entire house would be designed and
-                                                developed by them. Yes, they not only designed my whole
-                                                house, but they even helped me structure the walls and
-                                                everything else. Today it's been 5 years, and I have the
-                                                same finish on all my wardrobes, platforms, kitchen,
-                                                bedrooms, and bathrooms.Thank you, team Damian Corporate,
-                                                for making this house feel like home.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="swiper-slide">
-                                    <div class="tp-testimonial-2-content">
-                                        <div class="tp-testimonial-2-author-info">
-                                            <!-- <h5>Wade Warren</h5> -->
-                                            <h5>Siddharth Bhatia</h5>
-                                            <p class="mb-0">AVP - Marketing, Nucleus Office Parks, A
-                                                Blackstone Company</p>
-                                        </div>
-                                        <div class="tp-testimonial-2-text">
-                                            <p>From the initial conceptualization phase to the final
-                                                execution, every aspect of the architectural process was
-                                                handled with the utmost professionalism, creativity, and
-                                                attention to detail. The Damian Corporate team demonstrated
-                                                an unparalleled dedication to understanding my vision while
-                                                incorporating innovative design solutions that elevated the
-                                                project to new heights. Furthermore, their commitment to
-                                                open communication and collaboration throughout the entire
-                                                project ensured that my needs and preferences were always
-                                                prioritised.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                @endforeach
                             </div>
                         </div>
                         <div class="tp-testimonial-2-arrow-box d-none d-xl-block">
                             <button class="testimonial-prev">
-                                <img src="{{ asset('frontend/assets/img/icon/left-chevron.png') }}" width="30"
-                                    alt="">
-                                <!-- <svg width="56" height="24" viewBox="0 0 56 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                       d="M0.939335 10.9393C0.35355 11.5251 0.35355 12.4749 0.939335 13.0607L10.4853 22.6066C11.0711 23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 20.4853L4.12132 12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97919 12.6066 1.3934C12.0208 0.807611 11.0711 0.807611 10.4853 1.3934L0.939335 10.9393ZM56 10.5L2 10.5V13.5L56 13.5V10.5Z"
-                                       fill="currentcolor" />
-                                 </svg> -->
+                                <img src="{{ asset('frontend/assets/img/icon/left-chevron.png') }}" width="30" alt="">
                             </button>
                             <button class="testimonial-next">
-                                <img src="{{ asset('frontend/assets/img/icon/right-chevron.png') }}" width="30"
-                                    alt="">
-                                <!-- <svg width="56" height="24" viewBox="0 0 56 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                       d="M55.0607 10.9393C55.6465 11.5251 55.6465 12.4749 55.0607 13.0607L45.5147 22.6066C44.9289 23.1924 43.9792 23.1924 43.3934 22.6066C42.8076 22.0208 42.8076 21.0711 43.3934 20.4853L51.8787 12L43.3934 3.51472C42.8076 2.92893 42.8076 1.97919 43.3934 1.3934C43.9792 0.807611 44.9289 0.807611 45.5147 1.3934L55.0607 10.9393ZM0 10.5L54 10.5V13.5L0 13.5L0 10.5Z"
-                                       fill="currentcolor" />
-                                 </svg> -->
+                                <img src="{{ asset('frontend/assets/img/icon/right-chevron.png') }}" width="30" alt="">
                             </button>
                         </div>
                     </div>
@@ -659,7 +524,7 @@
                 <div class="col-12">
                     <div class="tp-map-box">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3147.614091929121!2d72.8212547742511!3d19.052991752696336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c952c459fe63%3A0x4749213890924bcb!2sDamian%20Corporate%20Private%20Limited!5e1!3m2!1sen!2sin!4v1705318600227!5m2!1sen!2sin"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3147.614091929121!2d72.8212547742511!3d19.052991752696336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c952c459fe63%3A0x4749213890924bcb!2sDamian%20Corporate%20Private%20Limited!5e1!3m2!1sen!2sin!4v1705318600227!5m2!1sen!2sin" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
                             width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade">
                         </iframe>
