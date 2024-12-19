@@ -26,7 +26,7 @@ class ProjectRequest extends FormRequest
                 'project_image' => 'mimes:jpeg,png,jpg|max:2048',
                 'project_name' => 'required|max:255|string',
                 'slug' => 'required|max:255|string',
-                'category_id' => 'required|max:3|numeric',
+                'category_id' => 'required|max:255|numeric',
                 'status' => 'required|numeric',
             ];
         }else{
@@ -34,7 +34,7 @@ class ProjectRequest extends FormRequest
                 'project_image' => 'required|mimes:jpeg,png,jpg|max:2048',
                 'project_name' => 'required|max:255|string',
                 'slug' => 'required|max:255|string|unique:projects,slug',
-                'category_id' => 'required|max:3|numeric',
+                'category_id' => 'required|max:255|numeric',
                 'status' => 'required|numeric',
             ];
         }
@@ -59,7 +59,7 @@ class ProjectRequest extends FormRequest
 
             'category_id.required' => __('Category is required'),
             'category_id.numeric' => __('Category must be a number.'),
-            'category_id.max' => __('The size of category should not exceed 3 characters.'),
+            'category_id.max' => __('The size of category should not exceed 255 characters.'),
 
             'status.required' => __('Status is required'),
             'status.numeric' => __('Status must be a number.'),
