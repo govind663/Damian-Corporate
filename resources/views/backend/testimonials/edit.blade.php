@@ -89,7 +89,7 @@ Damian Corporate | Edit Testimonial
                 </div>
 
                 <div class="form-group row mt-3">
-                    <label class="col-sm-3"><b>Description : <span class="text-danger">*</span></b></label>
+                    <label class="col-sm-2"><b>Description : <span class="text-danger">*</span></b></label>
                     <div class="col-sm-10 col-md-10">
                         <textarea name="description" id="description" class="form-control textarea_editor border-radius-0 @error('description') is-invalid @enderror" rows="4" value="{{ $testimonial->description }}" placeholder="Enter the Description here.">{{ $testimonial->description }}</textarea>
                         @error('description')
