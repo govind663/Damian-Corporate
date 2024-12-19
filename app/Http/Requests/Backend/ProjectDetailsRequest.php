@@ -24,7 +24,7 @@ class ProjectDetailsRequest extends FormRequest
         if ($this->id){
             $rule = [
                 'banner_image.*' => 'mimes:jpeg,png,jpg|max:2048',
-                'project_id' => 'required|max:3|numeric',
+                'project_id' => 'required|max:255|numeric',
                 'slug' => 'required|max:255|string',
                 'location' => 'required|max:255|string',
                 'location_url' => 'nullable',
@@ -34,7 +34,7 @@ class ProjectDetailsRequest extends FormRequest
         }else{
             $rule = [
                 'banner_image.*' => 'required|mimes:jpeg,png,jpg|max:2048',
-                'project_id' => 'required|max:3|numeric',
+                'project_id' => 'required|max:255|numeric',
                 'slug' => 'required|max:255|string',
                 'location' => 'required|max:255|string',
                 'location_url' => 'nullable',
@@ -54,7 +54,7 @@ class ProjectDetailsRequest extends FormRequest
             'banner_image.*.max' => __('The size of banner image should not exceed 2 MB.'),
 
             'project_id.required' => __('Please select a project name is required'),
-            'project_id.max' => __('The project name should not exceed 3 characters'),
+            'project_id.max' => __('The size of project name should not exceed 255 characters.'),
             'project_id.numeric' => __('Please select a project name is required'),
 
             'slug.required' => __('slug is required'),
