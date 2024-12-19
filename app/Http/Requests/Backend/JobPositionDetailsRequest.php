@@ -24,10 +24,10 @@ class JobPositionDetailsRequest extends FormRequest
         if ($this->id){
             $rule = [
                 'job_position_id' => 'required|max:3|numeric',
-                'requirements.*' => 'nullable|max:255',
-                'qualification.*' => 'nullable|max:255',
-                'responsibilities.*' => 'nullable|max:255',
-                'salary.*' => 'nullable|max:255',
+                'requirements.*' => 'nullable|min:3',
+                'qualification.*' => 'nullable|min:3',
+                'responsibilities.*' => 'nullable|min:3',
+                'salary.*' => 'nullable|min:3',
                 'experience' => 'nullable|max:255|string',
                 'job_type' => 'nullable|numeric',
                 'job_location' => 'nullable|max:255',
@@ -37,10 +37,10 @@ class JobPositionDetailsRequest extends FormRequest
         }else{
             $rule = [
                 'job_position_id' => 'required|max:3|numeric',
-                'requirements.*' => 'nullable|max:255',
-                'qualification.*' => 'nullable|max:255',
-                'responsibilities.*' => 'nullable|max:255',
-                'salary.*' => 'nullable|max:255',
+                'requirements.*' => 'nullable|min:3',
+                'qualification.*' => 'nullable|min:3',
+                'responsibilities.*' => 'nullable|min:3',
+                'salary.*' => 'nullable|min:3',
                 'experience' => 'nullable|max:255|string',
                 'job_type' => 'nullable|numeric',
                 'job_location' => 'nullable|max:255',
@@ -59,13 +59,13 @@ class JobPositionDetailsRequest extends FormRequest
             'job_position_id.max' => 'Job Position must be 3 digit',
 
             // 'requirements.*.required' => 'Requirements is required',
-            'requirements.*.max' => 'Requirements must be 255 character',
+            'requirements.*.max' => 'Requirements must be 3 character',
 
             // 'qualification.*.required' => 'Qualification is required',
-            'qualification.*.max' => 'Qualification must be 255 character',
+            'qualification.*.max' => 'Qualification must be 3 character',
 
             // 'responsibilities.*.required' => 'Responsibilities is required',
-            'responsibilities.*.max' => 'Responsibilities must be 255 character',
+            'responsibilities.*.max' => 'Responsibilities must be 3 character',
 
             'experience.required' => 'Experience is required',
             'experience.max' => 'Experience must be 255 character',
@@ -80,7 +80,7 @@ class JobPositionDetailsRequest extends FormRequest
             // 'job_description.required' => 'Job Description is required',
             'job_description.min' => 'Job Description must be 3 character',
 
-            'salary.*.max' => 'Salary must be 255 character',
+            'salary.*.max' => 'Salary must be 3 character',
 
             'status.required' => 'Status is required',
             'status.numeric' => 'Status must be a number',
