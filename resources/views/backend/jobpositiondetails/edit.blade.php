@@ -95,9 +95,9 @@ Damian Corporate | Edit Job Position
                         @enderror
                     </div>
 
-                    <label class="col-sm-2"><b>Job Location Link : </b></label>
+                    <label class="col-sm-2"><b>Job Location : </b></label>
                     <div class="col-sm-4 col-md-4">
-                        <input type="text" name="job_location" id="job_location" class="form-control @error('job_location') is-invalid @enderror" value="{{ $jobpositiondetails->job_location }}" placeholder="Enter Job Location Link.">
+                        <input type="text" name="job_location" id="job_location" class="form-control @error('job_location') is-invalid @enderror" value="{{ $jobpositiondetails->job_location }}" placeholder="Enter Job Location.">
                         @error('job_location')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
