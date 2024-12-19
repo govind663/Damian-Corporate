@@ -87,7 +87,7 @@ Damian Corporate | Add Testimonial
 
                 <div class="form-group row mt-3">
                     <label class="col-sm-3"><b>Description : <span class="text-danger">*</span></b></label>
-                    <div class="col-sm-9 col-md-9">
+                    <div class="col-sm-10 col-md-10">
                         <textarea name="description" id="description" class="form-control textarea_editor border-radius-0 @error('description') is-invalid @enderror" rows="4" value="{{ old('description') }}" placeholder="Enter the Description here.">{{ old('description') }}</textarea>
                         @error('description')
                             <span class="invalid-feedback" role="alert">
