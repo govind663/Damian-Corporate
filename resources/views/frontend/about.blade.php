@@ -19,7 +19,7 @@
                                 <h3 class="breadcrumb__title tp-split-text tp-split-in-right">About Us</h3>
                             </div>
                             <div class="breadcrumb__list">
-                                <span><a href="index.html">Home</a></span>
+                                <span><a href="{{ route('frontend.home') }}">Home</a></span>
                                 <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
                                 <span>About Us</span>
                             </div>
@@ -38,43 +38,18 @@
                 <div class="row">
                     <div class="col-xl-7 col-lg-6">
                         <div class="tp-team-author-info">
-                            <h5 class="tp-section-title">About Us</h5>
+                            <h5 class="tp-section-title">{{ $introductions->title ?? '' }}</h5>
                         </div>
-                        <div class="tp-team-details-text about-us-right-text pe-5">
-                            <p class="text-justify">The Damian Group was established in 1962 through the foresight,
-                                determination, and
-                                wisdom of its founder, Mr. Damian Pereira. Over the years, the group has grown by leaps
-                                and bounds under the visionary leadership of Mr. Damian Pereira’s eldest son, Mr.
-                                Anselm Pereira. Along with his two sons, Mr. Craig Pereira and Mr. Kyle Pereira, Mr.
-                                Anselm Pereira has aggressively led the expansion of the group for the design and build
-                                offerings of luxury interior projects under the well-known brand name of Damian
-                                Corporate Pvt. Ltd.
-                            </p>
-                            <p class="text-justify">The company now has its own 30,000 sq. ft. highly automated
-                                manufacturing facility,
-                                fully equipped with automated CNC machines to ensure the highest level of quality,
-                                precision, and workmanship in Bhiwandi, along with display showrooms in both Mumbai and
-                                Goa. The dynamic promoters have additionally ventured into the Construction Business
-                                under the brand name - Damian Realty LLP, which is developing ultra-luxury bespoke
-                                homes in Goa, and also into the Hospitality Business - under the brand name - Damian
-                                Hospitality Pvt. Ltd. which operates a well known restaurant in Mumbai.
-                            </p>
-                            <p class="text-justify">Damian Corporate also prides itself on having strong international
-                                affiliations with
-                                many well-known brands and having business expertise in various design avenues such as
-                                Architectural Design, Corporate & Residential Interior Design, Hospitality Design and
-                                Institution Design. Backed by a rich 65-year legacy of excellence that streams down
-                                from its promoters, the latest cutting-edge technology being used in its factory, and a
-                                passionate and talented team of 50+ professionals along with a workforce of over 250+
-                                individuals, we ensure we deliver to our clients on our promise of excellence for every
-                                project, be it in any part of India or abroad. Our expertise speaks for itself.
-                            </p>
+                        <div class="tp-team-details-text about-us-right-text pe-5 text-light" style="text-align: justify !important; font-family: Averta-Regular !important;">
+                            {!! $introductions->description ?? '' !!}
                         </div>
                     </div>
                     <div class="col-xl-5 col-lg-6">
                         <div class="tp-hero-thumb-box about-us-img-sec p-relative">
                             <div class="tp-hero-thumb about-us-thumb-sec wow fadeInLeft">
-                                <img src="{{ asset('frontend/assets/img/about/about-img.jpg') }}" alt="">
+                                @if (!empty($introductions->introduction_image))
+                                    <img src="{{ asset('/damian_corporate/introduction/introduction_image/'. $introductions->introduction_image) }}" alt="{{ $introductions->introduction_image }}">
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -84,7 +59,7 @@
     </div>
     <!-- hero area end -->
 
-    <!-- project area start -->
+    <!-- Showroom area start -->
     <div class="tp-project-3-area pt-70 pb-70 showroom-section">
         <div class="container-fluid home-container">
             <div class="tp-project-3-title-wrap">
@@ -100,36 +75,27 @@
                 </div>
             </div>
             <div class="row">
-                <!-- <div class="grid-sizer"></div> -->
-                <div class="col-xl-6 col-lg-6 col-md-6 mb-30 grid-item-2">
-                    <div class="tp-project-3-item p-relative active">
-                        <div class="tp-project-3-thumb">
-                            <img src="{{ asset('frontend/assets/img/other/mumbai-showroom.png') }}" alt="">
-                        </div>
-                        <div class="tp-project-3-content about-content-area">
-                            <span>Mumbai</span>
-                            <h5 class="tp-project-3-title showroom-sub-title"><a href="#">Showroom & Office</a></h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 mb-30 grid-item-2">
-                    <div class="tp-project-3-item p-relative active">
-                        <div class="tp-project-3-thumb">
-                            <img src="{{ asset('frontend/assets/img/other/damian-de-goa-img.jpg') }}" alt="">
-                        </div>
-                        <div class="tp-project-3-content about-content-area">
-                            <span>Goa</span>
-                            <h5 class="tp-project-3-title showroom-sub-title"><a href="#">Showroom & Office</a>
-                            </h5>
+                @foreach ($showrooms as $key => $value)
+                    <div class="col-xl-6 col-lg-6 col-md-6 mb-30 grid-item-2">
+                        <div class="tp-project-3-item p-relative active">
+                            <div class="tp-project-3-thumb">
+                                <img src="{{ asset('/damian_corporate/showroom/office_image/'. $value->office_image) }}" alt="{{ $value->office_image }}">
+                            </div>
+                            <div class="tp-project-3-content about-content-area">
+                                <span>{{ $value->office_name ?? '' }}</span>
+                                <h5 class="tp-project-3-title showroom-sub-title">
+                                    <a href="{{ $value->location_link ?? '#' }}">{{ $value->office_location ?? '' }}</a>
+                                </h5>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
-    <!-- project area end -->
+    <!-- Showroom area end -->
 
-    <!-- project area start -->
+    <!-- Manufacturing Facility area start -->
     <div class="tp-project-2-area infrastructure-area  pt-70 fix pb-70">
         <div class="container-fluid home-container">
             <div class="row">
@@ -145,68 +111,22 @@
                     <div class="tp-project-2-wrapper manufacturing-facility-section p-relative">
                         <div class="swiper-container manufacturing-facility-area-active">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="tp-project-2-item">
-                                        <div class="tp-project-2-thumb mb-30">
-                                            <img src="{{ asset('frontend/assets/img/service/manufacturing-facility-1.jpeg') }}"
-                                                alt="">
+                                @foreach ($manufacturing_facilities as $value)
+                                    <div class="swiper-slide">
+                                        <div class="tp-project-2-item">
+                                            <div class="tp-project-2-thumb mb-30">
+                                                <img src="{{ asset('/damian_corporate/manufacturing_facility/manufacturing_facilitie_image/'. $value->manufacturing_facilitie_image) }}" alt="{{ $value->manufacturing_facilitie_image }}">
+                                            </div>
                                         </div>
-                                        <!-- <div class="project-info pb-20">
-                                           <h4 class="tp-project-2-title"><a href="#">Lorem Ipsum</a></h4>
-                                        </div> -->
                                     </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="tp-project-2-item">
-                                        <div class="tp-project-2-thumb mb-30">
-                                            <img src="{{ asset('frontend/assets/img/service/manufacturing-facility-2.jpeg') }}"
-                                                alt="">
-                                        </div>
-                                        <!-- <div class="project-info pb-20">
-                                           <h4 class="tp-project-2-title"><a href="#">Lorem Ipsum</a></h4>
-                                        </div> -->
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="tp-project-2-item">
-                                        <div class="tp-project-2-thumb mb-30">
-                                            <img src="{{ asset('frontend/assets/img/service/manufacturing-facility-3.jpeg') }}"
-                                                alt="">
-                                        </div>
-                                        <!-- <div class="project-info pb-20">
-                                           <h4 class="tp-project-2-title"><a href="#">Lorem Ipsum</a></h4>
-                                        </div> -->
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="tp-project-2-item">
-                                        <div class="tp-project-2-thumb mb-30">
-                                            <img src="{{ asset('frontend/assets/img/service/manufacturing-facility-4.jpeg') }}"
-                                                alt="">
-                                        </div>
-                                        <!-- <div class="project-info pb-20">
-                                           <h4 class="tp-project-2-title"><a href="#">Lorem Ipsum</a></h4>
-                                        </div> -->
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="tp-project-2-item">
-                                        <div class="tp-project-2-thumb mb-30">
-                                            <img src="{{ asset('frontend/assets/img/service/manufacturing-facility-5.jpeg') }}"
-                                                alt="">
-                                        </div>
-                                        <!-- <div class="project-info pb-20">
-                                           <h4 class="tp-project-2-title"><a href="#">Lorem Ipsum</a></h4>
-                                        </div> -->
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
+
                             <!-- Add Arrows -->
                             <div class="manufacturing-facility-arrow-box">
                                 <div class="swiper-button-next"></div>
                                 <div class="swiper-button-prev"></div>
                             </div>
-
                         </div>
                         <div class="tp-project-dots text-center mt-110"></div>
                     </div>
@@ -214,24 +134,27 @@
             </div>
         </div>
     </div>
-    <!-- project area end -->
+    <!-- Manufacturing Facility area end -->
 
-    <!-- Vision area start -->
-    <div class="tp-team-details-area tp-team-details-inner-style vision-strength-area pt-70 pb-70">
+    <!-- Vision, Values & Strengths area start -->
+    <div class="tp-team-details-area tp-team-details-inner-style vision-strength-area">
         <div class="container-fluid home-container">
             <div class="row">
                 <div class="col-xl-4 col-lg-4">
                     <div class="tp-team-details-thumb vision-image-area text-sm-center">
-                        <img src="{{ asset('frontend/assets/img/service/vision-values-strength.jpg') }}" alt="">
+                        @if (!empty($visions->image))
+                            <img src="{{ asset('/damian_corporate/visions/image/'. $visions->image) }}" alt="{{ $visions->image }}" class="img-fluid" style="height: 640px !important;">
+                        @endif
                     </div>
                 </div>
                 <div class="col-xl-8 col-lg-8">
                     <div class="tp-team-details-wrap">
                         <div class="tp-team-author-info">
-                            <h5 class="tp-section-title">Vision, Values & Strengths</h5>
-                            <p>Over the past 65 years Damian has constantly pushed the boundaries of creativity and
-                                comfort
-                                to provide ground breaking products of the highest quality to their customers.
+                            <h5 class="tp-section-title">
+                                {{ $visions->title ?? '' }}
+                            </h5>
+                            <p class="tp-team-details-text text-justify">
+                                {{ $visions->description ?? '' }}
                             </p>
                         </div>
                     </div>
@@ -239,51 +162,22 @@
                         <div class="row">
                             <div class="col-xl-12 col-lg-12 wow tpfadeLeft" data-wow-duration=".9s" data-wow-delay=".5s">
                                 <div class="vision-values-content-section">
-                                    <h4 class="vision-header-section">
-                                        <i class="fa-solid fa-angles-right"></i>
-                                        Team Strength
-                                    </h4>
-                                    <p>
-                                        Our team is the backbone of our company, comprising 50+ professionals along with
-                                        a workforce of over 250 individuals.
-                                    </p>
-                                    <h4 class="vision-header-section">
-                                        <i class="fa-solid fa-angles-right"></i>
-                                        Technological Advancements
-                                    </h4>
-                                    <p>
-                                        We have invested in a state-of-the-art manufacturing facility equipped with fully
-                                        automated CNC machines, ensuring the highest level of quality, precision, and
-                                        efficiency in our work.
-                                    </p>
-                                    <h4 class="vision-header-section">
-                                        <i class="fa-solid fa-angles-right"></i>
-                                        Infrastructure
-                                    </h4>
-                                    <p>
-                                        Our company-owned warehouse and manufacturing units, which are
-                                        strategically located in major cities in India, ensure quick turnaround
-                                        times without compromising on quality.
-                                    </p>
-                                    <h4 class="vision-header-section">
-                                        <i class="fa-solid fa-angles-right"></i>
-                                        Presence
-                                    </h4>
-                                    <p>
-                                        Our head offices and showrooms in major cities in India help us provide
-                                        our clients with easy accessibility and the opportunity to experience
-                                        our design concepts firsthand.
-                                    </p>
-                                    <h4 class="vision-header-section">
-                                        <i class="fa-solid fa-angles-right"></i>
-                                        Extensive range of products and services
-                                    </h4>
-                                    <p>
-                                        We offer an extensive range of products
-                                        and services to cater to diverse design needs. From residential and
-                                        commercial spaces to
-                                        retail and hospitality design, we have expertise in several industries.
-                                    </p>
+                                    @php
+                                        $subTitles = json_decode($visions->sub_title ?? '[]', true);
+                                        $subDescriptions = json_decode($visions->sub_description ?? '[]', true);
+                                    @endphp
+
+                                    @if (!empty($subTitles) && is_array($subTitles))
+                                        @foreach ($subTitles as $index => $subTitle)
+                                            <h4 class="vision-header-section">
+                                                <i class="fa-solid fa-angles-right"></i>
+                                                {{ $subTitle }}
+                                            </h4>
+                                            <p class="vision-description-section" style="padding-left: 20px;">
+                                                {{ $subDescriptions[$index] ?? '' }}
+                                            </p>
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -292,165 +186,60 @@
             </div>
         </div>
     </div>
-    <!-- Vision area end -->
+    <!-- Vision, Values & Strengths area end -->
 
-    <!-- board of directors section start -->
-    <div class="board-directors-section pt-140 pb-150">
-        <div class="container-fluid home-container">
-            <div class="row">
-                <div class="tp-blog-title-wrap mb-55">
-                    <div class="col-xl-12">
-                        <div class="tp-blog-title-box">
-                            <span
-                                class="tp-section-subtitle tp-split-text tp-split-in-right directors-mega-header">Directors</span>
-                            <h3 class="tp-section-title tp-split-text tp-split-in-right directors-sub-header">Board of
-                                Directors</h3>
+    <!-- Member section start -->
+    @foreach ($teams as $value)
+        <div class="board-directors-section pt-140">
+            <div class="container-fluid home-container">
+                <div class="row">
+                    <div class="tp-blog-title-wrap mb-55">
+                        <div class="col-xl-12">
+                            <div class="tp-blog-title-box">
+                                <span class="tp-section-subtitle tp-split-text tp-split-in-right directors-mega-header">
+                                    {{ \Illuminate\Support\Str::afterLast($value->team_name ?? '', ' ') }}
+                                </span>
+                                <h3 class="tp-section-title tp-split-text tp-split-in-right directors-sub-header">
+                                    {{ $value->team_name ?? '' }}
+                                </h3>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6">
-                    <div class="board-directors-grid">
-                        <div class="board-directors-image">
-                            <a href="#" class="image">
-                                <img class="pic-1"
-                                    src="{{ asset('frontend/assets/img/team/board-of-directors-image/Leonys-Pereira.jpeg') }}">
-                            </a>
-                            <ul class="board-directors-links">
-                                <li><a href="#"><img src="{{ asset('frontend/assets/img/icon/linkedin.png') }}"
-                                            alt=""></a></li>
-                            </ul>
-                        </div>
-                        <div class="board-directors-content">
-                            <h3 class="board-directors-title">Leonys Pereira</h3>
-                            <span class="board-directors-category">Director - HR, Admin & Finance</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6">
-                    <div class="board-directors-grid">
-                        <div class="board-directors-image">
-                            <a href="#" class="image">
-                                <img class="pic-1"
-                                    src="{{ asset('frontend/assets/img/team/board-of-directors-image/Anselm-Pereira.jpeg') }}">
-                            </a>
-                            <ul class="board-directors-links">
-                                <li><a href="#"><img src="{{ asset('frontend/assets/img/icon/linkedin.png') }}"
-                                            alt=""></a></li>
-                            </ul>
-                        </div>
-                        <div class="board-directors-content">
-                            <h3 class="board-directors-title">Anselm Pereira</h3>
-                            <span class="board-directors-category">Chairman & Managing Director</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6">
-                    <div class="board-directors-grid">
-                        <div class="board-directors-image">
-                            <a href="#" class="image">
-                                <img class="pic-1"
-                                    src="{{ asset('frontend/assets/img/team/board-of-directors-image/Craig-Pereira.jpeg') }}">
-                            </a>
-                            <ul class="board-directors-links">
-                                <li><a href="#"><img src="{{ asset('frontend/assets/img/icon/linkedin.png') }}"
-                                            alt=""></a></li>
-                            </ul>
-                        </div>
-                        <div class="board-directors-content">
-                            <h3 class="board-directors-title">Craig Pereira</h3>
-                            <span class="board-directors-category">Executive Director Operations</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6">
-                    <div class="board-directors-grid">
-                        <div class="board-directors-image">
-                            <a href="#" class="image">
-                                <img class="pic-1"
-                                    src="{{ asset('frontend/assets/img/team/board-of-directors-image/Kyle-Pereira.jpeg') }}">
-                            </a>
-                            <ul class="board-directors-links">
-                                <li><a href="#"><img src="{{ asset('frontend/assets/img/icon/linkedin.png') }}"
-                                            alt=""></a></li>
-                            </ul>
-                        </div>
-                        <div class="board-directors-content">
-                            <h3 class="board-directors-title">Kyle Pereira</h3>
-                            <span class="board-directors-category">Executive Director & Design Principal</span>
-                        </div>
-                    </div>
+                    @if (isset($team_members[$value->id]) && $team_members[$value->id]->isNotEmpty())
+                        @foreach ($team_members[$value->id] as $member)
+                            <div class="col-xl-3 col-lg-3 col-md-6">
+                                <div class="board-directors-grid">
+                                    <div class="board-directors-image">
+                                        <a href="#" class="image">
+                                            <img class="pic-1" src="{{ asset('/damian_corporate/team_member/member_profile_image/' . $member->member_profile_image) }}" alt="{{ $member->member_profile_image }}">
+                                        </a>
+                                        <ul class="board-directors-links">
+                                            <li>
+                                                <a href="#" class="linkedin">
+                                                    <img src="{{ asset('frontend/assets/img/icon/linkedin.png') }}" alt="LinkedIn">
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="board-directors-content">
+                                        <h3 class="board-directors-title">
+                                            {{ $member->name ?? '' }}
+                                        </h3>
+                                        <span class="board-directors-category">
+                                            {{ $member->designation ?? '' }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <p>There are no team members for this team.</p>
+                    @endif
                 </div>
             </div>
         </div>
-    </div>
-    <!-- board of directors area end -->
-
-    <!-- service area start -->
-    <div class="tp-service-area pb-80 core-team-area">
-        <div class="container-fluid home-container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="tp-service-title-box mb-60">
-                        <span class="tp-section-subtitle tp-split-text tp-split-in-right">Team</span>
-                        <h3 class="tp-section-title tp-split-text tp-split-in-right">Core Team</h3>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".3s">
-                    <div class="tp-service-item">
-                        <div class="tp-service-thumb-box p-relative">
-                            <div class="tp-service-thumb">
-                                <img src="{{ asset('frontend/assets/img/team/team-mem-img-1.jpg') }}" alt="">
-                            </div>
-                        </div>
-                        <div class="tp-service-content">
-                            <h4 class="tp-service-title mb-5"><a href="#">Lorem Ipsum</a></h4>
-                            <p class="mb-0">Lorem Ipsum</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".3s">
-                    <div class="tp-service-item">
-                        <div class="tp-service-thumb-box p-relative">
-                            <div class="tp-service-thumb">
-                                <img src="{{ asset('frontend/assets/img/team/team-mem-img-2.jpg') }}" alt="">
-                            </div>
-                        </div>
-                        <div class="tp-service-content">
-                            <h4 class="tp-service-title mb-5"><a href="#">Lorem Ipsum</a></h4>
-                            <p class="mb-0">Lorem Ipsum</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".3s">
-                    <div class="tp-service-item">
-                        <div class="tp-service-thumb-box p-relative">
-                            <div class="tp-service-thumb">
-                                <img src="{{ asset('frontend/assets/img/team/team-mem-img-1.jpg') }}" alt="">
-                            </div>
-                        </div>
-                        <div class="tp-service-content">
-                            <h4 class="tp-service-title mb-5"><a href="#">Lorem Ipsum</a></h4>
-                            <p class="mb-0">Lorem Ipsum</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".3s">
-                    <div class="tp-service-item">
-                        <div class="tp-service-thumb-box p-relative">
-                            <div class="tp-service-thumb">
-                                <img src="{{ asset('frontend/assets/img/team/team-mem-img-2.jpg') }}" alt="">
-                            </div>
-                        </div>
-                        <div class="tp-service-content">
-                            <h4 class="tp-service-title mb-5"><a href="#">Lorem Ipsum</a></h4>
-                            <p class="mb-0">Lorem Ipsum</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- service area end -->
+    @endforeach
+    <!-- Member area end -->
 
     <!--International Associates Section-->
     <div class="inter-asso">
@@ -461,7 +250,6 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="tp-team-title-box text-center">
-                                <!-- <span class="tp-section-subtitle tp-split-text tp-split-in-right">Associates</span> -->
                                 <h3 class="tp-section-title tp-split-text tp-split-in-right">International Associates
                                 </h3>
                             </div>
@@ -473,111 +261,15 @@
                         <div class="tp-team-wrapper">
                             <div class="swiper-container tp-team-active">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="tp-team-item black-bg">
-                                            <div class="tp-team-thumb p-relative fix">
-                                                <img src="{{ asset('frontend/assets/img/international-assosiates/Hall Black Douglas.png') }}"
-                                                    alt="">
+                                    @foreach($international_associates as $associate)
+                                        <div class="swiper-slide">
+                                            <div class="tp-team-item black-bg">
+                                                <div class="tp-team-thumb p-relative fix">
+                                                    <img src="{{ asset('/damian_corporate/international_associate/international_associate_image/' . $associate->international_associate_image) }}" alt="{{ $associate->international_associate_image }}" class="img-fluid">
+                                                </div>
                                             </div>
-                                            <!-- <div class="tp-team-author-info text-center">
-                                              <span>Medical Assistant</span>
-                                              <h5 class="tp-team-title"><a href="#">Hall Black Douglas</a>
-                                              </h5>
-                                           </div> -->
                                         </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="tp-team-item black-bg">
-                                            <div class="tp-team-thumb p-relative fix">
-                                                <img src="{{ asset('frontend/assets/img/international-assosiates/James Law Cybertecture.png') }}"
-                                                    alt="">
-                                            </div>
-                                            <!-- <div class="tp-team-author-info text-center">
-                                              <span>Medical Assistant</span>
-                                              <h5 class="tp-team-title"><a href="#"> James Law Cybertecture</a>
-                                              </h5>
-                                           </div> -->
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="tp-team-item black-bg">
-                                            <div class="tp-team-thumb p-relative fix">
-                                                <img src="{{ asset('frontend/assets/img/international-assosiates/Calia Italia.png') }}"
-                                                    alt="">
-                                            </div>
-                                            <!-- <div class="tp-team-author-info text-center">
-                                              <span>Medical Assistant</span>
-                                              <h5 class="tp-team-title"><a href="#">Pacini & Cappellini</a>
-                                              </h5>
-                                           </div> -->
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="tp-team-item black-bg">
-                                            <div class="tp-team-thumb p-relative fix">
-                                                <img src="{{ asset('frontend/assets/img/international-assosiates/albed.png') }}"
-                                                    alt="">
-                                            </div>
-                                            <!-- <div class="tp-team-author-info text-center">
-                                              <span>Medical Assistant</span>
-                                              <h5 class="tp-team-title"><a href="#">Cafim</a>
-                                              </h5>
-                                           </div> -->
-                                        </div>
-                                    </div>
-
-                                    <div class="swiper-slide">
-                                        <div class="tp-team-item black-bg">
-                                            <div class="tp-team-thumb p-relative fix">
-                                                <img src="{{ asset('frontend/assets/img/international-assosiates/Welser Profile.png') }}"
-                                                    alt="">
-                                            </div>
-                                            <!-- <div class="tp-team-author-info text-center">
-                                              <span>Medical Assistant</span>
-                                              <h5 class="tp-team-title"><a href="#"> Welser Profile</a>
-                                              </h5>
-                                           </div> -->
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="tp-team-item black-bg">
-                                            <div class="tp-team-thumb p-relative fix">
-                                                <img src="{{ asset('frontend/assets/img/international-assosiates/Fiam Italia.png') }}"
-                                                    alt="">
-                                            </div>
-                                            <!-- <div class="tp-team-author-info text-center">
-                                              <span>Medical Assistant</span>
-                                              <h5 class="tp-team-title"><a href="#">Fiam</a>
-                                              </h5>
-                                           </div> -->
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="tp-team-item black-bg">
-                                            <div class="tp-team-thumb p-relative fix">
-                                                <img src="{{ asset('frontend/assets/img/international-assosiates/Artisan Logo.png') }}"
-                                                    alt="">
-                                            </div>
-                                            <!-- <div class="tp-team-author-info text-center">
-                                              <span>Medical Assistant</span>
-                                              <h5 class="tp-team-title"><a href="#">Fantoni</a>
-                                              </h5>
-                                           </div> -->
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="tp-team-item black-bg">
-                                            <div class="tp-team-thumb p-relative fix">
-                                                <img src="{{ asset('frontend/assets/img/international-assosiates/Koinor.png') }}"
-                                                    alt="">
-                                            </div>
-                                            <!-- <div class="tp-team-author-info text-center">
-                                              <span>Medical Assistant</span>
-                                              <h5 class="tp-team-title"><a href="#">Fantoni</a>
-                                              </h5>
-                                           </div> -->
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

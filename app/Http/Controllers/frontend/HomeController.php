@@ -44,7 +44,7 @@ class HomeController extends Controller
 
         // === Fetch ProjectDetails with the Slug ===
         $projectDetails = ProjectDetails::with('project')->where('slug', $slug)->orderBy("id","desc")->whereNull('deleted_at')->first();
-        dd($projectDetails);
+        // dd($projectDetails);
 
         return view('frontend.project_details', [
             'project' => $project,

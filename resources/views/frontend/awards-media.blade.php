@@ -5,6 +5,8 @@
 @endsection
 
 @push('styles')
+<!-- Fancybox CSS -->
+<link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" rel="stylesheet">
 @endpush
 
 @section('content')
@@ -41,183 +43,27 @@
                         <h3 class="tp-section-title tp-split-text tp-split-in-right">Our Achievements</h3>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="awards-media-grid">
-                        <div class="awards-media-image">
-                            <a href="frontend/assets/img/awards-media/1-3.jpg" class="image" data-lightbox="awards-gallery">
-                                <img class="pic-1" src="frontend/assets/img/awards-media/1-3.jpg">
-                            </a>
-                        </div>
-                        <div class="awards-media-content">
-                            <h3 class="awards-media-title">Outstanding Designer & Entrepreneur Of The Year</h3>
-                            <div class="awards-media-year">2023</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="awards-media-grid">
-                        <div class="awards-media-image">
-                            <a href="frontend/assets/img/awards-media/1-4.jpg" class="image" data-lightbox="awards-gallery">
-                                <img class="pic-1" src="frontend/assets/img/awards-media/1-4.jpg">
-                            </a>
-                        </div>
-                        <div class="awards-media-content">
-                            <h3 class="awards-media-title">Most Prominent & Trusted Interior Design Firm of The Year
-                            </h3>
-                            <div class="awards-media-year">2023</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="awards-media-grid">
-                        <div class="awards-media-image">
-                            <a href="frontend/assets/img/awards-media/awards-2.jpg" class="image" data-lightbox="awards-gallery">
-                                <img class="pic-1" src="frontend/assets/img/awards-media/2-2-new.jpg">
-                            </a>
-                        </div>
-                        <div class="awards-media-content">
-                            <h3 class="awards-media-title">Architecture & Interior Design Excellence & Conference</h3>
-                            <div class="awards-media-year">2023</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="awards-media-grid">
-                        <div class="awards-media-image">
-                            <a href="frontend/assets/img/awards-media/awards-4.jpg" class="image" data-lightbox="awards-gallery">
-                                <img class="pic-1" src="frontend/assets/img/awards-media/4-1-new.jpg">
-                            </a>
-                        </div>
-                        <div class="awards-media-content">
-                            <h3 class="awards-media-title">Trendsetter Architecture & Interior Design Awards</h3>
-                            <div class="awards-media-year">2023</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="awards-media-grid">
-                        <div class="awards-media-image">
-                            <a href="frontend/assets/img/awards-media/1-2.jpg" class="image" data-lightbox="awards-gallery">
-                                <img class="pic-1" src="frontend/assets/img/awards-media/1-2.jpg">
-                            </a>
-                        </div>
-                        <div class="awards-media-content">
-                            <h3 class="awards-media-title">Golden Door Award for Excellent Consultancy in Interior
-                                Design</h3>
-                            <div class="awards-media-year">2023</div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-md-3 col-sm-6">
-                    <div class="awards-media-grid">
-                        <div class="awards-media-image">
-                            <a href="frontend/assets/img/awards-media/1-5.jpg" class="image" data-lightbox="awards-gallery">
-                                <img class="pic-1" src="frontend/assets/img/awards-media/1-5.jpg">
-                            </a>
-                        </div>
-                        <div class="awards-media-content">
-                            <h3 class="awards-media-title">Most Futuristic & Leading Interior Design Firm of the Year
-                            </h3>
-                            <div class="awards-media-year">2022</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="awards-media-grid">
-                        <div class="awards-media-image">
-                            <a href="frontend/assets/img/awards-media/awards-1.jpg" class="image" data-lightbox="awards-gallery">
-                                <img class="pic-1" src="frontend/assets/img/awards-media/1-1-new.jpg">
-                            </a>
-                        </div>
-                        <div class="awards-media-content">
-                            <h3 class="awards-media-title">Architecture & Interior Design Excellence & Conference</h3>
-                            <div class="awards-media-year">2022</div>
+                @foreach ($award_medias as $award_media)
+                    <div class="col-md-3 col-sm-6">
+                        <div class="awards-media-grid">
+                            <div class="awards-media-image">
+                                <a href="{{ asset('/damian_corporate/award_media/award_image/' . $award_media->award_image) }}"
+                                   data-fancybox="awards-gallery"
+                                   data-caption="{{ $award_media->description ?? 'Achievement' }}">
+                                    <img class="pic-1"
+                                         src="{{ asset('/damian_corporate/award_media/award_image/' . $award_media->award_image) }}"
+                                         alt="{{ $award_media->award_image ?? '' }}"
+                                         style="height: 450px !important;">
+                                </a>
+                            </div>
+                            <div class="awards-media-content">
+                                <h3 class="awards-media-title" style="min-height: 40">{!! $award_media->description ?? '' !!}</h3>
+                                <div class="awards-media-year">{{ $award_media->year ?? '' }}</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="awards-media-grid">
-                        <div class="awards-media-image">
-                            <a href="frontend/assets/img/awards-media/1-1.jpg" class="image" data-lightbox="awards-gallery">
-                                <img class="pic-1" src="frontend/assets/img/awards-media/1-1.jpg">
-                            </a>
-                        </div>
-                        <div class="awards-media-content">
-                            <h3 class="awards-media-title">40 under 40 Best & Trendsetter Interior Designer India</h3>
-                            <div class="awards-media-year">2022</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="awards-media-grid">
-                        <div class="awards-media-image">
-                            <a href="frontend/assets/img/awards-media/cty-1.jpg" class="image" data-lightbox="awards-gallery">
-                                <img class="pic-1" src="frontend/assets/img/awards-media/1-6.jpg">
-                            </a>
-                        </div>
-                        <div class="awards-media-content">
-                            <h3 class="awards-media-title">Company Of The Year Design & Build Firm</h3>
-                            <div class="awards-media-year">2019</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="awards-media-grid">
-                        <div class="awards-media-image">
-                            <a href="frontend/assets/img/awards-media/awards-3.jpg" class="image" data-lightbox="awards-gallery">
-                                <img class="pic-1" src="frontend/assets/img/awards-media/3-1-new.jpg">
-                            </a>
-                        </div>
-                        <div class="awards-media-content">
-                            <h3 class="awards-media-title">Archid <br> Mumbai</h3>
-                            <div class="awards-media-year">2019</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="awards-media-grid">
-                        <div class="awards-media-image">
-                            <a href="frontend/assets/img/awards-media/awards-5.jpeg" class="image"
-                                data-lightbox="awards-gallery">
-                                <img class="pic-1" src="frontend/assets/img/awards-media/5-1-new.jpeg">
-                            </a>
-                        </div>
-                        <div class="awards-media-content">
-                            <h3 class="awards-media-title">Lorem ipsum dolor sit amet consectetur.</h3>
-                            <div class="awards-media-year">----</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="awards-media-grid">
-                        <div class="awards-media-image">
-                            <a href="frontend/assets/img/awards-media/awards-6.jpeg" class="image"
-                                data-lightbox="awards-gallery">
-                                <img class="pic-1" src="frontend/assets/img/awards-media/6-1-new.jpeg">
-                            </a>
-                        </div>
-                        <div class="awards-media-content">
-                            <h3 class="awards-media-title">Enterprise NOC Inaugration Pune</h3>
-                            <div class="awards-media-year">2010</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="awards-media-grid">
-                        <div class="awards-media-image">
-                            <a href="frontend/assets/img/awards-media/7-1-new.jpeg" class="image" data-lightbox="awards-gallery">
-                                <img class="pic-1" src="frontend/assets/img/awards-media/7-1-new.jpeg">
-                            </a>
-                        </div>
-                        <div class="awards-media-content">
-                            <h3 class="awards-media-title">Eminent Jury Grand Stand Awards</h3>
-                            <div class="awards-media-year">2023</div>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
         </div>
     </div>
@@ -225,4 +71,6 @@
 @endsection
 
 @push('scripts')
+<!-- Fancybox JS -->
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
 @endpush

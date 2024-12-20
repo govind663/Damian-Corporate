@@ -19,7 +19,7 @@
                                 <h3 class="breadcrumb__title tp-split-text tp-split-in-right">Blogs</h3>
                             </div>
                             <div class="breadcrumb__list">
-                                <span><a href="index.html">Home</a></span>
+                                <span><a href="{{ route('frontend.home') }}">Home</a></span>
                                 <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
                                 <span>Blogs</span>
                             </div>
@@ -37,129 +37,60 @@
             <div class="row">
                 <div class="col-xxl-8 col-xl-8 col-lg-8 mb-50">
                     <div class="blog-wrapper">
-                        <article class="postbox__item blog-item format-image mb-40">
-                            <div class="postbox__thumb m-img mb-20">
-                                <div class="postbox__thumb-text-2 d-none d-md-block">
-                                    <span>Residential</span>
+                        @foreach ($blogs as $blog)
+                            <article class="postbox__item blog-item format-image mb-40">
+                                <div class="postbox__thumb m-img mb-20">
+                                    <div class="postbox__thumb-text-2 d-none d-md-block">
+                                        <span>{{ $blog->blog_category?->category_name }}</span>
+                                    </div>
+                                    <a href="#">
+                                        <img src="{{ asset('/damian_corporate/blog/blog_image/' . $blog->blog_image) }}" alt="{{ $blog->blog_title }}">
+                                    </a>
                                 </div>
-                                <a href="blog-details.html">
-                                    <img src="frontend/assets/img/service/1-1.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="postbox__content-2">
-                                <h3 class="postbox__title blog-list-title tp-split-text tp-split-in-right pb-10">
-                                    <a href="blog-details.html">What is Lorem Ipsum?</a>
-                                </h3>
-                                <div class="blog-content">
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing
-                                        elit. Doloribus repellendus ab similique dignissimos cumque suscipit
-                                        quod illo magnam autem quo nisi tempora enim debitis id atque
-                                        veniam, placeat dolores itaque!
-                                    </p>
+                                <div class="postbox__content-2">
+                                    <h3 class="postbox__title blog-list-title tp-split-text tp-split-in-right pb-10">
+                                        <a href="#">{{ $blog->blog_title }}</a>
+                                    </h3>
+                                    <div class="blog-content">
+                                        <p class="mb-0 text-justify">
+                                            {!! Str::limit($blog->description, 530) !!}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="postbox__read-more blog-read-more-button">
-                                <a href="blog-details.html" class="tp-btn-border-bottom p-relative">
-                                    <span>read more
-                                        <svg width="11" height="8" viewBox="0 0 11 8" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M10.3536 4.35355C10.5488 4.15829 10.5488 3.84171 10.3536 3.64645L7.17157 0.464467C6.97631 0.269205 6.65973 0.269204 6.46447 0.464467C6.2692 0.659729 6.2692 0.976311 6.46447 1.17157L9.29289 4L6.46447 6.82843C6.2692 7.02369 6.2692 7.34027 6.46447 7.53553C6.65973 7.7308 6.97631 7.7308 7.17157 7.53553L10.3536 4.35355ZM-4.37114e-08 4.5L10 4.5L10 3.5L4.37114e-08 3.5L-4.37114e-08 4.5Z"
-                                                fill="currentcolor" />
-                                        </svg>
-                                    </span>
-                                    <span class="bottom-line"></span>
-                                </a>
-                            </div>
-                        </article>
-                        <article class="postbox__item blog-item format-image mb-40">
-                            <div class="postbox__thumb m-img mb-20">
-                                <div class="postbox__thumb-text-2 d-none d-md-block">
-                                    <span>Commercial</span>
+
+                                <div class="postbox__read-more blog-read-more-button">
+                                    <a href="#" class="tp-btn-border-bottom p-relative">
+                                        <span>
+                                            Read More
+                                            <svg width="11" height="8" viewBox="0 0 11 8" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M10.3536 4.35355C10.5488 4.15829 10.5488 3.84171 10.3536 3.64645L7.17157 0.464467C6.97631 0.269205 6.65973 0.269204 6.46447 0.464467C6.2692 0.659729 6.2692 0.976311 6.46447 1.17157L9.29289 4L6.46447 6.82843C6.2692 7.02369 6.2692 7.34027 6.46447 7.53553C6.65973 7.7308 6.97631 7.7308 7.17157 7.53553L10.3536 4.35355ZM-4.37114e-08 4.5L10 4.5L10 3.5L4.37114e-08 3.5L-4.37114e-08 4.5Z"
+                                                    fill="currentcolor" />
+                                            </svg>
+                                        </span>
+                                        <span class="bottom-line"></span>
+                                    </a>
                                 </div>
-                                <a href="blog-details.html">
-                                    <img src="frontend/assets/img/service/1-2.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="postbox__content-2">
-                                <h3 class="postbox__title blog-list-title tp-split-text tp-split-in-right pb-10">
-                                    <a href="blog-details.html">What is Lorem Ipsum?</a>
-                                </h3>
-                                <div class="blog-content">
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing
-                                        elit. Doloribus repellendus ab similique dignissimos cumque suscipit
-                                        quod illo magnam autem quo nisi tempora enim debitis id atque
-                                        veniam, placeat dolores itaque!</p>
-                                </div>
-                            </div>
-                            <div class="postbox__read-more blog-read-more-button">
-                                <a href="blog-details.html" class="tp-btn-border-bottom p-relative">
-                                    <span>read more
-                                        <svg width="11" height="8" viewBox="0 0 11 8" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M10.3536 4.35355C10.5488 4.15829 10.5488 3.84171 10.3536 3.64645L7.17157 0.464467C6.97631 0.269205 6.65973 0.269204 6.46447 0.464467C6.2692 0.659729 6.2692 0.976311 6.46447 1.17157L9.29289 4L6.46447 6.82843C6.2692 7.02369 6.2692 7.34027 6.46447 7.53553C6.65973 7.7308 6.97631 7.7308 7.17157 7.53553L10.3536 4.35355ZM-4.37114e-08 4.5L10 4.5L10 3.5L4.37114e-08 3.5L-4.37114e-08 4.5Z"
-                                                fill="currentcolor" />
-                                        </svg>
-                                    </span>
-                                    <span class="bottom-line"></span>
-                                </a>
-                            </div>
-                        </article>
-                        <article class="postbox__item blog-item format-image mb-40">
-                            <div class="postbox__thumb m-img mb-20">
-                                <div class="postbox__thumb-text-2 d-none d-md-block">
-                                    <span>Architecture</span>
-                                </div>
-                                <a href="blog-details.html">
-                                    <img src="frontend/assets/img/service/1-3.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="postbox__content-2">
-                                <h3 class="postbox__title blog-list-title tp-split-text tp-split-in-right pb-10">
-                                    <a href="blog-details.html">What is Lorem Ipsum?</a>
-                                </h3>
-                                <div class="blog-content">
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing
-                                        elit. Doloribus repellendus ab similique dignissimos cumque suscipit
-                                        quod illo magnam autem quo nisi tempora enim debitis id atque
-                                        veniam, placeat dolores itaque!</p>
-                                </div>
-                            </div>
-                            <div class="postbox__read-more blog-read-more-button">
-                                <a href="blog-details.html" class="tp-btn-border-bottom p-relative">
-                                    <span>read more
-                                        <svg width="11" height="8" viewBox="0 0 11 8" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M10.3536 4.35355C10.5488 4.15829 10.5488 3.84171 10.3536 3.64645L7.17157 0.464467C6.97631 0.269205 6.65973 0.269204 6.46447 0.464467C6.2692 0.659729 6.2692 0.976311 6.46447 1.17157L9.29289 4L6.46447 6.82843C6.2692 7.02369 6.2692 7.34027 6.46447 7.53553C6.65973 7.7308 6.97631 7.7308 7.17157 7.53553L10.3536 4.35355ZM-4.37114e-08 4.5L10 4.5L10 3.5L4.37114e-08 3.5L-4.37114e-08 4.5Z"
-                                                fill="currentcolor" />
-                                        </svg>
-                                    </span>
-                                    <span class="bottom-line"></span>
-                                </a>
-                            </div>
-                        </article>
+                            </article>
+                        @endforeach
+
                         <div class="basic-pagination">
                             <nav>
                                 <ul>
-                                    <li class="active">
-                                        <a href="#">1</a>
+                                    {{-- Display Current Page and Total Pages --}}
+                                    <li class="page-item disabled">
+                                        <span class="page-link" aria-current="page" tabindex="-1" aria-disabled="true" style="color: #faf3f3; font-weight: 600px;">
+                                            <b>Showing {{ $blogs->firstItem() }} to {{ $blogs->lastItem() }} of {{ $blogs->total() }} results</b>
+                                        </span>
                                     </li>
-                                    <li>
-                                        <a href="#">2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">3</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="current"><i class="fa-regular fa-arrow-right"></i></span>
-                                        </a>
-                                    </li>
+
+                                    {{-- Pagination Links --}}
+                                    <b>{{ $blogs->links('pagination::bootstrap-4') }}</b>
                                 </ul>
                             </nav>
                         </div>
+
                     </div>
                 </div>
                 <div class="col-xxl-4 col-xl-4 col-lg-4 mb-50">
@@ -180,69 +111,28 @@
                             <h3 class="sidebar__widget-title blog-sidebar-title">Our Latest Post</h3>
                             <div class="sidebar__widget-content">
                                 <div class="sidebar__post">
+                                    @foreach ($blogs as $blog)
                                     <div class="rc__post mb-25 d-flex align-items-center">
                                         <div class="rc__post-thumb blog-sidebar-thumb-img mr-20">
                                             <a href="blog-details.html">
-                                                <img src="frontend/assets/img/blog/post-1.jpg" alt="">
+                                                <img src="{{ asset('/damian_corporate/blog/blog_image/' . $blog->blog_image) }}" alt="{{ $blog->blog_title }}">
                                             </a>
                                         </div>
                                         <div class="rc__post-content">
                                             <div class="rc__meta blog-list-box">
                                                 <span>
                                                     <i class="fa-light fa-clock"></i>
-                                                    November 21, 2022
+                                                    {{ \Carbon\Carbon::parse($blog->inserted_at)->format('F d, Y') }}
                                                 </span>
                                             </div>
                                             <h3 class="rc__post-title">
                                                 <a href="blog-details.html">
-                                                    Lorem ipsum dolor sit amet, consectetur
-                                                    adipisicing elit.
+                                                    {{ $blog->blog_title }}
                                                 </a>
                                             </h3>
                                         </div>
                                     </div>
-                                    <div class="rc__post mb-25 d-flex align-items-center">
-                                        <div class="rc__post-thumb blog-sidebar-thumb-img mr-20">
-                                            <a href="blog-details.html">
-                                                <img src="frontend/assets/img/blog/post-2.jpg" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="rc__post-content">
-                                            <div class="rc__meta blog-list-box">
-                                                <span>
-                                                    <i class="fa-light fa-clock"></i>
-                                                    November 21, 2022
-                                                </span>
-                                            </div>
-                                            <h3 class="rc__post-title">
-                                                <a href="blog-details.html">
-                                                    Lorem ipsum dolor sit amet, consectetur
-                                                    adipisicing elit.
-                                                </a>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div class="rc__post d-flex align-items-center">
-                                        <div class="rc__post-thumb blog-sidebar-thumb-img mr-20">
-                                            <a href="blog-details.html">
-                                                <img src="frontend/assets/img/blog/post-3.jpg" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="rc__post-content">
-                                            <div class="rc__meta blog-list-box">
-                                                <span>
-                                                    <i class="fa-light fa-clock"></i>
-                                                    November 21, 2022
-                                                </span>
-                                            </div>
-                                            <h3 class="rc__post-title">
-                                                <a href="blog-details.html">
-                                                    Lorem ipsum dolor sit amet, consectetur
-                                                    adipisicing elit.
-                                                </a>
-                                            </h3>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -250,18 +140,13 @@
                             <h3 class="sidebar__widget-title blog-sidebar-title">Catagories</h3>
                             <div class="sidebar__widget-content">
                                 <ul>
+                                    @foreach ($blogCategories  as $blogCategory)
                                     <li class="mb-10">
-                                        <a href="#">Architecture Design<span><i class="fa-sharp fa-solid fa-arrow-right"></i></span></a>
+                                        <a href="#" class="d-flex align-items-center" style="font-size: 14px !important;">{{ $blogCategory->category_name }}
+                                            <span class="ml-auto float-right"><i class="fa-sharp fa-solid fa-arrow-right"></i></span>
+                                        </a>
                                     </li>
-                                    <li class="mb-10">
-                                        <a href="#">Residential Design<span><i class="fa-sharp fa-solid fa-arrow-right"></i></span></a>
-                                    </li>
-                                    <li class="mb-10">
-                                        <a href="#">Commercial Design<span><i class="fa-sharp fa-solid fa-arrow-right"></i></span></a>
-                                    </li>
-                                    <li class="mb-10">
-                                        <a href="#">Modular Furniture & Partition Systems<span><i class="fa-sharp fa-solid fa-arrow-right"></i></span></a>
-                                    </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -269,11 +154,9 @@
                             <h3 class="sidebar__widget-title blog-sidebar-title">Tags</h3>
                             <div class="sidebar__widget-content">
                                 <div class="tagcloud">
-                                    <a href="#">All Project</a>
-                                    <a href="#">Architecture</a>
-                                    <a href="#">Residential</a>
-                                    <a href="#">Commercial</a>
-                                    <a href="#">Modular Furniture & Partition Systems</a>
+                                    @foreach (explode(',', $blog->tags) as $tag)
+                                        <a href="#">{{ trim($tag) }}</a>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
