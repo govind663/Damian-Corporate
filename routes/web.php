@@ -70,7 +70,7 @@ Route::group(['prefix'=> '', 'middleware'=>[PreventBackHistoryMiddleware::class]
 
     // ==== Blogs
     Route::get('/blogs', [BlogsController::class, 'blogs'])->name('frontend.blogs');
-    Route::get('/blogs/{slug}', [BlogsController::class, 'blog_details'])->name('frontend.blog_details');
+    Route::get('/blogs/{id}', [BlogsController::class, 'blog_details'])->name('frontend.blog_details');
 
     // ==== Careers
     Route::get('/careers', [CareersController::class, 'careers'])->name('frontend.careers');

@@ -43,13 +43,13 @@
                                     <div class="postbox__thumb-text-2 d-none d-md-block">
                                         <span>{{ $blog->blog_category?->category_name }}</span>
                                     </div>
-                                    <a href="#">
+                                    <a href="{{ route('frontend.blog_details', $blog->id) }}">
                                         <img src="{{ asset('/damian_corporate/blog/blog_image/' . $blog->blog_image) }}" alt="{{ $blog->blog_title }}">
                                     </a>
                                 </div>
                                 <div class="postbox__content-2">
                                     <h3 class="postbox__title blog-list-title tp-split-text tp-split-in-right pb-10">
-                                        <a href="#">{{ $blog->blog_title }}</a>
+                                        <a href="{{ route('frontend.blog_details', $blog->id) }}">{{ $blog->blog_title }}</a>
                                     </h3>
                                     <div class="blog-content">
                                         <p class="mb-0 text-justify">
@@ -59,7 +59,7 @@
                                 </div>
 
                                 <div class="postbox__read-more blog-read-more-button">
-                                    <a href="#" class="tp-btn-border-bottom p-relative">
+                                    <a href="{{ route('frontend.blog_details', $blog->id) }}" class="tp-btn-border-bottom p-relative">
                                         <span>
                                             Read More
                                             <svg width="11" height="8" viewBox="0 0 11 8" fill="none"
@@ -114,7 +114,7 @@
                                     @foreach ($blogs as $blog)
                                     <div class="rc__post mb-25 d-flex align-items-center">
                                         <div class="rc__post-thumb blog-sidebar-thumb-img mr-20">
-                                            <a href="blog-details.html">
+                                            <a href="{{ route('frontend.blog_details', $blog->id) }}">
                                                 <img src="{{ asset('/damian_corporate/blog/blog_image/' . $blog->blog_image) }}" alt="{{ $blog->blog_title }}">
                                             </a>
                                         </div>

@@ -23,15 +23,15 @@ class BlogsController extends Controller
         ]);
     }
 
-    public function blog_details(Request $request, $slug)
+    public function blog_details(Request $request, $id)
     {
         // ===== Fetch Blog Categories
         $blogCategories = BlogCategory::orderBy("id","asc")->whereNull('deleted_at')->get();
 
         // ===== Fetch Blog
-        $blog = Blog::findOrFail($slug);
+        $blogs = Blog::findOrFail($id);
 
-        $tags = explode(',', $blog->tags);
+        $tags = explode(',', $blogs->tags);
         // dd($tags);
 
         // Get latest 5 blog entries
@@ -39,7 +39,7 @@ class BlogsController extends Controller
 
         return view('frontend.blog_details', [
             'blogCategories' => $blogCategories,
-            'blog' => $blog,
+            'blogs' => $blogs,
             'tags' => $tags,
             'latestPosts' => $latestPosts
         ]);
