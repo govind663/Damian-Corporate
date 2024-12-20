@@ -53,6 +53,9 @@ Route::group(['prefix'=> '', 'middleware'=>[PreventBackHistoryMiddleware::class]
     // ==== Home
     Route::get('/', [FrontendHomeController::class, 'index'])->name('frontend.home');
 
+    // ==== frontend.project.details
+    Route::get('/project-details/{slug}', [FrontendHomeController::class, 'projectDetails'])->name('frontend.project.details');
+
     // ==== About US
     Route::get('/about-us', [AboutUsController::class, 'about'])->name('frontend.about');
 

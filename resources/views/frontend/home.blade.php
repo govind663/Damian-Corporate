@@ -69,176 +69,28 @@
             </div>
             <div class="tp-project-2-wrapper portfolio-section">
                 <div class="row">
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="tp-project-2-item">
-                            <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/1.png') }}"
-                                        alt=""></a>
-                            </div>
-                            <div class="project-info">
-                                <h4 class="tp-project-2-title">
-                                    <a href="#">Balaji Wafers Head Office</a>
-                                </h4>
-                                <p>Commercial Design & Build</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="tp-project-2-item">
-                            <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/2.jpg') }}"
-                                        alt=""></a>
-                            </div>
-                            <div class="project-info">
-                                <h4 class="tp-project-2-title">
-                                    <a href="#">Ambica Corporation Ltd.</a>
-                                </h4>
-                                <p>Commercial Design & Build</p>
+                    @foreach ($projects as $value)
+                        <div class="col-xl-4 col-lg-4 col-md-6">
+                            <div class="tp-project-2-item">
+                                <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
+                                    <a href="{{ route('frontend.project.details', $value->slug) }}" class="tp-project-2-thumb-link" title="{{ $value->project_name }}">
+                                        <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}" alt="{{ $value->project_image }}">
+                                    </a>
+                                </div>
+                                <div class="project-info">
+                                    <h4 class="tp-project-2-title">
+                                        <a href="{{ route('frontend.project.details', $value->slug) }}" title="{{ $value->project_name }}" class="tp-project-2-title-link" target="_blank">{{ $value->project_name ?? '' }}</a>
+                                    </h4>
+                                    <p>{{ $value->category?->category_name }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="tp-project-2-item">
-                            <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/3.png') }}"
-                                        alt=""></a>
-                            </div>
-                            <div class="project-info">
-                                <h4 class="tp-project-2-title">
-                                    <a href="#">Khatan Residence</a>
-                                </h4>
-                                <p>Residential Design & Build</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="tp-project-2-item">
-                            <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/4.png') }}"
-                                        alt=""></a>
-                            </div>
-                            <div class="project-info">
-                                <h4 class="tp-project-2-title">
-                                    <a href="#">Dr. Kumar Residence</a>
-                                </h4>
-                                <p>Residential Design & Build</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="tp-project-2-item">
-                            <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/5.png') }}"
-                                        alt=""></a>
-                            </div>
-                            <div class="project-info">
-                                <h4 class="tp-project-2-title">
-                                    <a href="#">Tyaani Jewellery</a>
-                                </h4>
-                                <p>Commercial Design & Build</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="tp-project-2-item">
-                            <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/6.png') }}"
-                                        alt=""></a>
-                            </div>
-                            <div class="project-info">
-                                <h4 class="tp-project-2-title">
-                                    <a href="#">Monteiro Apartment</a>
-                                </h4>
-                                <p>Residential Design & Build</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="tp-project-2-item">
-                            <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/7.jpeg') }}"
-                                        alt=""></a>
-                            </div>
-                            <div class="project-info">
-                                <h4 class="tp-project-2-title">
-                                    <a href="#">Ahuja Residence</a>
-                                </h4>
-                                <p>Residential Design & Build</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="tp-project-2-item">
-                            <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/8.jpg') }}"
-                                        alt=""></a>
-                            </div>
-                            <div class="project-info">
-                                <h4 class="tp-project-2-title"><a href="#">Armstrong</a></h4>
-                                <p>Architecture Design & Build</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="tp-project-2-item">
-                            <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/9.jpg') }}"
-                                        alt=""></a>
-                            </div>
-                            <div class="project-info">
-                                <h4 class="tp-project-2-title">
-                                    <a href="#">GIFT City</a>
-                                </h4>
-                                <p>Commercial Design & Build</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="tp-project-2-item">
-                            <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/10.jpg') }}"
-                                        alt=""></a>
-                            </div>
-                            <div class="project-info">
-                                <h4 class="tp-project-2-title">
-                                    <a href="#">Bhatia Residence</a>
-                                </h4>
-                                <p>Residential Design & Build</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="tp-project-2-item">
-                            <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/11.jpg') }}"
-                                        alt=""></a>
-                            </div>
-                            <div class="project-info">
-                                <h4 class="tp-project-2-title">
-                                    <a href="#">Olar Apartment</a>
-                                </h4>
-                                <p>Residential Design & Build</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="tp-project-2-item">
-                            <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                <a href="#"><img src="{{ asset('frontend/assets/img/portfolio/12.jpg') }}"
-                                        alt=""></a>
-                            </div>
-                            <div class="project-info">
-                                <h4 class="tp-project-2-title">
-                                    <a href="#">Vora Residence</a>
-                                </h4>
-                                <p>Residential Design & Build</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
+
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <a class="tp-btn-black load-more" href="#">
+                        <a class="tp-btn-black load-more" href="{{ route('frontend.services') }}">
                             <span>Load More</span>
                         </a>
                     </div>
@@ -249,7 +101,7 @@
     </div>
     <!-- End Project Area -->
 
-    <!-- Portfolio Start -->
+    <!-- Start Services Area -->
     <section class="section-lgx modern-digital-agency-portfolio overflow-hidden">
         <div class="container-fluid home-container">
             <div class="pbmit-element-portfolio-style-9">
@@ -262,41 +114,17 @@
                                     </h3>
                                 </div>
                                 <ul class="pbmit-hover-inner">
+                                    @foreach ($ourServices as $key => $value)
                                     <li>
                                         <h3 class="pbmit-title-data-hover">
-                                            <a class="pbmit-svg-btn" href="services.html">
-                                                <span class="pbminfotech-box-number">01</span>
-                                                <span>Architecture Design & Build </span>
+                                            <a class="pbmit-svg-btn" href="{{ route('frontend.services') }}">
+                                                <span class="pbminfotech-box-number">{{ $key + 1 }}</span>
+                                                <span>{{ $value->service_title }}</span>
                                                 <i class="fa fa-up-right"></i>
                                             </a>
                                         </h3>
                                     </li>
-                                    <li>
-                                        <h3 class="pbmit-title-data-hover"><a class="pbmit-svg-btn" href="services.html">
-                                                <span class="pbminfotech-box-number">02</span>
-                                                <span>Residential Design & Build
-                                                </span><i class="fa fa-up-right"></i></a>
-                                        </h3>
-                                    </li>
-                                    <li>
-                                        <h3 class="pbmit-title-data-hover"><a class="pbmit-svg-btn" href="services.html">
-                                                <span class="pbminfotech-box-number">03</span>
-                                                <span>Commercial Design & Build</span><i class="fa fa-up-right"></i></a>
-                                        </h3>
-                                    </li>
-                                    <li>
-                                        <h3 class="pbmit-title-data-hover"><a class="pbmit-svg-btn" href="services.html">
-                                                <span class="pbminfotech-box-number">04</span>
-                                                <span>Modular Furniture & Partition Systems</span><i
-                                                    class="fa fa-up-right"></i></a>
-                                        </h3>
-                                    </li>
-                                    <!-- <li>
-                                       <h3 class="pbmit-title-data-hover"><a class="pbmit-svg-btn" href="#">
-                                             <span class="pbminfotech-box-number">05</span>
-                                             <span>Partition Systems</span><i class="fa fa-up-right"></i></a>
-                                       </h3>
-                                    </li> -->
+                                    @endforeach
                                 </ul>
                             </div>
                             <div class="swiper-hover-slide-images col-md-12 col-lg-6">
@@ -362,7 +190,7 @@
             </div>
         </div>
     </section>
-    <!-- Portfolio End -->
+    <!-- End Services Area -->
 
     <!--Testimonial-section-->
     <div class="tp-testimonial-2-area p-relative fix pb-140">
