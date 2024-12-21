@@ -115,7 +115,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-8 col-md-6">
                     <div class="tp-copyright-left text-center text-md-start">
-                        <p>©Copyright 2024 Damian Corporate All Rights Reserved
+                        <p>©Copyright {{ date('Y') }} Damian Corporate All Rights Reserved
                         </p>
                     </div>
                 </div>

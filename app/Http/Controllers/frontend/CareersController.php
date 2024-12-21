@@ -3,12 +3,129 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\SendCarrerEmailRequest;
+use App\Mail\sendCareerApplyMail;
+use App\Models\SendCareerEmail;
+use App\Models\AboutCareer;
+use App\Models\Career;
+use App\Models\JobPosition;
+use App\Models\JobPositionDetails;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CareersController extends Controller
 {
     public function careers()
     {
-        return view('frontend.careers');
+        // Fetch Careers
+        $careers = Career::orderBy("id", "desc")->whereNull('deleted_at')->first();
+
+        // Fetch About Careers
+        $aboutcareers = AboutCareer::orderBy("id", "desc")->whereNull('deleted_at')->first();
+        $aboutcareers->short_description = $aboutcareers->short_description ? json_decode($aboutcareers->short_description, true) : [];
+
+        // Fetch Job Positions
+        $job_positions = JobPosition::orderBy("id", "desc")->whereNull('deleted_at')->get();
+
+        // Fetch Job Position Details and decode JSON fields
+        $jobpositiondetails = JobPositionDetails::with('job_position')
+                                ->orderBy("id", "desc")
+                                ->whereNull('deleted_at')
+                                ->get();
+
+        foreach ($jobpositiondetails as $detail) {
+            $detail->requirements = $detail->requirements ? json_decode($detail->requirements, true) : [];
+            $detail->qualification = $detail->qualification ? json_decode($detail->qualification, true) : [];
+            $detail->responsibilities = $detail->responsibilities ? json_decode($detail->responsibilities, true) : [];
+            $detail->salary = $detail->salary ? json_decode($detail->salary, true) : [];
+        }
+
+        return view('frontend.careers', [
+            'careers' => $careers,
+            'aboutcareers' => $aboutcareers,
+            'job_positions' => $job_positions,
+            'jobpositiondetails' => $jobpositiondetails,
+        ]);
+    }
+
+    // ====== sendCareerEmail ======
+    public function sendCareerEmail(SendCarrerEmailRequest $request)
+    {
+        $request->validated();
+
+        try {
+
+
+            $sendCareerEmail = new SendCareerEmail();
+
+            // ==== Upload (resume)
+            if ($request->hasFile('resume')) {
+                $image = $request->file('resume');
+                $extension = $image->getClientOriginalExtension();
+                $new_name = time() . rand(10, 999) . '.' . $extension;
+                $image->move(public_path('/damian_corporate/send_carrer_email/resume/'), $new_name);
+
+                $resume_image_path = "/damian_corporate/send_carrer_email/resume/" . $new_name;
+
+                $sendCareerEmail->resume = $new_name;
+            }
+
+            // ==== Upload (portfolio)
+            if ($request->hasFile('portfolio')) {
+                $image = $request->file('portfolio');
+                $extension = $image->getClientOriginalExtension();
+                $new_name = time() . rand(10, 999) . '.' . $extension;
+                $image->move(public_path('/damian_corporate/send_carrer_email/portfolio/'), $new_name);
+
+                $portfolio_image_path = "/damian_corporate/send_carrer_email/portfolio/" . $new_name;
+
+                $sendCareerEmail->portfolio = $new_name;
+            }
+
+            $sendCareerEmail->name = $request->name;
+            $sendCareerEmail->address = $request->address;
+            $sendCareerEmail->email = $request->email;
+            $sendCareerEmail->phone = $request->phone;
+            $sendCareerEmail->job_position_id = $request->job_position_id;
+            $sendCareerEmail->experience = $request->experience;
+            $sendCareerEmail->messege = $request->messege;
+            $sendCareerEmail->save();
+
+            $update = [
+                'inserted_by' => $sendCareerEmail->id,
+                'inserted_at' => Carbon::now()
+            ];
+
+            SendCareerEmail::where('id', $sendCareerEmail->id)->update($update);
+
+            // ==== Fetch Job Position
+            $job_position = JobPosition::find($request->job_position_id);
+
+            // Send Mail
+            $mailData = [
+                'name' => $request->name,
+                'address' => $request->address,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'job_position_id' => $job_position->name,
+                'experience' => $request->experience,
+                'message' => $request->message,
+            ];
+
+            // Pass the actual path of the resume document
+            $mailData['resume_path'] = $resume_image_path;
+            // Pass the actual path of the portfolio document
+            $mailData['portfolio_path'] = $portfolio_image_path;
+
+            // Send Mail
+            Mail::to('codingthunder1997@gmail.com')->send(new sendCareerApplyMail($mailData));
+
+            return redirect()->route('frontend.careers')->with('message','Thank you for your interest. We will get back to you within 24 hours.');
+
+        } catch(\Exception $ex){
+
+            return redirect()->back()->with('error','Something Went Wrong  - '.$ex->getMessage());
+        }
     }
 }

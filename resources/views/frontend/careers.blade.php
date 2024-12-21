@@ -5,6 +5,35 @@
 @endsection
 
 @push('styles')
+<style>
+    .tp-form-input-box input {
+        color: #f4f4f4 !important;
+    }
+
+    .careers-input-box input {
+        height: 66px !important;
+    }
+
+    .form-control {
+        padding: 0.375rem .75rem;
+        font-size: 1rem;
+        font-weight: 900px;
+        line-height: 3.5 !important;
+        background-color: transparent !important;
+    }
+
+    .careers-dropdown-select .nice-select {
+        height: 65px !important;
+    }
+
+    .careers-textarea textarea {
+        height: 270px !important;
+    }
+
+    .tp-form-textarea-box textarea {
+        color: #fffdfd !important;
+    }
+</style>
 @endpush
 
 @section('content')
@@ -20,7 +49,7 @@
                                 <h3 class="breadcrumb__title tp-split-text tp-split-in-right">Careers</h3>
                             </div>
                             <div class="breadcrumb__list">
-                                <span><a href="index.html">Home</a></span>
+                                <span><a href="{{ route('frontend.home') }}">Home</a></span>
                                 <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
                                 <span>Careers</span>
                             </div>
@@ -39,30 +68,17 @@
                 <div class="col-xl-6 col-lg-6">
                     <div class="p-relative">
                         <div class="tp-hero-thumb wow fadeInLeft career-area-bg-img">
-                            <img src="{{ asset('frontend/assets/img/testimonial/career-img.jpg') }}" alt="">
+                            @if (!empty($careers->careers_image))
+                                <img src="{{ asset('/damian_corporate/careers/careers_image/'. $careers->careers_image) }}" alt="{{ $careers->careers_image }}">
+                            @endif
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6">
                     <div class="tp-about-content">
-                        <h4 class="tp-blog-2-title pb-15">
-                            Passion for Excellence
-                        </h4>
-                        <div class="tp-about-text wow fadeInRight mb-25">
-                            <p>Damian Corporate has excelled in its efforts to deliver a cutting-edge range of design
-                                and furniture systems, right from traditional to modern, as per customer needs.</p>
-                        </div>
-                    </div>
 
-                    <div class="tp-about-content">
-                        <h4 class="tp-blog-2-title pb-15">
-                            Nurturing Ideas
-                        </h4>
-                        <div class="tp-about-text wow fadeInRight mb-25">
-                            <p>Damian Corporate works day in and day out to bring out creative ideas and transform the
-                                best and most intelligent solutions, right from ideation and concept to practical
-                                development and furniture products. We aim to meet the end-to-end needs of every
-                                customer and believe in making their lives easier.</p>
+                        <div class="tp-about-text wow fadeInRight mb-25" style="color: rgb(255, 255, 255) !important; text-align: justify !important;">
+                            {!! $careers->description !!}
                         </div>
                     </div>
                 </div>
@@ -80,24 +96,22 @@
                     <div class="col-xl-6 col-lg-6 col-md-6">
                         <div class="tp-exp-fea-right">
                             <h4 class="tp-blog-2-title">
-                                Designing is just the beginning
+                                {{ $aboutcareers->title ?? '' }}
                             </h4>
                             <div class="careers-section-para">
-                                <p>Lead customers through the most innovative and creative end-to-end design and build
-                                    solutions, focusing on:</p>
+                                <p>
+                                    {!! $aboutcareers->description ?? '' !!}
+                                </p>
                             </div>
 
                             <div class="tp-about-list career-section-list mb-40">
                                 <ul>
-                                    <li><i class="fa-sharp fa-solid fa-circle-check"></i>Innovative and practical design
-                                    </li>
-                                    <li><i class="fa-sharp fa-solid fa-circle-check"></i>Deliverables of products on time
-                                    </li>
-                                    <li><i class="fa-sharp fa-solid fa-circle-check"></i>Best back-end or customer service
-                                    </li>
-                                    <li><i class="fa-sharp fa-solid fa-circle-check"></i>Enhancing productivity</li>
-                                    <li><i class="fa-sharp fa-solid fa-circle-check"></i>Nurturing creativity and quality
-                                        production and design</li>
+                                    @foreach ($aboutcareers->short_description as $description)
+                                        <li>
+                                            <i class="fa-sharp fa-solid fa-circle-check"></i>
+                                            {{ $description }}
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -105,7 +119,9 @@
                     <div class="col-xl-6 col-lg-6 col-md-6">
                         <div class="tp-exp-fea-thumb me-0">
                             <div class="tp-hover-distort-wrapper career-area-bg-img">
-                                <img src="{{ asset('frontend/assets/img/testimonial/design-bg.png') }}" alt="">
+                                @if (!empty($aboutcareers->image))
+                                    <img src="{{ asset('/damian_corporate/aboutcareer/image/'. $aboutcareers->image) }}" alt="{{ $aboutcareers->image }}">
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -127,152 +143,151 @@
                 <div class="col-xl-12 col-lg-12 mb-50 wow tpfadeLeft" data-wow-duration=".9s" data-wow-delay=".5s">
                     <div class="tp-custom-accordion careers-opening-area">
                         <div class="accordion" id="accordionExample">
-                            <div class="accordion-items tp-faq-active">
-                                <h2 class="accordion-header" id="headingOne1">
-                                    <button class="accordion-buttons collapsed careers-opening-buttons" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseOne1" aria-expanded="false"
-                                        aria-controls="collapseOne1">
-                                        Corporate Sales</button>
-                                </h2>
-                                <div id="collapseOne1" class="accordion-collapse collapse" aria-labelledby="headingOne1"
-                                    data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <p><b>Requirement:</b></p>
-                                        <div class="tp-about-list pb-30">
-                                            <ul>
-                                                <li><i class="fa-sharp fa-solid fa-circle-check"></i> Graduate in any
-                                                    stream.</li>
-                                                <li><i class="fa-sharp fa-solid fa-circle-check"></i> Age between 30 - 35
-                                                    years</li>
-                                                <li><i class="fa-sharp fa-solid fa-circle-check"></i> Experience of 8 -10
-                                                    years</li>
-                                                <li><i class="fa-sharp fa-solid fa-circle-check"></i> Knowledge of ERP</li>
-                                                <li><i class="fa-sharp fa-solid fa-circle-check"></i> Preferred candidate
-                                                    from the following industries - Modular Furniture, Architects, Interior
-                                                    Contracting Firms, Flooring, Air Conditioning, Glass, Armstrong, gypsum,
-                                                    Paint, etc.
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <p><b>Key Responsibilities:</b></p>
-                                        <div class="tp-about-list pb-30">
-                                            <ul>
-                                                <li><i class="fa-sharp fa-solid fa-circle-check"></i> Scouting market to
-                                                    know upcoming projects.</li>
-                                                <li><i class="fa-sharp fa-solid fa-circle-check"></i> Meeting Clients and
-                                                    generating inquiries</li>
-                                                <li><i class="fa-sharp fa-solid fa-circle-check"></i> Meeting Architects,
-                                                    Interior Designers, and PMCs regularly to get the
-                                                    details
-                                                    on the projects
-                                                    handled by them.</li>
-                                                <li><i class="fa-sharp fa-solid fa-circle-check"></i> Cultivating
-                                                    relationships with them.</li>
-                                                <li><i class="fa-sharp fa-solid fa-circle-check"></i> Giving product
-                                                    presentations.</li>
-                                                <li><i class="fa-sharp fa-solid fa-circle-check"></i> Understanding
-                                                    requirements from the client and submitting quotations.</li>
-                                                <li><i class="fa-sharp fa-solid fa-circle-check"></i> Techno-commercial
-                                                    discussions and attending tender negotiation meetings.</li>
-                                                <li><i class="fa-sharp fa-solid fa-circle-check"></i> Order finalization.
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <p><b>CTC:</b></p>
-                                        <div class="tp-about-list pb-30">
-                                            <ul>
-                                                <li><i class="fa-sharp fa-solid fa-circle-check"></i> Incentive based
-                                                    package matching with industry standards.
-                                                </li>
-                                            </ul>
-                                        </div>
+                            @foreach ($jobpositiondetails as $key => $value)
+                                <div class="accordion-items tp-faq-active">
+                                    <h2 class="accordion-header" id="heading{{ $key }}">
+                                        <button class="accordion-buttons collapsed careers-opening-buttons" type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapse{{ $key }}"
+                                            aria-expanded="false"
+                                            aria-controls="collapse{{ $key }}">
+                                            {{ $value->job_position?->job_title ?? '' }}
+                                        </button>
+                                    </h2>
+                                    <div id="collapse{{ $key }}" class="accordion-collapse collapse"
+                                        aria-labelledby="heading{{ $key }}"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <p>
+                                                <b>Job Description :</b>
+                                            </p>
+                                            @if (!empty($value->job_description))
+                                                <div class="tp-about-list pb-30">
+                                                    {!! $value->job_description ?? '' !!}
+                                                </div>
+                                            @endif
+                                            <p>
+                                                <b>Experience :</b>
+                                            </p>
+                                            <div class="tp-about-list pb-30">
+                                                <ul>
+                                                    @if (!empty($value->experience))
+                                                        <li>
+                                                            <i class="fa-sharp fa-solid fa-circle-check"></i>
+                                                            {{ $value->experience ?? '' }}
+                                                        </li>
+                                                    @endif
+                                                </ul>
+                                            </div>
 
-                                        <p><b>Job Type:</b></p>
-                                        <div class="tp-about-list mb-30">
-                                            <ul>
-                                                <li><i class="fa-sharp fa-solid fa-circle-check"></i> Full-time</li>
-                                            </ul>
-                                        </div>
+                                            <p>
+                                                <b>Requirement :</b>
+                                            </p>
+                                            @if (!empty($value->requirements))
+                                                <div class="tp-about-list pb-30">
+                                                    <ul>
+                                                        @foreach ($value->requirements as $requirement)
+                                                            <li>
+                                                                <i class="fa-sharp fa-solid fa-circle-check"></i>
+                                                                {{ $requirement }}
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
 
-                                        <!--<p><b>Salary:</b></p>
-                                           <div class="tp-about-list mb-30">
-                                         <ul>
-                                             <li><i class="fa-sharp fa-solid fa-circle-check"></i> ₹500,000.00
-                                                 ₹750,000.00 per year</li>
-                                           </ul>
-                                        </div>-->
-                                        <p><b>Location:</b></p>
-                                        <div class="tp-about-list">
-                                            <ul>
-                                                <li><i class="fa-sharp fa-solid fa-circle-check"></i>Mumbai</li>
-                                            </ul>
-                                        </div>
+                                            <p>
+                                                <b> Qualification :</b>
+                                            </p>
+                                            @if (!empty($value->qualifications))
+                                                <div class="tp-about-list pb-30">
+                                                    <ul>
+                                                        @foreach ($value->qualification as $qualification)
+                                                            <li>
+                                                                <i class="fa-sharp fa-solid fa-circle-check"></i>
+                                                                {{ $qualification }}
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
 
+                                            <p>
+                                                <b>Responsibilities :</b>
+                                            </p>
+                                            @if (!empty($value->responsibilities))
+                                                <div class="tp-about-list pb-30">
+                                                    <ul>
+                                                        @foreach ($value->responsibilities as $responsibility)
+                                                            <li>
+                                                                <i class="fa-sharp fa-solid fa-circle-check"></i>
+                                                                {{ $responsibility }}
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
+
+                                            <p>
+                                                <b>CTC :</b>
+                                            </p>
+                                            @if (!empty($value->salary))
+                                                <div class="tp-about-list pb-30">
+                                                    <ul>
+                                                        @foreach ($value->salary as $salary)
+                                                            <li>
+                                                                <i class="fa-sharp fa-solid fa-circle-check"></i>
+                                                                {{ $salary }}
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
+
+                                            <p>
+                                                <b>Job Type:</b>
+                                            </p>
+                                            @php
+                                                $job_type = '';
+
+                                                if($value->job_type == '1') {
+                                                    $job_type = 'Full Time';
+                                                } elseif ($value->job_type == '2') {
+                                                    $job_type = 'Part Time';
+                                                } elseif ($value->job_type == '3') {
+                                                    $job_type = 'Contract';
+                                                } elseif ($value->job_type == '4') {
+                                                    $job_type = 'Internship';
+                                                }
+                                            @endphp
+                                            @if (!empty($job_type))
+                                                <div class="tp-about-list mb-30">
+                                                    <ul>
+                                                        <li>
+                                                            <i class="fa-sharp fa-solid fa-circle-check"></i>
+                                                            {{ $job_type ?? '' }}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            @endif
+
+                                            <p>
+                                                <b>Location:</b>
+                                            </p>
+                                            @if (!empty($value->location))
+                                                <div class="tp-about-list">
+                                                    <ul>
+                                                        <li>
+                                                            <i class="fa-sharp fa-solid fa-circle-check"></i>
+                                                            {{ $value->job_location ?? '' }}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="accordion-items">
-                                <h2 class="accordion-header" id="headingTwo2">
-                                    <button class="accordion-buttons collapsed careers-opening-buttons" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseTwo2" aria-expanded="false"
-                                        aria-controls="collapseTwo2">
-                                        3D Visualizer</button>
-                                </h2>
-                                <div id="collapseTwo2" class="accordion-collapse collapse" aria-labelledby="headingTwo2"
-                                    data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi animi vero
-                                        omnis sint voluptatem quod veritatis fugit repellendus minima maiores possimus
-                                        temporibus, vel doloribus ducimus! Fuga voluptatum natus laborum suscipit
-                                        repellat nihil maiores veritatis? Suscipit, molestiae dolorum. Cupiditate
-                                        adipisci aliquam tempora, ipsum consequuntur ipsam atque maiores, explicabo ullam
-                                        sint inventore laborum repellendus quia quae at architecto nisi. Distinctio
-                                        provident itaque fuga rerum voluptatum optio impedit cum nisi possimus voluptates
-                                        quae, hic assumenda, maxime commodi perferendis temporibus. Cum placeat hic
-                                        voluptas, mollitia distinctio quibusdam dignissimos minus iusto minima aliquam
-                                        rem in quis omnis praesentium veniam aut reprehenderit corrupti earum. Molestias,
-                                        dolorem!
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-items">
-                                <h2 class="accordion-header" id="headingThree3">
-                                    <button class="accordion-buttons collapsed careers-opening-buttons" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseThree3" aria-expanded="false"
-                                        aria-controls="collapseThree3">
-                                        Digital Marketing
-                                    </button>
-                                </h2>
-                                <div id="collapseThree3" class="accordion-collapse collapse"
-                                    aria-labelledby="headingThree3" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        Aliquam eros justo, posuere loborti viverra laoreet matti ullamcorper posuere
-                                        viverra
-                                        .Aliquam eros justo, posuere lobortis viverra laoreet augue mattis fmentum
-                                        ullamcorper
-                                        viverra laoreet Aliquam eros justo,
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-items">
-                                <h2 class="accordion-header" id="headingFour4">
-                                    <button class="accordion-buttons collapsed careers-opening-buttons" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseFour4" aria-expanded="false"
-                                        aria-controls="collapseFour4">
-                                        Business Development
-                                    </button>
-                                </h2>
-                                <div id="collapseFour4" class="accordion-collapse collapse"
-                                    aria-labelledby="headingFour4" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        Aliquam eros justo, posuere loborti viverra laoreet matti ullamcorper posuere
-                                        viverra
-                                        .Aliquam eros justo, posuere lobortis viverra laoreet augue mattis fmentum
-                                        ullamcorper
-                                        viverra laoreet Aliquam eros justo,
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -283,72 +298,141 @@
 
     <!-- Application form area -->
     <div class="tp-appointment-area careers-area pt-70 pb-70 z-index">
-        <!--<div class="tp-contact-shape-1">-->
-        <!--   <img src="assets/img/contact/shape-1-1.png" alt="">-->
-        <!--</div>-->
         <div class="container-fluid home-container">
             <div class="row">
                 <div class="col-xl-12 col-lg-12">
                     <div class="tp-form-box pb-50 text-center">
+
                         <h4 class="tp-section-title tp-split-text tp-split-in-right pb-60">Apply Now</h4>
-                        <form action="#">
+
+                        <form method="POST" action="{{ route('send-career-email') }}" class="form-horizontal" enctype="multipart/form-data">
+                            @csrf
+
                             <div class="row">
                                 <div class="col-xl-4 col-lg-4 mb-30">
-                                    <div class="tp-form-input-box careers-input-box">
-                                        <input type="text" placeholder="Name*">
+                                    <div class="tp-form-input-box careers-input-box" style="text-align: left !important;">
+                                        <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Name *">
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-lg-4 mb-30">
+                                <div class="col-xl-4 col-lg-4 mb-30" style="text-align: left !important;">
                                     <div class="tp-form-input-box careers-input-box">
-                                        <input type="text" placeholder="Address*">
+                                        <input type="text" name="address" id="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Address *">
+                                        @error('address')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-lg-4 mb-30">
+                                <div class="col-xl-4 col-lg-4 mb-30" style="text-align: left !important;">
                                     <div class="tp-form-input-box careers-input-box">
-                                        <input type="text" placeholder="Your Phone*">
+                                        <input type="text" maxlength="10" name="phone" id="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" placeholder="Your Phone *">
+                                        @error('phone')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-lg-4 mb-30">
+                                <div class="col-xl-4 col-lg-4 mb-30" style="text-align: left !important;">
                                     <div class="tp-form-input-box careers-input-box">
-                                        <input type="email" placeholder="Email*">
+                                        <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Emai Id *">
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-lg-4 mb-30">
+                                <div class="col-xl-4 col-lg-4 mb-30" style="text-align: left !important;">
                                     <div class="tp-form-input-box careers-input-box">
-                                        <!-- <div class="postbox__select"> -->
                                         <div class="careers-dropdown-select">
-                                            <select>
-                                                <option>Position Applying For</option>
-                                                <option>Lorem Ipsum</option>
-                                                <option>Lorem Ipsum</option>
-                                                <option>Lorem Ipsum</option>
-                                                <option>Lorem Ipsum</option>
-                                                <option>Lorem Ipsum</option>
+                                            <select name="job_position_id" id="job_position_id" class="form-control @error('job_position_id') is-invalid @enderror" >
+                                                <option value="">Select Job Position</option>
+                                                @foreach ($job_positions as $key => $value)
+                                                    <option value="{{ $value->id }}" {{ old('job_position_id') == $value->id ? 'selected' : '' }}>{{ $value->job_title ?? '' }}</option>
+                                                @endforeach
                                             </select>
+                                            @error('job_position_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
-                                        <!-- </div> -->
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-lg-4 mb-30">
+                                <div class="col-xl-4 col-lg-4 mb-30" style="text-align: left !important;">
                                     <div class="tp-form-input-box careers-input-box">
-                                        <input type="text" placeholder="Years Of experience*">
+                                        <input type="text" maxlength="2" name="experience" id="experience" class="form-control @error('experience') is-invalid @enderror" value="{{ old('experience') }}" placeholder="Years Of experience*">
+                                        @error('experience')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
-                                <div class="col-xl-8 col-lg-8 mb-30">
+
+                                <div class="col-xl-8 col-lg-8 mb-30" style="text-align: left !important;">
                                     <div class="tp-form-textarea-box careers-textarea">
-                                        <textarea placeholder="Messege"></textarea>
+                                        <textarea placeholder="Messege" rows="5" name="messege" id="messege" class="form-control @error('messege') is-invalid @enderror" value="{{ old('messege') }}" >{{ old('messege') }}</textarea>
+                                        @error('messege')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="col-xl-4 col-lg-4 mb-30">
-                                    <button class="tp-btn-theme theme-lg careers-section-buttons w-100 mb-30"><span>Upload
-                                            Resume</span></button>
-                                    <button class="tp-btn-theme theme-lg careers-section-buttons w-100 mt-2"><span>Upload
-                                            Portfolio</span></button>
+                                    <div class="tp-form-input-box careers-input-box mb-3" style="text-align: left !important;">
+                                        <input type="file" onchange="agentPreviewResumeFile()" accept=".png, .jpg, .jpeg, .pdf" name="resume" id="resume" class="form-control @error('resume') is-invalid @enderror" value="{{ old('resume') }}" placeholder="Upload Resume*">
+                                        <small class="text-light" ><b>Note : The file size  should be less than 2MB .</b></small>
+                                        <br>
+                                        <small class="text-light"><b>Note : Only files in .jpg, .jpeg, .png format can be uploaded .</b></small>
+                                        <br>
+                                        @error('resume')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                        <br>
+                                        <div id="preview-resume-container">
+                                            <div id="file-resume-preview"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tp-form-input-box careers-input-box" style="text-align: left !important;">
+                                        <input type="file" onchange="agentPreviewPortfolioFile()" accept=".png, .jpg, .jpeg, .pdf" name="portfolio" id="portfolio" class="form-control @error('portfolio') is-invalid @enderror" value="{{ old('portfolio') }}" placeholder="Upload Portfolio*">
+                                        <small class="text-light"><b>Note : The file size  should be less than 2MB .</b></small>
+                                        <br>
+                                        <small class="text-light"><b>Note : Only files in .jpg, .jpeg, .png format can be uploaded .</b></small>
+                                        <br>
+                                        @error('portfolio')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                        <br>
+                                        <div id="preview-portfolio-container">
+                                            <div id="file-portfolio-preview"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
+                            <button type="submit" class="tp-btn-theme theme-lg" >
+                                <span>
+                                    <i class="fas fa-paper-plane mr-10"></i>
+                                    SUBMIT
+                                </span>
+                            </button>
                         </form>
-                        <button class="tp-btn-theme theme-lg"><span>SUBMIT</span></button>
+
                     </div>
                 </div>
             </div>
@@ -358,4 +442,81 @@
 @endsection
 
 @push('scripts')
+{{-- Preview Resume Both Image and PDF --}}
+<script>
+    function agentPreviewResumeFile() {
+        const fileInput = document.getElementById('resume');
+        const previewContainer = document.getElementById('preview-resume-container');
+        const filePreview = document.getElementById('file-resume-preview');
+        const file = fileInput.files[0];
+
+        if (file) {
+            const fileType = file.type;
+            const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+            const validPdfTypes = ['application/pdf'];
+
+            if (validImageTypes.includes(fileType)) {
+                // Image preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    filePreview.innerHTML = `<img src="${e.target.result}" alt="File Preview" width="60%" height="110">`;
+                };
+                reader.readAsDataURL(file);
+            } else if (validPdfTypes.includes(fileType)) {
+                // PDF preview using an embed element
+                filePreview.innerHTML =
+                    `<embed src="${URL.createObjectURL(file)}" type="application/pdf" width="100%" height="150px" />`;
+            } else {
+                // Unsupported file type
+                filePreview.innerHTML = '<p>Unsupported file type</p>';
+            }
+
+            previewContainer.style.display = 'block';
+        } else {
+            // No file selected
+            previewContainer.style.display = 'none';
+        }
+
+    }
+
+</script>
+
+{{-- Preview Resume Both Image and PDF --}}
+<script>
+    function agentPreviewFile() {
+        const fileInput = document.getElementById('portfolio');
+        const previewContainer = document.getElementById('preview-portfolio-container');
+        const filePreview = document.getElementById('file-portfolio-preview');
+        const file = fileInput.files[0];
+
+        if (file) {
+            const fileType = file.type;
+            const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+            const validPdfTypes = ['application/pdf'];
+
+            if (validImageTypes.includes(fileType)) {
+                // Image preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    filePreview.innerHTML = `<img src="${e.target.result}" alt="File Preview" width="60%" height="110">`;
+                };
+                reader.readAsDataURL(file);
+            } else if (validPdfTypes.includes(fileType)) {
+                // PDF preview using an embed element
+                filePreview.innerHTML =
+                    `<embed src="${URL.createObjectURL(file)}" type="application/pdf" width="100%" height="150px" />`;
+            } else {
+                // Unsupported file type
+                filePreview.innerHTML = '<p>Unsupported file type</p>';
+            }
+
+            previewContainer.style.display = 'block';
+        } else {
+            // No file selected
+            previewContainer.style.display = 'none';
+        }
+
+    }
+
+</script>
 @endpush

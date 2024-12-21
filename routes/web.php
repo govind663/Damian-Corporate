@@ -74,6 +74,7 @@ Route::group(['prefix'=> '', 'middleware'=>[PreventBackHistoryMiddleware::class]
 
     // ==== Careers
     Route::get('/careers', [CareersController::class, 'careers'])->name('frontend.careers');
+    Route::post('send-career-email', [CareersController::class, 'sendCareerEmail'])->name('send-career-email');
 
     // ==== Contact US
     Route::get('/contact-us', [ContactUsController::class, 'contact'])->name('frontend.contact');
