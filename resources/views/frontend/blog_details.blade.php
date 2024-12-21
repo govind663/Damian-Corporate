@@ -48,12 +48,10 @@
                             </div>
                             <div class="postbox__content-2">
                                 <h3 class="postbox__title blog-list-title tp-split-text tp-split-in-right pb-10">
-                                    {{ $blogs->blog_title }}
+                                    {{ $blogs->blog_title ?? '' }}
                                 </h3>
-                                <div class="blog-content">
-                                    <p class="mb-0 text-justify" style="color: #f7f1f1 !important;">
-                                        {!! $blogs->description !!}
-                                    </p>
+                                <div class="blog-content" style="color: #f7f1f1 !important; text-align:justify !important;">
+                                    {!! $blogs->description ?? '' !!}
                                 </div>
                             </div>
                         </article>
