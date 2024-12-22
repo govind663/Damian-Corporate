@@ -7,14 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <!-- Meta Description -->
-    <meta name="description" content="Verify your email address">
-
-    <!-- Meta Keywords -->
-    <meta name="keywords" content="verify email, email verification, email address verification">
-
-    <!-- Meta Author-->
-    <meta name="author" content="Damian Corporate">
+    {{-- SEO --}}
+    <meta name="description" content="Damian Corporate">
+    <meta name="keywords" content="Damian Corporate, Damian, Corporate">
+    <meta name="author" content="Damian Corporate,">
+    <meta name="robots" content="index, follow, noarchive, noimageindex, nosnippet, noydir, noodp, notranslate, noyaca">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />

@@ -5,6 +5,34 @@
 @endsection
 
 @push('styles')
+<style>
+    .tp-form-input-box input {
+        color: #f4f4f4 !important;
+    }
+
+    .careers-input-box input {
+        height: 66px !important;
+    }
+
+    .form-control {
+        padding: 0.375rem .75rem;
+        font-size: 1rem;
+        font-weight: 900px;
+        background-color: transparent !important;
+    }
+
+    .careers-dropdown-select .nice-select {
+        height: 65px !important;
+    }
+
+    .careers-textarea textarea {
+        height: 320px !important;
+    }
+
+    .tp-form-textarea-box textarea {
+        color: #fffdfd !important;
+    }
+</style>
 @endpush
 
 @section('content')
@@ -250,52 +278,70 @@
                 <div class="col-xl-6 col-lg-6 wow tpfadeLeft" data-wow-duration=".9s" data-wow-delay=".7s">
                     <div class="tp-contact-right">
                         <h2 class="text-center tp-split-text tp-split-in-right mb-30">Get in Touch</h2>
-                        <form action="#">
+                        <form method="POST" action="{{ route('send-contact-email') }}" class="form-horizontal" enctype="multipart/form-data">
+                            @csrf
+
                             <div class="row">
-                                <div class="col-lg-6 col-md-6 mb-20">
-                                    <div class="tp-contact-input-box">
-                                        <input type="text" placeholder="Full Name">
+                                <div class="col-lg-12 col-md-12 mb-20">
+                                    <div class="tp-contact-input-box" style="text-align: left !important;">
+                                        <input type="text" name="name" id="name" style="color: #f4f4f4 !important;" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Name *">
                                         <div class="tp-contact-icon">
                                             <span>
-                                                <img width="17px"
-                                                    src="{{ asset('frontend/assets/img/icon/user.png') }}" />
+                                                <img width="17px" src="{{ asset('frontend/assets/img/icon/user.png') }}" />
                                             </span>
                                         </div>
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 mb-20">
-                                    <div class="tp-contact-input-box">
-                                        <input type="email" placeholder="Your Email">
+                                <div class="col-lg-12 col-md-12 mb-20">
+                                    <div class="tp-contact-input-box" style="text-align: left !important;">
+                                        <input type="email" name="email" id="email" style="color: #f4f4f4 !important;" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Emai Id *">
                                         <div class="tp-contact-icon">
                                             <span>
                                                 <svg width="16" height="15" viewBox="0 0 16 15" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path
                                                         d="M14.9727 1.76172L13.2227 13.1094C13.1953 13.3828 13.0312 13.6289 12.7852 13.7656C12.6484 13.8203 12.5117 13.875 12.3477 13.875C12.2383 13.875 12.1289 13.8477 12.0195 13.793L8.68359 12.3984L7.28906 14.4766C7.17969 14.668 6.98828 14.75 6.79688 14.75C6.49609 14.75 6.25 14.5039 6.25 14.2031V11.5781C6.25 11.3594 6.30469 11.168 6.41406 11.0312L12.375 3.375L4.33594 10.6211L1.51953 9.44531C1.21875 9.30859 1 9.03516 1 8.67969C0.972656 8.29688 1.13672 8.02344 1.4375 7.85938L13.6875 0.886719C13.9609 0.722656 14.3438 0.722656 14.6172 0.914062C14.8906 1.10547 15.0273 1.43359 14.9727 1.76172Z"
-                                                        fill="currentcolor" />
+                                                        fill="currentcolor"
+                                                    />
                                                 </svg>
                                             </span>
                                         </div>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 mb-20">
-                                    <div class="tp-contact-input-box">
-                                        <input type="text" placeholder="Your Phone">
+                                    <div class="tp-contact-input-box" style="text-align: left !important;">
+                                        <input type="text" maxlength="10" name="phone" id="phone" style="color: #f4f4f4 !important;" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" placeholder="Your Phone *">
                                         <div class="tp-contact-icon">
                                             <span>
                                                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path
                                                         d="M13.9727 11.332L13.3164 14.0938C13.2344 14.5039 12.9062 14.7773 12.4961 14.7773C5.60547 14.75 0 9.14453 0 2.25391C0 1.84375 0.246094 1.51562 0.65625 1.43359L3.41797 0.777344C3.80078 0.695312 4.21094 0.914062 4.375 1.26953L5.66016 4.25C5.79688 4.60547 5.71484 5.01562 5.41406 5.23438L3.9375 6.4375C4.86719 8.32422 6.39844 9.85547 8.3125 10.7852L9.51562 9.30859C9.73438 9.03516 10.1445 8.92578 10.5 9.0625L13.4805 10.3477C13.8359 10.5391 14.0547 10.9492 13.9727 11.332Z"
-                                                        fill="currentcolor" />
+                                                        fill="currentcolor"
+                                                    />
                                                 </svg>
                                             </span>
                                         </div>
+                                        @error('phone')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 mb-20">
-                                    <div class="tp-contact-input-box">
-                                        <input type="text" placeholder="Your Address">
+                                    <div class="tp-contact-input-box" style="text-align: left !important;">
+                                        <input type="text" name="address" id="address" style="color: #f4f4f4 !important;" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Address *">
                                         <div class="tp-contact-icon">
                                             <span>
                                                 <svg width="11" height="15" viewBox="0 0 11 15" fill="none"
@@ -306,11 +352,16 @@
                                                 </svg>
                                             </span>
                                         </div>
+                                        @error('address')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-20">
-                                    <div class="tp-contact-textarea-box">
-                                        <textarea placeholder="Write Message"></textarea>
+                                    <div class="tp-contact-textarea-box" style="text-align: left !important;">
+                                        <textarea placeholder="Messege" rows="5" name="messege" id="messege" style="color: #f4f4f4 !important;" class="form-control @error('messege') is-invalid @enderror" value="{{ old('messege') }}" >{{ old('messege') }}</textarea>
                                         <div class="tp-contact-icon">
                                             <span>
                                                 <svg width="14" height="11" viewBox="0 0 14 11" fill="none"
@@ -321,11 +372,17 @@
                                                 </svg>
                                             </span>
                                         </div>
+                                        @error('messege')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
+
+                            <button class="tp-btn-border height w-100"><span>Send Message</span></button>
                         </form>
-                        <button class="tp-btn-border height w-100"><span>Send Message</span></button>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6">

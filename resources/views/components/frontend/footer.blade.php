@@ -6,6 +6,8 @@
     $company_address = json_decode($company_informations->company_address ?? '[]', true);
     $location_link = json_decode($company_informations->location_link ?? '[]', true);
 @endphp
+
+<!-- Footer Area Start -->
 <footer class="main-footer">
     <div class="tp-footer-area tp-footer-style-2 pt-50 pb-50">
         <div class="container-fluid home-container">
@@ -24,19 +26,19 @@
                         <div class="tp-footer-logo tp-footer-para pb-10" style="color: #ffffff !important; text-align: justify !important;">
                             <p>{!! $company_informations->company_description ?? '' !!}</p>
                         </div>
-                        <div class="tp-footer-input-box">
-                            <input type="email" placeholder="Email here">
-                            <div class="tp-footer-icon">
-                                <span>
-                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M14.9727 1.76172L13.2227 13.1094C13.1953 13.3828 13.0312 13.6289 12.7852 13.7656C12.6484 13.8203 12.5117 13.875 12.3477 13.875C12.2383 13.875 12.1289 13.8477 12.0195 13.793L8.68359 12.3984L7.28906 14.4766C7.17969 14.668 6.98828 14.75 6.79688 14.75C6.49609 14.75 6.25 14.5039 6.25 14.2031V11.5781C6.25 11.3594 6.30469 11.168 6.41406 11.0312L12.375 3.375L4.33594 10.6211L1.51953 9.44531C1.21875 9.30859 1 9.03516 1 8.67969C0.972656 8.29688 1.13672 8.02344 1.4375 7.85938L13.6875 0.886719C13.9609 0.722656 14.3438 0.722656 14.6172 0.914062C14.8906 1.10547 15.0273 1.43359 14.9727 1.76172Z"
-                                            fill="currentcolor" />
-                                    </svg>
-                                </span>
+
+                        <form method="POST" action="{{ route('subscribe-newsletter') }}" class="cs_newsletter_form position-relative" enctype="multipart/form-data">
+                            @csrf
+
+                            <div class="tp-footer-input-box d-flex" style="text-align: left !important;">
+                                <input type="email" name="email" id="email" style="color: #f4f4f4 !important;" class="form-control" required value="{{ old('email') }}" placeholder="Emai Id *">
+
+                                <button type="submit" class="tp-btn-theme theme-lg" style="height: 56px !important; border-radius: 8px !important;">
+                                    SUBSCRIBE
+                                </button>
                             </div>
-                        </div>
+                        </form>
+
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 mb-20">
@@ -67,7 +69,8 @@
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path
                                                             d="M4.59375 14.4219C3.17188 12.6445 0 8.40625 0 6C0 3.10156 2.32422 0.75 5.25 0.75C8.14844 0.75 10.5 3.10156 10.5 6C10.5 8.40625 7.30078 12.6445 5.87891 14.4219C5.55078 14.832 4.92188 14.832 4.59375 14.4219ZM5.25 7.75C6.20703 7.75 7 6.98438 7 6C7 5.04297 6.20703 4.25 5.25 4.25C4.26562 4.25 3.5 5.04297 3.5 6C3.5 6.98438 4.26562 7.75 5.25 7.75Z"
-                                                            fill="currentcolor" />
+                                                            fill="currentcolor"
+                                                        />
                                                     </svg>
                                                 </span>
                                                 <a href="{{ $location_link[$index] ?? '#' }}" target="_blank">

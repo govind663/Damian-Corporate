@@ -8,6 +8,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
+    {{-- SEO --}}
+    <meta name="description" content="Damian Corporate">
+    <meta name="keywords" content="Damian Corporate, Damian, Corporate">
+    <meta name="author" content="Damian Corporate,">
+    <meta name="robots" content="index, follow, noarchive, noimageindex, nosnippet, noydir, noodp, notranslate, noyaca">
+
     <!-- Site favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('frontend/assets/fav-dp.png') }}" />
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('frontend/assets/fav-dp.png') }}" />

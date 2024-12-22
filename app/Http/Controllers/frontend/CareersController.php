@@ -56,7 +56,6 @@ class CareersController extends Controller
 
         try {
 
-
             $sendCareerEmail = new SendCareerEmail();
 
             // ==== Upload (resume)

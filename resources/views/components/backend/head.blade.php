@@ -1,10 +1,11 @@
 <!-- Basic Page Info -->
 <meta charset="utf-8" />
 
-<!-- Meta -->
-<meta name="description" content="Bhairaav">
-<meta name="author" content="Bhairaav">
-<meta name="keywords" content="Bhairaav">
+{{-- SEO --}}
+<meta name="description" content="Damian Corporate">
+<meta name="keywords" content="Damian Corporate, Damian, Corporate">
+<meta name="author" content="Damian Corporate,">
+<meta name="robots" content="index, follow, noarchive, noimageindex, nosnippet, noydir, noodp, notranslate, noyaca">
 
 <!-- Title -->
 <title>@yield('title')</title>

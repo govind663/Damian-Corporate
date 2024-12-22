@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="content-type" content="text/html;charset=UTF-8">
 
+    {{-- SEO --}}
+    <meta name="description" content="Damian Corporate">
+    <meta name="keywords" content="Damian Corporate, Damian, Corporate">
+    <meta name="author" content="Damian Corporate,">
+    <meta name="robots" content="index, follow, noarchive, noimageindex, nosnippet, noydir, noodp, notranslate, noyaca">
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="content">
     <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">

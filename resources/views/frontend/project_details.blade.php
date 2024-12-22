@@ -41,26 +41,27 @@
                     <div class="postbox__thumb w-img">
                         <div class="postbox__thumb-slider p-relative">
                             <div class="swiper-container postbox__thumb-slider-active project-details-slider">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img src="{{ asset('frontend/assets/img/portfolio/Commercial Design & Build/balaji-wafers-head-office/1.jpg') }}" alt="1.jpg">
+                                @if(isset($banner_image))
+                                    @php
+                                        // Decode the JSON string to get the array of banner images
+                                        $bannerImages = json_decode($banner_image, true);
+                                        // dd($bannerImages);
+                                    @endphp
+
+                                    <div class="swiper-wrapper">
+                                        @if(!empty($bannerImages) && is_array($bannerImages))
+                                            @foreach($bannerImages as $image)
+                                                <div class="swiper-slide">
+                                                    <img src="{{ asset('/damian_corporate/project_details/banner_image/' . $image) }}" alt="{{ $image }}">
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <p>No images available.</p>
+                                        @endif
                                     </div>
-                                    <div class="swiper-slide">
-                                        <img src="{{ asset('frontend/assets/img/portfolio/Commercial Design & Build/balaji-wafers-head-office/2.jpg') }}" alt="2.jpg">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img src="{{ asset('frontend/assets/img/portfolio/Commercial Design & Build/balaji-wafers-head-office/3.jpg') }}" alt="3.jpg">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img src="{{ asset('frontend/assets/img/portfolio/Commercial Design & Build/balaji-wafers-head-office/4.jpg') }}" alt="4.jpg">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img src="{{ asset('frontend/assets/img/portfolio/Commercial Design & Build/balaji-wafers-head-office/5.jpg') }}" alt="5.jpg">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img src="{{ asset('frontend/assets/img/portfolio/Commercial Design & Build/balaji-wafers-head-office/6.jpg') }}" alt="6.jpg">
-                                    </div>
-                                </div>
+                                @else
+                                    <p>Banner image data is not available.</p>
+                                @endif
                             </div>
                             <div class="postbox__slider-arrow-wrap d-none d-sm-block">
                                 <button class="postbox-arrow-prev">
@@ -105,7 +106,9 @@
                                         <div class="project-content-box">
                                             <p class="mb-0">Location:</p>
                                             <h3 class="rc__post-title">
-                                                <a href="#">Rajkot, Gujarat</a>
+                                                <a href="{{ $projectDetails->location_url ?? '#' }}">
+                                                    {{ $projectDetails->location }}
+                                                </a>
                                             </h3>
                                         </div>
                                     </li>
@@ -116,7 +119,7 @@
                                         <div class="project-content-box">
                                             <p class="mb-0">Total Constructed Area:</p>
                                             <h3 class="rc__post-title">
-                                                <a href="#">60,000 Sq.Ft.</a>
+                                                <a href="#">{{ $projectDetails->total_constructed_area ?? '' }}</a>
                                             </h3>
                                         </div>
                                     </li>
@@ -127,11 +130,7 @@
                             <div class="tp-project-details-content pt-45">
                                 <h5 class="tp-project-2-title project-detail-">Project Description:</h5>
                                 <p class="mb-0 text-justify">
-                                    The Balaji Wafers Head Office, designed & executed by Damian Corporate.
-                                    Seamlessly blending sustainability, contemporary design, and green architecture, it
-                                    sets a new standard in Rajkot City. Natural elements, expansion space, and modern
-                                    aesthetics converge to create a functional yet visually striking workspace,
-                                    reflecting the brand's ethos of innovation and progress.
+                                    {!! $projectDetails->project_description ?? '' !!}
                                 </p>
                             </div>
                         </div>
@@ -157,7 +156,8 @@
                     <div class="swiper-container related-project-active">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper related-project-wrapper">
-                            <!-- Slides -->
+                            @foreach ($relatedProjects as $relatedProject)
+                            <!-- Slide -->
                             <div class="swiper-slide related-project-slide">
                                 <div class="tp-team-area tp-team-style-2">
                                     <div class="tp-team-title-wrap">
@@ -165,14 +165,14 @@
                                             <div class="tp-team-active">
                                                 <div class="tp-team-item">
                                                     <div class="tp-team-thumb p-relative fix mb-25">
-                                                        <img src="{{ asset('frontend/assets/img/portfolio/Commercial Design & Build/Balaji Wafers Head Office/balaji-wafers-head-office-1.jpg') }}" alt="balaji-wafers-head-office-1.jpg">
+                                                        <img src="{{ asset('/damian_corporate/project/project_image/' . $relatedProject->project_image) }}" alt="{{ $relatedProject->project_name }}">
                                                         <div class="project-info">
                                                             <h4 class="tp-project-2-title">
-                                                                <a href="balaji-wafers-head-office.html">
-                                                                    Balaji Wafers Head Office
+                                                                <a href="{{ route('frontend.project.details', $relatedProject->slug) }}">
+                                                                    {{ $relatedProject->project_name }}
                                                                 </a>
                                                             </h4>
-                                                            <p>Commercial</p>
+                                                            <p>{{ $relatedProject->category->name }}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -181,55 +181,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="swiper-slide related-project-slide">
-                                <div class="tp-team-area tp-team-style-2">
-                                    <div class="tp-team-title-wrap">
-                                        <div class="tp-team-wrapper">
-                                            <div class="tp-team-active">
-                                                <div class="tp-team-item">
-                                                    <div class="tp-team-thumb p-relative fix mb-25">
-                                                        <img src="{{ asset('frontend/assets/img/portfolio/Residential Design & Build/Ahuja Residence/ahuja-residence-1.jpeg') }}" alt="ahuja-residence-1.jpeg">
-                                                        <div class="project-info">
-                                                            <h4 class="tp-project-2-title">
-                                                                <a href="#">Ahuja Residence</a>
-                                                            </h4>
-                                                            <p>Residential</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="tp-team-area tp-team-style-2">
-                                    <div class="tp-team-title-wrap">
-                                        <div class="tp-team-wrapper">
-                                            <div class="tp-team-active">
-                                                <div class="tp-team-item">
-                                                    <div class="tp-team-thumb p-relative fix mb-25">
-                                                        <img src="{{ asset('frontend/assets/img/portfolio/Architectural Design & Build/Armstrong/1.jpg') }}" alt="1.jpg">
-                                                        <div class="project-info">
-                                                            <h4 class="tp-project-2-title">
-                                                                <a href="#">Armstrong</a>
-                                                            </h4>
-                                                            <p>Architectural</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                         <div class="related-project-arrow-box">
                             <div class="swiper-button-prev"></div>
                             <div class="swiper-button-next"></div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -238,26 +196,29 @@
 
 @push('scripts')
 <script>
-    $(function () {
-       var mySwiper = new Swiper('.related-project-active', {
-          spaceBetween: 30,
-          loop: true,
-          navigation: {
-             nextEl: '.swiper-button-next',
-             prevEl: '.swiper-button-prev',
-          },
-          breakpoints: {
-             576: {
-                slidesPerView: 1,
-             },
-             768: {
-                slidesPerView: 2,
-             },
-             992: {
-                slidesPerView: 3,
-             }
-          }
-       });
+    document.addEventListener('DOMContentLoaded', function () {
+        var relatedProjectSwiper = new Swiper('.related-project-active', {
+            spaceBetween: 30, // Space between slides
+            loop: true, // Enable looping
+            navigation: {
+                nextEl: '.swiper-button-next', // Next button selector
+                prevEl: '.swiper-button-prev', // Previous button selector
+            },
+            breakpoints: {
+                576: {
+                    slidesPerView: 1, // 1 slide per view for small screens
+                },
+                768: {
+                    slidesPerView: 2, // 2 slides per view for tablets
+                },
+                992: {
+                    slidesPerView: 3, // 3 slides per view for desktops
+                },
+                1200: {
+                    slidesPerView: 4, // 4 slides per view for larger screens
+                }
+            }
+        });
     });
- </script>
+</script>
 @endpush

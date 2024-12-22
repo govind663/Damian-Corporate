@@ -78,6 +78,10 @@ Route::group(['prefix'=> '', 'middleware'=>[PreventBackHistoryMiddleware::class]
 
     // ==== Contact US
     Route::get('/contact-us', [ContactUsController::class, 'contact'])->name('frontend.contact');
+    Route::post('send-contact-email', [ContactUsController::class, 'sendContactEmail'])->name('send-contact-email');
+
+    // ==== Subscribe Newsletter
+    Route::post('subscribe-newsletter', [FrontendHomeController::class, 'subscribeNewsletter'])->name('subscribe-newsletter');
 
 });
 
