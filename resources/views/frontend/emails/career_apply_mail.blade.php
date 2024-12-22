@@ -75,7 +75,7 @@
     <div class="container">
         <!-- Contact Us Section -->
         <div class="contact">
-            <img src="https://damiancorporate.com/assets/img/Damian%20Corporate%20Logo.png" alt="Damian Corporate Logo" class="logo" style="width: 100px; height: 100px;">
+            <img src="https://damiancorporate.com/assets/img/Damian%20Corporate%20Logo.png" alt="Damian Corporate Logo" class="logo" style="width: 100px; height: 200px;">
         </div>
 
         <h2>Career Apply Mail Details :- </h2>

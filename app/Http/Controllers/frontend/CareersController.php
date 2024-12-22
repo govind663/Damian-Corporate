@@ -100,7 +100,7 @@ class CareersController extends Controller
             SendCareerEmail::where('id', $sendCareerEmail->id)->update($update);
 
             // ==== Fetch Job Position
-            $job_position = JobPosition::where('id', $request->job_position_id)->first();
+            $job_position = JobPosition::where('id', $sendCareerEmail->job_position_id)->first();
             // dd($job_position);
             // ==== Fetch Job Position
             $job_position_name = $job_position->job_title;
