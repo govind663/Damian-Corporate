@@ -104,21 +104,19 @@ class CareersController extends Controller
             $job_position = $job_position->name;
 
             // Send Mail
-            // $mailData = [
-            //     'name' => $request->name,
-            //     'address' => $request->address,
-            //     'email' => $request->email,
-            //     'phone' => $request->phone,
-            //     'job_position' => $job_position,
-            //     'experience' => $request->experience,
-            //     'message' => $request->message,
-            // ];
+            $mailData = [
+                'name' => $request->name,
+                'address' => $request->address,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'job_position' => $job_position,
+                'experience' => $request->experience,
+                'message' => $request->message,
+            ];
 
             // Send Mail
-            // Mail::to('codingthunder1997@gmail.com', 'Damian Corporate')
-            //     ->cc($request->email)
-            //     ->bcc('contact@damiancorporate.com')
-            //     ->send(new sendCareerApplyMail($mailData, $resume_image_path, $portfolio_image_path));
+            Mail::to('codingthunder1997@gmail.com', 'Damian Corporate')
+                ->send(new sendCareerApplyMail($mailData, $resume_image_path, $portfolio_image_path));
 
             return redirect()->route('frontend.careers')->with('message','Thank you for your interest. We will get back to you within 24 hours.');
 
