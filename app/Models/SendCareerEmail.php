@@ -34,4 +34,10 @@ class SendCareerEmail extends Model
         'deleted_at',
     ];
 
+    // ==== Job Position ====
+    public function job_position()
+    {
+        return $this->belongsTo(JobPosition::class, 'job_position_id', 'id');
+    }
+
 }

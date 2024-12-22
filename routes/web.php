@@ -132,46 +132,50 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', PreventBackHisto
     // ==== Awards & Media Management
     Route::resource('awards-media', AwardMediaController::class);
 
-    // ==== Manage Blog Category Management
+    // ==== Blog Category Management
     Route::resource('blog-category', BlogCategoryController::class);
 
-    // ==== Manage Blog Management
+    // ==== Blog Management
     Route::resource('blogs', BlogController::class);
 
-    // ==== Manage Careers Management
+    // ==== Careers Management
     Route::resource('careers', CareerController::class);
 
-    // ==== Manage About Careers Management
+    // ==== About Careers Management
     Route::resource('about-careers', AboutCareerController::class);
 
-    // ==== Manage Job Position Management
+    // ==== Job Position Management
     Route::resource('job-position', JobPositionController::class);
 
-    // ==== Manage Job Position Details Management
+    // ==== Job Position Details Management
     Route::resource('job-position-details', JobPositionDetailsController::class);
 
-    // ==== Manage Introduction Management
+    // ==== Manage Applied Job Application List
+    Route::get('applied-job-application/list', [JobPositionDetailsController::class, 'fetchAppliedJobApplications'])->name('applied-job-application.list');
+    Route::get('applied-job-application/{id}', [JobPositionDetailsController::class, 'appliedJobApplicationDetails'])->name('applied-job-application.details');
+
+    // ==== Introduction Management
     Route::resource('introduction', IntroductionController::class);
 
-    // ==== Manage Showroom Management
+    // ==== Showroom Management
     Route::resource('showroom', ShowroomController::class);
 
-    // ==== Manage Manufacturing Facility Management
+    // ==== Manufacturing Facility Management
     Route::resource('manufacturing-facility', ManufacturingFacilityController::class);
 
-    // ==== Manage Vision Management
+    // ==== Vision Management
     Route::resource('vision', VisionController::class);
 
-    // ==== Manage Team Management
+    // ==== Team Management
     Route::resource('team', TeamController::class);
 
-    // ==== Manage Team Member Management
+    // ==== Team Member Management
     Route::resource('team-member', TeamMemberController::class);
 
-    // ==== Manage International Associates Management
+    // ==== International Associates Management
     Route::resource('international-associates', InternationalAssociatesController::class);
 
-    // ==== Manage Our Services Management
+    // ==== Our Services Management
     Route::resource('our-services', OurServiceController::class);
 
 });

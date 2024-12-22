@@ -75,7 +75,7 @@
     <div class="container">
         <!-- Contact Us Section -->
         <div class="contact">
-            <img src="{{ asset('/frontend/assets/img/logo/damian-logo.png') }}" alt="Damian Corporate Logo" class="logo" style="width: 100px; height: 100px;">
+            <img src="https://damiancorporate.com/assets/img/Damian%20Corporate%20Logo.png" alt="Damian Corporate Logo" class="logo" style="width: 100px; height: 100px;">
         </div>
 
         <h2>Career Apply Mail Details :- </h2>
@@ -85,7 +85,7 @@
         <p class="details"><strong>Phone No : </strong> +91 - {{ $mailData['phone'] }}</p>
         <p class="details"><strong>Job Position : </strong>{{ $mailData['job_position'] }}</p>
         <p class="details"><strong>Experience : </strong>{{ $mailData['experience'] }}</p>
-        <p class="details"><strong>Message : </strong>{{ $mailData['message'] }}</p>
+        <p class="details"><strong>Message : </strong>{!! $mailData['messege'] !!}</p>
 
         <p>
             Thank you for reaching out to us. We will respond to your inquiry as soon as possible.

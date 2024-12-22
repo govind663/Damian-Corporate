@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->foreignIdFor(JobPosition::class)->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('experience')->nullable();
-            $table->string('messege')->nullable();
+            $table->text('messege')->nullable();
             $table->string('resume')->nullable();
             $table->string('portfolio')->nullable();
             $table->integer('inserted_by')->nullable();

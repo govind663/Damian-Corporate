@@ -55,62 +55,40 @@ class sendCareerApplyMail extends Mailable
      */
     public function attachments(): array
     {
-        // Check if the file exists
+        // Function to determine MIME type based on file extension
+        $getMimeType = fn($path) => match (File::extension($path)) {
+            'pdf' => 'application/pdf',
+            'doc', 'docx' => 'application/msword',
+            'jpg', 'jpeg' => 'image/jpeg',
+            'png' => 'image/png',
+            'gif' => 'image/gif',
+            'txt' => 'text/plain',
+            default => 'application/octet-stream',
+        };
+
+        // Initialize an empty array for attachments
+        $attachments = [];
+
+        // Check if the resume file exists
         if (File::exists($this->resumePath)) {
-            // Get the original file extension
             $extension = File::extension($this->resumePath);
-
-            // Determine the MIME type based on the file extension
-            $mimeType = match ($extension) {
-                'pdf' => 'application/pdf',
-                'doc', 'docx' => 'application/msword',
-                'jpg', 'jpeg' => 'image/jpeg',
-                'png' => 'image/png',
-                'gif' => 'image/gif',
-                'txt' => 'text/plain',
-                default => 'application/octet-stream',
-            };
-
-            // Return the attachment
-            return [
-                Attachment::fromPath($this->resumePath)
-
-                    ->as('Resume.' . $extension)
-                    ->withMime($mimeType)
-                    ->withCustomHeaders([
-                        'Content-Disposition' => 'attachment; filename="Resume.' . $extension . '"',
-                    ]),
-            ];
+            $mimeType = $getMimeType($this->resumePath);
+            $attachments[] = Attachment::fromPath($this->resumePath)
+                ->as('Resume.' . $extension)
+                ->withMime($mimeType);
         }
 
+        // Check if the portfolio file exists
         if (File::exists($this->portfolioPath)) {
-            // Get the original file extension
             $extension = File::extension($this->portfolioPath);
-
-            // Determine the MIME type based on the file extension
-            $mimeType = match ($extension) {
-                'pdf' => 'application/pdf',
-                'doc', 'docx' => 'application/msword',
-                'jpg', 'jpeg' => 'image/jpeg',
-                'png' => 'image/png',
-                'gif' => 'image/gif',
-                'txt' => 'text/plain',
-                default => 'application/octet-stream',
-            };
-
-            // Return the attachment
-            return [
-                Attachment::fromPath($this->portfolioPath)
-                    ->as('Portfolio.' . $extension)
-                    ->withMime($mimeType)
-                    ->withCustomHeaders([
-                        'Content-Disposition' => 'attachment; filename="Portfolio.' . $extension . '"',
-                    ]),
-            ];
+            $mimeType = $getMimeType($this->portfolioPath);
+            $attachments[] = Attachment::fromPath($this->portfolioPath)
+                ->as('Portfolio.' . $extension)
+                ->withMime($mimeType);
         }
 
-        // Return an empty array if no file exists
-        return [];
+        // Return the accumulated attachments
+        return $attachments;
     }
 
 }

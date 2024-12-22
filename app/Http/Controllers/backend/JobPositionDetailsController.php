@@ -6,6 +6,7 @@ use App\Http\Requests\Backend\JobPositionDetailsRequest;
 use App\Models\JobPositionDetails;
 use App\Http\Controllers\Controller;
 use App\Models\JobPosition;
+use App\Models\SendCareerEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -145,5 +146,26 @@ class JobPositionDetailsController extends Controller
             return redirect()->back()->with('error','Something Went Wrong - '.$ex->getMessage());
 
         }
+    }
+
+    // ==== Fetch appliedJobApplications ====
+    public function fetchAppliedJobApplications(Request $request)
+    {
+        $sendcareeremails = SendCareerEmail::with('job_position')->orderBy("id","desc")->whereNull('deleted_at')->get();
+        // dd($sendcareeremails);
+
+        return view('backend.jobpositiondetails.applied-job-application-list', [
+            'sendcareeremails' => $sendcareeremails
+        ]);
+    }
+
+    // ==== Fetch appliedJobApplicationDetails ====
+    public function appliedJobApplicationDetails($id)
+    {
+        $sendcareeremailsdetails = SendCareerEmail::with('job_position')->findOrFail($id);
+
+        return view('backend.jobpositiondetails.applied-job-application-details', [
+            'sendcareeremailsdetails' => $sendcareeremailsdetails
+        ]);
     }
 }

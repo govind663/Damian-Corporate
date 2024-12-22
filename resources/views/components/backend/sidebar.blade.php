@@ -279,8 +279,8 @@
                             </a>
                         </li>
                         <li>
-                            <a>
-                                <span class="mtext">All Applied Job Application List </span>
+                            <a href="{{ route('applied-job-application.list') }}" class="{{ (Route::currentRouteName() === 'applied-job-application.list') || (Route::currentRouteName() === 'applied-job-application.details') ? 'active' : '' }}">
+                                <span class="mtext">Applied Job Application</span>
                             </a>
                         </li>
                     </ul>

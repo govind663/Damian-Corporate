@@ -100,8 +100,11 @@ class CareersController extends Controller
             SendCareerEmail::where('id', $sendCareerEmail->id)->update($update);
 
             // ==== Fetch Job Position
-            $job_position = JobPosition::find($request->job_position_id);
-            $job_position = $job_position->name;
+            $job_position = JobPosition::where('id', $request->job_position_id)->first();
+            // dd($job_position);
+            // ==== Fetch Job Position
+            $job_position_name = $job_position->job_title;
+            // dd($job_position_name);
 
             // Send Mail
             $mailData = [
@@ -109,7 +112,7 @@ class CareersController extends Controller
                 'address' => $request->address,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                'job_position' => $job_position,
+                'job_position' => $job_position_name,
                 'experience' => $request->experience,
                 'message' => $request->message,
             ];
@@ -119,8 +122,9 @@ class CareersController extends Controller
             $portfolioPath = public_path('/damian_corporate/send_carrer_email/portfolio/' . $sendCareerEmail->portfolio);
 
             // Send Mail with attachments
-            // Mail::to('codingthunder1997@gmail.com', 'Damian Corporate')
-            //     ->send(new sendCareerApplyMail($mailData, $resumePath, $portfolioPath));
+            Mail::to('codingthunder1997@gmail.com', 'Damian Corporate')
+                ->cc('codingthunder1997@gmail.com')
+                ->send(new sendCareerApplyMail($mailData, $resumePath, $portfolioPath));
 
             return redirect()->route('frontend.careers')->with('message','Thank you for your interest. We will get back to you within 24 hours.');
 
