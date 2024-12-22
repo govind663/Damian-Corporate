@@ -18,7 +18,6 @@
         padding: 0.375rem .75rem;
         font-size: 1rem;
         font-weight: 900px;
-        line-height: 3.5 !important;
         background-color: transparent !important;
     }
 
@@ -27,7 +26,7 @@
     }
 
     .careers-textarea textarea {
-        height: 270px !important;
+        height: 320px !important;
     }
 
     .tp-form-textarea-box textarea {
@@ -389,7 +388,8 @@
                                 </div>
 
                                 <div class="col-xl-4 col-lg-4 mb-30">
-                                    <div class="tp-form-input-box careers-input-box mb-3" style="text-align: left !important;">
+                                    <div class="tp-form-input-box careers-input-box" style="text-align: left !important;">
+                                        <label for="resume" class="form-label" style="color: #fff !important;"><b>Upload Resume : <span class="text-light">*</span></b></label>
                                         <input type="file" onchange="agentPreviewResumeFile()" accept=".png, .jpg, .jpeg, .pdf" name="resume" id="resume" class="form-control @error('resume') is-invalid @enderror" value="{{ old('resume') }}" placeholder="Upload Resume*">
                                         <small class="text-light" ><b>Note : The file size  should be less than 2MB .</b></small>
                                         <br>
@@ -407,6 +407,7 @@
                                     </div>
 
                                     <div class="tp-form-input-box careers-input-box" style="text-align: left !important;">
+                                        <label for="portfolio" class="form-label" style="color: #fff !important;"><b>Upload Portfolio : <span class="text-light">*</span></b></label>
                                         <input type="file" onchange="agentPreviewPortfolioFile()" accept=".png, .jpg, .jpeg, .pdf" name="portfolio" id="portfolio" class="form-control @error('portfolio') is-invalid @enderror" value="{{ old('portfolio') }}" placeholder="Upload Portfolio*">
                                         <small class="text-light"><b>Note : The file size  should be less than 2MB .</b></small>
                                         <br>
