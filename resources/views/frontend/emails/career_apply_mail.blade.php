@@ -82,7 +82,7 @@
         <p class="details"><strong>Name : </strong> {{ $mailData['name'] }}</p>
         <p class="details"><strong>Address : </strong> {{ $mailData['address'] }}</p>
         <p class="details"><strong>Email : </strong> {{ $mailData['email'] }}</p>
-        <p class="details"><strong>Phone No : </strong> {{ $mailData['mobile_no'] }}</p>
+        <p class="details"><strong>Phone No : </strong> +91 - {{ $mailData['phone'] }}</p>
         <p class="details"><strong>Job Position : </strong>{{ $mailData['job_position'] }}</p>
         <p class="details"><strong>Experience : </strong>{{ $mailData['experience'] }}</p>
         <p class="details"><strong>Message : </strong>{{ $mailData['message'] }}</p>
