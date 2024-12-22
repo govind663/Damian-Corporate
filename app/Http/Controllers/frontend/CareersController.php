@@ -118,9 +118,9 @@ class CareersController extends Controller
             $resumePath = public_path('/damian_corporate/send_carrer_email/resume/' . $sendCareerEmail->resume);
             $portfolioPath = public_path('/damian_corporate/send_carrer_email/portfolio/' . $sendCareerEmail->portfolio);
 
-            // Send Mail
-            Mail::to('codingthunder1997@gmail.com', 'Damian Corporate')
-                ->send(new sendCareerApplyMail($mailData, $resumePath, $portfolioPath));
+            // Send Mail with attachments
+            // Mail::to('codingthunder1997@gmail.com', 'Damian Corporate')
+            //     ->send(new sendCareerApplyMail($mailData, $resumePath, $portfolioPath));
 
             return redirect()->route('frontend.careers')->with('message','Thank you for your interest. We will get back to you within 24 hours.');
 
