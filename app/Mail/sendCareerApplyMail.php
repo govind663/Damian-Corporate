@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Attachment;
+use Illuminate\Support\Facades\File;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -14,13 +15,17 @@ class sendCareerApplyMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $mailData;
+    public $resumePath;
+    public $portfolioPath;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($mailData)
+    public function __construct($mailData, $resumePath, $portfolioPath)
     {
         $this->mailData = $mailData;
+        $this->resumePath = $resumePath;
+        $this->portfolioPath = $portfolioPath;
     }
 
     /**
@@ -50,25 +55,62 @@ class sendCareerApplyMail extends Mailable
      */
     public function attachments(): array
     {
-        $attachments = [];
+        // Check if the file exists
+        if (File::exists($this->resumePath)) {
+            // Get the original file extension
+            $extension = File::extension($this->resumePath);
 
-        // Check if the resume path exists and attach
-        if (!empty($this->mailData['resume_path']) && file_exists(public_path($this->mailData['resume_path']))) {
-            $resumeMimeType = mime_content_type(public_path($this->mailData['resume_path']));
-            $attachments[] = Attachment::fromPath(public_path($this->mailData['resume_path']))
-                                        ->as('Resume.' . pathinfo($this->mailData['resume_path'], PATHINFO_EXTENSION))
-                                        ->withMime($resumeMimeType);
+            // Determine the MIME type based on the file extension
+            $mimeType = match ($extension) {
+                'pdf' => 'application/pdf',
+                'doc', 'docx' => 'application/msword',
+                'jpg', 'jpeg' => 'image/jpeg',
+                'png' => 'image/png',
+                'gif' => 'image/gif',
+                'txt' => 'text/plain',
+                default => 'application/octet-stream',
+            };
+
+            // Return the attachment
+            return [
+                Attachment::fromPath($this->resumePath)
+
+                    ->as('Resume.' . $extension)
+                    ->withMime($mimeType)
+                    ->withCustomHeaders([
+                        'Content-Disposition' => 'attachment; filename="Resume.' . $extension . '"',
+                    ]),
+            ];
         }
 
-        // Check if the portfolio path exists and attach
-        if (!empty($this->mailData['portfolio_path']) && file_exists(public_path($this->mailData['portfolio_path']))) {
-            $portfolioMimeType = mime_content_type(public_path($this->mailData['portfolio_path']));
-            $attachments[] = Attachment::fromPath(public_path($this->mailData['portfolio_path']))
-                                        ->as('Portfolio.' . pathinfo($this->mailData['portfolio_path'], PATHINFO_EXTENSION))
-                                        ->withMime($portfolioMimeType);
+        if (File::exists($this->portfolioPath)) {
+            // Get the original file extension
+            $extension = File::extension($this->portfolioPath);
+
+            // Determine the MIME type based on the file extension
+            $mimeType = match ($extension) {
+                'pdf' => 'application/pdf',
+                'doc', 'docx' => 'application/msword',
+                'jpg', 'jpeg' => 'image/jpeg',
+                'png' => 'image/png',
+                'gif' => 'image/gif',
+                'txt' => 'text/plain',
+                default => 'application/octet-stream',
+            };
+
+            // Return the attachment
+            return [
+                Attachment::fromPath($this->portfolioPath)
+                    ->as('Portfolio.' . $extension)
+                    ->withMime($mimeType)
+                    ->withCustomHeaders([
+                        'Content-Disposition' => 'attachment; filename="Portfolio.' . $extension . '"',
+                    ]),
+            ];
         }
 
-        return $attachments;
+        // Return an empty array if no file exists
+        return [];
     }
 
 }

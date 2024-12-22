@@ -483,7 +483,7 @@
 
 {{-- Preview Resume Both Image and PDF --}}
 <script>
-    function agentPreviewFile() {
+    function agentPreviewPortfolioFile() {
         const fileInput = document.getElementById('portfolio');
         const previewContainer = document.getElementById('preview-portfolio-container');
         const filePreview = document.getElementById('file-portfolio-preview');
