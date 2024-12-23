@@ -5,43 +5,47 @@
 @endsection
 
 @push('styles')
-<style>
-    .tp-form-input-box input {
-        color: #f4f4f4 !important;
-    }
+    <style>
+        .tp-form-input-box input {
+            color: #f4f4f4 !important;
+        }
 
-    .careers-input-box input {
-        height: 66px !important;
-    }
+        .careers-input-box input {
+            height: 66px !important;
+        }
 
-    .form-control {
-        padding: 0.375rem .75rem;
-        font-size: 1rem;
-        font-weight: 900px;
-        background-color: transparent !important;
-    }
+        .form-control {
+            padding: 0.375rem .75rem;
+            font-size: 1rem;
+            font-weight: 900px;
+            background-color: transparent !important;
+        }
 
-    .careers-dropdown-select .nice-select {
-        height: 65px !important;
-    }
+        .careers-dropdown-select .nice-select {
+            height: 65px !important;
+        }
 
-    .careers-textarea textarea {
-        height: 320px !important;
-    }
+        .careers-textarea textarea {
+            height: 320px !important;
+        }
 
-    .tp-form-textarea-box textarea {
-        color: #fffdfd !important;
-    }
-</style>
+        .tp-form-textarea-box textarea {
+            color: #fffdfd !important;
+        }
+    </style>
 @endpush
 
 @section('content')
     <!-- Start Hero Area -->
     <div class="hero-slider">
+        <div class="video-container">
         @if (!empty($banners->banner_image))
-            <img src="{{ asset('/damian_corporate/banner/banner_image/' . $banners->banner_image) }}" alt="{{ $banners->banner_image }}">
+            <img src="{{ asset('/damian_corporate/banner/banner_image/' . $banners->banner_image) }}"
+                alt="{{ $banners->banner_image }}" alt="{{ $banners->banner_image }}" style="width: 100%; height: auto;">
         @elseif (!empty($banners->banner_video))
-            <video src="{{ asset('/damian_corporate/banner/banner_video/' . $banners->banner_video) }}" autoplay muted loop alt="{{ $banners->banner_video }}"></video>
+            <video src="{{ asset('/damian_corporate/banner/banner_video/' . $banners->banner_video) }}" autoplay muted loop
+                alt="{{ $banners->banner_video }}" style="width: 100%; height: auto;">
+            </video>
         @endif
         <div class="container-fluid home-container">
             <div data-wow-duration="0.15" class="hero-info text-center wow fadeInDownBig">
@@ -59,7 +63,8 @@
                     <div class="tp-hero-thumb-box home-about-us-area p-relative pr-40">
                         <div class="tp-hero-thumb wow fadeInLeft">
                             @if (!empty($introductions->introduction_image))
-                                <img src="{{ asset('/damian_corporate/introduction/introduction_image/'. $introductions->introduction_image) }}" alt="{{ $introductions->introduction_image }}">
+                                <img src="{{ asset('/damian_corporate/introduction/introduction_image/' . $introductions->introduction_image) }}"
+                                    alt="{{ $introductions->introduction_image }}">
                             @endif
                         </div>
                     </div>
@@ -67,7 +72,8 @@
                 <div class="col-xl-7 col-lg-7">
                     <div class="tp-about-content">
                         <div class="tp-about-title-box mb-20">
-                            <h3 class="tp-section-title tp-split-text tp-split-in-right">{{ $introductions->title ?? '' }}</h3>
+                            <h3 class="tp-section-title tp-split-text tp-split-in-right">{{ $introductions->title ?? '' }}
+                            </h3>
                         </div>
                         <div class="tp-about-text wow fadeInRight mb-25">
                             <p class="text-justify">{!! $introductions->description ?? '' !!}</p>
@@ -101,13 +107,17 @@
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="tp-project-2-item">
                                 <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                    <a href="{{ route('frontend.project.details', $value->slug) }}" class="tp-project-2-thumb-link" title="{{ $value->project_name }}">
-                                        <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}" alt="{{ $value->project_image }}">
+                                    <a href="{{ route('frontend.project.details', $value->slug) }}"
+                                        class="tp-project-2-thumb-link" title="{{ $value->project_name }}">
+                                        <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}"
+                                            alt="{{ $value->project_image }}">
                                     </a>
                                 </div>
                                 <div class="project-info">
                                     <h4 class="tp-project-2-title">
-                                        <a href="{{ route('frontend.project.details', $value->slug) }}" title="{{ $value->project_name }}" class="tp-project-2-title-link" target="_blank">{{ $value->project_name ?? '' }}</a>
+                                        <a href="{{ route('frontend.project.details', $value->slug) }}"
+                                            title="{{ $value->project_name }}" class="tp-project-2-title-link"
+                                            target="_blank">{{ $value->project_name ?? '' }}</a>
                                     </h4>
                                     <p>{{ $value->category?->category_name }}</p>
                                 </div>
@@ -143,15 +153,15 @@
                                 </div>
                                 <ul class="pbmit-hover-inner">
                                     @foreach ($ourServices as $key => $value)
-                                    <li>
-                                        <h3 class="pbmit-title-data-hover">
-                                            <a class="pbmit-svg-btn" href="{{ route('frontend.services') }}">
-                                                <span class="pbminfotech-box-number">{{ $key + 1 }}</span>
-                                                <span>{{ $value->service_title }}</span>
-                                                <i class="fa fa-up-right"></i>
-                                            </a>
-                                        </h3>
-                                    </li>
+                                        <li>
+                                            <h3 class="pbmit-title-data-hover">
+                                                <a class="pbmit-svg-btn" href="{{ route('frontend.services') }}">
+                                                    <span class="pbminfotech-box-number">{{ $key + 1 }}</span>
+                                                    <span>{{ $value->service_title }}</span>
+                                                    <i class="fa fa-up-right"></i>
+                                                </a>
+                                            </h3>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -203,12 +213,12 @@
                                             </div>
                                         </div>
                                         <!-- <div class="swiper-slide">
-                                          <div class="pbmit-featured-img-wrapper">
-                                             <div class="pbmit-featured-wrapper">
-                                                <img src="frontend/assets/img/service/services-3.jpg" height="500" alt="" />
-                                             </div>
-                                          </div>
-                                       </div> -->
+                                              <div class="pbmit-featured-img-wrapper">
+                                                 <div class="pbmit-featured-wrapper">
+                                                    <img src="frontend/assets/img/service/services-3.jpg" height="500" alt="" />
+                                                 </div>
+                                              </div>
+                                           </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -236,7 +246,8 @@
                         <img src="{{ asset('frontend/assets/img/testimonial/testimonials-img.jpg') }}" />
                     </div>
                 </div>
-                <img src="{{ asset('frontend/assets/img/testimonial/chair.png') }}" style="animation-duration:3s;" class="shape-chair wow bounceInRight" />
+                <img src="{{ asset('frontend/assets/img/testimonial/chair.png') }}" style="animation-duration:3s;"
+                    class="shape-chair wow bounceInRight" />
                 <div class="col-xl-9 col-lg-9 col-md-9">
                     <div class="tp-testimonial-2-wrapper p-relative">
                         <div class="swiper-container tp-testimonial-2-active">
@@ -258,10 +269,12 @@
                         </div>
                         <div class="tp-testimonial-2-arrow-box d-none d-xl-block">
                             <button class="testimonial-prev">
-                                <img src="{{ asset('frontend/assets/img/icon/left-chevron.png') }}" width="30" alt="">
+                                <img src="{{ asset('frontend/assets/img/icon/left-chevron.png') }}" width="30"
+                                    alt="">
                             </button>
                             <button class="testimonial-next">
-                                <img src="{{ asset('frontend/assets/img/icon/right-chevron.png') }}" width="30" alt="">
+                                <img src="{{ asset('frontend/assets/img/icon/right-chevron.png') }}" width="30"
+                                    alt="">
                             </button>
                         </div>
                     </div>
@@ -278,16 +291,21 @@
                 <div class="col-xl-6 col-lg-6 wow tpfadeLeft" data-wow-duration=".9s" data-wow-delay=".7s">
                     <div class="tp-contact-right">
                         <h2 class="text-center tp-split-text tp-split-in-right mb-30">Get in Touch</h2>
-                        <form method="POST" action="{{ route('send-contact-email') }}" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('send-contact-email') }}" class="form-horizontal"
+                            enctype="multipart/form-data">
                             @csrf
 
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 mb-20">
                                     <div class="tp-contact-input-box" style="text-align: left !important;">
-                                        <input type="text" name="name" id="name" style="color: #f4f4f4 !important;" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Name *">
+                                        <input type="text" name="name" id="name"
+                                            style="color: #f4f4f4 !important;"
+                                            class="form-control @error('name') is-invalid @enderror"
+                                            value="{{ old('name') }}" placeholder="Name *">
                                         <div class="tp-contact-icon">
                                             <span>
-                                                <img width="17px" src="{{ asset('frontend/assets/img/icon/user.png') }}" />
+                                                <img width="17px"
+                                                    src="{{ asset('frontend/assets/img/icon/user.png') }}" />
                                             </span>
                                         </div>
                                         @error('name')
@@ -299,15 +317,17 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12 mb-20">
                                     <div class="tp-contact-input-box" style="text-align: left !important;">
-                                        <input type="email" name="email" id="email" style="color: #f4f4f4 !important;" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Emai Id *">
+                                        <input type="email" name="email" id="email"
+                                            style="color: #f4f4f4 !important;"
+                                            class="form-control @error('email') is-invalid @enderror"
+                                            value="{{ old('email') }}" placeholder="Emai Id *">
                                         <div class="tp-contact-icon">
                                             <span>
                                                 <svg width="16" height="15" viewBox="0 0 16 15" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path
                                                         d="M14.9727 1.76172L13.2227 13.1094C13.1953 13.3828 13.0312 13.6289 12.7852 13.7656C12.6484 13.8203 12.5117 13.875 12.3477 13.875C12.2383 13.875 12.1289 13.8477 12.0195 13.793L8.68359 12.3984L7.28906 14.4766C7.17969 14.668 6.98828 14.75 6.79688 14.75C6.49609 14.75 6.25 14.5039 6.25 14.2031V11.5781C6.25 11.3594 6.30469 11.168 6.41406 11.0312L12.375 3.375L4.33594 10.6211L1.51953 9.44531C1.21875 9.30859 1 9.03516 1 8.67969C0.972656 8.29688 1.13672 8.02344 1.4375 7.85938L13.6875 0.886719C13.9609 0.722656 14.3438 0.722656 14.6172 0.914062C14.8906 1.10547 15.0273 1.43359 14.9727 1.76172Z"
-                                                        fill="currentcolor"
-                                                    />
+                                                        fill="currentcolor" />
                                                 </svg>
                                             </span>
                                         </div>
@@ -320,15 +340,17 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 mb-20">
                                     <div class="tp-contact-input-box" style="text-align: left !important;">
-                                        <input type="text" maxlength="10" name="phone" id="phone" style="color: #f4f4f4 !important;" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" placeholder="Your Phone *">
+                                        <input type="text" maxlength="10" name="phone" id="phone"
+                                            style="color: #f4f4f4 !important;"
+                                            class="form-control @error('phone') is-invalid @enderror"
+                                            value="{{ old('phone') }}" placeholder="Your Phone *">
                                         <div class="tp-contact-icon">
                                             <span>
                                                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path
                                                         d="M13.9727 11.332L13.3164 14.0938C13.2344 14.5039 12.9062 14.7773 12.4961 14.7773C5.60547 14.75 0 9.14453 0 2.25391C0 1.84375 0.246094 1.51562 0.65625 1.43359L3.41797 0.777344C3.80078 0.695312 4.21094 0.914062 4.375 1.26953L5.66016 4.25C5.79688 4.60547 5.71484 5.01562 5.41406 5.23438L3.9375 6.4375C4.86719 8.32422 6.39844 9.85547 8.3125 10.7852L9.51562 9.30859C9.73438 9.03516 10.1445 8.92578 10.5 9.0625L13.4805 10.3477C13.8359 10.5391 14.0547 10.9492 13.9727 11.332Z"
-                                                        fill="currentcolor"
-                                                    />
+                                                        fill="currentcolor" />
                                                 </svg>
                                             </span>
                                         </div>
@@ -341,7 +363,10 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 mb-20">
                                     <div class="tp-contact-input-box" style="text-align: left !important;">
-                                        <input type="text" name="address" id="address" style="color: #f4f4f4 !important;" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Address *">
+                                        <input type="text" name="address" id="address"
+                                            style="color: #f4f4f4 !important;"
+                                            class="form-control @error('address') is-invalid @enderror"
+                                            value="{{ old('address') }}" placeholder="Address *">
                                         <div class="tp-contact-icon">
                                             <span>
                                                 <svg width="11" height="15" viewBox="0 0 11 15" fill="none"
@@ -361,7 +386,8 @@
                                 </div>
                                 <div class="col-lg-12 mb-20">
                                     <div class="tp-contact-textarea-box" style="text-align: left !important;">
-                                        <textarea placeholder="Messege" rows="5" name="messege" id="messege" style="color: #f4f4f4 !important;" class="form-control @error('messege') is-invalid @enderror" value="{{ old('messege') }}" >{{ old('messege') }}</textarea>
+                                        <textarea placeholder="Messege" rows="5" name="messege" id="messege" style="color: #f4f4f4 !important;"
+                                            class="form-control @error('messege') is-invalid @enderror" value="{{ old('messege') }}">{{ old('messege') }}</textarea>
                                         <div class="tp-contact-icon">
                                             <span>
                                                 <svg width="14" height="11" viewBox="0 0 14 11" fill="none"
@@ -409,8 +435,9 @@
                 <div class="col-12">
                     <div class="tp-map-box">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3147.614091929121!2d72.8212547742511!3d19.052991752696336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c952c459fe63%3A0x4749213890924bcb!2sDamian%20Corporate%20Private%20Limited!5e1!3m2!1sen!2sin!4v1705318600227!5m2!1sen!2sin" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3147.614091929121!2d72.8212547742511!3d19.052991752696336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c952c459fe63%3A0x4749213890924bcb!2sDamian%20Corporate%20Private%20Limited!5e1!3m2!1sen!2sin!4v1705318600227!5m2!1sen!2sin"
+                            frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="600"
+                            height="450" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade">
                         </iframe>
                     </div>
@@ -422,21 +449,4 @@
 @endsection
 
 @push('scripts')
-    <script>
-        $(function() {
-            $(".tp-project-2-wrapper .col-md-4").slice(0, 9).show();
-            $("body").on('click touchstart', '.load-more', function(e) {
-                e.preventDefault();
-                $(".tp-project-2-wrapper .col-md-4:hidden").slice(0, 3).slideDown();
-                if ($(".tp-project-2-wrapper .col-md-4:hidden").length == 0) {
-                    $(".load-more").css('visibility', 'hidden');
-                }
-            });
-        });
-
-        // 01. PreLoader Js
-        windowOn.on('load', function() {
-            $("#loading").fadeOut(500);
-        });
-    </script>
 @endpush

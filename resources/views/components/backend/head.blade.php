@@ -5,7 +5,6 @@
 <meta name="description" content="Damian Corporate">
 <meta name="keywords" content="Damian Corporate, Damian, Corporate">
 <meta name="author" content="Damian Corporate,">
-<meta name="robots" content="index, follow, noarchive, noimageindex, nosnippet, noydir, noodp, notranslate, noyaca">
 
 <!-- Title -->
 <title>@yield('title')</title>
