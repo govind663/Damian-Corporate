@@ -125,10 +125,18 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="tpoffcanvas__social">
                         <div class="social-icon">
-                            <a href="https://www.instagram.com/damiancorporate/"><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.linkedin.com/company/damian-corporate/"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="https://www.facebook.com/DamianCorporate/"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://api.whatsapp.com/send/?phone=918433934664&text&type=phone_number&app_absent=0"><i class="fab fa-whatsapp"></i></a>
+                            <a href="https://www.instagram.com/damiancorporate/" target="_blank" rel="noopener noreferrer" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/company/damian-corporate/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://www.facebook.com/DamianCorporate/" target="_blank" rel="noopener noreferrer" title="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://api.whatsapp.com/send/?phone=918433934664&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" title="Whatsapp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
