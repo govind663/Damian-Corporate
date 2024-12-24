@@ -13,7 +13,7 @@ class ServicesController extends Controller
     public function services()
     {
         // === Fetch Company Information ===
-        $ourServices = OurServices::where('status', 1)->orderBy("id","desc")->whereNull('deleted_at')->get();
+        $ourServices = OurServices::where('status', 1)->orderBy("id","asc")->whereNull('deleted_at')->get();
         // return($ourServices);
 
         // === Fetch Projects ===

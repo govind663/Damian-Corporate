@@ -69,15 +69,14 @@
                 </div>
                 <div class="col-xl-12">
                     <div class="tp-project-filter masonary-menu text-center pb-60">
-                        <!-- "All Projects" Button -->
-                        <button data-filter="*" class="active"><span>All Projects</span></button>
-
                         <!-- Dynamically Generated Category Buttons -->
                         @foreach ($categories as $category)
                             <button data-filter=".{{ Str::slug($category->category_name) }}" class="{{ request('category') == $category->id ? 'active' : '' }}" style="margin-bottom: 30px;">
                                 <span>{{ $category->category_name ?? '' }}</span>
                             </button>
                         @endforeach
+                        <!-- "All Projects" Button -->
+                        <button data-filter="*" class="active"><span>All Projects</span></button>
                     </div>
                 </div>
             </div>
