@@ -109,7 +109,7 @@
                             <div class="tp-project-2-item">
                                 <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
                                     <a href="{{ route('frontend.project.details', $value->slug) }}" class="tp-project-2-thumb-link" title="{{ $value->project_name }}">
-                                        <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}" alt="{{ $value->project_image }}">
+                                        <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}" alt="{{ $value->project_image }}" style="width: 400px !important; height: 241px !important;">
                                     </a>
                                 </div>
                                 <div class="project-info">
