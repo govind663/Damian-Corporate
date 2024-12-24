@@ -64,9 +64,12 @@
                     <div class="tp-hero-thumb-box home-about-us-area p-relative pr-40">
                         <div class="tp-hero-thumb wow fadeInLeft">
                             @if (!empty($introductions->introduction_image))
-                                <img src="{{ asset('/damian_corporate/introduction/introduction_image/' . $introductions->introduction_image) }}"
-                                    alt="{{ $introductions->introduction_image }}">
+                                <img src="{{ asset('/damian_corporate/introduction/introduction_image/' . $introductions->introduction_image) }}" alt="{{ $introductions->introduction_image }}">
+                            @else
+                            <img src="{{ asset('frontend/assets/img/about/All_Media_homepage_2024-11-12_Damian_corporates_home-about-us-img') }}" alt="All_Media_homepage_2024-11-12_Damian_corporates_home-about-us-img">
                             @endif
+
+
                         </div>
                     </div>
                 </div>
