@@ -27,7 +27,7 @@ class HomeController extends Controller
 
         $testimonials = Testimonial::orderBy("id","desc")->where('status',1)->whereNull('deleted_at')->get();
 
-        $projects = Project::with('category')->orderBy("id","desc")->where('status',1)->whereNull('deleted_at')->paginate(9);
+        $projects = Project::with('category')->orderBy("id","asc")->where('status',1)->whereNull('deleted_at')->paginate(9);
 
         $ourServices = OurServices::orderBy("id","asc")->where('status',1)->whereNull('deleted_at')->get();
 
