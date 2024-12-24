@@ -87,7 +87,7 @@
                     <div class="col-lg-4 col-md-4 grid-item {{ Str::slug($value->category->category_name) }}">
                         <div class="p-relative portfolio-section-item">
                             <div class="box">
-                                <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}" alt="{{ $value->project_image }}" style="width: 100% !important; height: 416px !important;">
+                                <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}" alt="{{ $value->project_image }}" style="width: 418.36px !important; height: 348.49px !important;">
                                 <div class="box-content">
                                     <div class="inner-content">
                                         <h3 class="title">{{ $value->project_name }}</h3>
