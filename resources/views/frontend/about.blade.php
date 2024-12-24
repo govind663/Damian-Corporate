@@ -206,15 +206,15 @@
                                 <div class="board-directors-grid">
                                     <div class="board-directors-image">
                                         <a href="#" class="image">
-                                            <img class="pic-1" src="{{ asset('/damian_corporate/team_member/member_profile_image/' . $member->member_profile_image) }}" alt="{{ $member->member_profile_image }}">
+                                            <img class="pic-1" src="{{ asset('/damian_corporate/team_member/member_profile_image/' . $member->member_profile_image) }}" alt="{{ $member->member_profile_image }}" style="width: 269px !important; height: 480px !important;">
                                         </a>
-                                        <ul class="board-directors-links">
+                                        {{-- <ul class="board-directors-links">
                                             <li>
                                                 <a href="#" class="linkedin">
                                                     <img src="{{ asset('frontend/assets/img/icon/linkedin.png') }}" alt="LinkedIn">
                                                 </a>
                                             </li>
-                                        </ul>
+                                        </ul> --}}
                                     </div>
                                     <div class="board-directors-content">
                                         <h3 class="board-directors-title">
