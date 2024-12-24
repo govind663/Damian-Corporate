@@ -39,14 +39,15 @@
     <!-- Start Hero Area -->
     <div class="hero-slider">
         <div class="video-container">
-        @if (!empty($banners->banner_image))
-            <img src="{{ asset('/damian_corporate/banner/banner_image/' . $banners->banner_image) }}"
-                alt="{{ $banners->banner_image }}" alt="{{ $banners->banner_image }}" style="width: 100%; height: auto;">
-        @elseif (!empty($banners->banner_video))
-            <video src="{{ asset('/damian_corporate/banner/banner_video/' . $banners->banner_video) }}" autoplay muted loop
-                alt="{{ $banners->banner_video }}" style="width: 100%; height: auto;">
-            </video>
-        @endif
+            @if (!empty($banners->banner_image))
+                <img src="{{ asset('/damian_corporate/banner/banner_image/' . $banners->banner_image) }}"
+                    alt="{{ $banners->banner_image }}" alt="{{ $banners->banner_image }}" style="width: 100%; height: auto;">
+            @elseif (!empty($banners->banner_video))
+                <video src="{{ asset('/damian_corporate/banner/banner_video/' . $banners->banner_video) }}" autoplay muted loop
+                    alt="{{ $banners->banner_video }}" style="width: 100%; height: auto;">
+                </video>
+            @endif
+        </div>
         <div class="container-fluid home-container">
             <div data-wow-duration="0.15" class="hero-info text-center wow fadeInDownBig">
                 <h1>Design meets Luxury</h1>
@@ -104,20 +105,16 @@
             <div class="tp-project-2-wrapper portfolio-section">
                 <div class="row">
                     @foreach ($projects as $value)
-                        <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                             <div class="tp-project-2-item">
                                 <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                    <a href="{{ route('frontend.project.details', $value->slug) }}"
-                                        class="tp-project-2-thumb-link" title="{{ $value->project_name }}">
-                                        <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}"
-                                            alt="{{ $value->project_image }}">
+                                    <a href="{{ route('frontend.project.details', $value->slug) }}" class="tp-project-2-thumb-link" title="{{ $value->project_name }}">
+                                        <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}" alt="{{ $value->project_image }}">
                                     </a>
                                 </div>
                                 <div class="project-info">
                                     <h4 class="tp-project-2-title">
-                                        <a href="{{ route('frontend.project.details', $value->slug) }}"
-                                            title="{{ $value->project_name }}" class="tp-project-2-title-link"
-                                            target="_blank">{{ $value->project_name ?? '' }}</a>
+                                        <a href="{{ route('frontend.project.details', $value->slug) }}" title="{{ $value->project_name }}" class="tp-project-2-title-link" target="_blank">{{ $value->project_name ?? '' }}</a>
                                     </h4>
                                     <p>{{ $value->category?->category_name }}</p>
                                 </div>

@@ -23,13 +23,15 @@
                                 <a class="nav-link" href="portfolio.html">Portfolio</a>
                             </li> --}}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('frontend.store') }}">Store</a>
+                                {{-- <a class="nav-link" href="{{ route('frontend.store') }}">Store</a> --}}
+                                <a class="nav-link" href="#">Store</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('frontend.awards') }}">Awards & Media</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('frontend.blogs') }}">Blogs</a>
+                                {{-- <a class="nav-link" href="{{ route('frontend.blogs') }}">Blogs</a> --}}
+                                <a class="nav-link" href="#">Blogs</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('frontend.careers') }}">Careers</a>
