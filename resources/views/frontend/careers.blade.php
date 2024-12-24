@@ -11,7 +11,8 @@
     }
 
     .careers-input-box input {
-        height: 66px !important;
+        height: 49px !important;
+        line-height: 36px !important;
     }
 
     .form-control {
@@ -22,7 +23,11 @@
     }
 
     .careers-dropdown-select .nice-select {
-        height: 65px !important;
+        height: 49px !important;
+    }
+
+    .careers-dropdown-select .nice-select {
+        line-height: 38px !important;
     }
 
     .careers-textarea textarea {
@@ -32,26 +37,21 @@
     .tp-form-textarea-box textarea {
         color: #fffdfd !important;
     }
+
 </style>
 @endpush
 
 @section('content')
     <!-- breadcrumb area start -->
-    <div class="breadcrumb-section breadcrumb__pt services-breadcrumb"
-        style="background-image: url({{ asset('frontend/assets/img/breadcrumbs/careers-breadcrumb.png') }}) !important;">
-        <div class="breadcrumb__area breadcrumb__height p-relative fix">
-            <div class="container-fluid home-container">
-                <div class="row">
-                    <div class="col-xxl-12">
-                        <div class="breadcrumb__content">
-                            <div class="breadcrumb__section-title-box mb-20">
-                                <h3 class="breadcrumb__title tp-split-text tp-split-in-right">Careers</h3>
-                            </div>
-                            <div class="breadcrumb__list">
-                                <span><a href="{{ route('frontend.home') }}">Home</a></span>
-                                <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
-                                <span>Careers</span>
-                            </div>
+    <div class="bre-sec">
+        <div class="container-fluid home-container">
+            <div class="row">
+                <div class="col-xxl-12">
+                    <div class="breadcrumb-content">
+                        <div class="breadcrumb__list">
+                            <span><a href="{{ route('frontend.home') }}">Home</a></span>
+                            <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
+                            <span>Careers</span>
                         </div>
                     </div>
                 </div>
@@ -378,7 +378,7 @@
 
                                 <div class="col-xl-8 col-lg-8 mb-30" style="text-align: left !important;">
                                     <div class="tp-form-textarea-box careers-textarea">
-                                        <textarea placeholder="Messege" rows="5" name="messege" id="messege" class="form-control @error('messege') is-invalid @enderror" value="{{ old('messege') }}" >{{ old('messege') }}</textarea>
+                                        <textarea placeholder="Messege" row="5" name="messege" id="messege" class="form-control @error('messege') is-invalid @enderror" value="{{ old('messege') }}" >{{ old('messege') }}</textarea>
                                         @error('messege')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -387,7 +387,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xl-4 col-lg-4 mb-30">
+                                <div class="col-xl-4 col-lg-4">
                                     <div class="tp-form-input-box careers-input-box" style="text-align: left !important;">
                                         <label for="resume" class="form-label" style="color: #fff !important;"><b>Upload Resume : <span class="text-light">*</span></b></label>
                                         <input type="file" onchange="agentPreviewResumeFile()" accept=".png, .jpg, .jpeg, .pdf" name="resume" id="resume" class="form-control @error('resume') is-invalid @enderror" value="{{ old('resume') }}" placeholder="Upload Resume*">
