@@ -27,7 +27,7 @@ class ServicesController extends Controller
                     ->get();
 
 
-        $categories = Category::orderBy("id","desc")->whereNull('deleted_at')->get();
+        $categories = Category::orderBy("id","asc")->whereNull('deleted_at')->get();
 
         return view('frontend.services', [
             'categories' => $categories,
