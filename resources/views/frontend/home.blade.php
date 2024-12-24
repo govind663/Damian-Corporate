@@ -63,13 +63,11 @@
                 <div class="col-xl-5 col-lg-5">
                     <div class="tp-hero-thumb-box home-about-us-area p-relative pr-40">
                         <div class="tp-hero-thumb wow fadeInLeft">
-                            @if (!empty($introductions->introduction_image))
+                            {{-- @if (!empty($introductions->introduction_image))
                                 <img src="{{ asset('/damian_corporate/introduction/introduction_image/' . $introductions->introduction_image) }}" alt="{{ $introductions->introduction_image }}">
-                            @else
-                            <img src="{{ asset('frontend/assets/img/about/All_Media_homepage_2024-11-12_Damian_corporates_home-about-us-img') }}" alt="All_Media_homepage_2024-11-12_Damian_corporates_home-about-us-img">
-                            @endif
+                            @endif --}}
 
-
+                            <img src="{{ asset('frontend/assets/img/about/About_Us.png') }}" alt="About_US">
                         </div>
                     </div>
                 </div>
@@ -80,7 +78,10 @@
                             </h3>
                         </div>
                         <div class="tp-about-text wow fadeInRight mb-25">
-                            <p class="text-justify">{!! $introductions->description ?? '' !!}</p>
+                            {{-- Add word Limit count --}}
+                            <p class="text-justify">
+                                {!! Str::limit($introductions->description ?? '', 550) !!}
+                            </p>
                         </div>
                         <a class="tp-btn-black" href="{{ route('frontend.about') }}">
                             <span>Know More</span>
