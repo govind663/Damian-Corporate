@@ -72,7 +72,22 @@
                         <!-- Dynamically Generated Category Buttons -->
                         @foreach ($categories as $category)
                             <button data-filter=".{{ Str::slug($category->category_name) }}" class="{{ request('category') == $category->id ? 'active' : '' }}" style="margin-bottom: 30px;">
-                                <span>{{ $category->category_name ?? '' }}</span>
+                                @php
+                                    $categoryName = '';
+
+                                    if ($category->unique_number == '1') {
+                                        $categoryName = 'Architectural';
+                                    } elseif ($category->unique_number == '2') {
+                                        $categoryName = 'Residential';
+                                    } elseif ($category->unique_number == '3') {
+                                        $categoryName = 'Commercial';
+                                    } elseif ($category->unique_number == '4') {
+                                        $categoryName = 'Hospitality';
+                                    } elseif ($category->unique_number == '5') {
+                                        $categoryName = 'Modular Furniture & Partition Systems';
+                                    }
+                                @endphp
+                                <span>{{ $categoryName }}</span>
                             </button>
                         @endforeach
                         <!-- "All Projects" Button -->
