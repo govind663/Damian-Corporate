@@ -5,8 +5,12 @@
 @endsection
 
 @push('styles')
-<!-- Fancybox CSS -->
-<link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" rel="stylesheet">
+<style>
+    .awards-media-grid .awards-media-title {
+        font-family: Averta-Regular !important;
+        font-size: 20px !important;
+    }
+</style>
 @endpush
 
 @section('content')
@@ -39,20 +43,25 @@
                 </div>
 
                 @foreach ($award_medias as $award_media)
-                    <div class="col-md-3 col-sm-6">
+                    <div class="col-md-4 col-sm-6">
                         <div class="awards-media-grid">
                             <div class="awards-media-image">
-                                <a href="{{ asset('/damian_corporate/award_media/award_image/' . $award_media->award_image) }}"
+                                {{-- <a href="{{ asset('/damian_corporate/award_media/award_image/' . $award_media->award_image) }}"
                                    data-fancybox="awards-gallery"
                                    data-caption="{{ $award_media->description ?? 'Achievement' }}">
                                     <img class="pic-1"
                                          src="{{ asset('/damian_corporate/award_media/award_image/' . $award_media->award_image) }}"
                                          alt="{{ $award_media->award_image ?? '' }}"
-                                         style="height: 450px !important;">
-                                </a>
+                                         style="height: auto; width: 100%;">
+                                </a> --}}
+
+                                <img class="pic-1"
+                                    src="{{ asset('/damian_corporate/award_media/award_image/' . $award_media->award_image) }}"
+                                    alt="{{ $award_media->award_image ?? '' }}"
+                                    style="height: auto; width: 100%;">
                             </div>
                             <div class="awards-media-content">
-                                <h3 class="awards-media-title" style="min-height: 40">{!! $award_media->description ?? '' !!}</h3>
+                                <h2 class="awards-media-title" style="min-height: 40">{!! $award_media->description ?? '' !!}</h2>
                                 <div class="awards-media-year">{{ $award_media->year ?? '' }}</div>
                             </div>
                         </div>
@@ -65,6 +74,4 @@
 @endsection
 
 @push('scripts')
-<!-- Fancybox JS -->
-<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
 @endpush

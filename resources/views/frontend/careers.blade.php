@@ -75,7 +75,6 @@
                 </div>
                 <div class="col-xl-6 col-lg-6">
                     <div class="tp-about-content">
-
                         <div class="tp-about-text wow fadeInRight mb-25" style="color: rgb(255, 255, 255) !important; text-align: justify !important;">
                             {!! $careers->description !!}
                         </div>
