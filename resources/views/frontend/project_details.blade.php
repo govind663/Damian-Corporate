@@ -134,7 +134,7 @@
             </div>
         </div>
     </div>
-    <!-- Projects Details area end -->
+    {{-- <!-- Projects Details area end -->
 
 
     <!-- Projects Details area end -->
@@ -186,7 +186,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @push('scripts')
