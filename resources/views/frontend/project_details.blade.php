@@ -9,22 +9,17 @@
 
 @section('content')
     <!-- breadcrumb area start -->
-    <div class="breadcrumb-section breadcrumb__pt" style="background-image: url({{ asset('/damian_corporate/project/project_image/' . $project->project_image) }});">
-        <div class="breadcrumb__area breadcrumb__height p-relative fix">
-            <div class="container-fluid home-container">
-                <div class="row">
-                    <div class="col-xxl-12">
-                        <div class="breadcrumb__content">
-                            <div class="breadcrumb__section-title-box mb-20">
-                                <h3 class="breadcrumb__title tp-split-text tp-split-in-right">Project Details</h3>
-                            </div>
-                            <div class="breadcrumb__list">
-                                <span><a href="{{ route('frontend.home') }}">Home</a></span>
-                                <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
-                                <span>Project Details</span>
-                                <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
-                                <span>{{ $project->project_name }}</span>
-                            </div>
+    <div class="bre-sec">
+        <div class="container-fluid home-container">
+            <div class="row">
+                <div class="col-xxl-12">
+                    <div class="breadcrumb-content">
+                        <div class="breadcrumb__list">
+                            <span><a href="{{ route('frontend.home') }}">Home</a></span>
+                            <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
+                            <span>Project Details</span>
+                            <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
+                            <span>{{ $project->project_name }}</span>
                         </div>
                     </div>
                 </div>
