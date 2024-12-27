@@ -124,7 +124,7 @@
                         <div class="col-xl-8 col-lg-8">
                             <div class="tp-project-details-content pt-45">
                                 <h5 class="tp-project-2-title project-detail-">Project Description:</h5>
-                                <p class="mb-0 text-justify">
+                                <p class="mb-0 text-justify" style="text-align: justify !important;">
                                     {!! $projectDetails->project_description ?? '' !!}
                                 </p>
                             </div>
