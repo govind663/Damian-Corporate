@@ -22,9 +22,8 @@
                             {{-- <li class="nav-item">
                                 <a class="nav-link" href="portfolio.html">Portfolio</a>
                             </li> --}}
-                            <li class="nav-item">
-                                {{-- <a class="nav-link" href="{{ route('frontend.store') }}">Store</a> --}}
-                                <a class="nav-link" href="#">Store</a>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ route('frontend.products') }}">Store</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('frontend.awards') }}">Awards & Media</a>

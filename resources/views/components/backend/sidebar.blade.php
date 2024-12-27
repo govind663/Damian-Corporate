@@ -232,7 +232,7 @@
                     </a>
                 </li>
 
-                <li class="dropdown {{ (Route::currentRouteName() === 'blog-category.index') || (Route::currentRouteName() === 'blog-category.create') || (Route::currentRouteName() === 'blog-category.edit') || (Route::currentRouteName() === 'blogs.index') || (Route::currentRouteName() === 'blogs.create') || (Route::currentRouteName() === 'blogs.edit') ? 'show' : '' }}">
+                {{-- <li class="dropdown {{ (Route::currentRouteName() === 'blog-category.index') || (Route::currentRouteName() === 'blog-category.create') || (Route::currentRouteName() === 'blog-category.edit') || (Route::currentRouteName() === 'blogs.index') || (Route::currentRouteName() === 'blogs.create') || (Route::currentRouteName() === 'blogs.edit') ? 'show' : '' }}">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon bi bi-file-post"></span>
                         <span class="mtext">Blog</span>
@@ -250,7 +250,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <li class="dropdown {{ (Route::currentRouteName() === 'careers.index') || (Route::currentRouteName() === 'careers.create') || (Route::currentRouteName() === 'careers.edit')  ? 'show' : '' }}">
                     <a href="javascript:;" class="dropdown-toggle">

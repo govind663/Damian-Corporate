@@ -7,8 +7,34 @@ use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
-    public function store()
+    // ==== Products
+    public function storeProductsList()
     {
-        return view('frontend.store');
+        return view('frontend.store.products');
     }
+
+    // ==== Product Details
+    public function productDetails()
+    {
+        return view('frontend.store.product-details');
+    }
+
+    // ==== Add to Cart
+    public function cart()
+    {
+        return view('frontend.store.cart');
+    }
+
+    // ==== Add to Wishlist
+    public function wishlist()
+    {
+        return view('frontend.store.wishlist');
+    }
+
+    // ==== Checkout
+    public function checkout()
+    {
+        return view('frontend.store.checkout');
+    }
+
 }

@@ -62,9 +62,6 @@ Route::group(['prefix'=> '', 'middleware'=>[PreventBackHistoryMiddleware::class]
     // ==== Services
     Route::get('/services', [ServicesController::class, 'services'])->name('frontend.services');
 
-    // ==== Store
-    Route::get('store',[StoreController::class, 'store'])->name('frontend.store');
-
     // ==== Awards & Media
     Route::get('/awards-media', [AwardsMediaController::class, 'awards'])->name('frontend.awards');
 
@@ -82,6 +79,44 @@ Route::group(['prefix'=> '', 'middleware'=>[PreventBackHistoryMiddleware::class]
 
     // ==== Subscribe Newsletter
     Route::post('subscribe-newsletter', [FrontendHomeController::class, 'subscribeNewsletter'])->name('subscribe-newsletter');
+
+});
+
+// ==== Store Product [Ecommerce] Group
+Route::group(['prefix'=> 'store'], function(){
+
+    // ==== Store Register
+    Route::get('register', [RegisterController::class, 'register'])->name('frontend.register');
+    Route::post('register/store', [RegisterController::class, 'store'])->name('frontend.register.store');
+
+    // ==== Store Login
+    Route::get('login', [LoginController::class, 'login'])->name('frontend.login');
+    Route::post('login/store', [LoginController::class, 'loginStore'])->name('frontend.login.store');
+    Route::get('logout', [LoginController::class, 'logout'])->name('frontend.logout');
+
+    // ===== Send Password Reset Link
+    Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('frontend.forget-password.request');
+    Route::post('forgot-password/send-email-link', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('frontend.forget-password.send-email-link.store');
+
+    // ===== Reset Password
+    Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('frontend.password.reset');
+    Route::post('reset-password', [ResetPasswordController::class, 'updatePassword'])->name('frontend.password.update');
+
+    // ==== Products
+    Route::get('products',[StoreController::class, 'storeProductsList'])->name('frontend.products');
+
+    // ==== Product Details
+    // Route::get('product-details/{slug?}', [StoreController::class, 'productDetails'])->name('frontend.product.details');
+    Route::get('product-details', [StoreController::class, 'productDetails'])->name('frontend.product.details');
+
+    // ==== Add to Cart
+    Route::get('cart', [StoreController::class, 'cart'])->name('frontend.cart');
+
+    // ==== Add to Wishlist
+    Route::get('wishlist', [StoreController::class, 'wishlist'])->name('frontend.wishlist');
+
+    // ==== Checkout
+    Route::get('checkout', [StoreController::class, 'checkout'])->name('frontend.checkout');
 
 });
 

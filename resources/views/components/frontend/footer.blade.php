@@ -48,9 +48,9 @@
                             <ul>
                                 <li><a href="{{ route('frontend.about') }}"><i class="fa-solid fa-angles-right"></i>About Us</a></li>
                                 <li><a href="{{ route('frontend.services') }}"><i class="fa-solid fa-angles-right"></i>Services</a></li>
-                                <li><a href="{{ route('frontend.store') }}"><i class="fa-solid fa-angles-right"></i>Store</a></li>
+                                <li><a href="{{ route('frontend.products') }}"><i class="fa-solid fa-angles-right"></i>Store</a></li>
                                 <li><a href="{{ route('frontend.awards') }}"><i class="fa-solid fa-angles-right"></i>Awards & Media</a></li>
-                                <li><a href="{{ route('frontend.blogs') }}"><i class="fa-solid fa-angles-right"></i>Blogs</a> </li>
+                                {{-- <li><a href="{{ route('frontend.blogs') }}"><i class="fa-solid fa-angles-right"></i>Blogs</a> </li> --}}
                                 <li><a href="{{ route('frontend.careers') }}"><i class="fa-solid fa-angles-right"></i>Careers</a></li>
                             </ul>
                         </div>
