@@ -43,7 +43,7 @@
                 <div class="col-xxl-12">
                     <div class="breadcrumb-content">
                         <div class="breadcrumb__list">
-                            <span><a href="{{ route('frontend.home') }}">Home</a></span>
+                            <span><a href="{{ route('frontend.home') }}" title="Home">Home</a></span>
                             <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
                             <span>Contact Us</span>
                         </div>
@@ -61,10 +61,11 @@
                 <div class="col-xl-5 col-lg-5">
                     <div class="tp-contact-left">
                         <div class="tp-contact-title-box mb-20">
-                            <h3 class="tp-section-title text-white tp-split-text tp-split-in-right">Let's
-                                Get In Touch</h3>
+                            <h3 class="tp-section-title text-white tp-split-text tp-split-in-right">
+                                Let's
+                                Get In Touch
+                            </h3>
                         </div>
-                        <!-- <p>Feel free to contact us for any inquiries, questions, or assistance.</p> -->
                     </div>
                     <div class="tp-contact-box">
                         <ul>
@@ -82,7 +83,7 @@
                                     </div>
                                     <div class="tp-contact-content">
                                         <h6 class="contact-heading content-header-area">Address</h6>
-                                        <a href="{{ $location_link }}" target="_blank" class="text-white">
+                                        <a href="{{ $location_link }}" target="_blank" class="text-white" title="Google Map">
                                             {{ $company_address }}
                                         </a>
                                     </div>
@@ -102,7 +103,7 @@
                                     </div>
                                     <div class="tp-contact-content">
                                         <h6 class="contact-heading content-header-area">Email</h6>
-                                        <a href="mailto:{{ $company_informations->company_email ?? '' }}" class="text-white">
+                                        <a href="mailto:{{ $company_informations->company_email ?? '' }}" class="text-white" title="Email">
                                             {{ $company_informations->company_email ?? '' }}
                                         </a>
                                     </div>
@@ -122,7 +123,7 @@
                                     </div>
                                     <div class="tp-contact-content">
                                         <h6 class="contact-heading content-header-area">Phone number</h6>
-                                        <a href="tel:+91-{{ $company_informations->company_phone ?? '' }}" class="text-white">
+                                        <a href="tel:+91-{{ $company_informations->company_phone ?? '' }}" class="text-white" title="Phone">
                                             +91-{{ $company_informations->company_phone ?? '' }}
                                         </a>
                                     </div>

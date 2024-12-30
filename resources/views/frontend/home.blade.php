@@ -41,10 +41,10 @@
         <div class="video-container">
             @if (!empty($banners->banner_image))
                 <img src="{{ asset('/damian_corporate/banner/banner_image/' . $banners->banner_image) }}"
-                    alt="{{ $banners->banner_image }}" alt="{{ $banners->banner_image }}" style="width: 100%; height: auto;">
+                    alt="{{ $banners->banner_image }}" title="{{ $banners->banner_image }}" style="width: 100%; height: auto;">
             @elseif (!empty($banners->banner_video))
                 <video src="{{ asset('/damian_corporate/banner/banner_video/' . $banners->banner_video) }}" autoplay muted loop
-                    alt="{{ $banners->banner_video }}" style="width: 100%; height: auto;">
+                    alt="{{ $banners->banner_video }}" title="{{ $banners->banner_video }}" style="width: 100%; height: auto;">
                 </video>
             @endif
         </div>
@@ -67,7 +67,7 @@
                                 <img src="{{ asset('/damian_corporate/introduction/introduction_image/' . $introductions->introduction_image) }}" alt="{{ $introductions->introduction_image }}">
                             @endif --}}
 
-                            <img src="{{ asset('frontend/assets/img/about/About_Us.png') }}" alt="About_US">
+                            <img src="{{ asset('frontend/assets/img/about/About_Us.png') }}" alt="About_US" title="About_US">
                         </div>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                             <div class="tp-project-2-item">
                                 <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
                                     <a href="{{ route('frontend.project.details', $value->slug) }}" class="tp-project-2-thumb-link" title="{{ $value->project_name }}">
-                                        <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}" alt="{{ $value->project_image }}" style="width: 400px !important; height: 241px !important;">
+                                        <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}" alt="{{ $value->project_image }}" title="{{ $value->project_image }}" style="width: 400px !important; height: 241px !important;">
                                     </a>
                                 </div>
                                 <div class="project-info">
@@ -149,14 +149,15 @@
                         <div class="pbmit-main-hover-slider">
                             <div class="swiper-hover-slide-nav col-md-12 col-lg-6">
                                 <div class="tp-testimonial-2-title-box mb-65">
-                                    <h3 class="tp-section-title tp-split-text tp-split-in-right">Services
+                                    <h3 class="tp-section-title tp-split-text tp-split-in-right">
+                                        Services
                                     </h3>
                                 </div>
                                 <ul class="pbmit-hover-inner">
                                     @foreach ($ourServices as $key => $value)
                                         <li>
                                             <h3 class="pbmit-title-data-hover">
-                                                <a class="pbmit-svg-btn" href="{{ route('frontend.services') }}">
+                                                <a class="pbmit-svg-btn" href="{{ route('frontend.services') }}" title="{{ $value->service_title }}">
                                                     <span class="pbminfotech-box-number">{{ $key + 1 }}</span>
                                                     <span>{{ $value->service_title }}</span>
                                                     <i class="fa fa-up-right"></i>
@@ -173,7 +174,7 @@
                                             <div class="pbmit-featured-img-wrapper">
                                                 <div class="pbmit-featured-wrapper">
                                                     <video
-                                                        src="{{ asset('frontend/assets/video/Architectural-Design-Build.mp4') }}"
+                                                        src="{{ asset('frontend/assets/video/Architectural-Design-Build.mp4') }}" alt="Architectural Design Build"
                                                         autoplay muted loop height="425" width="570"></video>
                                                     <!--<img src="frontend/assets/img/service/architecture-design-build.png"-->
                                                     <!--   height="500px" alt="">-->
@@ -184,7 +185,7 @@
                                             <div class="pbmit-featured-img-wrapper">
                                                 <div class="pbmit-featured-wrapper">
                                                     <video
-                                                        src="{{ asset('frontend/assets/video/Residential-Design-Build.mp4') }}"
+                                                        src="{{ asset('frontend/assets/video/Residential-Design-Build.mp4') }}" alt="Residential Design Build"
                                                         autoplay muted loop height="425" width="570"></video>
                                                     <!--<img src="frontend/assets/img/service/Residential Design & Build.jpeg"-->
                                                     <!--   height="500px" alt="">-->
@@ -195,7 +196,7 @@
                                             <div class="pbmit-featured-img-wrapper">
                                                 <div class="pbmit-featured-wrapper">
                                                     <video
-                                                        src="{{ asset('frontend/assets/video/Commercial-Design-Build.mp4') }}"
+                                                        src="{{ asset('frontend/assets/video/Commercial-Design-Build.mp4') }}" alt="Commercial Design Build"
                                                         autoplay muted loop height="425" width="570"></video>
                                                     <!--<img src="frontend/assets/img/service/Commercial Design & Build.jpeg"-->
                                                     <!--   height="500" alt="" />-->
@@ -206,20 +207,13 @@
                                             <div class="pbmit-featured-img-wrapper">
                                                 <div class="pbmit-featured-wrapper">
                                                     <video
-                                                        src="{{ asset('frontend/assets/video/Modular-Furniture-Design-Build.mp4') }}"
+                                                        src="{{ asset('frontend/assets/video/Modular-Furniture-Design-Build.mp4') }}" alt="Modular Furniture Design Build"
                                                         autoplay muted loop height="425" width="570"></video>
                                                     <!--<img src="frontend/assets/img/service/Partition Systems.jpeg" height="500"-->
                                                     <!--   alt="" />-->
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <div class="swiper-slide">
-                                              <div class="pbmit-featured-img-wrapper">
-                                                 <div class="pbmit-featured-wrapper">
-                                                    <img src="frontend/assets/img/service/services-3.jpg" height="500" alt="" />
-                                                 </div>
-                                              </div>
-                                           </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -244,11 +238,10 @@
             <div class="row align-items-center testimonial-info-sec">
                 <div class="col-xl-3 col-lg-3 col-md-3 col">
                     <div class="tp-testimonial-2-thumb">
-                        <img src="{{ asset('frontend/assets/img/testimonial/testimonials-img.jpg') }}" />
+                        <img src="{{ asset('frontend/assets/img/testimonial/testimonials-img.jpg') }}" alt="testimonials-img" title="testimonials-img" />
                     </div>
                 </div>
-                <img src="{{ asset('frontend/assets/img/testimonial/chair.png') }}" style="animation-duration:3s;"
-                    class="shape-chair wow bounceInRight" />
+                <img src="{{ asset('frontend/assets/img/testimonial/chair.png') }}" style="animation-duration:3s;" class="shape-chair wow bounceInRight" alt="chair" title="chair" />
                 <div class="col-xl-9 col-lg-9 col-md-9">
                     <div class="tp-testimonial-2-wrapper p-relative">
                         <div class="swiper-container tp-testimonial-2-active">
@@ -270,12 +263,10 @@
                         </div>
                         <div class="tp-testimonial-2-arrow-box d-none d-xl-block">
                             <button class="testimonial-prev">
-                                <img src="{{ asset('frontend/assets/img/icon/left-chevron.png') }}" width="30"
-                                    alt="">
+                                <img src="{{ asset('frontend/assets/img/icon/left-chevron.png') }}" width="30" alt="left-chevron.png" title="left-chevron.png">
                             </button>
                             <button class="testimonial-next">
-                                <img src="{{ asset('frontend/assets/img/icon/right-chevron.png') }}" width="30"
-                                    alt="">
+                                <img src="{{ asset('frontend/assets/img/icon/right-chevron.png') }}" width="30" alt="right-chevron.png" title="right-chevron.png">
                             </button>
                         </div>
                     </div>
@@ -305,8 +296,7 @@
                                             value="{{ old('name') }}" placeholder="Name *">
                                         <div class="tp-contact-icon">
                                             <span>
-                                                <img width="17px"
-                                                    src="{{ asset('frontend/assets/img/icon/user.png') }}" />
+                                                <img width="17px" src="{{ asset('frontend/assets/img/icon/user.png') }}"  alt="user.png" title="user.png"/>
                                             </span>
                                         </div>
                                         @error('name')
@@ -414,7 +404,7 @@
                 </div>
                 <div class="col-xl-6 col-lg-6">
                     <div class="tp-contact-left">
-                        <img src="./frontend/assets/img/contact/get-in-touch-img.jpeg" />
+                        <img src="./frontend/assets/img/contact/get-in-touch-img.jpeg" alt="get-in-touch-img" title="get-in-touch-img" />
                     </div>
                 </div>
             </div>

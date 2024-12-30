@@ -15,7 +15,7 @@
                 <div class="col-xxl-12">
                 <div class="breadcrumb-content">
                     <div class="breadcrumb__list">
-                        <span><a href="{{ route('frontend.home') }}">Home</a></span>
+                        <span><a href="{{ route('frontend.home') }}" title="">Home</a></span>
                         <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
                         <span>About Us</span>
                     </div>
@@ -43,7 +43,7 @@
                         <div class="tp-hero-thumb-box about-us-img-sec p-relative">
                             <div class="tp-hero-thumb about-us-thumb-sec wow fadeInLeft">
                                 @if (!empty($introductions->introduction_image))
-                                    <img src="{{ asset('/damian_corporate/introduction/introduction_image/'. $introductions->introduction_image) }}" alt="{{ $introductions->introduction_image }}">
+                                    <img src="{{ asset('/damian_corporate/introduction/introduction_image/'. $introductions->introduction_image) }}" alt="{{ $introductions->introduction_image }}" title="{{ $introductions->introduction_image }}">
                                 @endif
                             </div>
                         </div>
@@ -74,12 +74,12 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 mb-30 grid-item-2">
                         <div class="tp-project-3-item p-relative active">
                             <div class="tp-project-3-thumb">
-                                <img src="{{ asset('/damian_corporate/showroom/office_image/'. $value->office_image) }}" alt="{{ $value->office_image }}">
+                                <img src="{{ asset('/damian_corporate/showroom/office_image/'. $value->office_image) }}" alt="{{ $value->office_image }}" title="{{ $value->office_image }}">
                             </div>
                             <div class="tp-project-3-content about-content-area">
                                 <span>{{ $value->office_name ?? '' }}</span>
                                 <h5 class="tp-project-3-title showroom-sub-title">
-                                    <a href="{{ $value->location_link ?? '#' }}">{{ $value->office_location ?? '' }}</a>
+                                    <a href="{{ $value->location_link ?? '#' }}" target="_blank" rel="noopener noreferrer" title="{{ $value->office_location ?? '' }}">{{ $value->office_location ?? '' }}</a>
                                 </h5>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                                     <div class="swiper-slide">
                                         <div class="tp-project-2-item">
                                             <div class="tp-project-2-thumb mb-30">
-                                                <img src="{{ asset('/damian_corporate/manufacturing_facility/manufacturing_facilitie_image/'. $value->manufacturing_facilitie_image) }}" alt="{{ $value->manufacturing_facilitie_image }}">
+                                                <img src="{{ asset('/damian_corporate/manufacturing_facility/manufacturing_facilitie_image/'. $value->manufacturing_facilitie_image) }}" alt="{{ $value->manufacturing_facilitie_image }}" title="{{ $value->manufacturing_facilitie_image }}" >
                                             </div>
                                         </div>
                                     </div>
@@ -138,7 +138,7 @@
                 <div class="col-xl-4 col-lg-4">
                     <div class="tp-team-details-thumb vision-image-area text-sm-center">
                         @if (!empty($visions->image))
-                            <img src="{{ asset('/damian_corporate/visions/image/'. $visions->image) }}" alt="{{ $visions->image }}" class="img-fluid" style="height: 640px !important;">
+                            <img src="{{ asset('/damian_corporate/visions/image/'. $visions->image) }}" alt="{{ $visions->image }}" title="{{ $visions->image }}" class="img-fluid" style="height: 640px !important;">
                         @endif
                     </div>
                 </div>
@@ -206,15 +206,8 @@
                                 <div class="board-directors-grid">
                                     <div class="board-directors-image">
                                         <a href="#" class="image">
-                                            <img class="pic-1" src="{{ asset('/damian_corporate/team_member/member_profile_image/' . $member->member_profile_image) }}" alt="{{ $member->member_profile_image }}" style="width: 269px !important; height: 480px !important;">
+                                            <img class="pic-1" src="{{ asset('/damian_corporate/team_member/member_profile_image/' . $member->member_profile_image) }}" alt="{{ $member->member_profile_image }}" title="{{ $member->member_profile_image }}" style="width: 269px !important; height: 480px !important;">
                                         </a>
-                                        {{-- <ul class="board-directors-links">
-                                            <li>
-                                                <a href="#" class="linkedin">
-                                                    <img src="{{ asset('frontend/assets/img/icon/linkedin.png') }}" alt="LinkedIn">
-                                                </a>
-                                            </li>
-                                        </ul> --}}
                                     </div>
                                     <div class="board-directors-content">
                                         <h3 class="board-directors-title">
@@ -260,7 +253,7 @@
                                         <div class="swiper-slide">
                                             <div class="tp-team-item black-bg">
                                                 <div class="tp-team-thumb p-relative fix">
-                                                    <img src="{{ asset('/damian_corporate/international_associate/international_associate_image/' . $associate->international_associate_image) }}" alt="{{ $associate->international_associate_image }}" class="img-fluid">
+                                                    <img src="{{ asset('/damian_corporate/international_associate/international_associate_image/' . $associate->international_associate_image) }}" alt="{{ $associate->international_associate_image ?? '' }}" title="{{ $associate->international_associate_image ?? '' }}" class="img-fluid">
                                                 </div>
                                             </div>
                                         </div>

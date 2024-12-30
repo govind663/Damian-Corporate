@@ -15,7 +15,7 @@
                 <div class="col-xxl-12">
                     <div class="breadcrumb-content">
                         <div class="breadcrumb__list">
-                            <span><a href="{{ route('frontend.home') }}">Home</a></span>
+                            <span><a href="{{ route('frontend.home') }}" title="Home">Home</a></span>
                             <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
                             <span>Project Details</span>
                             <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
@@ -47,7 +47,7 @@
                                         @if(!empty($bannerImages) && is_array($bannerImages))
                                             @foreach($bannerImages as $image)
                                                 <div class="swiper-slide">
-                                                    <img src="{{ asset('/damian_corporate/project_details/banner_image/' . $image) }}" alt="{{ $image }}">
+                                                    <img src="{{ asset('/damian_corporate/project_details/banner_image/' . $image) }}" alt="{{ $image }}" title="{{ $image }}">
                                                 </div>
                                             @endforeach
                                         @else
@@ -74,12 +74,12 @@
                                 <ul>
                                     <li class="ps-0">
                                         <div class="project-icon-box">
-                                            <img src="{{ asset('frontend/assets/img/icon/building-2.png') }}" alt="">
+                                            <img src="{{ asset('frontend/assets/img/icon/building-2.png') }}" alt="building-2.png" title="building-2.png">
                                         </div>
                                         <div class="project-content-box">
                                             <p class="mb-0">Title:</p>
                                             <h3 class="rc__post-title">
-                                                <a href="#">{{ $project->project_name }}</a>
+                                                {{ $project->project_name }}
                                             </h3>
                                         </div>
                                     </li>
@@ -90,7 +90,7 @@
                                         <div class="project-content-box">
                                             <p class="mb-0">Category:</p>
                                             <h3 class="rc__post-title">
-                                                <a href="#">{{ $project->category?->category_name }}</a>
+                                                {{ $project->category?->category_name }}
                                             </h3>
                                         </div>
                                     </li>
@@ -101,7 +101,7 @@
                                         <div class="project-content-box">
                                             <p class="mb-0">Location:</p>
                                             <h3 class="rc__post-title">
-                                                <a href="{{ $projectDetails->location_url ?? '#' }}">
+                                                <a href="{{ $projectDetails->location_url ?? '#' }}" title=" {{ $projectDetails->location ?? '' }}" rel="noopener noreferrer">
                                                     {{ $projectDetails->location }}
                                                 </a>
                                             </h3>
@@ -109,12 +109,12 @@
                                     </li>
                                     <li class="ps-0">
                                         <div class="project-icon-box">
-                                            <img src="{{ asset('frontend/assets/img/icon/ruler.png')  }}" alt="">
+                                            <img src="{{ asset('frontend/assets/img/icon/ruler.png')  }}" alt="ruler.png" title="ruler.png">
                                         </div>
                                         <div class="project-content-box">
                                             <p class="mb-0">Total Constructed Area:</p>
                                             <h3 class="rc__post-title">
-                                                <a href="#">{{ $projectDetails->total_constructed_area ?? '' }}</a>
+                                                {{ $projectDetails->total_constructed_area ?? '' }}
                                             </h3>
                                         </div>
                                     </li>

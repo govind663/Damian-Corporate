@@ -21,7 +21,7 @@
                 <div class="col-xxl-12">
                     <div class="breadcrumb-content">
                         <div class="breadcrumb__list">
-                            <span><a href="{{ route('frontend.home') }}">Home</a></span>
+                            <span><a href="{{ route('frontend.home') }}" title="Home">Home</a></span>
                             <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
                             <span>Awards & Media</span>
                         </div>
@@ -46,18 +46,10 @@
                     <div class="col-md-4 col-sm-6">
                         <div class="awards-media-grid">
                             <div class="awards-media-image">
-                                {{-- <a href="{{ asset('/damian_corporate/award_media/award_image/' . $award_media->award_image) }}"
-                                   data-fancybox="awards-gallery"
-                                   data-caption="{{ $award_media->description ?? 'Achievement' }}">
-                                    <img class="pic-1"
-                                         src="{{ asset('/damian_corporate/award_media/award_image/' . $award_media->award_image) }}"
-                                         alt="{{ $award_media->award_image ?? '' }}"
-                                         style="height: auto; width: 100%;">
-                                </a> --}}
-
                                 <img class="pic-1"
                                     src="{{ asset('/damian_corporate/award_media/award_image/' . $award_media->award_image) }}"
                                     alt="{{ $award_media->award_image ?? '' }}"
+                                    title="{{ $award_media->award_image ?? '' }}"
                                     style="height: auto; width: 100%;">
                             </div>
                             <div class="awards-media-content">

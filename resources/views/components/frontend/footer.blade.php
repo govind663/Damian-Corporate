@@ -15,11 +15,11 @@
                 <div class="col-xl-5 col-lg-5 col-md-12 col-sm-6 mb-20">
                     <div class="tp-footer-widget footer-cols-2-1">
                         <div class="tp-footer-logo">
-                            <a href="{{ route('frontend.home') }}">
+                            <a href="{{ route('frontend.home') }}" title="Damian Corporate">
                                 @if($company_informations->company_logo)
-                                    <img src="{{ asset('/damian_corporate/company_information/company_logo/' . $company_informations->company_logo) }}" alt="{{ $company_informations->company_name }}">
+                                    <img src="{{ asset('/damian_corporate/company_information/company_logo/' . $company_informations->company_logo) }}" alt="{{ $company_informations->company_name }}" title="{{ $company_informations->company_name }}">
                                 @else
-                                    <img src="{{ asset('frontend/assets/img/logo/damian-logo.png') }}" alt="">
+                                    <img src="{{ asset('frontend/assets/img/logo/damian-logo.png') }}" alt="damian-logo.png" title="Damian Corporate">
                                 @endif
                             </a>
                         </div>
@@ -46,12 +46,12 @@
                         <h4 class="tp-footer-title">Quick Links</h4>
                         <div class="tp-footer-list">
                             <ul>
-                                <li><a href="{{ route('frontend.about') }}"><i class="fa-solid fa-angles-right"></i>About Us</a></li>
-                                <li><a href="{{ route('frontend.services') }}"><i class="fa-solid fa-angles-right"></i>Services</a></li>
-                                <li><a href="{{ route('frontend.products') }}"><i class="fa-solid fa-angles-right"></i>Store</a></li>
-                                <li><a href="{{ route('frontend.awards') }}"><i class="fa-solid fa-angles-right"></i>Awards & Media</a></li>
-                                {{-- <li><a href="{{ route('frontend.blogs') }}"><i class="fa-solid fa-angles-right"></i>Blogs</a> </li> --}}
-                                <li><a href="{{ route('frontend.careers') }}"><i class="fa-solid fa-angles-right"></i>Careers</a></li>
+                                <li><a href="{{ route('frontend.about') }}" title="About Us"><i class="fa-solid fa-angles-right"></i>About Us</a></li>
+                                <li><a href="{{ route('frontend.services') }}" title="Services"><i class="fa-solid fa-angles-right"></i>Services</a></li>
+                                <li><a href="{{ route('frontend.products') }}" title="Store"><i class="fa-solid fa-angles-right"></i>Store</a></li>
+                                <li><a href="{{ route('frontend.awards') }}" title="Awards & Media"><i class="fa-solid fa-angles-right"></i>Awards & Media</a></li>
+                                {{-- <li><a href="{{ route('frontend.blogs') }}" title="Blogs"><i class="fa-solid fa-angles-right"></i>Blogs</a> </li> --}}
+                                <li><a href="{{ route('frontend.careers') }}" title="Careers"><i class="fa-solid fa-angles-right"></i>Careers</a></li>
                             </ul>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                                                         />
                                                     </svg>
                                                 </span>
-                                                <a href="{{ $location_link[$index] ?? '#' }}" target="_blank">
+                                                <a href="{{ $location_link[$index] ?? '#' }}" target="_blank" title="{{ $name }}">
                                                     <b>{{ $name }}</b><br>
                                                     {{ $company_address[$index] ?? '' }}
                                                 </a>
@@ -90,7 +90,7 @@
                                                     fill="currentcolor" />
                                             </svg>
                                         </span>
-                                        <a href="tel:+91-{{ $company_informations->company_phone ?? '' }}">+91-{{ $company_informations->company_phone ?? '' }}</a>
+                                        <a href="tel:+91-{{ $company_informations->company_phone ?? '' }}" title="Phone Number">+91-{{ $company_informations->company_phone ?? '' }}</a>
                                     </li>
                                     <li>
                                         <span>
@@ -101,7 +101,7 @@
                                                     fill="currentcolor" />
                                             </svg>
                                         </span>
-                                        <a href="mailto:{{ $company_informations->company_email ?? '' }}">{{ $company_informations->company_email ?? '' }}</a>
+                                        <a href="mailto:{{ $company_informations->company_email ?? '' }}" title="Email">{{ $company_informations->company_email ?? '' }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -118,8 +118,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-8 col-md-6">
                     <div class="tp-copyright-left text-center text-md-start">
-                        <p>©Copyright {{ date('Y') }} Damian Corporate All Rights Reserved
-                        </p>
+                        <p>©Copyright {{ date('Y') }} Damian Corporate All Rights Reserved</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">

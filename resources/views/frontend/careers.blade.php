@@ -49,7 +49,7 @@
                 <div class="col-xxl-12">
                     <div class="breadcrumb-content">
                         <div class="breadcrumb__list">
-                            <span><a href="{{ route('frontend.home') }}">Home</a></span>
+                            <span><a href="{{ route('frontend.home') }}" title="Home">Home</a></span>
                             <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
                             <span>Careers</span>
                         </div>
@@ -68,7 +68,7 @@
                     <div class="p-relative">
                         <div class="tp-hero-thumb wow fadeInLeft career-area-bg-img">
                             @if (!empty($careers->careers_image))
-                                <img src="{{ asset('/damian_corporate/careers/careers_image/'. $careers->careers_image) }}" alt="{{ $careers->careers_image }}">
+                                <img src="{{ asset('/damian_corporate/careers/careers_image/'. $careers->careers_image) }}" alt="{{ $careers->careers_image }}" title="{{ $careers->careers_image }}">
                             @endif
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                         <div class="tp-exp-fea-thumb me-0">
                             <div class="tp-hover-distort-wrapper career-area-bg-img">
                                 @if (!empty($aboutcareers->image))
-                                    <img src="{{ asset('/damian_corporate/aboutcareer/image/'. $aboutcareers->image) }}" alt="{{ $aboutcareers->image }}">
+                                    <img src="{{ asset('/damian_corporate/aboutcareer/image/'. $aboutcareers->image) }}" alt="{{ $aboutcareers->image }}" title="{{ $aboutcareers->image }}">
                                 @endif
                             </div>
                         </div>

@@ -15,7 +15,7 @@
                 <div class="col-xxl-12">
                     <div class="breadcrumb-content">
                         <div class="breadcrumb__list">
-                            <span><a href="{{ route('frontend.home') }}">Home</a></span>
+                            <span><a href="{{ route('frontend.home') }}" title="Home">Home</a></span>
                             <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
                             <span>Services</span>
                         </div>
@@ -41,7 +41,7 @@
                         <div class="serviceBox">
                             <div class="service-content service-one-area" style="background-image: url({{ asset('/damian_corporate/our_service/service_image/' . $value->service_image) }}) !important; background-size: cover !important;">
                                 <div class="service-img">
-                                    <img src="{{ asset('/damian_corporate/our_service/service_logo/' . $value->service_logo) }}" width="72" alt="{{ $value->service_logo }}">
+                                    <img src="{{ asset('/damian_corporate/our_service/service_logo/' . $value->service_logo) }}" width="72" alt="{{ $value->service_logo }}" title="{{ $value->service_logo }}">
                                 </div>
                                 <h4 class="services-title">
                                     {{ $value->service_title }}
@@ -102,13 +102,13 @@
                     <div class="col-lg-4 col-md-4 grid-item {{ Str::slug($value->category->category_name) }}">
                         <div class="p-relative portfolio-section-item">
                             <div class="box">
-                                <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}" alt="{{ $value->project_image }}" style="width: 418.36px !important; height: 348.49px !important;">
+                                <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}" alt="{{ $value->project_image }}" title="{{ $value->project_image }}" style="width: 418.36px !important; height: 348.49px !important;">
                                 <div class="box-content">
                                     <div class="inner-content">
                                         <h3 class="title">{{ $value->project_name }}</h3>
                                         <ul class="icon">
                                             <li>
-                                                <a href="{{ route('frontend.project.details', $value->slug) }}" title="{{ $value->project_name }}">
+                                                <a href="{{ route('frontend.project.details', $value->slug) }}"  title="{{ $value->project_name }}">
                                                     <i class="fa fa-external-link"></i>
                                                 </a>
                                             </li>
