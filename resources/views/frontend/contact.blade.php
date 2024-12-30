@@ -145,7 +145,7 @@
                                         <input type="text" name="name" id="name" style="color: #f4f4f4 !important;" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Name *">
                                         <div class="tp-contact-icon">
                                             <span>
-                                                <img width="17px" src="{{ asset('frontend/assets/img/icon/user.png') }}" />
+                                                <img width="17px" src="{{ asset('frontend/assets/img/icon/user.png') }}"  alt="user.png" title="user.png" />
                                             </span>
                                         </div>
                                         @error('name')
@@ -267,8 +267,10 @@
                                 </div>
                             </div>
                             <div class="tp-service-content map-address-section text-center">
-                                <h4 class="tp-service-title"><a href="https://maps.app.goo.gl/u9Cft4XDtCUsgnNz6"
-                                        target="_blank">Corporate Office</a></h4>
+                                <h4 class="tp-service-title">
+                                    <a href="https://maps.app.goo.gl/u9Cft4XDtCUsgnNz6" target="_blank" rel="noopener noreferrer" title="Corporate Office">
+                                        Corporate Office</a>
+                                    </h4>
                                 <p>Damian Corporate Pvt Ltd, Damian House Ground Floor, 14, Hill Rd, Bandra
                                     West, Mumbai, Maharashtra 400050</p>
                             </div>
@@ -286,8 +288,11 @@
                                 </div>
                             </div>
                             <div class="tp-service-content map-address-section text-center">
-                                <h4 class="tp-service-title"><a href="https://maps.app.goo.gl/jm6NX6vUddrv3txz7"
-                                        target="_blank">Registered Office</a></h4>
+                                <h4 class="tp-service-title">
+                                    <a href="https://maps.app.goo.gl/jm6NX6vUddrv3txz7" target="_blank" rel="noopener noreferrer" title="Registered Office">
+                                        Registered Office
+                                    </a>
+                                </h4>
                                 <p>Damian Corporate Pvt Ltd, Bldg No. F10 Unit No. 19 & 20, Bhumi Industrial Park, Mumbai
                                     Nasik Highway, Pimplas, Bhiwandi, Maharashtra 421302</p>
                             </div>
@@ -305,8 +310,11 @@
                                 </div>
                             </div>
                             <div class="tp-service-content map-address-section text-center">
-                                <h4 class="tp-service-title"><a href="https://maps.app.goo.gl/CnDfih5JzHCN1BYi6"
-                                        target="_blank">Goa Office & Showroom</a></h4>
+                                <h4 class="tp-service-title">
+                                    <a href="https://maps.app.goo.gl/CnDfih5JzHCN1BYi6"  target="_blank" rel="noopener noreferrer" title="Goa Office & Showroom">
+                                        Goa Office & Showroom
+                                    </a>
+                                </h4>
                                 <p>Damian de Goa 903/1, Damian House, Porvorim, Goa <br> 403501</p>
                             </div>
                         </div>
