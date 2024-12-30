@@ -118,7 +118,7 @@
                                 </div>
                                 <div class="project-info">
                                     <h4 class="tp-project-2-title">
-                                        <a href="{{ route('frontend.project.details', $value->slug) }}" title="{{ $value->project_name }}" class="tp-project-2-title-link" target="_blank">{{ $value->project_name ?? '' }}</a>
+                                        <a href="{{ route('frontend.project.details', $value->slug) }}" title="{{ $value->project_name }}" class="tp-project-2-title-link">{{ $value->project_name ?? '' }}</a>
                                     </h4>
                                     <p>{{ $value->category?->category_name }}</p>
                                 </div>

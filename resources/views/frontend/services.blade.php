@@ -108,7 +108,7 @@
                                         <h3 class="title">{{ $value->project_name }}</h3>
                                         <ul class="icon">
                                             <li>
-                                                <a href="{{ route('frontend.project.details', $value->slug) }}" title="{{ $value->project_name }}" target="_blank">
+                                                <a href="{{ route('frontend.project.details', $value->slug) }}" title="{{ $value->project_name }}">
                                                     <i class="fa fa-external-link"></i>
                                                 </a>
                                             </li>
