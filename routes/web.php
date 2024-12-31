@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\PreventBackHistoryMiddleware;
+use App\Http\Middleware\PreventCitizenBackHistoryMiddleware;
 
 // ===== Frontend Controllers
 use App\Http\Controllers\frontend\HomeController as FrontendHomeController;
@@ -12,6 +14,12 @@ use App\Http\Controllers\frontend\AwardsMediaController;
 use App\Http\Controllers\frontend\BlogsController;
 use App\Http\Controllers\frontend\CareersController;
 use App\Http\Controllers\frontend\ContactUsController;
+
+// ========== Citizen
+use App\Http\Controllers\frontend\Auth\LoginController as CitizenLoginController;
+use App\Http\Controllers\frontend\Auth\RegisterController as CitizenRegisterController;
+use App\Http\Controllers\frontend\Auth\ForgotPasswordController as CitizenForgotPasswordController;
+use App\Http\Controllers\frontend\Auth\ResetPasswordController as CitizenResetPasswordController;
 
 
 // ===== Backend Controllers
@@ -42,8 +50,16 @@ use App\Http\Controllers\backend\TeamMemberController;
 use App\Http\Controllers\backend\InternationalAssociatesController;
 use App\Http\Controllers\backend\OurServiceController;
 
+
 Route::get('/login', function () {
-    return redirect()->route('admin.login');
+    // check if the user session expire web guard then redirect to admin.login page else redirect to frontend.login page
+    if (Auth::guard('web')->check()) {
+        return redirect()->route('admin.login');
+    } elseif (Auth::guard('citizen')->check()) {
+        return redirect()->route('frontend.citizen.login');
+    } else {
+        return redirect()->route('frontend.home');
+    }
 })->name('login');
 
 
@@ -86,21 +102,21 @@ Route::group(['prefix'=> '', 'middleware'=>[PreventBackHistoryMiddleware::class]
 Route::group(['prefix'=> 'store'], function(){
 
     // ==== Store Register
-    Route::get('register', [RegisterController::class, 'register'])->name('frontend.register');
-    Route::post('register/store', [RegisterController::class, 'store'])->name('frontend.register.store');
+    Route::get('register', [RegisterController::class, 'citizenRegister'])->name('frontend.citizen.register');
+    Route::post('register/store', [RegisterController::class, 'citizenStore'])->name('frontend.citizen.register.store');
 
     // ==== Store Login
-    Route::get('login', [LoginController::class, 'login'])->name('frontend.login');
-    Route::post('login/store', [LoginController::class, 'loginStore'])->name('frontend.login.store');
-    Route::get('logout', [LoginController::class, 'logout'])->name('frontend.logout');
+    Route::get('login', [CitizenLoginController::class, 'citizenLogin'])->name('frontend.citizen.login');
+    Route::post('login/store', [CitizenLoginController::class, 'citizenLoginStore'])->name('frontend.citizen.login.store');
+    Route::get('logout', [CitizenLoginController::class, 'citizenLogout'])->name('frontend.citizen.logout');
 
     // ===== Send Password Reset Link
-    Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('frontend.forget-password.request');
-    Route::post('forgot-password/send-email-link', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('frontend.forget-password.send-email-link.store');
+    Route::get('forgot-password', [CitizenForgotPasswordController::class, 'CitizenShowLinkRequestForm'])->name('frontend.citizen.forget-password.request');
+    Route::post('forgot-password/send-email-link', [CitizenForgotPasswordController::class, 'CitizenSendResetLinkEmail'])->name('frontend.citizen.forget-password.send-email-link.store');
 
     // ===== Reset Password
-    Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('frontend.password.reset');
-    Route::post('reset-password', [ResetPasswordController::class, 'updatePassword'])->name('frontend.password.update');
+    Route::get('reset-password/{token}', [CitizenResetPasswordController::class, 'citizenShowResetForm'])->name('frontend.citizen.password.reset');
+    Route::post('reset-password', [CitizenResetPasswordController::class, 'citizenUpdatePassword'])->name('frontend.citizen.password.update');
 
     // ==== Products
     Route::get('products',[StoreController::class, 'storeProductsList'])->name('frontend.products');
@@ -120,9 +136,23 @@ Route::group(['prefix'=> 'store'], function(){
 
 });
 
+// ==== Citizen Dashboard
+Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitizenBackHistoryMiddleware::class]], function(){
+
+    // ==== Dashboard
+    Route::get('dashboard', [StoreController::class, 'citizenDashboard'])->name('frontend.dashboard');
+
+    // ==== Update Password
+    Route::get('change-password', [StoreController::class, 'changePassword'])->name('frontend.change-password');
+    Route::post('change-password', [StoreController::class, 'updatePassword'])->name('frontend.update-password');
+
+    // ==== Citizen Profile
+    Route::get('profile', [StoreController::class, 'citizenProfile'])->name('frontend.profile');
+});
+
 // ===== Admin Register
-Route::get('admin/register', [RegisterController::class,'register'])->name('admin.register');
-Route::post('admin/register/store', [RegisterController::class,'store'])->name('admin.register.store');
+Route::get('admin/register', [CitizenRegisterController::class,'register'])->name('admin.register');
+Route::post('admin/register/store', [CitizenRegisterController::class,'store'])->name('admin.register.store');
 
 // ===== Admin Login/Logout
 Route::get('admin/login', [LoginController::class, 'login'])->name('admin.login');

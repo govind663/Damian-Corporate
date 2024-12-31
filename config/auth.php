@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Citizen;
+
 return [
 
     /*
@@ -40,6 +42,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'citizen' => [
+            'driver' => 'session',
+            'provider' => 'citizens',
+        ],
     ],
 
     /*
@@ -65,10 +72,10 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'citizens' => [
+            'driver' => 'eloquent',
+            'model' => Citizen::class,
+        ],
     ],
 
     /*
@@ -97,6 +104,13 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+
+        'citizens' => [
+            'provider' => 'citizens',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'citizen_password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ]
     ],
 
     /*

@@ -17,7 +17,7 @@
                         <div class="tp-footer-logo">
                             <a href="{{ route('frontend.home') }}" title="Damian Corporate">
                                 @if($company_informations->company_logo)
-                                    <img src="{{ asset('/damian_corporate/company_information/company_logo/' . $company_informations->company_logo) }}" alt="{{ $company_informations->company_name }}" title="{{ $company_informations->company_name }}">
+                                    <img src="{{ asset('/damian_corporate/company_information/company_logo/' . $company_informations->company_logo) }}" alt="{{ $company_informations->company_logo }}" title="{{ $company_informations->company_logo }}">
                                 @else
                                     <img src="{{ asset('frontend/assets/img/logo/damian-logo.png') }}" alt="damian-logo.png" title="Damian Corporate">
                                 @endif
