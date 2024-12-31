@@ -28,9 +28,8 @@
 
     <!-- store area start -->
     <div class="store-one-sec">
-        <div class="container">
+        <div class="container-fluid home-container">
             <div class="row">
-
                 <div class="col-xl-3 col-lg-4 collection-filter">
                     <!-- side-bar collapse block stat -->
                     <div class="collection-filter-block">
@@ -40,7 +39,8 @@
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button pt-0" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                            Categories </button>
+                                            Categories
+                                        </button>
                                     </h2>
                                     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
                                         <div class="accordion-body">
@@ -69,7 +69,8 @@
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                            Sub Category </button>
+                                            Sub Category
+                                        </button>
                                     </h2>
                                     <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
                                         <div class="accordion-body">
@@ -188,20 +189,22 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="accordion-item">
-                                   <h2 class="accordion-header">
-                                      <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                         data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false"
-                                         aria-controls="panelsStayOpen-collapseSix">
-                                         Price </button>
-                                   </h2>
-                                   <div class="price-input-container">
-                                      <label for="min_price">Min Price</label>
-                                      <input type="number" id="min_price" name="min_price">
-                                      <label for="max_price">Max Price</label>
-                                      <input type="number" id="max_price" name="max_price">
-                                   </div>
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="true" aria-controls="panelsStayOpen-collapseFour">
+                                            Price
+                                        </button>
+                                    </h2>
+                                    <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <div class="price-input-container">
+                                                <label for="min_price">Min Price</label>
+                                                <input type="number" id="min_price" placeholder="₹" name="min_price">
+                                                <label for="max_price">Max Price</label>
+                                                <input type="number" id="max_price" placeholder="₹" name="max_price">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -209,7 +212,6 @@
                     </div>
                     <!-- side-bar collapse block end here -->
                 </div>
-
 
                 <div class="col-xl-9 col-lg-8">
                     <div class="store-one-sub-sec">
@@ -229,9 +231,7 @@
                                         <!--</ul>-->
                                     </div>
                                     <div class="product-content">
-                                        <h3 class="store-pro-title">
-                                            <a href="{{ route('frontend.product.details') }}">EPIC Table - Danform</a>
-                                        </h3>
+                                        <h3 class="store-pro-title"><a href="{{ route('frontend.product.details') }}">EPIC Table - Danform</a></h3>
                                         <div class="price"><span>₹ 500</span> ₹ 1000</div>
                                         <!--<ul class="rating">-->
                                         <!--   <li class="fas fa-star"></li>-->
@@ -241,17 +241,9 @@
                                         <!--   <li class="far fa-star"></li>-->
                                         <!--</ul>-->
                                         <ul class="product-buttons">
-                                            <li>
-                                                <a href="{{ route('frontend.cart') }}" class="add-to-cart">
-                                                    <i class="fas fa-shopping-bag"></i>
-                                                    Add To Cart
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ route('frontend.wishlist') }}" class="quick-view">
-                                                    <i class="far fa-heart"></i>
-                                                    wishlist
-                                                </a>
+                                            <li><a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
+                                                    cart </a></li>
+                                            <li><a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -261,9 +253,9 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="product-grid">
                                     <div class="product-image">
-                                        <a href="#" class="image">
+                                        <a href="{{ route('frontend.product.details') }}" class="image">
                                             <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}">
-                                            <img class="pic-2" src="{{ asset('frontend/assets/img/store-2.jpg') }}">
+                                            <img class="pic-2" src="frontend/assets/img/store-2.jpg">
                                         </a>
                                         <span class="product-sale-label">sale</span>
                                         <!--<ul class="product-links">-->
@@ -272,7 +264,7 @@
                                         <!--</ul>-->
                                     </div>
                                     <div class="product-content">
-                                        <h3 class="store-pro-title"><a href="#">ORBIT Chair - Danform</a></h3>
+                                        <h3 class="store-pro-title"><a href="{{ route('frontend.product.details') }}">ORBIT Chair - Danform</a></h3>
                                         <div class="price"><span>₹ 500</span> ₹ 1000</div>
                                         <!--<ul class="rating">-->
                                         <!--   <li class="fas fa-star"></li>-->
@@ -282,9 +274,9 @@
                                         <!--   <li class="far fa-star"></li>-->
                                         <!--</ul>-->
                                         <ul class="product-buttons">
-                                            <li><a href="#" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
+                                            <li><a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
                                                     cart </a></li>
-                                            <li><a href="#" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
+                                            <li><a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -294,9 +286,9 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="product-grid">
                                     <div class="product-image">
-                                        <a href="#" class="image">
+                                        <a href="{{ route('frontend.product.details') }}" class="image">
                                             <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}">
-                                            <img class="pic-2" src="{{ asset('frontend/assets/img/store-2.jpg') }}">
+                                            <img class="pic-2" src="frontend/assets/img/store-2.jpg">
                                         </a>
                                         <span class="product-new-label">new</span>
                                         <!--<ul class="product-links">-->
@@ -305,7 +297,7 @@
                                         <!--</ul>-->
                                     </div>
                                     <div class="product-content">
-                                        <h3 class="store-pro-title"><a href="#">BLISS Chair - Danform</a></h3>
+                                        <h3 class="store-pro-title"><a href="{{ route('frontend.product.details') }}">BLISS Chair - Danform</a></h3>
                                         <div class="price"><span>₹ 500</span> ₹ 1000</div>
                                         <!--<ul class="rating">-->
                                         <!--   <li class="fas fa-star"></li>-->
@@ -315,9 +307,9 @@
                                         <!--   <li class="far fa-star"></li>-->
                                         <!--</ul>-->
                                         <ul class="product-buttons">
-                                            <li><a href="#" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
+                                            <li><a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
                                                     cart </a></li>
-                                            <li><a href="#" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
+                                            <li><a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -327,9 +319,9 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="product-grid">
                                     <div class="product-image">
-                                        <a href="#" class="image">
+                                        <a href="{{ route('frontend.product.details') }}" class="image">
                                             <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}">
-                                            <img class="pic-2" src="{{ asset('frontend/assets/img/store-2.jpg') }}">
+                                            <img class="pic-2" src="frontend/assets/img/store-2.jpg">
                                         </a>
                                         <span class="product-new-label">new</span>
                                         <!--<ul class="product-links">-->
@@ -338,7 +330,7 @@
                                         <!--</ul>-->
                                     </div>
                                     <div class="product-content">
-                                        <h3 class="store-pro-title"><a href="#">ROOT Table - Danform</a></h3>
+                                        <h3 class="store-pro-title"><a href="{{ route('frontend.product.details') }}">ROOT Table - Danform</a></h3>
                                         <div class="price"><span>₹ 500</span> ₹ 1000</div>
                                         <!--<ul class="rating">-->
                                         <!--   <li class="fas fa-star"></li>-->
@@ -348,9 +340,9 @@
                                         <!--   <li class="far fa-star"></li>-->
                                         <!--</ul>-->
                                         <ul class="product-buttons">
-                                            <li><a href="#" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
+                                            <li><a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
                                                     cart </a></li>
-                                            <li><a href="#" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
+                                            <li><a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -360,9 +352,9 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="product-grid">
                                     <div class="product-image">
-                                        <a href="#" class="image">
+                                        <a href="{{ route('frontend.product.details') }}" class="image">
                                             <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}">
-                                            <img class="pic-2" src="{{ asset('frontend/assets/img/store-2.jpg') }}">
+                                            <img class="pic-2" src="frontend/assets/img/store-2.jpg">
                                         </a>
                                         <span class="product-new-label">new</span>
                                         <!--<ul class="product-links">-->
@@ -371,7 +363,7 @@
                                         <!--</ul>-->
                                     </div>
                                     <div class="product-content">
-                                        <h3 class="store-pro-title"><a href="#">Comb Chair - Kristensen</a></h3>
+                                        <h3 class="store-pro-title"><a href="{{ route('frontend.product.details') }}">Comb Chair - Kristensen</a></h3>
                                         <div class="price"><span>₹ 500</span> ₹ 1000</div>
                                         <!--<ul class="rating">-->
                                         <!--   <li class="fas fa-star"></li>-->
@@ -381,9 +373,9 @@
                                         <!--   <li class="far fa-star"></li>-->
                                         <!--</ul>-->
                                         <ul class="product-buttons">
-                                            <li><a href="#" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
+                                            <li><a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
                                                     cart </a></li>
-                                            <li><a href="#" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
+                                            <li><a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -393,9 +385,9 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="product-grid">
                                     <div class="product-image">
-                                        <a href="#" class="image">
+                                        <a href="{{ route('frontend.product.details') }}" class="image">
                                             <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}">
-                                            <img class="pic-2" src="{{ asset('frontend/assets/img/store-2.jpg') }}">
+                                            <img class="pic-2" src="frontend/assets/img/store-2.jpg">
                                         </a>
                                         <span class="product-new-label">new</span>
                                         <!--<ul class="product-links">-->
@@ -404,7 +396,7 @@
                                         <!--</ul>-->
                                     </div>
                                     <div class="product-content">
-                                        <h3 class="store-pro-title"><a href="#">Facetto Table - Kristensen</a></h3>
+                                        <h3 class="store-pro-title"><a href="{{ route('frontend.product.details') }}">Facetto Table - Kristensen</a></h3>
                                         <div class="price"><span>₹ 500</span> ₹ 1000</div>
                                         <!--<ul class="rating">-->
                                         <!--   <li class="fas fa-star"></li>-->
@@ -414,9 +406,9 @@
                                         <!--   <li class="far fa-star"></li>-->
                                         <!--</ul>-->
                                         <ul class="product-buttons">
-                                            <li><a href="#" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
+                                            <li><a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
                                                     cart </a></li>
-                                            <li><a href="#" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
+                                            <li><a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -435,6 +427,73 @@
 
         </div>
     </div>
+
+    <div class="store-faq-sec black-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12">
+                    <div class="store-faq-title-box">
+                        <h3 class="store-faq-title-sec" id="store-faq-title">FAQ</h3>
+                    </div>
+                    <div class="tp-service-details-faq tp-faq-inner__customize">
+                        <div class="product-det-custom-accordion">
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-items tp-faq-active">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-buttons " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Why Internet is so popular amonth others?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            A G.xber has its own IP address, which is made
+                                            public instead. While a rather seemingly
+                                            insignificant change, the G.xber IP address can be
+                                            used for a number of vital business to everything
+                                            from security to customer experience.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-items">
+                                    <h2 class="accordion-header" id="headingTwo">
+                                        <button class="accordion-buttons collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            What makes Cretive best creative template?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            A G.xber has its own IP address, which is made
+                                            public instead. While a rather seemingly
+                                            insignificant change, the G.xber IP address can be
+                                            used for a number of vital business to everything
+                                            from security to customer experience.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-items">
+                                    <h2 class="accordion-header" id="headingThree">
+                                        <button class="accordion-buttons collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            How can we get the best from G.xber template?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            A G.xber has its own IP address, which is made
+                                            public instead. While a rather seemingly
+                                            insignificant change, the G.xber IP address can be
+                                            used for a number of vital business to everything
+                                            from security to customer experience.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- store area end -->
 
 @endsection
