@@ -102,8 +102,8 @@ Route::group(['prefix'=> '', 'middleware'=>[PreventBackHistoryMiddleware::class]
 Route::group(['prefix'=> 'store'], function(){
 
     // ==== Store Register
-    Route::get('register', [RegisterController::class, 'citizenRegister'])->name('frontend.citizen.register');
-    Route::post('register/store', [RegisterController::class, 'citizenStore'])->name('frontend.citizen.register.store');
+    Route::get('register', [CitizenRegisterController::class, 'citizenRegister'])->name('frontend.citizen.register');
+    Route::post('register/store', [CitizenRegisterController::class, 'citizenStore'])->name('frontend.citizen.register.store');
 
     // ==== Store Login
     Route::get('login', [CitizenLoginController::class, 'citizenLogin'])->name('frontend.citizen.login');
@@ -111,8 +111,8 @@ Route::group(['prefix'=> 'store'], function(){
     Route::get('logout', [CitizenLoginController::class, 'citizenLogout'])->name('frontend.citizen.logout');
 
     // ===== Send Password Reset Link
-    Route::get('forgot-password', [CitizenForgotPasswordController::class, 'CitizenShowLinkRequestForm'])->name('frontend.citizen.forget-password.request');
-    Route::post('forgot-password/send-email-link', [CitizenForgotPasswordController::class, 'CitizenSendResetLinkEmail'])->name('frontend.citizen.forget-password.send-email-link.store');
+    Route::get('forgot-password', [CitizenForgotPasswordController::class, 'citizenShowLinkRequestForm'])->name('frontend.citizen.forget-password.request');
+    Route::post('forgot-password/send-email-link', [CitizenForgotPasswordController::class, 'citizenSendResetLinkEmail'])->name('frontend.citizen.forget-password.send-email-link.store');
 
     // ===== Reset Password
     Route::get('reset-password/{token}', [CitizenResetPasswordController::class, 'citizenShowResetForm'])->name('frontend.citizen.password.reset');

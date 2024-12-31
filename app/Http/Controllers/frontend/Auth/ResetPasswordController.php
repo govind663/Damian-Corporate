@@ -10,14 +10,14 @@ use Illuminate\Support\Facades\Hash;
 
 class ResetPasswordController extends Controller
 {
-    public function showResetForm($token)
+    public function citizenShowResetForm($token)
     {
-        $tokenData = DB::table('password_reset_tokens')->where('token', $token)->first();
+        $tokenData = DB::table('citizen_password_reset_tokens')->where('token', $token)->first();
 
         if (!$tokenData) {
-            return redirect()->route('admin.login')->with('error', 'Invalid token');
+            return redirect()->route('frontend.citizen.login')->with('error', 'Invalid token');
         } else {
-            return view('backend.auth.passwords.reset', ['token' => $token]);
+            return view('frontend.auth.passwords.reset', ['token' => $token]);
         }
     }
 
@@ -28,7 +28,7 @@ class ResetPasswordController extends Controller
                 'required',
                 'email',
                 'regex:/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/i',
-                'exists:users,email',
+                'exists:citizens,email',
             ],
             'password' => [
                 'required',
@@ -69,7 +69,7 @@ class ResetPasswordController extends Controller
 
         ]);
 
-        $updatePassword = DB::table('password_reset_tokens')
+        $updatePassword = DB::table('citizen_password_reset_tokens')
             ->where(['email' => $request->email, 'token' => $request->token])
             ->first();
 
@@ -79,7 +79,7 @@ class ResetPasswordController extends Controller
 
         User::where('email', $request->email)->update(['password' => Hash::make($request->password)]);
 
-        DB::table('password_reset_tokens')->where(['email' => $request->email])->delete();
+        DB::table('citizen_password_reset_tokens')->where(['email' => $request->email])->delete();
 
         return redirect()->route('admin.login')->with('message', 'Your password has been changed successfully. You can now log in with your new password.');
 

@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\frontend\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Auth\RegisterRequest;
-use App\Models\User;
+use App\Http\Requests\Frontend\Auth\RegisterRequest;
+use App\Models\Citizen;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    public function register()
+    public function citizenRegister()
     {
         if (Auth::guard('citizen')->check()) {
             return redirect()->route('admin.dashboard');
@@ -20,9 +20,9 @@ class RegisterController extends Controller
         return view('frontend.auth.register');
     }
 
-    public function store(RegisterRequest $request)
+    public function citizenStore(RegisterRequest $request)
     {
-        $data = new User();
+        $data = new Citizen();
         $data->name = $request->get('name');
         $data->email = $request->get('email');
         $data->password = Hash::make($request->get('password'));
@@ -33,8 +33,8 @@ class RegisterController extends Controller
             'created_by' => $data->id,
         ];
 
-        User::where('id', $data->id)->update($update);
+        Citizen::where('id', $data->id)->update($update);
 
-        return redirect()->route('admin.login')->with('message', 'You are Register Sucessfully.');
+        return redirect()->route('frontend.citizen.login')->with('message', 'You are Register Sucessfully.');
     }
 }

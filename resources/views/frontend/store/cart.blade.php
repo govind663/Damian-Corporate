@@ -11,140 +11,147 @@
     <!-- breadcrumb area start -->
     <div class="bre-sec">
         <div class="container-fluid home-container">
-           <div class="row">
-              <div class="col-xxl-12">
-                 <div class="breadcrumb-content">
-                    <div class="breadcrumb__list">
-                       <span><a href="{{ route('frontend.home') }}">Home</a></span>
-                       <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
-                       <span>Cart</span>
+            <div class="row">
+                <div class="col-xxl-12">
+                    <div class="breadcrumb-content">
+                        <div class="breadcrumb__list">
+                            <span><a href="{{ route('frontend.home') }}">Home</a></span>
+                            <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
+                            <span>Cart</span>
+                        </div>
                     </div>
-                 </div>
-              </div>
-           </div>
+                </div>
+            </div>
         </div>
-     </div>
+    </div>
     <!-- breadcrumb area end -->
 
     <!-- Cart area start-->
-    <section class="cart-section pt-120 pb-120">
+    <section class="add-to-cart form-section">
         <div class="container">
             <div class="row">
-                <div class="col-12">
-                    <form action="#">
-                        <div class="table-content table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="product-thumbnail">Images</th>
-                                        <th class="cart-product-name">Product</th>
-                                        <th class="product-price">Unit Price</th>
-                                        <th class="product-quantity">Quantity</th>
-                                        <th class="product-subtotal">Total</th>
-                                        <th class="product-remove">Remove</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="product-thumbnail">
-                                            <a href="#">
-                                                <img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-1.webp') }}" alt="">
-                                            </a>
-                                        </td>
-                                        <td class="product-name">
-                                            <a href="#">Ultra Powerful Router</a>
-                                        </td>
-                                        <td class="product-price"><span class="amount">₹ 10,000</span></td>
-                                        <td class="product-quantity text-center">
-                                            <div class="tp-shop-quantity">
-                                                <div class="tp-quantity p-relative">
-                                                    <div class="qty_button cart-minus tp-cart-minus"><i class="fal fa-minus"></i></div>
-                                                    <input type="text" value="1">
-                                                    <div class="qty_button cart-plus tp-cart-plus"><i class="fal fa-plus"></i></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="product-subtotal"><span class="amount">₹ 10,000</span></td>
-                                        <td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="product-thumbnail">
-                                            <a href="#"><img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-2.webp') }}" alt=""></a>
-                                        </td>
-                                        <td class="product-name">
-                                            <a href="#">Ultra Powerful Router</a>
-                                        </td>
-                                        <td class="product-price"><span class="amount">₹ 10,000</span></td>
-                                        <td class="product-quantity text-center">
-                                            <div class="tp-shop-quantity">
-                                                <div class="tp-quantity p-relative">
-                                                    <div class="qty_button cart-minus tp-cart-minus"><i class="fal fa-minus"></i></div>
-                                                    <input type="text" value="2">
-                                                    <div class="qty_button cart-plus tp-cart-plus"><i class="fal fa-plus"></i></div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                        <td class="product-subtotal"><span class="amount">₹ 10,000</span></td>
-                                        <td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="col-md-7 col-sm-6 col-xs-12">
+                    <div class="card-order">
                         <div class="row">
-                            <div class="col-12">
-                                <div class="coupon-all">
-                                    <div class="coupon1">
-                                        <button class="tp-btn-theme" name="continue_shopping" type="submit">
-                                            <i class="fa-sharp fa-regular fa-arrow-left"></i>
-                                            <span> Continue Shopping</span>
-                                        </button>
-                                    </div>
-
-                                    <div class="coupon2">
-                                        <button class="tp-btn-theme" name="update_cart" type="submit">
-                                            <span>Update Cart</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row justify-content-end">
-                            <div class="col-xl-6 col-lg-6 col-md-6">
-                                <div class="cart-page-total-sec">
-                                    <h2>Coupon Discount</h2>
-                                    <!-- <p>Enter your coupon code if you have one.</p> -->
-                                    <div class="coupon-input-sec">
-                                        <input type="text" name="name" placeholder="Coupon code">
-                                    </div>
-                                    <a class="tp-btn-theme text-center w-100" href="#">
-                                        <span>Apply Coupon</span>
+                            <div class="col-md-3">
+                                <div class="img-wrapper">
+                                    <a href="{{ route('frontend.product.details') }}" title="wishlist-product-3" class="img-link">
+                                        <img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-1.webp') }}" class="img-responsive" alt="wishlist-product-3" title="wishlist-product-3">
                                     </a>
                                 </div>
                             </div>
-
-                            <div class="col-xl-6 col-lg-6 col-md-6">
-                                <div class="cart-page-total-sec">
-                                    <h2>Cart totals</h2>
-                                    <ul class="mb-20">
-                                        <li>Total <span>₹ 30,000</span></li>
-                                    </ul>
-                                    <a class="tp-btn-theme text-center w-100" href="{{ route('frontend.checkout') }}">
-                                        <span>Proceed To Checkout</span>
+                            <div class="col-md-6">
+                                <div class="product-price">
+                                    <p>₹ 10,000 /-</p>
+                                </div>
+                                <div class="product-heading">
+                                    <h3>EPIC Table - Danform</h3>
+                                    <a href="#" title="Remove this item" class="remove">
+                                        <p><i class="fa fa-trash"></i>Remove Item </p>
                                     </a>
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="quantity-sec-new p-relative">
+                                    <div class="qty_button cart-minus tp-cart-minus"><i class="fal fa-minus"></i></div>
+                                    <input type="text" value="1" name="qty">
+                                    <div class="qty_button cart-plus tp-cart-plus"><i class="fal fa-plus"></i></div>
+                                </div>
+                            </div>
                         </div>
-                    </form>
+                        <hr class="hr-line">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="img-wrapper">
+                                    <img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-2.webp') }}" class="img-responsive" alt="wishlist-product-3" title="wishlist-product-3">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="product-price">
+                                    <p>₹ 10,000 /-</p>
+                                </div>
+                                <div class="product-heading">
+                                    <h3>EPIC Table - Danform</h3>
+                                    <a href="#" title="Remove this item" class="remove">
+                                        <p><i class="fa fa-trash"></i>Remove Item </p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="quantity-sec-new p-relative">
+                                    <div class="qty_button cart-minus tp-cart-minus"><i class="fal fa-minus"></i></div>
+                                    <input type="text" value="1" name="qty">
+                                    <div class="qty_button cart-plus tp-cart-plus"><i class="fal fa-plus"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="hr-line">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="img-wrapper">
+                                    <img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-3.webp') }}" class="img-responsive" alt="wishlist-product-3" title="wishlist-product-3">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="product-price">
+                                    <p>₹ 10,000 /-</p>
+                                </div>
+                                <div class="product-heading">
+                                    <h3>EPIC Table - Danform</h3>
+                                    <a href="#" title="Remove this item" class="remove">
+                                        <p><i class="fa fa-trash"></i>Remove Item </p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="quantity-sec-new p-relative">
+                                    <div class="qty_button cart-minus tp-cart-minus"><i class="fal fa-minus"></i></div>
+                                    <input type="text" value="1" name="qty">
+                                    <div class="qty_button cart-plus tp-cart-plus"><i class="fal fa-plus"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="hr-line">
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-6 col-xs-12">
+                    <div class="cart-item-div">
+                        <h2>Cart Totals </h2>
+                        <div class="cart-total-sec">
+                            <ul class="cart-listing-sec">
+                                <li>Total <span>₹ 30,000</span></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-12 col-sm-6 col-xs-12">
+                            <div class="payment-way mT20 mB20">
+                                <h2> We Accept </h2>
+                                <ul>
+                                    <li>
+                                        <img src="https://mbihosting.in/healthy-belly/public/frontend/images/icons/visa.png" class="img-responsive" alt="visa" title="visa">
+                                    </li>
+                                    <li>
+                                        <img src="https://mbihosting.in/healthy-belly/public/frontend/images/icons/mastercard.jpg" class="img-responsive" alt="mastercard" title="mastercard">
+                                    </li>
+                                    <li>
+                                        <img src="https://mbihosting.in/healthy-belly/public/frontend/images/icons/american-express.png" class="img-responsive" alt="american express" title="american express">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="sign-up-btn-wrap">
+                            <div class="btn-sec">
+                                <button class="tp-btn-theme" name="update_cart" type="submit">
+                                    <span>Proceed to Checkout</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- Cart area end-->
-
 @endsection
 
 @push('scripts')
-
 @endpush

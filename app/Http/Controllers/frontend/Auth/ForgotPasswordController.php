@@ -11,19 +11,19 @@ use Carbon\Carbon;
 
 class ForgotPasswordController extends Controller
 {
-    public function showLinkRequestForm()
+    public function citizenShowLinkRequestForm()
     {
-        return view('backend.auth.passwords.email');
+        return view('frontend.auth.passwords.email');
     }
 
-    public function sendResetLinkEmail(Request $request)
+    public function citizenSendResetLinkEmail(Request $request)
     {
         $request->validate([
             'email' => [
                 'required',
                 'email',
-                'exists:users,email,deleted_at,NULL',
-                'unique:password_reset_tokens,email',  // check unique email in password_reset_tokens table
+                'exists:citizens,email,deleted_at,NULL',
+                'unique:citizen_password_reset_tokens,email',  // check unique email in citizen_password_reset_tokens table
             ],
         ],[
             'email.required' => 'Email Id is required.',
@@ -34,13 +34,14 @@ class ForgotPasswordController extends Controller
 
         $token = str::random(60);
 
-        DB::table('password_reset_tokens')->insert(
+        DB::table('citizen_password_reset_tokens')->insert(
             ['email' => $request->email, 'token' => $token, 'created_at' => Carbon::now()]
         );
 
-        Mail::send('backend.auth.verify',['token' => $token], function($message) use ($request) {
+        Mail::send('frontend.auth.verify',['token' => $token], function($message) use ($request) {
             $message->from('contact@damiancorporate.com','Damian Corporate');
             $message->to($request->email);
+            $message->cc('contact@damiancorporate.com', 'Damian Corporate');
             $message->subject('Reset Password Notification', 'Password Reset Link');
         });
 

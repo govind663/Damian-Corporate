@@ -132,6 +132,7 @@
              </div>
           </div>
 
+          @if(Route::currentRouteName() === 'frontend.products')
           <div class="col-xl-2 col-lg-8 col-6">
              <div class="tp-header-right d-flex align-items-center justify-content-end">
                 <div class="tp-header-icon d-none d-xl-block position-relative">
@@ -186,6 +187,7 @@
                 </div>
              </div>
           </div>
+          @endif
 
        </div>
     </div>

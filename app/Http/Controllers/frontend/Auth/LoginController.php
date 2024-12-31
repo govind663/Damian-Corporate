@@ -3,22 +3,22 @@
 namespace App\Http\Controllers\frontend\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Auth\LoginRequest;
+use App\Http\Requests\Frontend\Auth\LoginRequest;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function login()
+    public function citizenLogin()
     {
         if (Auth::guard('web')->check()) {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('frontend.dashboard');
         } else {
             return view('frontend.auth.login');
         }
     }
 
-    public function authenticate(LoginRequest $request)
+    public function citizenLoginStore(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
         $remember_me = ($request->has('remember_token')) ? true : false;
@@ -28,20 +28,20 @@ class LoginController extends Controller
             // Regenerate session ID for security
             $request->session()->regenerate();
 
-            return redirect()->route('admin.dashboard')->with('message', 'You are successfully logged in!');
+            return redirect()->route('frontend.dashboard')->with('message', 'You are successfully logged in!');
         }
         else{
-            return redirect()->route('admin.login')->with(['Input' => $request->only('email','password'), 'error' => 'Your Email id and Password do not match our records!']);
+            return redirect()->route('frontend.citizen.login')->with(['Input' => $request->only('email','password'), 'error' => 'Your Email id and Password do not match our records!']);
         }
 
     }
 
-    public function logout() {
+    public function citizenLogout() {
         // Clear all of the session data for the current user
         Session::flush();
         // Log the user out of their current session
         Auth::logout();
 
-        return redirect()->route('admin.login')->with('message', 'You are logout Successfully.');
+        return redirect()->route('frontend.citizen.login')->with('message', 'You are logout Successfully.');
     }
 }
