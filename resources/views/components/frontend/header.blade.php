@@ -3,6 +3,9 @@
     .dc-header-menu>nav>ul>li>a {
         font-size: 16px !important;
     }
+    .navbar-brand img {
+        width: 300px;
+    }
 </style>
 
 <!-- search popup start -->
@@ -94,30 +97,29 @@
 
 
 <!-- header area start -->
+@if(Route::currentRouteName() === 'frontend.products' || Route::currentRouteName() === 'frontend.product.details' || Route::currentRouteName() === 'frontend.cart' || Route::currentRouteName() === 'frontend.wishlist' || Route::currentRouteName() === 'frontend.checkout')
 <div class="tp-header-area z-index-5 dc-header-section">
     <div class="container-fluid home-container">
        <div class="row align-items-center">
           <div class="col-xl-3 col-lg-8 col-6">
-             <div class="tp-header-logo dc-header-logo">
-                <a href="{{ route('frontend.home') }}" title="Home">
-                    <img src="{{ asset('/frontend/assets/img/logo/damian-logo.png') }}" alt="damian-logo.png" title="Damian Corporate" width="150">
-                </a>
-             </div>
+              <div class="tp-header-logo dc-header-logo">
+                  <a href="{{ route('frontend.home') }}" title="Home">
+                      <img src="{{ asset('/frontend/assets/img/logo/damian-logo.png') }}" alt="damian-logo.png" title="Damian Corporate" width="120">
+                  </a>
+              </div>
           </div>
+
 
           <div class="col-xl-7 d-none d-xl-block">
              <div class="dc-header-menu">
                 <nav class="tp-main-menu-content">
                    <ul>
-                        <li class="nav-item {{ Route::currentRouteName() == 'frontend.home' ? 'active' : '' }}">
+                        <li class="nav-item {{ Route::currentRouteName() == 'frontend.about' ? 'active' : '' }}">
                             <a href="{{ route('frontend.about') }}" title="About us">About us </a>
                         </li>
                         <li class="nav-item {{ Route::currentRouteName() == 'frontend.services' ? 'active' : '' }}">
                             <a href="{{ route('frontend.services') }}" title="Services">Services</a>
                         </li>
-                        {{-- <li>
-                            <a class="" href="portfolio.html">Portfolio</a>
-                        </li> --}}
                         <li class="nav-item {{ Route::currentRouteName() == 'frontend.products' ? 'active' : '' }}">
                             <a class="" href="{{ route('frontend.products') }}" title="Store">Store</a>
                         </li>
@@ -139,7 +141,6 @@
              </div>
           </div>
 
-          @if(Route::currentRouteName() === 'frontend.products')
           <div class="col-xl-2 col-lg-8 col-6">
              <div class="tp-header-right d-flex align-items-center justify-content-end">
                 <div class="tp-header-icon d-none d-xl-block position-relative">
@@ -193,10 +194,62 @@
                    <button class="tp-menu-bar"><i class="fa-solid fa-bars"></i></button>
                 </div>
              </div>
-          </div>
-          @endif
+          </div>         
 
        </div>
     </div>
- </div>
+</div>
+@endif
+
+@if(Route::currentRouteName() === 'frontend.home' || Route::currentRouteName() === 'frontend.about' || Route::currentRouteName() === 'frontend.awards' || Route::currentRouteName() === 'frontend.careers' || Route::currentRouteName() === 'frontend.contact' || Route::currentRouteName() === 'frontend.services')
+
+<header>
+    <div class="tp-header-area tp-header-tranparent ">
+        <div class="container-fluid">
+            <div class="row tp-header-2-menu align-items-center">
+                <nav class="navbar navbar-expand-lg fixed-top home-navbar">
+
+                    <div class="col-xl-3 col-lg-8 col-6">
+                        <div class="tp-header-logo dc-header-logo">
+                            <a href="{{ route('frontend.home') }}" title="Home">
+                                <img src="{{ asset('/frontend/assets/img/logo/damian-logo.png') }}" alt="damian-logo.png" title="Damian Corporate" width="120">
+                            </a>
+                        </div>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item {{ Route::currentRouteName() == 'frontend.about' ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('frontend.about') }}">About us </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteName() == 'frontend.services' ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('frontend.services') }}">Services</a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteName() == 'frontend.products' ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('frontend.products') }}">Store</a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteName() == 'frontend.awards' ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('frontend.awards') }}">Awards & Media</a>
+                            </li>
+                            {{-- <li class="nav-item {{ Route::currentRouteName() == 'frontend.blogs' ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('frontend.blogs') }}">Blogs</a>
+                            </li> --}}
+                            <li class="nav-item {{ Route::currentRouteName() == 'frontend.careers' ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('frontend.careers') }}">Careers</a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteName() == 'frontend.contact' ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('frontend.contact') }}">Contact us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+@endif
+
 <!-- header area end -->

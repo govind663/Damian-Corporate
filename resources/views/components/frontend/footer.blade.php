@@ -30,12 +30,24 @@
                         <form method="POST" action="{{ route('subscribe-newsletter') }}" class="cs_newsletter_form position-relative" enctype="multipart/form-data">
                             @csrf
 
-                            <div class="tp-footer-input-box d-flex" style="text-align: left !important;">
-                                <input type="email" name="email" id="email" style="color: #f4f4f4 !important;" class="form-control" required value="{{ old('email') }}" placeholder="Emai Id *">
-
-                                <button type="submit" class="tp-btn-theme theme-lg" style="height: 56px !important; border-radius: 8px !important;">
-                                    SUBSCRIBE
-                                </button>
+                            <div class="tp-footer-input-box">
+                                <input type="email" name="email" id="email" style="color: #f4f4f4 !important;" class="form-control" required value="{{ old('email') }}" placeholder="Emai here*">
+                                @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                <div class="tp-footer-icon">
+                                    <span>
+                                        <button type="submit" class="btn btn-light" title="Subscribe">
+                                            <svg width="16" height="15" viewBox="0 0 16 15" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M14.9727 1.76172L13.2227 13.1094C13.1953 13.3828 13.0312 13.6289 12.7852 13.7656C12.6484 13.8203 12.5117 13.875 12.3477 13.875C12.2383 13.875 12.1289 13.8477 12.0195 13.793L8.68359 12.3984L7.28906 14.4766C7.17969 14.668 6.98828 14.75 6.79688 14.75C6.49609 14.75 6.25 14.5039 6.25 14.2031V11.5781C6.25 11.3594 6.30469 11.168 6.41406 11.0312L12.375 3.375L4.33594 10.6211L1.51953 9.44531C1.21875 9.30859 1 9.03516 1 8.67969C0.972656 8.29688 1.13672 8.02344 1.4375 7.85938L13.6875 0.886719C13.9609 0.722656 14.3438 0.722656 14.6172 0.914062C14.8906 1.10547 15.0273 1.43359 14.9727 1.76172Z"
+                                                    fill="currentcolor" 
+                                                />
+                                            </svg>
+                                        </button>
+                                    </span>
+                                 </div>
                             </div>
                         </form>
 
