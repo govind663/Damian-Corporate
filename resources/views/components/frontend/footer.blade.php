@@ -6,7 +6,6 @@
     $company_address = json_decode($company_informations->company_address ?? '[]', true);
     $location_link = json_decode($company_informations->location_link ?? '[]', true);
 @endphp
-
 <!-- Footer Area Start -->
 <footer class="main-footer">
     <div class="tp-footer-area tp-footer-style-2 pt-50 pb-50">
@@ -137,16 +136,16 @@
                     <div class="tpoffcanvas__social">
                         <div class="social-icon">
                             <a href="https://www.instagram.com/damiancorporate/" target="_blank" rel="noopener noreferrer" title="Instagram">
-                                <i class="fab fa-instagram"></i>
+                                <img src="{{ asset('frontend/assets/img/social-icon/instagram.png') }}" alt="social media icon" loading="lazy" width="24" height="24">
                             </a>
                             <a href="https://www.linkedin.com/company/damian-corporate/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-                                <i class="fab fa-linkedin-in"></i>
+                                <img src="{{ asset('frontend/assets/img/social-icon/linkedin.png') }}" alt="social media icon" loading="lazy" width="24" height="24">
                             </a>
                             <a href="https://www.facebook.com/DamianCorporate/" target="_blank" rel="noopener noreferrer" title="Facebook">
-                                <i class="fab fa-facebook-f"></i>
+                                <img src="{{ asset('frontend/assets/img/social-icon/facebook.png') }}" alt="social media icon" loading="lazy" width="24" height="24">
                             </a>
                             <a href="https://api.whatsapp.com/send/?phone=918433934664&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" title="Whatsapp">
-                                <i class="fab fa-whatsapp"></i>
+                                <img src="{{ asset('frontend/assets/img/social-icon/whatsapp.png') }}" alt="social media icon" loading="lazy" width="24" height="24">
                             </a>
                         </div>
                     </div>
