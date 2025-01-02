@@ -223,25 +223,25 @@
                     <div class="collapse navbar-collapse" id="collapsibleNavbar">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item {{ Route::currentRouteName() == 'frontend.about' ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('frontend.about') }}">About us </a>
+                                <a class="nav-link" href="{{ route('frontend.about') }}" title="About us">About us </a>
                             </li>
                             <li class="nav-item {{ Route::currentRouteName() == 'frontend.services' ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('frontend.services') }}">Services</a>
+                                <a class="nav-link" href="{{ route('frontend.services') }}" title="Services">Services</a>
                             </li>
                             <li class="nav-item {{ Route::currentRouteName() == 'frontend.products' ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('frontend.products') }}">Store</a>
+                                <a class="nav-link" href="{{ route('frontend.products') }}" title="Store">Store</a>
                             </li>
                             <li class="nav-item {{ Route::currentRouteName() == 'frontend.awards' ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('frontend.awards') }}">Awards & Media</a>
+                                <a class="nav-link" href="{{ route('frontend.awards') }}" title="Awards & Media">Awards & Media</a>
                             </li>
                             {{-- <li class="nav-item {{ Route::currentRouteName() == 'frontend.blogs' ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('frontend.blogs') }}">Blogs</a>
                             </li> --}}
                             <li class="nav-item {{ Route::currentRouteName() == 'frontend.careers' ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('frontend.careers') }}">Careers</a>
+                                <a class="nav-link" href="{{ route('frontend.careers') }}" title="Careers">Careers</a>
                             </li>
                             <li class="nav-item {{ Route::currentRouteName() == 'frontend.contact' ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('frontend.contact') }}">Contact us</a>
+                                <a class="nav-link" href="{{ route('frontend.contact') }}" title="Contact us">Contact us</a>
                             </li>
                         </ul>
                     </div>

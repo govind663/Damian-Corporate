@@ -244,7 +244,7 @@ li,
 }
 
 /*---------------------------------
-	typography css start 
+	typography css start
 ---------------------------------*/
 body {
   font-family: var(--tp-ff-body);
@@ -1041,7 +1041,7 @@ div.demo img {
 }
 
 /*----------------------------------------
-    Body Overlay 
+    Body Overlay
 -----------------------------------------*/
 .body-overlay {
   background-color: var(--tp-common-black);

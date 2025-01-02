@@ -274,14 +274,14 @@
                                 @endforeach
                             </div>
                         </div>
-                        <div class="tp-testimonial-2-arrow-box d-none d-xl-block">
+                        {{-- <div class="tp-testimonial-2-arrow-box d-none d-xl-block">
                             <button class="testimonial-prev">
                                 <img src="{{ asset('frontend/assets/img/icon/left-chevron.png') }}" width="30" alt="left-chevron.png" title="left-chevron.png">
                             </button>
                             <button class="testimonial-next">
                                 <img src="{{ asset('frontend/assets/img/icon/right-chevron.png') }}" width="30" alt="right-chevron.png" title="right-chevron.png">
                             </button>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -301,7 +301,7 @@
                             @csrf
 
                             <div class="row">
-                                <div class="col-lg-12 col-md-12 mb-20">
+                                <div class="col-lg-6 col-md-6 mb-20">
                                     <div class="tp-contact-input-box" style="text-align: left !important;">
                                         <input type="text" name="name" id="name"
                                             style="color: #f4f4f4 !important;"
@@ -319,7 +319,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-md-12 mb-20">
+                                <div class="col-lg-6 col-md-6 mb-20">
                                     <div class="tp-contact-input-box" style="text-align: left !important;">
                                         <input type="email" name="email" id="email"
                                             style="color: #f4f4f4 !important;"

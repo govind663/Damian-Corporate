@@ -23,7 +23,7 @@
               <div class="col-xxl-12">
                  <div class="breadcrumb-content">
                     <div class="breadcrumb__list">
-                       <span><a href="{{ route('frontend.home') }}">Home</a></span>
+                       <span><a href="{{ route('frontend.home') }}" title="Home">Home</a></span>
                        <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
                        <span>Store</span>
                     </div>
@@ -38,6 +38,7 @@
     <div class="store-one-sec">
         <div class="container-fluid home-container">
             <div class="row">
+                {{-- side-bar start --}}
                 <div class="col-xl-3 col-lg-4 collection-filter">
                     <!-- side-bar collapse block stat -->
                     <div class="collection-filter-block">
@@ -220,7 +221,9 @@
                     </div>
                     <!-- side-bar collapse block end here -->
                 </div>
+                <!-- side-bar collapse block end here -->
 
+                {{-- Start Store Product Section --}}
                 <div class="col-xl-9 col-lg-8">
                     <div class="store-one-sub-sec">
                         <div class="row">
@@ -228,30 +231,29 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="product-grid">
                                     <div class="product-image">
-                                        <a href="{{ route('frontend.product.details') }}" class="image">
-                                            <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}">
-                                            <img class="pic-2" src="{{ asset('frontend/assets/img/store-2.jpg') }}">
+                                        <a href="{{ route('frontend.product.details') }}" title="EPIC Table - Danform" class="image">
+                                            <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}" alt="store-1.jpg" title="store-1.jpg">
+                                            <img class="pic-2" src="{{ asset('frontend/assets/img/store-2.jpg') }}" alt="store-2.jpg" title="store-2.jpg">
                                         </a>
                                         <span class="product-new-label">new</span>
-                                        <!--<ul class="product-links">-->
-                                        <!--   <li><a href="#"><i class="fa fa-random"></i></a></li>-->
-                                        <!--   <li><a href="#"><i class="fa fa-search"></i></a></li>-->
-                                        <!--</ul>-->
                                     </div>
                                     <div class="product-content">
-                                        <h3 class="store-pro-title"><a href="{{ route('frontend.product.details') }}">EPIC Table - Danform</a></h3>
+                                        <h3 class="store-pro-title">
+                                            <a href="{{ route('frontend.product.details') }}" title="EPIC Table - Danform">EPIC Table - Danform</a>
+                                        </h3>
                                         <div class="price"><span>₹ 500</span> ₹ 1000</div>
-                                        <!--<ul class="rating">-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="far fa-star"></li>-->
-                                        <!--</ul>-->
                                         <ul class="product-buttons">
-                                            <li><a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
-                                                    cart </a></li>
-                                            <li><a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
+                                            <li>
+                                                <a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart">
+                                                    <i class="fas fa-shopping-bag"></i> 
+                                                    Add to Cart 
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view">
+                                                    <i class="far fa-heart"></i> 
+                                                    wishlist
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
@@ -261,30 +263,31 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="product-grid">
                                     <div class="product-image">
-                                        <a href="{{ route('frontend.product.details') }}" class="image">
-                                            <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}">
-                                            <img class="pic-2" src="frontend/assets/img/store-2.jpg">
+                                        <a href="{{ route('frontend.product.details') }}" class="image" title="ORBIT Chair - Danform">
+                                            <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}" title="store-1.jpg" alt="store-1.jpg">
+                                            <img class="pic-2" src="{{ asset('frontend/assets/img/store-2.jpg') }}" title="store-2.jpg" alt="store-2.jpg">
                                         </a>
-                                        <span class="product-sale-label">sale</span>
-                                        <!--<ul class="product-links">-->
-                                        <!--   <li><a href="#"><i class="fa fa-random"></i></a></li>-->
-                                        <!--   <li><a href="#"><i class="fa fa-search"></i></a></li>-->
-                                        <!--</ul>-->
+                                        <span class="product-new-label">new</span>
                                     </div>
                                     <div class="product-content">
-                                        <h3 class="store-pro-title"><a href="{{ route('frontend.product.details') }}">ORBIT Chair - Danform</a></h3>
-                                        <div class="price"><span>₹ 500</span> ₹ 1000</div>
-                                        <!--<ul class="rating">-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="far fa-star"></li>-->
-                                        <!--</ul>-->
+                                        <h3 class="store-pro-title">
+                                            <a href="{{ route('frontend.product.details') }}" title="ORBIT Chair - Danform">ORBIT Chair - Danform</a>
+                                        </h3>
+                                        <div class="price">
+                                            <span>₹ 500</span> ₹ 1000
+                                        </div>
                                         <ul class="product-buttons">
-                                            <li><a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
-                                                    cart </a></li>
-                                            <li><a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
+                                            <li>
+                                                <a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart">
+                                                    <i class="fas fa-shopping-bag"></i> 
+                                                    Add to Cart 
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view">
+                                                    <i class="far fa-heart"></i> 
+                                                    wishlist
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
@@ -294,30 +297,31 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="product-grid">
                                     <div class="product-image">
-                                        <a href="{{ route('frontend.product.details') }}" class="image">
-                                            <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}">
-                                            <img class="pic-2" src="frontend/assets/img/store-2.jpg">
+                                        <a href="{{ route('frontend.product.details') }}" class="image" title="BLISS Chair - Danform">
+                                            <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}" title="store-1.jpg" alt="store-1.jpg">
+                                            <img class="pic-2" src="{{ asset('frontend/assets/img/store-2.jpg') }}" title="store-2.jpg" alt="store-2.jpg">
                                         </a>
                                         <span class="product-new-label">new</span>
-                                        <!--<ul class="product-links">-->
-                                        <!--   <li><a href="#"><i class="fa fa-random"></i></a></li>-->
-                                        <!--   <li><a href="#"><i class="fa fa-search"></i></a></li>-->
-                                        <!--</ul>-->
                                     </div>
                                     <div class="product-content">
-                                        <h3 class="store-pro-title"><a href="{{ route('frontend.product.details') }}">BLISS Chair - Danform</a></h3>
-                                        <div class="price"><span>₹ 500</span> ₹ 1000</div>
-                                        <!--<ul class="rating">-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="far fa-star"></li>-->
-                                        <!--</ul>-->
+                                        <h3 class="store-pro-title">
+                                            <a href="{{ route('frontend.product.details') }}" title="BLISS Chair - Danform">BLISS Chair - Danform</a>
+                                        </h3>
+                                        <div class="price">
+                                            <span>₹ 500</span> ₹ 1000
+                                        </div>
                                         <ul class="product-buttons">
-                                            <li><a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
-                                                    cart </a></li>
-                                            <li><a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
+                                            <li>
+                                                <a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart">
+                                                    <i class="fas fa-shopping-bag"></i> 
+                                                    Add to Cart 
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view">
+                                                    <i class="far fa-heart"></i> 
+                                                    wishlist
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
@@ -327,30 +331,31 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="product-grid">
                                     <div class="product-image">
-                                        <a href="{{ route('frontend.product.details') }}" class="image">
-                                            <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}">
-                                            <img class="pic-2" src="frontend/assets/img/store-2.jpg">
+                                        <a href="{{ route('frontend.product.details') }}" class="image" title="ROOT Table - Danform">
+                                            <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}" title="store-1.jpg" alt="store-1.jpg">
+                                            <img class="pic-2" src="{{ asset('frontend/assets/img/store-2.jpg') }}" title="store-2.jpg" alt="store-2.jpg">
                                         </a>
                                         <span class="product-new-label">new</span>
-                                        <!--<ul class="product-links">-->
-                                        <!--   <li><a href="#"><i class="fa fa-random"></i></a></li>-->
-                                        <!--   <li><a href="#"><i class="fa fa-search"></i></a></li>-->
-                                        <!--</ul>-->
                                     </div>
                                     <div class="product-content">
-                                        <h3 class="store-pro-title"><a href="{{ route('frontend.product.details') }}">ROOT Table - Danform</a></h3>
-                                        <div class="price"><span>₹ 500</span> ₹ 1000</div>
-                                        <!--<ul class="rating">-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="far fa-star"></li>-->
-                                        <!--</ul>-->
+                                        <h3 class="store-pro-title">
+                                            <a href="{{ route('frontend.product.details') }}" title="ROOT Table - Danform">ROOT Table - Danform</a>
+                                        </h3>
+                                        <div class="price">
+                                            <span>₹ 500</span> ₹ 1000
+                                        </div>
                                         <ul class="product-buttons">
-                                            <li><a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
-                                                    cart </a></li>
-                                            <li><a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
+                                            <li>
+                                                <a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart">
+                                                    <i class="fas fa-shopping-bag"></i> 
+                                                    Add to Cart 
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view">
+                                                    <i class="far fa-heart"></i> 
+                                                    wishlist
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
@@ -360,30 +365,31 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="product-grid">
                                     <div class="product-image">
-                                        <a href="{{ route('frontend.product.details') }}" class="image">
-                                            <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}">
-                                            <img class="pic-2" src="frontend/assets/img/store-2.jpg">
+                                        <a href="{{ route('frontend.product.details') }}" class="image" title="Comb Chair - Kristensen">
+                                            <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}" title="store-1.jpg" alt="store-1.jpg">
+                                            <img class="pic-2" src="{{ asset('frontend/assets/img/store-2.jpg') }}" title="store-2.jpg" alt="store-2.jpg">
                                         </a>
                                         <span class="product-new-label">new</span>
-                                        <!--<ul class="product-links">-->
-                                        <!--   <li><a href="#"><i class="fa fa-random"></i></a></li>-->
-                                        <!--   <li><a href="#"><i class="fa fa-search"></i></a></li>-->
-                                        <!--</ul>-->
                                     </div>
                                     <div class="product-content">
-                                        <h3 class="store-pro-title"><a href="{{ route('frontend.product.details') }}">Comb Chair - Kristensen</a></h3>
-                                        <div class="price"><span>₹ 500</span> ₹ 1000</div>
-                                        <!--<ul class="rating">-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="far fa-star"></li>-->
-                                        <!--</ul>-->
+                                        <h3 class="store-pro-title">
+                                            <a href="{{ route('frontend.product.details') }}" title="Comb Chair - Kristensen }}">Comb Chair - Kristensen</a>
+                                        </h3>
+                                        <div class="price">
+                                            <span>₹ 500</span> ₹ 1000
+                                        </div>
                                         <ul class="product-buttons">
-                                            <li><a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
-                                                    cart </a></li>
-                                            <li><a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
+                                            <li>
+                                                <a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart">
+                                                    <i class="fas fa-shopping-bag"></i> 
+                                                    Add to Cart 
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view">
+                                                    <i class="far fa-heart"></i> 
+                                                    wishlist
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
@@ -393,46 +399,44 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="product-grid">
                                     <div class="product-image">
-                                        <a href="{{ route('frontend.product.details') }}" class="image">
-                                            <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}">
-                                            <img class="pic-2" src="frontend/assets/img/store-2.jpg">
+                                        <a href="{{ route('frontend.product.details') }}" class="image" title="Facetto Table - Kristensen">
+                                            <img class="pic-1" src="{{ asset('frontend/assets/img/store-1.jpg') }}" title="store-1.jpg" alt="store-1.jpg">
+                                            <img class="pic-2" src="{{ asset('frontend/assets/img/store-2.jpg') }}" >
                                         </a>
                                         <span class="product-new-label">new</span>
-                                        <!--<ul class="product-links">-->
-                                        <!--   <li><a href="#"><i class="fa fa-random"></i></a></li>-->
-                                        <!--   <li><a href="#"><i class="fa fa-search"></i></a></li>-->
-                                        <!--</ul>-->
                                     </div>
                                     <div class="product-content">
-                                        <h3 class="store-pro-title"><a href="{{ route('frontend.product.details') }}">Facetto Table - Kristensen</a></h3>
-                                        <div class="price"><span>₹ 500</span> ₹ 1000</div>
-                                        <!--<ul class="rating">-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="fas fa-star"></li>-->
-                                        <!--   <li class="far fa-star"></li>-->
-                                        <!--</ul>-->
+                                        <h3 class="store-pro-title">
+                                            <a href="{{ route('frontend.product.details') }}" title="Facetto Table - Kristensen }}">Facetto Table - Kristensen</a>
+                                        </h3>
+                                        <div class="price">
+                                            <span>₹ 500</span> ₹ 1000
+                                        </div>
                                         <ul class="product-buttons">
-                                            <li><a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart"><i class="fas fa-shopping-bag"></i> add to
-                                                    cart </a></li>
-                                            <li><a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view"><i class="far fa-heart"></i> wishlist</a>
+                                            <li>
+                                                <a href="{{ route('frontend.cart') }}" title="Add To Cart" class="add-to-cart">
+                                                    <i class="fas fa-shopping-bag"></i> 
+                                                    Add to Cart 
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('frontend.wishlist') }}" title="Wishlist" class="quick-view">
+                                                    <i class="far fa-heart"></i> 
+                                                    wishlist
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-
-
 
 
                         </div>
                     </div>
                 </div>
+                {{-- End Store Product Section--}}
 
             </div>
-
-
         </div>
     </div>
 

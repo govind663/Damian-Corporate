@@ -136,16 +136,16 @@
                     <div class="tpoffcanvas__social">
                         <div class="social-icon">
                             <a href="https://www.instagram.com/damiancorporate/" target="_blank" rel="noopener noreferrer" title="Instagram">
-                                <img src="{{ asset('frontend/assets/img/social-icon/instagram.png') }}" alt="social media icon" loading="lazy" width="24" height="24">
+                                <img src="{{ asset('frontend/assets/img/social-icon/instagram.png') }}" alt="Instagram" title="Instagram" loading="lazy" width="24" height="24">
                             </a>
                             <a href="https://www.linkedin.com/company/damian-corporate/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-                                <img src="{{ asset('frontend/assets/img/social-icon/linkedin.png') }}" alt="social media icon" loading="lazy" width="24" height="24">
+                                <img src="{{ asset('frontend/assets/img/social-icon/linkedin.png') }}" alt="LinkedIn" title="LinkedIn" loading="lazy" width="24" height="24">
                             </a>
                             <a href="https://www.facebook.com/DamianCorporate/" target="_blank" rel="noopener noreferrer" title="Facebook">
-                                <img src="{{ asset('frontend/assets/img/social-icon/facebook.png') }}" alt="social media icon" loading="lazy" width="24" height="24">
+                                <img src="{{ asset('frontend/assets/img/social-icon/facebook.png') }}" alt="Facebook" title="Facebook" loading="lazy" width="24" height="24">
                             </a>
                             <a href="https://api.whatsapp.com/send/?phone=918433934664&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" title="Whatsapp">
-                                <img src="{{ asset('frontend/assets/img/social-icon/whatsapp.png') }}" alt="social media icon" loading="lazy" width="24" height="24">
+                                <img src="{{ asset('frontend/assets/img/social-icon/whatsapp.png') }}" alt="Whatsapp" title="Whatsapp" loading="lazy" width="24" height="24">
                             </a>
                         </div>
                     </div>
