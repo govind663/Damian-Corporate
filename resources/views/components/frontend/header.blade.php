@@ -1,13 +1,4 @@
 
-<style>
-    .dc-header-menu>nav>ul>li>a {
-        font-size: 16px !important;
-    }
-    .navbar-brand img {
-        width: 300px;
-    }
-</style>
-
 <!-- search popup start -->
 <div class="search__popup d-none">
     <div class="container-fluid home-container">
@@ -97,6 +88,7 @@
 
 
 <!-- header area start -->
+<header>
 @if(Route::currentRouteName() === 'frontend.products' || Route::currentRouteName() === 'frontend.product.details' || Route::currentRouteName() === 'frontend.cart' || Route::currentRouteName() === 'frontend.wishlist' || Route::currentRouteName() === 'frontend.checkout')
 <div class="tp-header-area z-index-5 dc-header-section">
     <div class="container-fluid home-container">
@@ -194,16 +186,14 @@
                    <button class="tp-menu-bar"><i class="fa-solid fa-bars"></i></button>
                 </div>
              </div>
-          </div>         
+          </div>
 
        </div>
     </div>
 </div>
 @endif
 
-@if(Route::currentRouteName() === 'frontend.home' || Route::currentRouteName() === 'frontend.about' || Route::currentRouteName() === 'frontend.awards' || Route::currentRouteName() === 'frontend.careers' || Route::currentRouteName() === 'frontend.contact' || Route::currentRouteName() === 'frontend.services')
-
-<header>
+@if(Route::currentRouteName() == 'frontend.home' || Route::currentRouteName() == 'frontend.about' )
     <div class="tp-header-area tp-header-tranparent ">
         <div class="container-fluid">
             <div class="row tp-header-2-menu align-items-center">
@@ -222,7 +212,7 @@
 
                     <div class="collapse navbar-collapse" id="collapsibleNavbar">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item {{ Route::currentRouteName() == 'frontend.about' ? 'active' : '' }}">
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('frontend.about') }}" title="About us">About us </a>
                             </li>
                             <li class="nav-item {{ Route::currentRouteName() == 'frontend.services' ? 'active' : '' }}">
@@ -249,7 +239,9 @@
             </div>
         </div>
     </div>
+
+    @endif
 </header>
-@endif
+
 
 <!-- header area end -->
