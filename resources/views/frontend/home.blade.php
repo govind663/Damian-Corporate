@@ -32,6 +32,19 @@
         .tp-form-textarea-box textarea {
             color: #fffdfd !important;
         }
+
+        .tp-section-subtitle {
+            color: #fff !important;
+            left: 8% !important;
+            position: absolute;
+            display: inline-block;
+            padding-bottom: 5px;
+            font-size: 175px;
+            font-style: normal;
+            font-weight: 300;
+            opacity: .1;
+            font-family: var(--tp-ff-heading);
+        }
     </style>
 @endpush
 
@@ -113,7 +126,7 @@
                             <div class="tp-project-2-item">
                                 <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
                                     <a href="{{ route('frontend.project.details', $value->slug) }}" class="tp-project-2-thumb-link" title="{{ $value->project_name }}">
-                                        <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}" alt="{{ $value->project_image }}" title="{{ $value->project_image }}" style="width: 400px !important; height: 241px !important;">
+                                        <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}" alt="{{ $value->project_image }}" title="{{ $value->project_image }}" style="width: 380px !important; height: 241px !important;">
                                     </a>
                                 </div>
                                 <div class="project-info">

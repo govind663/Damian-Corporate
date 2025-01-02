@@ -1,3 +1,10 @@
+
+<style>
+    .dc-header-menu>nav>ul>li>a {
+        font-size: 16px !important;
+    }
+</style>
+
 <!-- search popup start -->
 <div class="search__popup d-none">
     <div class="container-fluid home-container">

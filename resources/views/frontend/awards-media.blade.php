@@ -10,6 +10,13 @@
         font-family: Averta-Regular !important;
         font-size: 20px !important;
     }
+
+    .bre-sec {
+        height: 60px !important;
+    }
+    .bre-sec .breadcrumb-content {
+        padding: 15px 0px 0px !important;
+    }
 </style>
 @endpush
 

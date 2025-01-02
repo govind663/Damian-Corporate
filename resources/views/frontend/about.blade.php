@@ -5,6 +5,26 @@
 @endsection
 
 @push('styles')
+<style>
+    .tp-section-subtitle {
+        color: #fff !important;
+        left: 8% !important;
+        position: absolute;
+        display: inline-block;
+        padding-bottom: 5px;
+        font-size: 175px;
+        font-style: normal;
+        font-weight: 300;
+        opacity: .1;
+        font-family: var(--tp-ff-heading);
+    }
+    .bre-sec {
+        height: 60px !important;
+    }
+    .bre-sec .breadcrumb-content {
+        padding: 15px 0px 0px !important;
+    }
+</style>
 @endpush
 
 @section('content')
@@ -13,13 +33,13 @@
         <div class="container-fluid home-container">
             <div class="row">
                 <div class="col-xxl-12">
-                <div class="breadcrumb-content">
-                    <div class="breadcrumb__list">
-                        <span><a href="{{ route('frontend.home') }}" title="">Home</a></span>
-                        <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
-                        <span>About Us</span>
+                    <div class="breadcrumb-content">
+                        <div class="breadcrumb__list">
+                            <span><a href="{{ route('frontend.home') }}" title="">Home</a></span>
+                            <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
+                            <span>About Us</span>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -202,12 +222,10 @@
                     </div>
                     @if (isset($team_members[$value->id]) && $team_members[$value->id]->isNotEmpty())
                         @foreach ($team_members[$value->id] as $member)
-                            <div class="col-xl-3 col-lg-3 col-md-6">
+                            <div class="col-xl-3 col-lg-3 col-md-6 mb-30">
                                 <div class="board-directors-grid">
                                     <div class="board-directors-image">
-                                        <a href="#" class="image">
-                                            <img class="pic-1" src="{{ asset('/damian_corporate/team_member/member_profile_image/' . $member->member_profile_image) }}" alt="{{ $member->member_profile_image }}" title="{{ $member->member_profile_image }}" style="width: 269px !important; height: 480px !important;">
-                                        </a>
+                                        <img class="pic-1" src="{{ asset('/damian_corporate/team_member/member_profile_image/' . $member->member_profile_image) }}" alt="{{ $member->member_profile_image }}" title="{{ $member->member_profile_image }}" style="width: 269px !important; height: 330px !important;">
                                     </div>
                                     <div class="board-directors-content">
                                         <h3 class="board-directors-title">
@@ -226,7 +244,7 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @endforeach    
     <!-- Member area end -->
 
     <!--International Associates Section-->
