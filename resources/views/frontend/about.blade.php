@@ -122,30 +122,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xl-12">
-                    <div class="tp-project-2-wrapper manufacturing-facility-section p-relative">
-                        <div class="swiper-container manufacturing-facility-area-active">
-                            <div class="swiper-wrapper">
-                                @foreach ($manufacturing_facilities as $value)
-                                    <div class="swiper-slide">
-                                        <div class="tp-project-2-item">
-                                            <div class="tp-project-2-thumb mb-30">
-                                                <img src="{{ asset('/damian_corporate/manufacturing_facility/manufacturing_facilitie_image/'. $value->manufacturing_facilitie_image) }}" alt="{{ $value->manufacturing_facilitie_image }}" title="{{ $value->manufacturing_facilitie_image }}" >
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-
-                            <!-- Add Arrows -->
-                            <div class="manufacturing-facility-arrow-box">
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
+                @foreach ($manufacturing_facilities as $value)
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-30">
+                        <div class="tp-project-2-item">
+                            <div class="tp-project-2-thumb mb-30">
+                                <img src="{{ asset('/damian_corporate/manufacturing_facility/manufacturing_facilitie_image/'. $value->manufacturing_facilitie_image) }}" alt="{{ $value->manufacturing_facilitie_image }}" title="{{ $value->manufacturing_facilitie_image }}" >
                             </div>
                         </div>
-                        <div class="tp-project-dots text-center mt-110"></div>
                     </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -244,7 +229,7 @@
                 </div>
             </div>
         </div>
-    @endforeach    
+    @endforeach
     <!-- Member area end -->
 
     <!--International Associates Section-->
@@ -263,23 +248,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-12">
-                        <div class="tp-team-wrapper">
-                            <div class="swiper-container tp-team-active">
-                                <div class="swiper-wrapper">
-                                    @foreach($international_associates as $associate)
-                                        <div class="swiper-slide">
-                                            <div class="tp-team-item black-bg">
-                                                <div class="tp-team-thumb p-relative fix">
-                                                    <img src="{{ asset('/damian_corporate/international_associate/international_associate_image/' . $associate->international_associate_image) }}" alt="{{ $associate->international_associate_image ?? '' }}" title="{{ $associate->international_associate_image ?? '' }}" class="img-fluid">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
+                    @foreach($international_associates as $associate)
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 mb-30">
+                            <div class="tp-team-item black-bg">
+                                <div class="tp-team-thumb p-relative fix">
+                                    <img src="{{ asset('/damian_corporate/international_associate/international_associate_image/' . $associate->international_associate_image) }}" alt="{{ $associate->international_associate_image ?? '' }}" title="{{ $associate->international_associate_image ?? '' }}" class="img-fluid">
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

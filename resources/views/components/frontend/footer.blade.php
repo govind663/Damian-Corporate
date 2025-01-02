@@ -41,7 +41,7 @@
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     d="M14.9727 1.76172L13.2227 13.1094C13.1953 13.3828 13.0312 13.6289 12.7852 13.7656C12.6484 13.8203 12.5117 13.875 12.3477 13.875C12.2383 13.875 12.1289 13.8477 12.0195 13.793L8.68359 12.3984L7.28906 14.4766C7.17969 14.668 6.98828 14.75 6.79688 14.75C6.49609 14.75 6.25 14.5039 6.25 14.2031V11.5781C6.25 11.3594 6.30469 11.168 6.41406 11.0312L12.375 3.375L4.33594 10.6211L1.51953 9.44531C1.21875 9.30859 1 9.03516 1 8.67969C0.972656 8.29688 1.13672 8.02344 1.4375 7.85938L13.6875 0.886719C13.9609 0.722656 14.3438 0.722656 14.6172 0.914062C14.8906 1.10547 15.0273 1.43359 14.9727 1.76172Z"
-                                                    fill="currentcolor" 
+                                                    fill="currentcolor"
                                                 />
                                             </svg>
                                         </button>
@@ -63,6 +63,7 @@
                                 <li><a href="{{ route('frontend.awards') }}" title="Awards & Media"><i class="fa-solid fa-angles-right"></i>Awards & Media</a></li>
                                 {{-- <li><a href="{{ route('frontend.blogs') }}" title="Blogs"><i class="fa-solid fa-angles-right"></i>Blogs</a> </li> --}}
                                 <li><a href="{{ route('frontend.careers') }}" title="Careers"><i class="fa-solid fa-angles-right"></i>Careers</a></li>
+                                <li><a href="{{ route('frontend.contact') }}" title="Contact Us"><i class="fa-solid fa-angles-right"></i>Contact Us</a></li>
                             </ul>
                         </div>
                     </div>
@@ -101,7 +102,10 @@
                                                     fill="currentcolor" />
                                             </svg>
                                         </span>
-                                        <a href="tel:+91-{{ $company_informations->company_phone ?? '' }}" title="Phone Number">+91-{{ $company_informations->company_phone ?? '' }}</a>
+                                        <a href="tel:+91-{{ $company_informations->company_phone ?? '' }}" title="Phone Number">
+                                            <b>Contact number</b><br>
+                                            +91-{{ $company_informations->company_phone ?? '' }}
+                                        </a>
                                     </li>
                                     <li>
                                         <span>
@@ -112,7 +116,10 @@
                                                     fill="currentcolor" />
                                             </svg>
                                         </span>
-                                        <a href="mailto:{{ $company_informations->company_email ?? '' }}" title="Email">{{ $company_informations->company_email ?? '' }}</a>
+                                        <a href="mailto:{{ $company_informations->company_email ?? '' }}" title="Email">
+                                            <b>E-mail</b><br>
+                                            {{ $company_informations->company_email ?? '' }}
+                                        </a>
                                     </li>
                                 </ul>
                             </div>

@@ -147,7 +147,7 @@
                             @csrf
 
                             <div class="row">
-                                <div class="col-lg-12 col-md-12 mb-20">
+                                <div class="col-lg-6 col-md-6 mb-20">
                                     <div class="tp-contact-input-box" style="text-align: left !important;">
                                         <input type="text" name="name" id="name" style="color: #f4f4f4 !important;" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Name *">
                                         <div class="tp-contact-icon">
@@ -162,7 +162,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-md-12 mb-20">
+                                <div class="col-lg-6 col-md-6 mb-20">
                                     <div class="tp-contact-input-box" style="text-align: left !important;">
                                         <input type="email" name="email" id="email" style="color: #f4f4f4 !important;" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Emai Id *">
                                         <div class="tp-contact-icon">
