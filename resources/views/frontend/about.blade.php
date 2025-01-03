@@ -18,6 +18,82 @@
         opacity: .1;
         font-family: var(--tp-ff-heading);
     }
+
+    .tp-service-thumb {
+        height: 330px;
+        overflow: hidden;
+        background: #1e1f23;
+        padding: 5px 5px 0;
+    }
+
+    .tp-service-thumb img {
+        width: 100%;
+        /* transition: 1.3s all ease; */
+    }
+
+    .tp-service-content {
+        padding: 20px;
+        min-height: 140px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #1e1f23;
+    }
+
+    .tp-service-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        font-family: Averta-Regular;
+    }
+
+    .tp-service-content span {
+        font-size: 16px;
+        font-weight: 400;
+        font-family: Averta-Regular;
+        color: #fff;
+    }
+
+    .tp-service-thumb {
+        height: 280px;
+        overflow: hidden;
+        background: #1e1f23;
+        padding: 5px 5px 0;
+    }
+
+    .tp-service-thumb img {
+        width: 100%;
+        transition: 1.3s all ease;
+    }
+
+    .core-team-item-section .tp-service-thumb img {
+        filter: grayscale(100%);
+    }
+
+    .core-team-item-section:hover .tp-service-thumb img {
+        filter: grayscale(0%);
+    }
+
+    .tp-service-thumb::after {
+        bottom: 0;
+        content: "";
+        left: 50%;
+        position: absolute;
+        right: 51%;
+        top: 0;
+        opacity: 1;
+        pointer-events: none;
+        -webkit-transition: .5s;
+        transition: .5s
+    }
+
+    .y-h-202m, .y-h-203m {
+        width: 100%;
+        height: 30em;
+        object-fit: cover;
+    }
+
 </style>
 @endpush
 
@@ -202,15 +278,17 @@
                     @if (isset($team_members[$value->id]) && $team_members[$value->id]->isNotEmpty())
                         @foreach ($team_members[$value->id] as $member)
                             <div class="col-xl-3 col-lg-3 col-md-6 mb-30">
-                                <div class="board-directors-grid">
-                                    <div class="board-directors-image">
-                                        <img class="pic-1" src="{{ asset('/damian_corporate/team_member/member_profile_image/' . $member->member_profile_image) }}" alt="{{ $member->member_profile_image }}" title="{{ $member->member_profile_image }}" style="width: 269px !important; height: 330px !important;">
+                                <div class="tp-service-item ">
+                                    <div class="tp-service-thumb-box p-relative">
+                                        <div class="tp-service-thumb">
+                                            <img class="pic-1" src="{{ asset('/damian_corporate/team_member/member_profile_image/' . $member->member_profile_image) }}" alt="{{ $member->member_profile_image }}" title="{{ $member->member_profile_image }}">
+                                        </div>
                                     </div>
-                                    <div class="board-directors-content">
-                                        <h3 class="board-directors-title">
+                                    <div class="tp-service-content">
+                                        <h3 class="tp-service-title">
                                             {{ $member->name ?? '' }}
                                         </h3>
-                                        <span class="board-directors-category">
+                                        <span class="mb-0 text-center">
                                             {{ $member->designation ?? '' }}
                                         </span>
                                     </div>
