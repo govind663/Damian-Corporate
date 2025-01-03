@@ -36,7 +36,16 @@
         transition: all 0.25s linear;
     }
 
-
+    .bre-sec {
+        background-image: url(https://www.mbihosting.in/damiancorporate/demo1/assets/img/footer/footer-background.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 139px !important;
+    }
+    .bre-sec .breadcrumb-content {
+        padding: 100px 0 0;
+    }
 </style>
 @endpush
 

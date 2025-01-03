@@ -6,6 +6,16 @@
 
 @push('styles')
 <style>
+    .bre-sec {
+        background-image: url(https://www.mbihosting.in/damiancorporate/demo1/assets/img/footer/footer-background.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 139px !important;
+    }
+    .bre-sec .breadcrumb-content {
+        padding: 100px 0 0;
+    }
     .awards-media-grid .awards-media-title {
         font-family: Averta-Regular !important;
         font-size: 20px !important;
