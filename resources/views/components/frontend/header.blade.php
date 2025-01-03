@@ -193,7 +193,7 @@
 </div>
 @endif
 
-@if(Route::currentRouteName() == 'frontend.home' || Route::currentRouteName() == 'frontend.about' )
+@if(Route::currentRouteName() == 'frontend.home' || Route::currentRouteName() == 'frontend.about' || Route::currentRouteName() == 'frontend.services' || Route::currentRouteName() == 'frontend.awards' || Route::currentRouteName() == 'frontend.careers' || Route::currentRouteName() == 'frontend.contact')
     <div class="tp-header-area tp-header-tranparent ">
         <div class="container-fluid">
             <div class="row tp-header-2-menu align-items-center">
