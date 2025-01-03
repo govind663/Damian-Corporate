@@ -5,14 +5,6 @@
 @endsection
 
 @push('styles')
-<style>
-    .bre-sec {
-        height: 60px !important;
-    }
-    .bre-sec .breadcrumb-content {
-        padding: 15px 0px 0px !important;
-    }
-</style>
 @endpush
 
 @section('content')

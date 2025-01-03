@@ -18,12 +18,6 @@
         opacity: .1;
         font-family: var(--tp-ff-heading);
     }
-    .bre-sec {
-        height: 60px !important;
-    }
-    .bre-sec .breadcrumb-content {
-        padding: 15px 0px 0px !important;
-    }
 </style>
 @endpush
 

@@ -212,7 +212,7 @@
 
                     <div class="collapse navbar-collapse" id="collapsibleNavbar">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
+                            <li class="nav-item {{ Route::currentRouteName() == 'frontend.about' ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('frontend.about') }}" title="About us">About us </a>
                             </li>
                             <li class="nav-item {{ Route::currentRouteName() == 'frontend.services' ? 'active' : '' }}">

@@ -5,21 +5,6 @@
 @endsection
 
 @push('styles')
-<style>
-    .bre-sec {
-        height: 60px !important;
-    }
-    .bre-sec .breadcrumb-content {
-        padding: 15px 0px 0px !important;
-    }
-    .tp-project-filter button {
-        color: #ffffff !important;
-        font-family: Averta-Regular;
-        font-size: 12px;
-        font-weight: 600px !important;
-        line-height: 18px;
-    }
-</style>
 @endpush
 
 @section('content')
