@@ -195,7 +195,7 @@
 </div>
 @endif
 
-@if(Route::currentRouteName() == 'frontend.home' || Route::currentRouteName() == 'frontend.about' )
+@if(Route::currentRouteName() == 'frontend.home' || Route::currentRouteName() === 'frontend.project.details' || Route::currentRouteName() == 'frontend.about' || Route::currentRouteName() == 'frontend.services' || Route::currentRouteName() == 'frontend.awards' || Route::currentRouteName() == 'frontend.careers' || Route::currentRouteName() == 'frontend.contact')
     <div class="tp-header-area tp-header-tranparent ">
         <div class="container-fluid">
             <div class="row tp-header-2-menu align-items-center">
@@ -226,9 +226,9 @@
                             <li class="nav-item {{ Route::currentRouteName() == 'frontend.awards' ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('frontend.awards') }}" title="Awards & Media">Awards & Media</a>
                             </li>
-                            {{-- <li class="nav-item {{ Route::currentRouteName() == 'frontend.blogs' ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('frontend.blogs') }}">Blogs</a>
-                            </li> --}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Blogs</a>
+                            </li>
                             <li class="nav-item {{ Route::currentRouteName() == 'frontend.careers' ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('frontend.careers') }}" title="Careers">Careers</a>
                             </li>
