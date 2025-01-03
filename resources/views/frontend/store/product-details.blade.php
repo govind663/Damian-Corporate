@@ -85,7 +85,7 @@
         /* position: absolute; */
         top: 0;
         /* left: 80px; */
-        border-radius: 50% !important;
+        border-radius: 0px !important;
         cursor: pointer;
         color: #fff;
         background: #a6a182;
@@ -102,7 +102,7 @@
         right: 0;
         color: #fff;
         cursor: pointer;
-        border-radius: 50% !important;
+        border-radius: 0px !important;
         background: #a6a182;
     }
 </style>
