@@ -5,107 +5,6 @@
 @endsection
 
 @push('styles')
-<style>
-    .bre-sec {
-        height: 60px !important;
-    }
-    .bre-sec .breadcrumb-content {
-        padding: 15px 0px 0px !important;
-    }
-
-    del {
-        font-size: 16px !important;
-        margin-left: 12px !important;
-        vertical-align: middle !important;
-        color: #878787 !important;
-        font-family: Averta-Regular !important;
-        font-weight: 800 !important;
-    }
-
-    .pro-del-atw-sec {
-        text-align: center;
-    }
-    .pro-del-atw-sec {
-        display: flex;
-        justify-content: space-evenly;
-    }
-
-    .pro-del-wi-sec {
-        height: 40px;
-        width: 40px;
-        background-color: #A6A182;
-        border-radius: 100%;
-        cursor: pointer;
-    }
-
-    .pro-del-wi-sec img {
-        width: 30px;
-        margin: 0 auto;
-        position: relative;
-        top: 5px;
-    }
-
-    .pro-del-atc-sec {
-        height: 40px;
-        width: 40px;
-        background-color: #A6A182;
-        border-radius: 100%;
-        cursor: pointer;
-    }
-
-    .pro-del-atc-sec img {
-        width: 25px;
-        margin: 0 auto;
-        position: relative;
-        top: 5px;
-    }
-
-    .quantity-sec-new {
-        width: 100px;
-        margin: 0 auto;
-        padding-bottom: 10px;
-    }
-
-    .quantity-sec-new input {
-        color: #fff !important;
-        /* padding-left: 45px !important; */
-        height: 30px !important;
-        border: 1px solid #A6A182;
-        padding-left: 15px;
-        border-radius: 0px !important;
-        font-family: Averta-Regular;
-        font-size: 14px;
-    }
-
-    .quantity-sec-new .cart-minus {
-        height: 30px;
-        width: 30px;
-        /* text-align: center; */
-        line-height: 35px;
-        /* position: absolute; */
-        top: 0;
-        /* left: 80px; */
-        border-radius: 0px !important;
-        cursor: pointer;
-        color: #fff;
-        background: #a6a182;
-    }
-
-
-    .quantity-sec-new .cart-plus {
-        height: 30px;
-        width: 30px;
-        /* text-align: center; */
-        line-height: 30px;
-        /* position: absolute; */
-        top: 0;
-        right: 0;
-        color: #fff;
-        cursor: pointer;
-        border-radius: 0px !important;
-        background: #a6a182;
-    }
-</style>
 @endpush
 
 @section('content')
@@ -228,7 +127,7 @@
 
                         <div class="tp-shop-details__text-2 product-text-detail-sec">
                             <h6 class="product-det-add-sec">Description :</h6>
-                            <p class="text-justify">
+                            <p class="product-det-add-sec-p">
                                 The EPIC table is a grand statement piece with a luxurious
                                 trumpet base of veneered wood. The tempered glass top creates
                                 the illusion of lightness and allows for a view into the

@@ -27,10 +27,20 @@ class RegisterRequest extends FormRequest
                'string',
                'max:255',
             ],
+            'l_name' => [
+               'required',
+               'string',
+               'max:255',
+            ],
             'email' => [
                 'required',
                 'email',
                 'regex:/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/i',
+            ],
+            'phone' => [
+                'required',
+                'string',
+                'max:255',
             ],
             'password' => [
                 'required',
@@ -57,8 +67,12 @@ class RegisterRequest extends FormRequest
             'l_name.string' => __('Last Name should be a string'),
             'l_name.max:255' => __('Last Name should not exceed 255 characters'),
 
-            'email.required' => __('Email Id is required'),
-            'email.email' => __('Please enter a valid Email address'),
+            'phone.required' => __('Mobile Number is required'),
+            'phone.string' => __('Mobile Number should be a string'),
+            'phone.max:255' => __('Mobile Number should not exceed 255 characters'),
+
+            'email.required' => __('E-Mail Address is required'),
+            'email.email' => __('Please enter a valid E-Mail Address'),
             'email.regex' => __('Invalid Email format'),
 
             'password.required' => __('Password is required'),

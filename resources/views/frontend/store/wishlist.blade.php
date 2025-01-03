@@ -5,14 +5,6 @@
 @endsection
 
 @push('styles')
-<style>
-    .bre-sec {
-        height: 60px !important;
-    }
-    .bre-sec .breadcrumb-content {
-        padding: 15px 0px 0px !important;
-    }
-</style>
 @endpush
 
 @section('content')
@@ -23,7 +15,7 @@
               <div class="col-xxl-12">
                  <div class="breadcrumb-content">
                     <div class="breadcrumb__list">
-                       <span><a href="{{ route('frontend.home') }}">Home</a></span>
+                       <span><a href="{{ route('frontend.home') }}" title="Home">Home</a></span>
                        <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
                        <span>Wishlist</span>
                     </div>
@@ -51,11 +43,14 @@
                     <tbody>
                         <tr>
                             <td>
-                                <a href="#">
-                                    <img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-1.webp') }}" alt="">
+                                <a href="{{ route('frontend.product.details') }}" title="Product Details" class="img-link">
+                                    <img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-1.webp') }}" alt="wishlist-product-1" title="wishlist-product-1">
                                 </a>
                             </td>
-                            <td><a href="#">EPIC Table - Danform</a>
+                            <td>
+                                <a href="{{ route('frontend.product.details') }}" title="Product Details" class="product-name">
+                                    EPIC Table - Danform
+                                </a>
                                 <div class="mobile-cart-content row">
                                     <div class="col">
                                         <p>in stock</p>
@@ -65,10 +60,10 @@
                                     </div>
                                     <div class="col">
                                         <h2 class="td-color">
-                                            <a href="#" class="cart">
+                                            <a href="{{ route('frontend.cart') }}" class="cart" title="cart">
                                                 <i class="fa-regular fa-cart-shopping"></i>
                                             </a>
-                                            <a href="#" class="icon me-1">
+                                            <a href="{{ route('frontend.wishlist') }}" class="icon me-1" title="Whishlist">
                                                 <i class="fa-solid fa-xmark"></i>
                                             </a>
                                         </h2>
@@ -83,10 +78,10 @@
                             </td>
                             <td>
                                 <div class="icon-box d-flex gap-2 justify-content-center">
-                                    <a href="#" class="cart">
+                                    <a href="{{ route('frontend.cart') }}" class="cart" title="cart">
                                         <i class="fa-regular fa-cart-shopping"></i>
                                     </a>
-                                    <a href="#" class="icon me-1">
+                                    <a href="{{ route('frontend.wishlist') }}" class="icon me-1" title="Whishlist">
                                         <i class="fa-solid fa-xmark"></i>
                                     </a>
                                 </div>
@@ -94,11 +89,14 @@
                         </tr>
                         <tr>
                             <td>
-                                <a href="#">
+                                <a href="{{ route('frontend.product.details') }}" title="Product Details" class="img-link">
                                     <img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-2.webp') }}" class="img-fluid" alt="">
                                 </a>
                             </td>
-                            <td><a href="#">ORBIT Chair - Danform</a>
+                            <td>
+                                <a href="{{ route('frontend.product.details') }}" title="Product Details" class="product-name">
+                                    ORBIT Chair - Danform
+                                </a>
                                 <div class="mobile-cart-content row">
                                     <div class="col">
                                         <p>in stock</p>
@@ -108,10 +106,10 @@
                                     </div>
                                     <div class="col">
                                         <h2 class="td-color">
-                                            <a href="#" class="cart">
+                                            <a href="{{ route('frontend.cart') }}" class="cart" title="Add to Cart">
                                                 <i class="fa-regular fa-cart-shopping"></i>
                                             </a>
-                                            <a href="#" class="icon me-1">
+                                            <a href="{{ route('frontend.wishlist') }}" class="icon me-1" title="Whishlist">
                                                 <i class="fa-solid fa-xmark"></i>
                                             </a>
                                         </h2>
@@ -126,10 +124,10 @@
                             </td>
                             <td>
                                 <div class="icon-box d-flex gap-2 justify-content-center">
-                                    <a href="#" class="cart">
+                                    <a href="{{ route('frontend.cart') }}" class="cart" title="Add to Cart">
                                         <i class="fa-regular fa-cart-shopping"></i>
                                     </a>
-                                    <a href="#" class="icon me-1">
+                                    <a href="{{ route('frontend.wishlist') }}" class="icon me-1" title="Whishlist">
                                         <i class="fa-solid fa-xmark"></i>
                                     </a>
                                 </div>
@@ -137,8 +135,8 @@
                         </tr>
                         <tr>
                             <td>
-                                <a href="#">
-                                    <img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-3.webp') }}" alt="" class="img-fluid">
+                                <a href="{{ route('frontend.product.details') }}" title="Product Details" class="img-link">
+                                    <img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-3.webp') }}" alt="wishlist-product-3" title="wishlist-product-3" class="img-fluid">
                                 </a>
                             </td>
                             <td><a href="#">Comb Chair - Kristensen</a>
@@ -151,10 +149,10 @@
                                     </div>
                                     <div class="col">
                                         <h2 class="td-color">
-                                            <a href="#" class="cart">
+                                            <a href="{{ route('frontend.cart') }}" class="cart" title="Add to Cart">
                                                 <i class="fa-regular fa-cart-shopping"></i>
                                             </a>
-                                            <a href="#" class="icon me-1">
+                                            <a href="{{ route('frontend.wishlist') }}" class="icon me-1" title="Whishlist">
                                                 <i class="fa-solid fa-xmark"></i>
                                             </a>
                                         </h2>
@@ -169,10 +167,10 @@
                             </td>
                             <td>
                                 <div class="icon-box d-flex gap-2 justify-content-center">
-                                    <a href="#" class="cart">
+                                    <a href="{{ route('frontend.cart') }}" class="cart" title="Add to Cart">
                                         <i class="fa-regular fa-cart-shopping"></i>
                                     </a>
-                                    <a href="#" class="icon me-1">
+                                    <a href="{{ route('frontend.wishlist') }}" class="icon me-1" title="Whishlist">
                                         <i class="fa-solid fa-xmark"></i>
                                     </a>
                                 </div>
@@ -182,11 +180,11 @@
                 </table>
             </div>
             <div class="wishlist-buttons">
-                <a href="category-page.html" class="tp-btn-border">
+                <a href="category-page.html" class="tp-btn-border" title="Continue Shopping">
                     <i class="fa-sharp fa-regular fa-arrow-left"></i>
                     <span>continue shopping</span>
                 </a>
-                <a href="{{ route('frontend.checkout') }}" class="tp-btn-border">
+                <a href="{{ route('frontend.checkout') }}" class="tp-btn-border" title="Checkout">
                     <span>Checkout</span>
                 </a>
             </div>

@@ -89,7 +89,7 @@
 
 <!-- header area start -->
 <header>
-    @if(Route::currentRouteName() === 'frontend.products' || Route::currentRouteName() === 'frontend.product.details' || Route::currentRouteName() === 'frontend.cart' || Route::currentRouteName() === 'frontend.wishlist' || Route::currentRouteName() === 'frontend.checkout' || Route::currentRouteName() === 'frontend.citizen.login' || Route::currentRouteName() === 'frontend.citizen.register' || Route::currentRouteName() === 'frontend.citizen.forgot.password' || Route::currentRouteName() === 'frontend.citizen.reset.password' || Route::currentRouteName() === 'frontend.citizen.verify.email' || Route::currentRouteName() === 'frontend.citizen.verify.email.resend' || Route::currentRouteName() === 'frontend.citizen.verify.email.verify' || Route::currentRouteName() === 'frontend.citizen.verify.email.verify.resend' || Route::currentRouteName() === 'frontend.citizen.verify.email.verify.resend.verify')
+    @if(Route::currentRouteName() === 'frontend.products' || Route::currentRouteName() === 'frontend.product.details' || Route::currentRouteName() === 'frontend.cart' || Route::currentRouteName() === 'frontend.wishlist' || Route::currentRouteName() === 'frontend.checkout' || Route::currentRouteName() === 'frontend.citizen.login' || Route::currentRouteName() === 'frontend.citizen.register' || Route::currentRouteName() === 'frontend.citizen.forget-password.request' || Route::currentRouteName() === 'frontend.citizen.password.reset')
         <div class="tp-header-area z-index-6 dc-head-new-sec sticky-sub-top">
             <div class="container-fluid home-container">
                 <div class="row align-items-center">

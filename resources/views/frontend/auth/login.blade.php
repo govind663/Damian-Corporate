@@ -5,6 +5,23 @@
 @endsection
 
 @push('styles')
+<style>
+    .login-page .button-group .button-grp-sec {
+        height: 45px !important;
+        border-radius: 3px !important;
+    }
+
+    .tp-btn-border {
+        line-height: 42px !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+    }
+
+    .tp-btn-border.height {
+        height: 45px !important;
+        border-radius: 2px !important;
+    }
+</style>
 @endpush
 
 @section('content')
@@ -15,8 +32,12 @@
                 <div class="col-xxl-12">
                     <div class="breadcrumb-content">
                         <div class="breadcrumb__list">
-                            <span><a href="{{ route('frontend.home') }}">Home</a></span>
-                            <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
+                            <span>
+                                <a href="{{ route('frontend.home') }}" title="Home">Home</a>
+                            </span>
+                            <span class="dvdr">
+                                <i class="fa-solid fa-angle-right"></i>
+                            </span>
                             <span>Login</span>
                         </div>
                     </div>
@@ -35,35 +56,91 @@
                         <div class="login-heading">
                             <h3>Login Here</h3>
                         </div>
-                        <form action="#">
+                        <form method="POST" class="form-horizontal mt-30" action="{{ route('frontend.citizen.login.store') }}" enctype="multipart/form">
+                            @csrf
+
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 mb-20">
                                     <div class="tp-contact-input-box">
-                                        <label class="cart-email-sec" for="email">E-Mail Address :</label>
-                                        <input type="email" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Please enter a valid email address (e.g., example@domain.com)">
+                                        <label class="cart-email-sec" for="email"><b>E-Mail Address : <span class="text-light">*</span></b></label>
+                                        <div class="tp-contact-input-box mt-5">
+                                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" placeholder="Enter E-Mail Address">
+                                            <div class="tp-contact-icon">
+                                                <span>
+                                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                            @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12 mb-20">
                                     <div class="tp-contact-input-box">
-                                        <label class="cart-pwd-sec" for="pwd">Password :</label>
-                                        <input type="password" id="password" name="password">
+                                        <label class="cart-pwd-sec" for="pwd"><b>Password : <span class="text-light">*</span></b></label>
+                                        <div class="tp-contact-input-box mt-5">
+                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="password" placeholder="Enter Password">
+                                            <div class="tp-contact-icon">
+                                                <span>
+                                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                            @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <label class="remember-sec">
-                                        <input type="checkbox" name="remember" id="remember">
-                                        &nbsp;Remember me
-                                    </label>
-                                </div>
+
+                                <input class="form-check-input" type="hidden" name="remember_token" id="remember_token" value="true">
+                            </div>
+
+                            <div class="button-group" style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+                                <button class="tp-btn-border button-grp-sec" type="submit" title="Login">
+                                    <span>
+                                        <i class="fa fa-lock"></i>
+                                        Login
+                                    </span>
+                                </button>
                             </div>
                         </form>
-                        <div class="button-group"
-                            style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
-                            <button class="tp-btn-border button-grp-sec" type="button"><span>Login</span></button>
-                            <button class="tp-btn-border button-grp-sec" type="button"><span>Sign Up</span></button>
+
+                        <div class="login-bottom-text p-3">
+                            <a href="{{ route('frontend.citizen.register') }}" title="Sign Up">
+                                <p class="mb-0 text-center text-bold">
+                                    <strong>
+                                        Don't have an account ? <span class="text-primary">Register</span>
+                                    </strong>
+                                </p>
+                            </a>
                         </div>
-                        <div class="forget-password-btn">
-                            <a href="#" class="tp-btn-border height w-100"><span>Forgot Your Password?</span></a>
+
+                        <div class="login-three-btn-sec">
+                            <a href="#" class="tp-btn-border height" title="Google">
+                                <span>
+                                    <i class="fa-brands fa-google"></i>
+                                    With Google
+                                </span>
+                            </a>
+                            <a href="#" class="tp-btn-border height" title="Facebook">
+                                <span>
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                    Facebook
+                                </span>
+                            </a>
+                            @if (Route::has('frontend.citizen.forget-password.request'))
+                                <a href="{{ route('frontend.citizen.forget-password.request') }}" class="tp-btn-border height" title="Forgot Your Password?">
+                                    <span>
+                                        <i class="fa-solid fa-key"></i>
+                                        Forgot Your Password?
+                                    </span>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>

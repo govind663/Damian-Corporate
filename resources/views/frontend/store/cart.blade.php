@@ -5,14 +5,6 @@
 @endsection
 
 @push('styles')
-<style>
-    .bre-sec {
-        height: 60px !important;
-    }
-    .bre-sec .breadcrumb-content {
-        padding: 15px 0px 0px !important;
-    }
-</style>
 @endpush
 
 @section('content')
@@ -23,7 +15,7 @@
                 <div class="col-xxl-12">
                     <div class="breadcrumb-content">
                         <div class="breadcrumb__list">
-                            <span><a href="{{ route('frontend.home') }}">Home</a></span>
+                            <span><a href="{{ route('frontend.home') }}" title="Home">Home</a></span>
                             <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
                             <span>Cart</span>
                         </div>
@@ -53,17 +45,26 @@
                                     <p>₹ 10,000 /-</p>
                                 </div>
                                 <div class="product-heading">
-                                    <h3>EPIC Table - Danform</h3>
+                                    <h3>
+                                        EPIC Table - Danform
+                                    </h3>
                                     <a href="#" title="Remove this item" class="remove">
-                                        <p><i class="fa fa-trash"></i>Remove Item </p>
+                                        <p>
+                                            <i class="fa fa-trash"></i>
+                                            Remove Item
+                                        </p>
                                     </a>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="quantity-sec-new p-relative">
-                                    <div class="qty_button cart-minus tp-cart-minus"><i class="fal fa-minus"></i></div>
+                                    <div class="qty_button cart-minus tp-cart-minus">
+                                        <i class="fal fa-minus"></i>
+                                    </div>
                                     <input type="text" value="1" name="qty">
-                                    <div class="qty_button cart-plus tp-cart-plus"><i class="fal fa-plus"></i></div>
+                                    <div class="qty_button cart-plus tp-cart-plus">
+                                        <i class="fal fa-plus"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -71,7 +72,9 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="img-wrapper">
-                                    <img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-2.webp') }}" class="img-responsive" alt="wishlist-product-3" title="wishlist-product-3">
+                                    <a href="{{ route('frontend.product.details') }}" title="wishlist-product-2" class="img-link">
+                                        <img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-2.webp') }}" class="img-responsive" alt="wishlist-product-2" title="wishlist-product-2">
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -81,15 +84,22 @@
                                 <div class="product-heading">
                                     <h3>EPIC Table - Danform</h3>
                                     <a href="#" title="Remove this item" class="remove">
-                                        <p><i class="fa fa-trash"></i>Remove Item </p>
+                                        <p>
+                                            <i class="fa fa-trash"></i>
+                                            Remove Item
+                                        </p>
                                     </a>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="quantity-sec-new p-relative">
-                                    <div class="qty_button cart-minus tp-cart-minus"><i class="fal fa-minus"></i></div>
+                                    <div class="qty_button cart-minus tp-cart-minus">
+                                        <i class="fal fa-minus"></i>
+                                    </div>
                                     <input type="text" value="1" name="qty">
-                                    <div class="qty_button cart-plus tp-cart-plus"><i class="fal fa-plus"></i></div>
+                                    <div class="qty_button cart-plus tp-cart-plus">
+                                        <i class="fal fa-plus"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -97,7 +107,9 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="img-wrapper">
-                                    <img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-3.webp') }}" class="img-responsive" alt="wishlist-product-3" title="wishlist-product-3">
+                                    <a href="{{ route('frontend.product.details') }}" title="wishlist-product-3" class="img-link">
+                                        <img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-3.webp') }}" class="img-responsive" alt="wishlist-product-3" title="wishlist-product-3">
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -107,15 +119,21 @@
                                 <div class="product-heading">
                                     <h3>EPIC Table - Danform</h3>
                                     <a href="#" title="Remove this item" class="remove">
-                                        <p><i class="fa fa-trash"></i>Remove Item </p>
+                                        <p>
+                                            <i class="fa fa-trash"></i>Remove Item
+                                        </p>
                                     </a>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="quantity-sec-new p-relative">
-                                    <div class="qty_button cart-minus tp-cart-minus"><i class="fal fa-minus"></i></div>
+                                    <div class="qty_button cart-minus tp-cart-minus">
+                                        <i class="fal fa-minus"></i>
+                                    </div>
                                     <input type="text" value="1" name="qty">
-                                    <div class="qty_button cart-plus tp-cart-plus"><i class="fal fa-plus"></i></div>
+                                    <div class="qty_button cart-plus tp-cart-plus">
+                                        <i class="fal fa-plus"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -135,13 +153,13 @@
                                 <h2> We Accept </h2>
                                 <ul>
                                     <li>
-                                        <img src="https://mbihosting.in/healthy-belly/public/frontend/images/icons/visa.png" class="img-responsive" alt="visa" title="visa">
+                                        <img src="{{ asset('frontend/assets/img/icon/visa.png') }}" class="img-responsive" alt="visa" title="visa">
                                     </li>
                                     <li>
-                                        <img src="https://mbihosting.in/healthy-belly/public/frontend/images/icons/mastercard.jpg" class="img-responsive" alt="mastercard" title="mastercard">
+                                        <img src="{{ asset('frontend/assets/img/icon/mastercard.jpg') }}" class="img-responsive" alt="mastercard" title="mastercard">
                                     </li>
                                     <li>
-                                        <img src="https://mbihosting.in/healthy-belly/public/frontend/images/icons/american-express.png" class="img-responsive" alt="american express" title="american express">
+                                        <img src="{{ asset('frontend/assets/img/icon/american-express.png') }}" class="img-responsive" alt="american express" title="american express">
                                     </li>
                                 </ul>
                             </div>

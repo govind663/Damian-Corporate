@@ -5,14 +5,6 @@
 @endsection
 
 @push('styles')
-<style>
-    .bre-sec {
-        height: 60px !important;
-    }
-    .bre-sec .breadcrumb-content {
-        padding: 15px 0px 0px !important;
-    }
-</style>
 @endpush
 
 @section('content')
@@ -23,7 +15,7 @@
               <div class="col-xxl-12">
                  <div class="breadcrumb-content">
                     <div class="breadcrumb__list">
-                       <span><a href="{{ route('frontend.home') }}">Home</a></span>
+                       <span><a href="{{ route('frontend.home') }}" title="Home">Home</a></span>
                        <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
                        <span>Checkout</span>
                     </div>
@@ -251,7 +243,12 @@
                             </div>
                             <div class="tp-checkout-payment-item paypal-payment">
                                 <input type="radio" id="paypal" name="payment">
-                                <label for="paypal">PayPal <img src="{{ asset('frontend/assets/img/icon/payment-option.png') }}" alt=""> <a href="#">What is PayPal?</a></label>
+                                <label for="paypal">PayPal
+                                    <img src="{{ asset('frontend/assets/img/icon/payment-option.png') }}" alt="payment-option" title="payment-option">
+                                    <a href="https://www.paypal.com/" title="What is PayPal?">
+                                        What is PayPal?
+                                    </a>
+                                </label>
                             </div>
                         </div>
                         <div class="tp-checkout-agree">
@@ -261,7 +258,9 @@
                             </div>
                         </div>
                         <div class="tp-checkout-btn-wrapper">
-                            <a href="#" class="tp-btn-theme text-center w-100"><span>Place Order</span></a>
+                            <a href="#" class="tp-btn-theme text-center w-100" title="Place Order">
+                                <span>Place Order</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -273,30 +272,4 @@
 @endsection
 
 @push('scripts')
-<script>
-    // Initialize Swiper
-    var swiper = new Swiper('.swiper-container', {
-       slidesPerView: 1,
-       spaceBetween: 10,
-       loop: true,
-       navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-       },
-       breakpoints: {
-          640: {
-             slidesPerView: 1,
-             spaceBetween: 20,
-          },
-          768: {
-             slidesPerView: 2,
-             spaceBetween: 30,
-          },
-          1024: {
-             slidesPerView: 4,
-             spaceBetween: 40,
-          },
-       },
-    });
- </script>
 @endpush

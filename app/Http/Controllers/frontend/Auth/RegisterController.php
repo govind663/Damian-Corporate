@@ -23,9 +23,12 @@ class RegisterController extends Controller
     public function citizenStore(RegisterRequest $request)
     {
         $data = new Citizen();
-        $data->name = $request->get('name');
+        $data->f_name = $request->get('f_name');
+        $data->l_name = $request->get('l_name');
+        $data->phone = $request->get('phone');
         $data->email = $request->get('email');
         $data->password = Hash::make($request->get('password'));
+        $data->status = 1; // 1=Active, 0=Inactive
         $data->created_at = Carbon::now();
         $data->save();
 
