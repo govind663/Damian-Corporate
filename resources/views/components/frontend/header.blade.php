@@ -224,9 +224,9 @@
                             <li class="nav-item {{ Route::currentRouteName() == 'frontend.awards' ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('frontend.awards') }}" title="Awards & Media">Awards & Media</a>
                             </li>
-                            {{-- <li class="nav-item {{ Route::currentRouteName() == 'frontend.blogs' ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('frontend.blogs') }}">Blogs</a>
-                            </li> --}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" title="Blogs">Blogs</a>
+                            </li>
                             <li class="nav-item {{ Route::currentRouteName() == 'frontend.careers' ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('frontend.careers') }}" title="Careers">Careers</a>
                             </li>
