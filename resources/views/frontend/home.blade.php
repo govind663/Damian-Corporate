@@ -87,7 +87,8 @@
                 <div class="col-xl-7 col-lg-7">
                     <div class="tp-about-content">
                         <div class="tp-about-title-box mb-20">
-                            <h3 class="tp-section-title tp-split-text tp-split-in-right">{{ $introductions->title ?? '' }}
+                            <h3 class="tp-section-title tp-split-text tp-split-in-right">
+                                {{ $introductions->title ?? '' }}
                             </h3>
                         </div>
                         <div class="tp-about-text wow fadeInRight mb-25">
@@ -96,7 +97,7 @@
                                 {!! Str::limit($introductions->description ?? '', 550) !!}
                             </p>
                         </div>
-                        <a class="tp-btn-black" href="{{ route('frontend.about') }}">
+                        <a class="tp-btn-black" href="{{ route('frontend.about') }}" title="Know More">
                             <span>Know More</span>
                         </a>
                     </div>
@@ -119,19 +120,27 @@
                     </div>
                 </div>
             </div>
+
             <div class="tp-project-2-wrapper portfolio-section">
                 <div class="row">
                     @foreach ($projects as $value)
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 project-item">
                             <div class="tp-project-2-item">
                                 <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
                                     <a href="{{ route('frontend.project.details', $value->slug) }}" class="tp-project-2-thumb-link" title="{{ $value->project_name }}">
-                                        <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}" alt="{{ $value->project_image }}" title="{{ $value->project_image }}" style="width: 380px !important; height: 241px !important;">
+                                        <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}"
+                                             alt="{{ $value->project_image }}"
+                                             title="{{ $value->project_image }}"
+                                             style="width: 380px !important; height: 241px !important;">
                                     </a>
                                 </div>
                                 <div class="project-info">
                                     <h4 class="tp-project-2-title">
-                                        <a href="{{ route('frontend.project.details', $value->slug) }}" title="{{ $value->project_name }}" class="tp-project-2-title-link">{{ $value->project_name ?? '' }}</a>
+                                        <a href="{{ route('frontend.project.details', $value->slug) }}"
+                                           title="{{ $value->project_name }}"
+                                           class="tp-project-2-title-link">
+                                           {{ $value->project_name ?? '' }}
+                                        </a>
                                     </h4>
                                     <p>{{ $value->category?->category_name }}</p>
                                 </div>
@@ -139,10 +148,9 @@
                         </div>
                     @endforeach
                 </div>
-
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <a class="tp-btn-black load-more" href="{{ route('frontend.services') }}">
+                        <a class="tp-btn-black load-more"href="#" title="Load More">
                             <span>Load More</span>
                         </a>
                     </div>
@@ -417,7 +425,7 @@
                 </div>
                 <div class="col-xl-6 col-lg-6">
                     <div class="tp-contact-left">
-                        <img src="./frontend/assets/img/contact/get-in-touch-img.jpeg" alt="get-in-touch-img" title="get-in-touch-img" />
+                        <img src="{{ asset('/frontend/assets/img/contact/get-in-touch-img.jpeg') }}" alt="get-in-touch-img" title="get-in-touch-img" />
                     </div>
                 </div>
             </div>
@@ -453,4 +461,66 @@
 @endsection
 
 @push('scripts')
+<script>
+    $(function() {
+        function updateVisibleItems() {
+            const windowWidth = $(window).width();
+            let initialVisible, loadMoreCount;
+
+            if (windowWidth >= 1200) {
+                // For large screens
+                initialVisible = 9;
+                loadMoreCount = 3;
+            } else if (windowWidth >= 992) {
+                // For medium screens
+                initialVisible = 6;
+                loadMoreCount = 2;
+            } else {
+                // For small screens
+                initialVisible = 5;
+                loadMoreCount = 2;
+            }
+
+            // Hide all items
+            $(".tp-project-2-wrapper .col-md-6").hide();
+
+            // Show initial visible items
+            $(".tp-project-2-wrapper .col-md-6").slice(0, initialVisible).show();
+
+            // Adjust Load More button
+            if ($(".tp-project-2-wrapper .col-md-6:hidden").length === 0) {
+                $(".load-more").css('visibility', 'hidden');
+            } else {
+                $(".load-more").css('visibility', 'visible');
+            }
+
+            // Attach click event to Load More button
+            $("body").off('click', '.load-more').on('click', '.load-more', function(e) {
+                e.preventDefault();
+                $(".tp-project-2-wrapper .col-md-6:hidden").slice(0, loadMoreCount).slideDown();
+                if ($(".tp-project-2-wrapper .col-md-6:hidden").length === 0) {
+                    $(".load-more").css('visibility', 'hidden');
+                }
+            });
+        }
+
+        // Run on page load
+        updateVisibleItems();
+
+        // Update on window resize
+        $(window).resize(function() {
+            updateVisibleItems();
+        });
+    });
+
+
+
+
+    // 01. PreLoader Js
+    windowOn.on('load', function() {
+        $("#loading").fadeOut(500);
+    });
+
+</script>
+
 @endpush

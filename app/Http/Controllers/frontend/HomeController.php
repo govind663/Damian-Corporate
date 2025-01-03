@@ -27,7 +27,7 @@ class HomeController extends Controller
 
         $testimonials = Testimonial::orderBy("id","desc")->where('status',1)->whereNull('deleted_at')->get();
 
-        $projects = Project::with('category')->orderBy("id","asc")->where('status',1)->whereNull('deleted_at')->paginate(9);
+        $projects = Project::with('category')->orderBy("id","asc")->where('status',1)->whereNull('deleted_at')->paginate(11);
 
         $ourServices = OurServices::orderBy("id","asc")->where('status',1)->whereNull('deleted_at')->get();
 
@@ -107,7 +107,7 @@ class HomeController extends Controller
 
             // Send Mail with attachments
             Mail::to('codingthunder1997@gmail.com', 'Damian Corporate')
-                ->cc('codingthunder1997@gmail.com')
+                ->cc(['shweta@matrixbricks.com', 'codingthunder1997@gmail.com'])
                 ->send(new sendSubscribeUsMail($mailData));
 
             return redirect()->back()->with('message','Thank you for subscribing us. We will send you our latest updates.');
@@ -117,5 +117,4 @@ class HomeController extends Controller
             return redirect()->back()->with('error','Something Went Wrong  - '.$ex->getMessage());
         }
     }
-
 }

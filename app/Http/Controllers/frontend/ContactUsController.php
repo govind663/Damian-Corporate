@@ -69,7 +69,7 @@ class ContactUsController extends Controller
 
             // Send Mail with attachments
             Mail::to('codingthunder1997@gmail.com', 'Damian Corporate')
-                ->cc('codingthunder1997@gmail.com')
+                ->cc(['shweta@matrixbricks.com', 'codingthunder1997@gmail.com'])
                 ->send(new sendContactMail($mailData));
 
             return redirect()->back()->with('message','Thank you for your interest. We will get back to you within 24 hours.');

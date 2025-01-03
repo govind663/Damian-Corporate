@@ -10,7 +10,7 @@ class AwardsMediaController extends Controller
 {
     public function awards()
     {
-        $award_medias = AwardMedia::orderBy("year","desc")->whereNull('deleted_at')->get();
+        $award_medias = AwardMedia::orderBy("id","desc")->whereNull('deleted_at')->get();
 
         return view('frontend.awards-media',[
             'award_medias' => $award_medias
