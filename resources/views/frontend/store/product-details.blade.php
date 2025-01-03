@@ -12,6 +12,99 @@
     .bre-sec .breadcrumb-content {
         padding: 15px 0px 0px !important;
     }
+
+    del {
+        font-size: 16px !important;
+        margin-left: 12px !important;
+        vertical-align: middle !important;
+        color: #878787 !important;
+        font-family: Averta-Regular !important;
+        font-weight: 800 !important;
+    }
+
+    .pro-del-atw-sec {
+        text-align: center;
+    }
+    .pro-del-atw-sec {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .pro-del-wi-sec {
+        height: 40px;
+        width: 40px;
+        background-color: #A6A182;
+        border-radius: 100%;
+        cursor: pointer;
+    }
+
+    .pro-del-wi-sec img {
+        width: 30px;
+        margin: 0 auto;
+        position: relative;
+        top: 5px;
+    }
+
+    .pro-del-atc-sec {
+        height: 40px;
+        width: 40px;
+        background-color: #A6A182;
+        border-radius: 100%;
+        cursor: pointer;
+    }
+
+    .pro-del-atc-sec img {
+        width: 25px;
+        margin: 0 auto;
+        position: relative;
+        top: 5px;
+    }
+
+    .quantity-sec-new {
+        width: 100px;
+        margin: 0 auto;
+        padding-bottom: 10px;
+    }
+
+    .quantity-sec-new input {
+        color: #fff !important;
+        /* padding-left: 45px !important; */
+        height: 30px !important;
+        border: 1px solid #A6A182;
+        padding-left: 15px;
+        border-radius: 0px !important;
+        font-family: Averta-Regular;
+        font-size: 14px;
+    }
+
+    .quantity-sec-new .cart-minus {
+        height: 30px;
+        width: 30px;
+        /* text-align: center; */
+        line-height: 35px;
+        /* position: absolute; */
+        top: 0;
+        /* left: 80px; */
+        border-radius: 50% !important;
+        cursor: pointer;
+        color: #fff;
+        background: #a6a182;
+    }
+
+
+    .quantity-sec-new .cart-plus {
+        height: 30px;
+        width: 30px;
+        /* text-align: center; */
+        line-height: 30px;
+        /* position: absolute; */
+        top: 0;
+        right: 0;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 50% !important;
+        background: #a6a182;
+    }
 </style>
 @endpush
 
@@ -88,14 +181,51 @@
                 </div>
                 <div class="col-xl-6 col-lg-6">
                     <div class="tp-shop-details__right-warp product-details-right-warp-sec">
-                        <h3 class="tp-shop-details__title-sm product-details-title-sec">
-                            Epic Table - Danform
-                        </h3>
-                        <div class="tp-shop-details__price product-price-detail-sec">
-                            <span class="product-price-detail-span-sec">₹ 1000</span>
-                            <del>₹ 5000</del>
-                            <span class="red-color">-34%</span>
+                        <div class="row d-flex">
+                            <div class="col-md-8 col-sm-6 col-xs-12">
+                                <h3 class="tp-shop-details__title-sm product-details-title-sec">
+                                    Epic Table - Danform
+                                </h3>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="pro-del-atw-sec">
+                                    <div class="pro-del-wi-sec">
+                                        <a href="{{ route('frontend.wishlist') }}" class="add_to_wishlist" title="Wishlist">
+                                            <img src="{{ asset('frontend/assets/img/icon/wishlist.png') }}" class="img-responsive" alt="Add To wishlist" title="Add To wishlist">
+                                        </a>
+                                    </div>
+                                    <div class="pro-del-atc-sec">
+                                        <a href="{{ route('frontend.cart') }}" class="add_to_cart" title="Add To Cart">
+                                            <img src="{{ asset('frontend/assets/img/icon/add-to-cart.png') }}" class="img-responsive" alt="Add To Cart" title="Add To Cart">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        <div>
+
+                        <div class="tp-shop-details__price product-price-detail-sec pt-10">
+                            <div class="row d-flex">
+                                <div class="col-md-8 col-sm-6 col-xs-12">
+                                    <span class="product-price-detail-span-sec">₹ 10,000/-</span>
+                                        <del>₹ 5,000 /-</del>
+                                    <span class="red-color">-34%</span>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="quantity-sec-new p-relative">
+                                        <input type="number" class="quantity-input-number" value="1" min="1">
+                                        <div class="qty_button cart-minus tp-cart-minus">
+                                            <i class="fa-solid fa-caret-up"></i>
+                                        </div>
+                                        <div class="qty_button cart-plus tp-cart-plus">
+                                            <i class="fa-solid fa-caret-down"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="tp-shop-details__text-2 product-text-detail-sec">
                             <h6 class="product-det-add-sec">Description :</h6>
                             <p class="text-justify">
@@ -114,35 +244,6 @@
                                 <li>Depth (cm) : 150</li>
                             </ul>
                         </div>
-
-                        <div class="tp-shop-details__quantity-wrap product-shop-detail-quantity-section">
-                            <div class="row">
-                                <div class="col-lg-4">
-
-                                    <div class="tp-shop-details__quantity-box">
-                                        <div class="pd-store-quan-sec-one">
-                                            <input type="text" value="1">
-                                            <div class="tp-cart-minus"><i class="fal fa-minus"></i></div>
-                                            <div class="tp-cart-plus"><i class="fal fa-plus"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="tp-shop-details__btn">
-                                        <a class="tp-btn-theme height pro-btn-sec" href="{{ route('frontend.cart') }}" title="Add To Cart">
-                                            Add To Cart
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="tp-shop-details__btn">
-                                        <a class="tp-btn-theme height pro-btn-sec" href="{{ route('frontend.wishlist') }}" title="Add ToWishlist">
-                                            Wishlist
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -153,5 +254,20 @@
 @endsection
 
 @push('scripts')
+<script>
+    $(document).ready(function () {
+        $('.tp-cart-minus').on('click', function () {
+            let input = $(this).closest('.quantity-sec-new').find('.quantity-input'); // Find the related input
+            let value = parseInt(input.val()) || 0;
+            value = Math.max(1, value - 1); // Ensure minimum value is 1
+            input.val(value);
+        });
 
+        $('.tp-cart-plus').on('click', function () {
+            let input = $(this).closest('.quantity-sec-new').find('.quantity-input'); // Find the related input
+            let value = parseInt(input.val()) || 0;
+            input.val(value + 1);
+        });
+    });
+</script>
 @endpush

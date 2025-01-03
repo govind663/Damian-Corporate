@@ -137,7 +137,7 @@
              <div class="tp-header-right d-flex align-items-center justify-content-end">
                 <div class="tp-header-icon d-none d-xl-block position-relative">
                    <a href="javascript:;" class="login-icon-sec" title="Login">
-                      <i class="fa-solid fa-user"></i>
+                      <i class="fa-solid fa-user" style="color: #a6a182;"></i>
                    </a>
                    <div class="login-dropdown">
                       <ul class="login-dropdown-options">
@@ -149,7 +149,7 @@
 
                 <div class="tp-header-icon cart d-none d-xl-block">
                    <a class="cart-icon p-relative" href="{{ route('frontend.cart') }}" title="cart">
-                      <i class="fa-sharp fa-solid fa-cart-shopping shopping-cart"></i>
+                      <i class="fa-sharp fa-solid fa-cart-shopping shopping-cart" style="color: #a6a182;"></i>
                       <span>
                          <i class="far fa-plus"></i>
                       </span>
@@ -158,7 +158,7 @@
 
                 <div class="tp-header-icon cart d-none d-xl-block">
                    <a class="cart-icon p-relative" href="{{ route('frontend.wishlist') }}" title="wishlist">
-                      <i class="fa-solid fa-heart"></i>
+                      <i class="fa-solid fa-heart" style="color: #a6a182;"></i>
                       <span>
                          <i class="far fa-plus"></i>
                       </span>
@@ -167,7 +167,7 @@
 
                 <div class="tp-header-icon search d-none d-xl-block">
                    <a href="#" class="search-icon" title="search">
-                      <i class="fa-solid fa-magnifying-glass"></i>
+                      <i class="fa-solid fa-magnifying-glass" style="color: #a6a182;"></i>
                    </a>
                    <div class="dropdown-search">
                       <form class="search-form" action="search.html" method="get">
@@ -175,7 +175,7 @@
                             <input type="text" class="form-control" name="query" placeholder="Search Here" aria-label="Search" />
 
                             <button class="btn" type="submit" id="search-button" class="dropdown-search-btn-sec">
-                               <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                               <i class="fa-sharp fa-solid fa-magnifying-glass" style="color: #a6a182;"></i>
                             </button>
                          </div>
                       </form>
@@ -183,7 +183,9 @@
                 </div>
 
                 <div class="tp-header-bar d-xl-none">
-                   <button class="tp-menu-bar"><i class="fa-solid fa-bars"></i></button>
+                   <button class="tp-menu-bar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
                 </div>
              </div>
           </div>
@@ -193,7 +195,7 @@
 </div>
 @endif
 
-@if(Route::currentRouteName() == 'frontend.home' || Route::currentRouteName() == 'frontend.about' || Route::currentRouteName() == 'frontend.services' || Route::currentRouteName() == 'frontend.awards' || Route::currentRouteName() == 'frontend.careers' || Route::currentRouteName() == 'frontend.contact')
+@if(Route::currentRouteName() == 'frontend.home' || Route::currentRouteName() == 'frontend.about' )
     <div class="tp-header-area tp-header-tranparent ">
         <div class="container-fluid">
             <div class="row tp-header-2-menu align-items-center">
@@ -212,7 +214,7 @@
 
                     <div class="collapse navbar-collapse" id="collapsibleNavbar">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item {{ Route::currentRouteName() == 'frontend.about' ? 'active' : '' }}">
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('frontend.about') }}" title="About us">About us </a>
                             </li>
                             <li class="nav-item {{ Route::currentRouteName() == 'frontend.services' ? 'active' : '' }}">
@@ -224,9 +226,9 @@
                             <li class="nav-item {{ Route::currentRouteName() == 'frontend.awards' ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('frontend.awards') }}" title="Awards & Media">Awards & Media</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" title="Blogs">Blogs</a>
-                            </li>
+                            {{-- <li class="nav-item {{ Route::currentRouteName() == 'frontend.blogs' ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('frontend.blogs') }}">Blogs</a>
+                            </li> --}}
                             <li class="nav-item {{ Route::currentRouteName() == 'frontend.careers' ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('frontend.careers') }}" title="Careers">Careers</a>
                             </li>
