@@ -137,7 +137,7 @@
              <div class="tp-header-right d-flex align-items-center justify-content-end">
                 <div class="tp-header-icon d-none d-xl-block position-relative">
                    <a href="javascript:;" class="login-icon-sec" title="Login">
-                      <i class="fa-solid fa-user" style="color: #a6a182;"></i>
+                      <i class="fa-solid fa-user" style="color: #ffffff;"></i>
                    </a>
                    <div class="login-dropdown">
                       <ul class="login-dropdown-options">
@@ -149,7 +149,7 @@
 
                 <div class="tp-header-icon cart d-none d-xl-block">
                    <a class="cart-icon p-relative" href="{{ route('frontend.cart') }}" title="cart">
-                      <i class="fa-sharp fa-solid fa-cart-shopping shopping-cart" style="color: #a6a182;"></i>
+                      <i class="fa-sharp fa-solid fa-cart-shopping shopping-cart" style="color: #ffffff;"></i>
                       <span>
                          <i class="far fa-plus"></i>
                       </span>
@@ -158,7 +158,7 @@
 
                 <div class="tp-header-icon cart d-none d-xl-block">
                    <a class="cart-icon p-relative" href="{{ route('frontend.wishlist') }}" title="wishlist">
-                      <i class="fa-solid fa-heart" style="color: #a6a182;"></i>
+                      <i class="fa-solid fa-heart" style="color: #ffffff;"></i>
                       <span>
                          <i class="far fa-plus"></i>
                       </span>
@@ -167,7 +167,7 @@
 
                 <div class="tp-header-icon search d-none d-xl-block">
                    <a href="#" class="search-icon" title="search">
-                      <i class="fa-solid fa-magnifying-glass" style="color: #a6a182;"></i>
+                      <i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i>
                    </a>
                    <div class="dropdown-search">
                       <form class="search-form" action="search.html" method="get">
@@ -175,7 +175,7 @@
                             <input type="text" class="form-control" name="query" placeholder="Search Here" aria-label="Search" />
 
                             <button class="btn" type="submit" id="search-button" class="dropdown-search-btn-sec">
-                               <i class="fa-sharp fa-solid fa-magnifying-glass" style="color: #a6a182;"></i>
+                               <i class="fa-sharp fa-solid fa-magnifying-glass" style="color: #ffffff;"></i>
                             </button>
                          </div>
                       </form>
