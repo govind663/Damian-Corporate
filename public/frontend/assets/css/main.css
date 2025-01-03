@@ -244,7 +244,7 @@ li,
 }
 
 /*---------------------------------
-	typography css start
+	typography css start 
 ---------------------------------*/
 body {
   font-family: var(--tp-ff-body);
@@ -1160,7 +1160,7 @@ div.demo img {
 }
 
 /*----------------------------------------
-    Body Overlay
+    Body Overlay 
 -----------------------------------------*/
 .body-overlay {
   background-color: var(--tp-common-black);
@@ -20071,11 +20071,11 @@ p.checkout-coupon input[type=text]:focus {
     .hero-slider {
         height: auto;
     }
-
+    
     .heading-container {
         padding-top: 20px;
     }
-
+    
     .heading-container h1 {
         font-size: 24px;
     }
@@ -20085,7 +20085,7 @@ p.checkout-coupon input[type=text]:focus {
     .hero-slider {
         height: auto;
     }
-
+    
     .heading-container {
         padding-top: 20px;
     }
@@ -20599,7 +20599,7 @@ footer {
     .home-testimonial-container {
         padding: 20px 20px 40px;
     }
-
+    
     .home-footer-container {
         padding: 0 40px !important;
     }
@@ -21520,7 +21520,7 @@ footer {
   .home-navbar {
     padding: 0 20px;
   }
-
+  
   .bre-sec .home-container {
       padding: 0 20px
   }
@@ -22010,7 +22010,7 @@ footer {
     .portfolio-mobile-section {
         display: block;
     }
-
+    
     .portfolio-desktop-version {
         display: none;
     }
@@ -22047,7 +22047,7 @@ footer {
   .bre-sec {
     height: 50px;
   }
-
+  
   .bre-new-sec {
      height: 100;
   }
@@ -22055,7 +22055,7 @@ footer {
   .bre-sec .breadcrumb-content {
     padding: 10px 0 0;
   }
-
+  
   .bre-new-sec .breadcrumb-content {
       padding: 60px 0 0;
   }
@@ -25890,6 +25890,7 @@ input[type=number] {
     margin-top: 20px
   }
 }
+
 
 .product-det-add-sec {
     color: #fff;

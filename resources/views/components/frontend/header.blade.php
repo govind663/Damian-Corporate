@@ -89,35 +89,72 @@
 
 <!-- header area start -->
 <header>
-    @if(Route::currentRouteName() === 'frontend.products' || Route::currentRouteName() === 'frontend.product.details' || Route::currentRouteName() === 'frontend.cart' || Route::currentRouteName() === 'frontend.wishlist' || Route::currentRouteName() === 'frontend.checkout')
+    @if(Route::currentRouteName() === 'frontend.products' || Route::currentRouteName() === 'frontend.product.details' || Route::currentRouteName() === 'frontend.cart' || Route::currentRouteName() === 'frontend.wishlist' || Route::currentRouteName() === 'frontend.checkout' || Route::currentRouteName() === 'frontend.citizen.login' || Route::currentRouteName() === 'frontend.citizen.register' || Route::currentRouteName() === 'frontend.citizen.forgot.password' || Route::currentRouteName() === 'frontend.citizen.reset.password' || Route::currentRouteName() === 'frontend.citizen.verify.email' || Route::currentRouteName() === 'frontend.citizen.verify.email.resend' || Route::currentRouteName() === 'frontend.citizen.verify.email.verify' || Route::currentRouteName() === 'frontend.citizen.verify.email.verify.resend' || Route::currentRouteName() === 'frontend.citizen.verify.email.verify.resend.verify')
         <div class="tp-header-area z-index-6 dc-head-new-sec sticky-sub-top">
             <div class="container-fluid home-container">
                 <div class="row align-items-center">
                     <div class="col-xl-12 col-lg-12">
                         <div class="tp-header-right d-flex align-items-center justify-content-end">
                             <div class="tp-header-icon d-none d-xl-block position-relative">
-                            <a href="#" class="dc-icon-sec">
+                            <a href="javascript:;" class="dc-icon-sec" data-bs-toggle="dropdown" aria-expanded="false" title="Citizen Details">
                                 <i class="fa-solid fa-user"></i>
                             </a>
                             <div class="login-dropdown">
                                 <ul class="login-dropdown-options">
-                                    <li><a class="dropdown-item" href="">Login</a></li>
-                                    <li><a class="dropdown-item" href="#">Signup</a></li>
+                                    {{-- Citizen Profile --}}
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('frontend.profile') }}" title="citizenProfile">
+                                            <i class="fa-solid fa-user"></i> &nbsp;
+                                            My Profile
+                                        </a>
+                                    </li>
+
+                                    {{-- Login --}}
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('frontend.citizen.login') }}" title="citizenLogin">
+                                            <i class="fa-solid fa-user"></i> &nbsp;
+                                            Login
+                                        </a>
+                                    </li>
+
+                                    {{-- Register --}}
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('frontend.citizen.register') }}" title="citizenSignup">
+                                            <i class="fa-solid fa-user-plus"></i> &nbsp;
+                                            Register
+                                        </a>
+                                    </li>
+
+                                    {{-- Forgot Password --}}
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('frontend.change-password') }}" title="citizenForgotPassword">
+                                            <i class="fa-solid fa-lock"></i> &nbsp;
+                                            Forgot Password
+                                        </a>
+                                    </li>
+
+                                    {{-- Logout --}}
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('frontend.citizen.logout') }}" title="citizenLogout">
+                                            <i class="fa-solid fa-right-from-bracket"></i> &nbsp;
+                                            Logout
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                             </div>
 
                             <div class="tp-header-icon cart d-none d-xl-block">
-                            <a class="cart-icon-new-sec p-relative" href="cart.html">
-                                <i class="fa-sharp fa-solid fa-cart-shopping shopping-cart"></i>
-                                <span>
-                                    <i class="far fa-plus"></i>
-                                </span>
-                            </a>
+                                <a class="cart-icon-new-sec p-relative" href="{{ route('frontend.cart') }}" title="Add to cart">
+                                    <i class="fa-sharp fa-solid fa-cart-shopping shopping-cart"></i>
+                                    <span>
+                                        <i class="far fa-plus"></i>
+                                    </span>
+                                </a>
                             </div>
 
                             <div class="tp-header-icon cart d-none d-xl-block">
-                            <a class="cart-icon-new-sec p-relative" href="wishlist.html">
+                            <a class="cart-icon-new-sec p-relative" href="{{ route('frontend.wishlist') }}" title="Wishlist">
                                 <i class="fa-solid fa-heart"></i>
                                 <span>
                                     <i class="far fa-plus"></i>
@@ -126,26 +163,20 @@
                             </div>
 
                             <div class="tp-header-icon search d-none d-xl-block">
-                            <a href="#" class="serach-new-icon-sec">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </a>
-                            <div class="dropdown-search">
-                                <form class="search-form" action="search.html" method="get">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="query" placeholder="Search Here"
-                                        aria-label="Search" />
-                                        <button class="btn" type="submit" id="search-button" class="dropdown-search-btn-sec">
-                                        <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
-                                        </button>
-                                    </div>
-                                </form>
+                                <a href="#" class="serach-new-icon-sec" title="Search Product">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </a>
+                                <div class="dropdown-search">
+                                    <form class="search-form" action="#l" method="get">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="query" placeholder="Search Here" aria-label="Search" />
+                                            <button class="btn" type="submit" id="search-button" class="dropdown-search-btn-sec">
+                                                <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            </div>
-
-                            <!-- <div class="tp-header-btn d-none d-md-block">
-                            <a class="tp-btn-border black-border" href="contact.html"><span>Get a Quote</span></a>
-                            </div> -->
-
                         </div>
                     </div>
 
@@ -163,7 +194,7 @@
                         </a>
                     </div>
                     </div>
-    
+
                     <div class="collapse navbar-collapse" id="collapsibleNavbar">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
@@ -189,7 +220,7 @@
                             </li>
                         </ul>
                     </div>
-    
+
                     <div class="col-xl-1 col-lg-8 col-6">
                     <div class="tp-header-right d-flex align-items-center justify-content-end">
                         <div class="tp-header-bar d-xl-none">
@@ -197,7 +228,7 @@
                         </div>
                     </div>
                     </div>
-    
+
                 </nav>
             </div>
         </div>
