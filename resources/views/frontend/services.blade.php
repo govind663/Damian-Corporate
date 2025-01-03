@@ -5,6 +5,39 @@
 @endsection
 
 @push('styles')
+<style>
+    .tp-project-filter button.active {
+        color: var(--tp-common-white);
+        background-color: var(--tp-theme-1);
+    }
+
+    .tp-project-filter button {
+        color: #ffffff !important;
+        font-family: Averta-Regular;
+        font-size: 14px;
+    }
+    .tp-project-filter button {
+        color: #24231D;
+        font-size: 12px;
+        /* font-weight: 500; */
+        letter-spacing: 1.2px;
+        text-transform: capitalize;
+        height: 60px;
+        line-height: 60px;
+        padding: 0 20px;
+        margin: 0 12px;
+        border: 1px solid var(--tp-theme-1);
+    }
+
+    .portfolio-area .box img {
+        width: 100%;
+        height: auto;
+        transform: scale3d(1.1, 1.1, 1);
+        transition: all 0.25s linear;
+    }
+
+
+</style>
 @endpush
 
 @section('content')
@@ -27,7 +60,7 @@
     <!-- breadcrumb area end -->
 
     <!-- service area start -->
-    <div class="our-services-area pt-70 pb-70">
+    <div class="our-services-area pt-70">
         <div class="container-fluid home-container">
 
             <div class="row">
