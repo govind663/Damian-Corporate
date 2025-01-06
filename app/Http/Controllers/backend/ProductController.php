@@ -60,13 +60,13 @@ class ProductController extends Controller
             $product = new Product();
 
             // ==== Upload (image)
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
+            if ($request->hasFile('project_image')) {
+                $image = $request->file('project_image');
                 $extension = $image->getClientOriginalExtension();
                 $new_name = time() . rand(10, 999) . '.' . $extension;
-                $image->move(public_path('/damian_corporate/product/image/'), $new_name);
+                $image->move(public_path('/damian_corporate/product/project_image/'), $new_name);
 
-                $image_path = "/damian_corporate/product/image/" . $new_name;
+                $image_path = "/damian_corporate/product/project_image/" . $new_name;
                 $product->image = $new_name;
             }
 
@@ -117,6 +117,10 @@ class ProductController extends Controller
             $product->inserted_at = Carbon::now();
             $product->inserted_at = Carbon::now();
             $product->inserted_by = Auth::user()->id;
+
+            // ==== Generate Product SKU Code (Six Digit Number + Product ID + Random Number)
+            $product_sku_code = 'DCP' . str_pad($product->id, 6, '0', STR_PAD_LEFT) . rand(1000, 9999);
+            $product->product_sku = $product_sku_code;
             $product->save();
 
             return redirect()->route('product.index')->with('message','Product has been successfully created.');
@@ -171,20 +175,20 @@ class ProductController extends Controller
             $product = Product::findOrFail($id);
 
             // Check and upload the banner image
-            if ($request->hasFile('image')) {
+            if ($request->hasFile('project_image')) {
                 // Delete the old image if it exists
-                if ($product->image) {
-                    $oldImagePath = public_path('/damian_corporate/product/image/' . $product->image);
+                if ($product->project_image) {
+                    $oldImagePath = public_path('/damian_corporate/product/project_image/' . $product->project_image);
                     if (file_exists($oldImagePath)) {
                         unlink($oldImagePath); // Delete the old image file
                     }
                 }
 
                 // Process the new image
-                $image = $request->file('image');
+                $image = $request->file('project_image');
                 $extension = $image->getClientOriginalExtension();
                 $new_name = time() . rand(10, 999) . '.' . $extension;
-                $image->move(public_path('/damian_corporate/product/image/'), $new_name);
+                $image->move(public_path('/damian_corporate/product/project_image/'), $new_name);
 
                 // Update the banner object with the new image path
                 $product->image = $new_name;

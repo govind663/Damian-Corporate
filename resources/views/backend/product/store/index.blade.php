@@ -78,7 +78,7 @@ Damian Corporate | Manaage Product
 
                             <td class="text-wrap text-justify">
                                 @if($value->image)
-                                    <img src="#" alt="{{ $value->image }}" style="width: 100px; height: auto;">
+                                    <img src="{{ asset('/damian_corporate/product/project_image/' . $value->image) }}" alt="{{ $value->image }}" style="width: 100px; height: auto;">
                                 @endif
                             </td>
 

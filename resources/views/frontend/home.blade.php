@@ -239,65 +239,65 @@
     <!-- End Services Area -->
 
     <!-- Portfolio-Mobile-Section -->
-        <section class="portfolio-mobile-section">
-            <div class="container-fluid home-container">
-                <div class="row">
-                    <div class="col-lg-12">
-                    <div class="tp-testimonial-2-title-box">
-                        <h3 class="tp-section-title tp-split-text tp-split-in-right">Services</h3>
-                    </div>
-                    </div>
+    <section class="portfolio-mobile-section">
+        <div class="container-fluid home-container">
+            <div class="row">
+                <div class="col-lg-12">
+                <div class="tp-testimonial-2-title-box">
+                    <h3 class="tp-section-title tp-split-text tp-split-in-right">Services</h3>
                 </div>
-
-                <div class="row">
-                    <div class="col-lg-12">
-                    <h3 class="por-header-sec"><a class="pbmit-svg-btn"
-                            href="#">
-                            <span class="pbminfotech-box-number">01</span>
-                            <span>Architecture Design & Build</span>
-                        </a>
-                    </h3>
-                    <video
-                        src="https://damiancorporate.com/assets/images/All_Media%2Fhomepage%2F2024-10-23%2FDamian_corporates_All_Media_homepage_2024-07-09_Damian_corporates_Architectural%20Design%20&%20Build%20(2)%20(1).mp4?generation=1729686276928998&alt=media"
-                        autoplay muted loop playsinline height="80%" width="100%"></video>
-                    </div>
-                    <div class="col-lg-12">
-                    <h3 class="por-header-sec" style="margin-bottom: 0px;">
-                        <a class="pbmit-svg-btn" href="#">
-                            <span class="pbminfotech-box-number">02</span>
-                            <span>Residential Design & Build</span>
-                        </a>
-                    </h3>
-                    <video
-                        src="https://damiancorporate.com/assets/images/All_Media%2Fhomepage%2F2024-10-23%2FDamian_corporates_All_Media_homepage_2024-07-09_Damian_corporates_Residential%20Design%20&%20Build%20(1).mp4?generation=1729686298068447&alt=media"
-                        autoplay muted loop playsinline height="90%" width="100%"></video>
-                    </div>
-                    <div class="col-lg-12">
-                    <h3 class="por-header-sec" style="margin-bottom: 0px;">
-                        <a class="pbmit-svg-btn" href="#">
-                            <span class="pbminfotech-box-number">03</span>
-                            <span>Commercial Design & Build</span>
-                        </a>
-                    </h3>
-                    <video
-                        src="https://damiancorporate.com/assets/images/All_Media%2Fhomepage%2F2024-10-23%2FDamian_corporates_All_Media_homepage_2024-07-09_Damian_corporates_Commercial%20Design%20&%20Build%20(1)%20(1).mp4?generation=1729686314441214&alt=media"
-                        autoplay muted loop playsinline height="90%" width="100%"></video>
-                    </div>
-                    <div class="col-lg-12">
-                    <h3 class="por-header-sec" style="margin-bottom: 0px;">
-                        <a class="pbmit-svg-btn"
-                            href="#">
-                            <span class="pbminfotech-box-number">04</span>
-                            <span>Modular Furniture Design & Build</span>
-                        </a>
-                    </h3>
-                    <video
-                        src="https://damiancorporate.com/assets/images/All_Media%2Fhomepage%2F2024-10-23%2FDamian_corporates_All_Media_homepage_2024-07-09_Damian_corporates_Modular%20Furniture%20Design%20&%20Build.mp4?generation=1729686325406726&alt=media"
-                        autoplay muted loop playsinline height="90%" width="100%"></video>
-                    </div>
                 </div>
             </div>
-        </section>
+
+            <div class="row">
+                <div class="col-lg-12">
+                <h3 class="por-header-sec"><a class="pbmit-svg-btn"
+                        href="#">
+                        <span class="pbminfotech-box-number">01</span>
+                        <span>Architecture Design & Build</span>
+                    </a>
+                </h3>
+                <video
+                    src="https://damiancorporate.com/assets/images/All_Media%2Fhomepage%2F2024-10-23%2FDamian_corporates_All_Media_homepage_2024-07-09_Damian_corporates_Architectural%20Design%20&%20Build%20(2)%20(1).mp4?generation=1729686276928998&alt=media"
+                    autoplay muted loop playsinline height="80%" width="100%"></video>
+                </div>
+                <div class="col-lg-12">
+                <h3 class="por-header-sec" style="margin-bottom: 0px;">
+                    <a class="pbmit-svg-btn" href="#">
+                        <span class="pbminfotech-box-number">02</span>
+                        <span>Residential Design & Build</span>
+                    </a>
+                </h3>
+                <video
+                    src="https://damiancorporate.com/assets/images/All_Media%2Fhomepage%2F2024-10-23%2FDamian_corporates_All_Media_homepage_2024-07-09_Damian_corporates_Residential%20Design%20&%20Build%20(1).mp4?generation=1729686298068447&alt=media"
+                    autoplay muted loop playsinline height="90%" width="100%"></video>
+                </div>
+                <div class="col-lg-12">
+                <h3 class="por-header-sec" style="margin-bottom: 0px;">
+                    <a class="pbmit-svg-btn" href="#">
+                        <span class="pbminfotech-box-number">03</span>
+                        <span>Commercial Design & Build</span>
+                    </a>
+                </h3>
+                <video
+                    src="https://damiancorporate.com/assets/images/All_Media%2Fhomepage%2F2024-10-23%2FDamian_corporates_All_Media_homepage_2024-07-09_Damian_corporates_Commercial%20Design%20&%20Build%20(1)%20(1).mp4?generation=1729686314441214&alt=media"
+                    autoplay muted loop playsinline height="90%" width="100%"></video>
+                </div>
+                <div class="col-lg-12">
+                <h3 class="por-header-sec" style="margin-bottom: 0px;">
+                    <a class="pbmit-svg-btn"
+                        href="#">
+                        <span class="pbminfotech-box-number">04</span>
+                        <span>Modular Furniture Design & Build</span>
+                    </a>
+                </h3>
+                <video
+                    src="https://damiancorporate.com/assets/images/All_Media%2Fhomepage%2F2024-10-23%2FDamian_corporates_All_Media_homepage_2024-07-09_Damian_corporates_Modular%20Furniture%20Design%20&%20Build.mp4?generation=1729686325406726&alt=media"
+                    autoplay muted loop playsinline height="90%" width="100%"></video>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- End Portfolio-Mobile-Section -->
 
     <!--Testimonial-section-->
