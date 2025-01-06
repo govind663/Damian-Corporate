@@ -52,10 +52,8 @@
                         <div class="tp-team-author-info">
                             <h5 class="tp-section-title">{{ $introductions->title ?? '' }}</h5>
                         </div>
-                        <div class="tp-team-details-text about-us-right-text pe-5">
-                            <p>
-                                {!! $introductions->description ?? '' !!}
-                            </p>
+                        <div class="tp-team-details-text about-us-right-text pe-5" style="text-align: justify; color: #ffffff !important;">
+                            {!! $introductions->description ?? '' !!}
                         </div>
                     </div>
                     <div class="col-xl-5 col-lg-6">
