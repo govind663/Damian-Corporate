@@ -5,6 +5,35 @@
 @endsection
 
 @push('styles')
+<style>
+    .tp-shop-details__tab-big-img img {
+    width: 100%; /* Ensure the image takes up the full width of the container */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensures the image covers the container without stretching */
+    display: block;
+}
+
+.tp-shop-details__tab-big-img {
+    display: flex; /* Centers the image inside the container */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ensures no overflow for larger images */
+    width: 100%; /* Match the container width */
+    height: 400px; /* Set a consistent height */
+    background-color: #f8f8f8; /* Optional: Placeholder background */
+}
+
+.nav img {
+    width: 100%; /* Ensure the thumbnail takes full width of the button */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Prevents cutting off parts of the thumbnail */
+    max-height: 80px; /* Restrict thumbnail height */
+    border: 1px solid #ddd; /* Optional: Add a border for better appearance */
+    padding: 4px; /* Optional: Add padding */
+    background-color: #fff; /* Optional: Background for the thumbnails */
+}
+
+</style>
 @endpush
 
 @section('content')
@@ -17,9 +46,9 @@
                     <div class="breadcrumb__list">
                        <span><a href="{{ route('frontend.home') }}">Home</a></span>
                        <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
-                       <span>Product Details</span>
+                       <span><a href="{{ route('frontend.products') }}">Store</a></span>
                        <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
-                       <span>Product Name</span>
+                       <span>{{ $product->name }}</span>
                     </div>
                  </div>
               </div>
@@ -36,43 +65,34 @@
                     <div class="tp-shop-details__wrapper product-shop-detail-wrapper">
                         <div class="tp-shop-details__tab-content-box mb-20">
                             <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
-                                    <div class="tp-shop-details__tab-big-img">
-                                        <img src="{{ asset('frontend/assets/img/pro-det-1.jpg') }}" alt="">
+                                @foreach ($productOtherImages as $index => $image)
+                                    <div class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}"
+                                         id="nav-{{ $index }}"
+                                         role="tabpanel"
+                                         aria-labelledby="nav-{{ $index }}-tab">
+                                        <div class="tp-shop-details__tab-big-img">
+                                            {{-- Add Image Path --}}
+                                            <img src="{{ asset('damian_corporate/product/product_other_images/' . $image) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane fade" id="nav-two" role="tabpanel" aria-labelledby="nav-two-tab">
-                                    <div class="tp-shop-details__tab-big-img">
-                                        <img src="{{ asset('frontend/assets/img/pro-det-2.jpg') }}" alt="">
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="nav-three" role="tabpanel" aria-labelledby="nav-three-tab">
-                                    <div class="tp-shop-details__tab-big-img">
-                                        <img src="{{ asset('frontend/assets/img/pro-det-3.jpg') }}" alt="">
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="nav-four" role="tabpanel" aria-labelledby="nav-four-tab">
-                                    <div class="tp-shop-details__tab-big-img">
-                                        <img src="{{ asset('frontend/assets/img/pro-det-4.jpg') }}" alt="">
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                         <div class="pd-store-tab-btn tp-shop-details__tab-btn-box">
                             <nav>
                                 <div class="nav nav-tab pd-nav-tab-sec" id="nav-tab" role="tablist">
-                                    <button class="nav-links active" id="nav-one-tab" data-bs-toggle="tab" data-bs-target="#nav-one" type="button" role="tab" aria-controls="nav-one" aria-selected="true">
-                                        <img src="{{ asset('frontend/assets/img/pro-det-1-sm.jpg') }}" alt="">
-                                    </button>
-                                    <button class="nav-links" id="nav-two-tab" data-bs-toggle="tab" data-bs-target="#nav-two" type="button" role="tab" aria-controls="nav-two" aria-selected="false">
-                                        <img src="{{ asset('frontend/assets/img/pro-det-2-sm.jpg') }}" alt="">
-                                    </button>
-                                    <button class="nav-links" id="nav-three-tab" data-bs-toggle="tab" data-bs-target="#nav-three" type="button" role="tab" aria-controls="nav-three" aria-selected="false">
-                                        <img src="{{ asset('frontend/assets/img/pro-det-3-sm.jpg') }}" alt="">
-                                    </button>
-                                    <button class="nav-links" id="nav-four-tab" data-bs-toggle="tab" data-bs-target="#nav-four" type="button" role="tab" aria-controls="nav-four" aria-selected="false">
-                                        <img src="{{ asset('frontend/assets/img/pro-det-4-sm.jpg') }}" alt="">
-                                    </button>
+                                    @foreach ($productOtherImages as $index => $image)
+                                        <button class="nav-links {{ $index === 0 ? 'active' : '' }}"
+                                                id="nav-{{ $index }}-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#nav-{{ $index }}"
+                                                type="button"
+                                                role="tab"
+                                                aria-controls="nav-{{ $index }}"
+                                                aria-selected="{{ $index === 0 ? 'true' : 'false' }}">
+                                            <img src="{{ asset('damian_corporate/product/product_other_images/' . $image) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}">
+                                        </button>
+                                    @endforeach
                                 </div>
                             </nav>
                         </div>
@@ -83,7 +103,7 @@
                         <div class="row d-flex">
                             <div class="col-md-8 col-sm-6 col-xs-12">
                                 <h3 class="tp-shop-details__title-sm product-details-title-sec">
-                                    Epic Table - Danform
+                                    {{ $product->name }}
                                 </h3>
                             </div>
 
@@ -106,9 +126,9 @@
                         <div class="tp-shop-details__price product-price-detail-sec pt-10">
                             <div class="row d-flex">
                                 <div class="col-md-8 col-sm-6 col-xs-12">
-                                    <span class="product-price-detail-span-sec">₹ 10,000/-</span>
-                                        <del>₹ 5,000 /-</del>
-                                    <span class="red-color" style="border-radius: 2px;">-34%</span>
+                                    <span class="product-price-detail-span-sec">₹ {{ $product->price }} /-</span>
+                                        <del>₹ {{ $product->discount_price_after_percentage }} /-</del>
+                                    <span class="red-color" style="border-radius: 2px;">-{{ $product->discount_price_in_percentage }}%</span>
                                 </div>
 
                                 <div class="col-md-4 col-sm-6 col-xs-12">
@@ -127,20 +147,16 @@
 
                         <div class="tp-shop-details__text-2 product-text-detail-sec">
                             <h6 class="product-det-add-sec">Description :</h6>
-                            <p class="product-det-add-sec-p">
-                                The EPIC table is a grand statement piece with a luxurious
-                                trumpet base of veneered wood. The tempered glass top creates
-                                the illusion of lightness and allows for a view into the
-                                architectual construction of the table. This glass table top
-                                is 12 mm thick.
+                            <p class="product-det-add-sec-p" style="text-align: justify !important;">
+                                {!! $product->description !!}
                             </p>
                         </div>
                         <div class="tp-shop-details__text-2 product-dimension-sec">
                             <h6 class="pro-dim-title-sec">Product Dimensions :</h6>
                             <ul class="pro-dimen-listing-sec">
-                                <li>Height (cm) : 74.5</li>
-                                <li>Width (cm) : 150</li>
-                                <li>Depth (cm) : 150</li>
+                                <li>Height (cm) : {{ $product->height }}</li>
+                                <li>Width (cm) : {{ $product->width }}</li>
+                                <li>Depth (cm) : {{ $product->depth }}</li>
                             </ul>
                         </div>
                     </div>

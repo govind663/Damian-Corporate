@@ -186,52 +186,55 @@
             </div>
         </div>
 
-        <div class="tp-header-area z-index-5 dc-header-section sticky-top">
-            <div class="row tp-header-2-menu align-items-center">
-                <nav class="navbar navbar-expand-lg fixed-top home-navbar">
+        <div class="tp-header-area z-index-6 dc-header-section sticky-top">
+            <div class="container-fluid head-main-container">
+                <div class="row align-items-center">
                     <div class="col-xl-3 col-lg-8 col-6">
-                    <div class="tp-header-logo dc-header-logo">
-                        <a href="{{ route('frontend.home') }}" title="Home">
-                            <img src="{{ asset('/frontend/assets/img/logo/damian-logo.png') }}" alt="damian-logo.png" title="Damian Corporate" width="120">
-                        </a>
-                    </div>
-                    </div>
-
-                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('frontend.about') }}" title="About us">About us </a>
-                            </li>
-                            <li class="nav-item {{ Route::currentRouteName() == 'frontend.services' ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('frontend.services') }}" title="Services">Services</a>
-                            </li>
-                            <li class="nav-item {{ Route::currentRouteName() == 'frontend.products' ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('frontend.products') }}" title="Store">Store</a>
-                            </li>
-                            <li class="nav-item {{ Route::currentRouteName() == 'frontend.awards' ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('frontend.awards') }}" title="Awards & Media">Awards & Media</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Blogs</a>
-                            </li>
-                            <li class="nav-item {{ Route::currentRouteName() == 'frontend.careers' ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('frontend.careers') }}" title="Careers">Careers</a>
-                            </li>
-                            <li class="nav-item {{ Route::currentRouteName() == 'frontend.contact' ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('frontend.contact') }}" title="Contact us">Contact us</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="col-xl-1 col-lg-8 col-6">
-                    <div class="tp-header-right d-flex align-items-center justify-content-end">
-                        <div class="tp-header-bar d-xl-none">
-                        <button class="tp-menu-bar"><i class="fa-solid fa-bars"></i></button>
+                        <div class="tp-header-logo dc-header-logo">
+                            <a href="{{ route('frontend.home') }}" title="Home">
+                                <img src="{{ asset('/frontend/assets/img/logo/damian-logo.png') }}" alt="damian-logo.png" title="Damian Corporate" width="120">
+                            </a>
                         </div>
                     </div>
-                    </div>
 
-                </nav>
+                    <div class="col-xl-9 col-lg-8 col-md-8 d-none d-xl-block">
+                        <div class="dc-header-menu">
+                            <nav class="tp-main-menu-content">
+                                <ul>
+                                    <li class="{{ Route::currentRouteName() == 'frontend.about' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('frontend.about') }}" title="About us">About us </a>
+                                    </li>
+                                    <li class="{{ Route::currentRouteName() == 'frontend.services' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('frontend.services') }}" title="Services">Services</a>
+                                    </li>
+                                    <li class="{{ Route::currentRouteName() == 'frontend.products' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('frontend.products') }}" title="Store">Store</a>
+                                    </li>
+                                    <li class="{{ Route::currentRouteName() == 'frontend.awards' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('frontend.awards') }}" title="Awards & Media">Awards & Media</a>
+                                    </li>
+                                    <li class="">
+                                        <a class="nav-link" href="#">Blogs</a>
+                                    </li>
+                                    <li class="{{ Route::currentRouteName() == 'frontend.careers' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('frontend.careers') }}" title="Careers">Careers</a>
+                                    </li>
+                                    <li class="{{ Route::currentRouteName() == 'frontend.contact' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('frontend.contact') }}" title="Contact us">Contact us</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <div class="col-xl-1 col-lg-8 col-6">
+                            <div class="tp-header-right d-flex align-items-center justify-content-end">
+                                <div class="tp-header-bar d-xl-none">
+                                    <button class="tp-menu-bar"><i class="fa-solid fa-bars"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     @endif

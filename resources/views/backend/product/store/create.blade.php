@@ -207,7 +207,7 @@ Damian Corporate | Add Product
                                 class="custom-select2 form-control @error('discount_type') is-invalid @enderror">
                             <option value="">Select Discount Type</option>
                             <optgroup label="Discount Type">
-                                <option value="11" {{ old('discount_type') == '1' ? 'selected' : '' }}>Fixed</option>
+                                {{-- <option value="11" {{ old('discount_type') == '1' ? 'selected' : '' }}>Fixed</option> --}}
                                 <option value="12" {{ old('discount_type') == '2' ? 'selected' : '' }}>Percentage</option>
                             </optgroup>
                         </select>

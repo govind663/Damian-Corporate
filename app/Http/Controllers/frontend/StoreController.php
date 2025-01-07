@@ -5,6 +5,10 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Citizen;
+use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\ProductColors;
+use App\Models\ProductSubCategory;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,13 +18,39 @@ class StoreController extends Controller
     // ==== Products
     public function storeProductsList()
     {
-        return view('frontend.store.products');
+        // ===== Fetch Product Category
+        $productCategories = ProductCategory::orderBy("id","asc")->whereNull('deleted_at')->get();
+
+        // ===== Fetch Product Sub Category
+        $productSubCategories = ProductSubCategory::orderBy("id","asc")->whereNull('deleted_at')->get();
+
+        // ===== Fetch Product Colors
+        $colors = ProductColors::orderBy("id","asc")->whereNull('deleted_at')->get();
+
+        // ==== Fetch Product
+        $products = Product::orderBy("id","desc")->whereNull('deleted_at')->get();
+
+        return view('frontend.store.products', [
+            'products' => $products,
+            'productCategories' => $productCategories,
+            'productSubCategories' => $productSubCategories,
+            'colors' => $colors
+        ]);
     }
 
     // ==== Product Details
-    public function productDetails()
+    public function productDetails( $slug)
     {
-        return view('frontend.store.product-details');
+        // ==== Fetch Product
+        $product = Product::where('slug', $slug)->first();
+
+        // Decode the JSON data for other images
+       $productOtherImages = $product->product_other_images ? json_decode($product->product_other_images, true) : [];
+
+        return view('frontend.store.product-details', [
+            'product' => $product,
+            'productOtherImages' => $productOtherImages,
+        ]);
     }
 
     // ==== Add to Cart

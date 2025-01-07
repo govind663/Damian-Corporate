@@ -125,8 +125,13 @@ Route::group(['prefix'=> 'store', 'middleware'=>[PreventCitizenBackHistoryMiddle
     Route::get('products',[StoreController::class, 'storeProductsList'])->name('frontend.products');
 
     // ==== Product Details
-    // Route::get('product-details/{slug?}', [StoreController::class, 'productDetails'])->name('frontend.product.details');
-    Route::get('product-details', [StoreController::class, 'productDetails'])->name('frontend.product.details');
+    Route::get('product-details/{slug?}', [StoreController::class, 'productDetails'])->name('frontend.product.details');
+
+    // ==== Add to Cart
+    Route::get('cart', [StoreController::class, 'cart'])->name('frontend.cart');
+
+    // ==== Add to Wishlist
+    Route::get('wishlist', [StoreController::class, 'wishlist'])->name('frontend.wishlist');
 
 });
 
@@ -151,12 +156,6 @@ Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitize
 
     // ==== Logout
     Route::post('logout', [CitizenLoginController::class, 'citizenLogout'])->name('frontend.citizen.logout');
-
-    // ==== Add to Cart
-    Route::get('cart', [StoreController::class, 'cart'])->name('frontend.cart');
-
-    // ==== Add to Wishlist
-    Route::get('wishlist', [StoreController::class, 'wishlist'])->name('frontend.wishlist');
 
     // ==== Checkout
     Route::get('checkout', [StoreController::class, 'checkout'])->name('frontend.checkout');
