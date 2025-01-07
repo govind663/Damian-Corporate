@@ -45,6 +45,11 @@
             opacity: .1;
             font-family: var(--tp-ff-heading);
         }
+
+        .tp-about-text b {
+            color: #fff !important;
+            text-align: justify !important;
+        }
     </style>
 @endpush
 
@@ -87,7 +92,7 @@
                         <div class="tp-about-text wow fadeInRight mb-25">
                             {{-- Add word Limit count --}}
                             <p class="text-justify">
-                                {!! Str::limit($introductions->description ?? '', 550) !!}
+                                {!! Str::limit($introductions->description ?? '', 540) !!}
                             </p>
                         </div>
                         <a class="tp-btn-black" href="{{ route('frontend.about') }}" title="Know More">
@@ -567,5 +572,4 @@
         });
     });
 </script>
-
 @endpush

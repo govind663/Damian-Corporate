@@ -21,7 +21,7 @@
 <script src="{{ asset('frontend/assets/js/slick.js') }}"></script>
 <script src="{{ asset('frontend/assets/js/swiper-bundle.js') }}"></script>
 <script src="{{ asset('frontend/assets/js/services-slider.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+{{-- <script src="{{ asset('frontend/assets/js/main.js') }}"></script> --}}
 
 <!-- Toaster Java Script -->
 <script>

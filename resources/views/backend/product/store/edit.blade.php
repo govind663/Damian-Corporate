@@ -199,7 +199,7 @@ Damian Corporate | Edit Product
                     <div class="col-sm-4 col-md-4">
                         <input type="text" name="price" id="price"
                                class="form-control @error('price') is-invalid @enderror"
-                               value="{{ old('price') }}" placeholder="Enter Price.">
+                               value="{{ old('price', $product->price) }}" placeholder="Enter Price.">
                         @error('price')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -213,8 +213,8 @@ Damian Corporate | Edit Product
                                 class="custom-select2 form-control @error('discount_type') is-invalid @enderror">
                             <option value="">Select Discount Type</option>
                             <optgroup label="Discount Type">
-                                <option value="11" {{ old('discount_type') == '1' ? 'selected' : '' }}>Fixed</option>
-                                <option value="12" {{ old('discount_type') == '2' ? 'selected' : '' }}>Percentage</option>
+                                <option value="11" {{ old('discount_type', $product->discount_type) == '11' ? 'selected' : '' }}>Fixed</option>
+                                <option value="12" {{ old('discount_type', $product->discount_type) == '12' ? 'selected' : '' }}>Percentage</option>
                             </optgroup>
                         </select>
                         @error('discount_type')
@@ -228,12 +228,18 @@ Damian Corporate | Edit Product
                 <div class="form-group row mt-3 11 box" style="display: none;">
                     <label class="col-sm-2"><b>Price in (Rs) : </b></label>
                     <div class="col-sm-4 col-md-4">
-                        <input type="text" name="discount_price_in_amount" id="discount_price_in_amount" class="form-control" value="{{ old('discount_price_in_amount') }}" placeholder="Enter Price in (Rs).">
+                        <input type="text" name="discount_price_in_amount" id="discount_price_in_amount"
+                               class="form-control"
+                               value="{{ old('discount_price_in_amount', $product->discount_price_in_amount) }}"
+                               placeholder="Enter Price in (Rs).">
                     </div>
 
-                    <label class="col-sm-2"><b>After Discount in (Rs) : </b></label></b>
+                    <label class="col-sm-2"><b>After Discount in (Rs) : </b></label>
                     <div class="col-sm-4 col-md-4">
-                        <input type="text" name="discount_price_after_ammount" id="discount_price_after_ammount" class="form-control" value="{{ old('discount_price_after_ammount') }}" readonly>
+                        <input type="text" name="discount_price_after_ammount" id="discount_price_after_ammount"
+                               class="form-control"
+                               value="{{ old('discount_price_after_ammount', $product->discount_price_after_ammount) }}"
+                               readonly>
                         <small class="text-secondary">
                             <b>
                                 Note : This field will be auto calculated after discount.
@@ -245,12 +251,18 @@ Damian Corporate | Edit Product
                 <div class="form-group row mt-3 12 box" style="display: none;">
                     <label class="col-sm-2"><b>Price in (%) : </b></label>
                     <div class="col-sm-4 col-md-4">
-                        <input type="text" name="discount_price_in_percentage" id="discount_price_in_percentage" class="form-control" value="{{ old('discount_price_in_percentage') }}" placeholder="Enter Product Price in (%).">
+                        <input type="text" name="discount_price_in_percentage" id="discount_price_in_percentage"
+                               class="form-control"
+                               value="{{ old('discount_price_in_percentage', $product->discount_price_in_percentage) }}"
+                               placeholder="Enter Product Price in (%).">
                     </div>
 
-                    <label class="col-sm-2"><b>After Discount in (%) : </b></label></b>
+                    <label class="col-sm-2"><b>After Discount in (%) : </b></label>
                     <div class="col-sm-4 col-md-4">
-                        <input type="text" name="discount_price_after_percentage" id="discount_price_after_percentage" class="form-control" value="{{ old('discount_price_after_percentage') }}" readonly>
+                        <input type="text" name="discount_price_after_percentage" id="discount_price_after_percentage"
+                               class="form-control"
+                               value="{{ old('discount_price_after_percentage', $product->discount_price_after_percentage) }}"
+                               readonly>
                         <small class="text-secondary">
                             <b>
                                 Note : This field will be auto calculated after discount.
@@ -259,13 +271,14 @@ Damian Corporate | Edit Product
                     </div>
                 </div>
 
+
                 <h5 class="text-justify text-primary">Product Dimensions Details :</h5>
                 <hr>
 
                 <div class="form-group row mt-3">
                     <label class="col-sm-1"><b>Depth : <span class="text-danger">*</span></b></label>
                     <div class="col-sm-3 col-md-3">
-                        <input type="text" name="depth" id="depth" class="form-control @error('depth') is-invalid @enderror" value="{{ old('depth') }}" placeholder="Enter Depth.">
+                        <input type="text" name="depth" id="depth" class="form-control @error('depth') is-invalid @enderror" value="{{ $product->depth }}" placeholder="Enter Depth.">
                         @error('depth')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -275,7 +288,7 @@ Damian Corporate | Edit Product
 
                     <label class="col-sm-1"><b>Width : <span class="text-danger">*</span></b></label>
                     <div class="col-sm-3 col-md-3">
-                        <input type="text" name="width" id="width" class="form-control @error('width') is-invalid @enderror" value="{{ old('width') }}" placeholder="Enter Width.">
+                        <input type="text" name="width" id="width" class="form-control @error('width') is-invalid @enderror" value="{{ $product->width }}" placeholder="Enter Width.">
                         @error('width')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -285,7 +298,7 @@ Damian Corporate | Edit Product
 
                     <label class="col-sm-1"><b>Height : <span class="text-danger">*</span></b></label>
                     <div class="col-sm-3 col-md-3">
-                        <input type="text" name="height" id="height" class="form-control @error('height') is-invalid @enderror" value="{{ old('height') }}" placeholder="Enter Height.">
+                        <input type="text" name="height" id="height" class="form-control @error('height') is-invalid @enderror" value="{{ $product->height }}" placeholder="Enter Height.">
                         @error('height')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -305,28 +318,55 @@ Damian Corporate | Edit Product
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <div class="col-sm-12 col-md-12">
-                                    <div id="banner-container-0">
-                                        <div id="file-banner-0"></div>
-                                    </div>
-                                    <input type="file" onchange="bannerPreviewFiles(0)" accept=".png, .jpg, .jpeg" name="product_other_images[]" id="product_other_images_0" required class="form-control @error('product_other_images.*') is-invalid @enderror">
-                                    <small class="text-secondary"><b>Note : The file size  should be less than 2MB .</b></small>
+                        @if(!empty($product->product_other_images))
+                            @foreach($product->product_other_images as $key => $image)
+                                <tr>
+                                    <td width="85%">
+                                        <div class="row d-flex col-sm-8 col-md-8">
+                                            @if(!empty($image))
+                                                <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}" alt="{{ $image }}" class="img-thumbnail" style="max-width: 150px; max-height: 150px;">
+                                            @endif
+                                            <div id="banner-container-{{ $key }}">
+                                                <div id="file-banner-{{ $key }}"></div>
+                                            </div>
+                                            <input type="file" onchange="bannerPreviewFiles({{ $key }})" accept=".png, .jpg, .jpeg" name="product_other_images[]" id="product_other_images_{{ $key }}" class="form-control mt-2 @error('product_other_images.*') is-invalid @enderror" value="{{ $image }}">
+                                            <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
+                                            <br>
+                                            <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png format can be uploaded.</b></small>
+                                            @error('product_other_images.*')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </td>
+                                    <td width="15%">
+                                        @if($loop->first)
+                                            <button type="button" class="btn btn-primary" id="addBannerImageRow">Add More</button>
+                                        @else
+                                            <button type="button" class="btn btn-danger removeBannerImageRow">Remove</button>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td>
+                                    <input type="file" onchange="bannerPreviewFiles(0)" accept=".png, .jpg, .jpeg" name="product_other_images[]" id="product_other_images_0" class="form-control @error('product_other_images.*') is-invalid @enderror">
+                                    <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
                                     <br>
-                                    <small class="text-secondary"><b>Note : Only files in .jpg, .jpeg, .png format can be uploaded .</b></small>
-                                    <br>
+                                    <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png format can be uploaded.</b></small>
                                     @error('product_other_images.0')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-primary" id="addBannerImageRow">Add More</button>
-                            </td>
-                        </tr>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" id="addBannerImageRow">Add More</button>
+                                </td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
 
@@ -474,40 +514,28 @@ Damian Corporate | Edit Product
 {{-- Add More Banner Image or View both Image and PDF --}}
 <script>
     $(document).ready(function () {
-        let rowId = 0;
+        let rowId = $('#dynamicBannerImageTable tbody tr').length - 1;
 
-        // Restore old inputs if validation fails
-        let oldBannerImages = @json(old('product_other_images', []));
-        oldBannerImages.forEach(function (_, index) {
-            if (index > 0) {
-                rowId++;
-                $('#addBannerImageRow').click(); // Simulates adding a new row
-            }
-        });
-
-        // Add a new row with validation
+        // Add a new row for banner image
         $('#addBannerImageRow').click(function () {
             rowId++;
-            var newRow = `<tr>
-                <td>
-                    <div class="col-sm-12 col-md-12">
-                        <div id="banner-container-${rowId}">
-                            <div id="file-banner-${rowId}"></div>
+            const newRow = `
+                <tr>
+                    <td>
+                        <div class="col-sm-12 col-md-12">
+                            <div id="banner-container-${rowId}">
+                                <div id="file-banner-${rowId}"></div>
+                            </div>
+                            <input type="file" onchange="bannerPreviewFiles(${rowId})" accept=".png, .jpg, .jpeg" name="product_other_images[]" id="product_other_images_${rowId}" class="form-control @error('product_other_images.*') is-invalid @enderror">
+                            <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
+                            <br>
+                            <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png format can be uploaded.</b></small>
                         </div>
-                        <input type="file" onchange="bannerPreviewFiles(${rowId})" accept=".png, .jpg, .jpeg" name="product_other_images[]" id="product_other_images_${rowId}" class="form-control @error('product_other_images.*') is-invalid @enderror">
-                        <small class="text-secondary"><b>Note : The file size  should be less than 2MB .</b></small>
-                        <br>
-                        <small class="text-secondary"><b>Note : Only files in .jpg, .jpeg, .png format can be uploaded .</b></small>
-                        <br>
-                        @error('product_other_images.${rowId}')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </td>
-                <td><button type="button" class="btn btn-danger removeBannerImageRow">Remove</button></td>
-            </tr>`;
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger removeBannerImageRow">Remove</button>
+                    </td>
+                </tr>`;
             $('#dynamicBannerImageTable tbody').append(newRow);
         });
 
@@ -517,7 +545,7 @@ Damian Corporate | Edit Product
         });
     });
 
-    // Banner Image Preview
+    // Function for banner image preview
     function bannerPreviewFiles(rowId) {
         const fileInput = document.getElementById(`product_other_images_${rowId}`);
         const previewContainer = document.getElementById(`banner-container-${rowId}`);
@@ -527,22 +555,17 @@ Damian Corporate | Edit Product
         if (file) {
             const fileType = file.type;
             const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-            const validPdfTypes = ['application/pdf'];
 
             if (validImageTypes.includes(fileType)) {
                 // Image preview
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    filePreview.innerHTML = `<img src="${e.target.result}" alt="File Preview" style="width:150px; height:60px !important;">`;
+                reader.onload = function (e) {
+                    filePreview.innerHTML = `<img src="${e.target.result}" alt="File Preview" class="img-thumbnail" style="width:150px; height:150px;">`;
                 };
                 reader.readAsDataURL(file);
-            } else if (validPdfTypes.includes(fileType)) {
-                // PDF preview using an embed element
-                filePreview.innerHTML =
-                    `<embed src="${URL.createObjectURL(file)}" type="application/pdf" width="100%" height="25%" />`;
             } else {
                 // Unsupported file type
-                filePreview.innerHTML = '<p>Unsupported file type</p>';
+                filePreview.innerHTML = '<p class="text-danger">Unsupported file type. Please upload .jpg, .jpeg, or .png.</p>';
             }
 
             previewContainer.style.display = 'block';
