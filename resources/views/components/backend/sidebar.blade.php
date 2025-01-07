@@ -235,6 +235,7 @@
                         || (Route::currentRouteName() === 'product-sub-category.index') || (Route::currentRouteName() === 'product-sub-category.create') || (Route::currentRouteName() === 'product-sub-category.edit')
                         || (Route::currentRouteName() === 'product-colors.index') || (Route::currentRouteName() === 'product-colors.create') || (Route::currentRouteName() === 'product-colors.edit')
                         || (Route::currentRouteName() === 'product.index') || (Route::currentRouteName() === 'product.create') || (Route::currentRouteName() === 'product.edit')
+                        || (Route::currentRouteName() === 'product-image.index') || (Route::currentRouteName() === 'product-image.create') || (Route::currentRouteName() === 'product-image.edit')
                         ? 'show' : '' }}">
                         <li>
                             <a href="{{ route('product-category.index') }}" class="{{ (Route::currentRouteName() === 'product-category.index') || (Route::currentRouteName() === 'product-category.create') || (Route::currentRouteName() === 'product-category.edit') ? 'active' : '' }}">
@@ -254,6 +255,11 @@
                         <li>
                             <a href="{{ route('product.index') }}" class="{{ (Route::currentRouteName() === 'product.index') || (Route::currentRouteName() === 'product.create') || (Route::currentRouteName() === 'product.edit') ? 'active' : '' }}">
                                 <span class="mtext">Product</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('product-faq.index') }}" class="{{ (Route::currentRouteName() === 'product-faq.index') || (Route::currentRouteName() === 'product-faq.create') || (Route::currentRouteName() === 'product-faq.edit') ? 'active' : '' }}">
+                                <span class="mtext">FAQ</span>
                             </a>
                         </li>
                     </ul>
