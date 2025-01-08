@@ -1,6 +1,6 @@
 
 <!-- search popup start -->
-<div class="search__popup d-none">
+{{-- <div class="search__popup d-none">
     <div class="container-fluid home-container">
         <div class="row">
             <div class="col-xxl-12">
@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- search popup end -->
 
 <!-- tp-offcanvus-area-start -->
@@ -70,7 +70,7 @@
                 </a>
             </div>
         </div>
-        <div class="tpoffcanvas__input">
+        {{-- <div class="tpoffcanvas__input">
             <form action="#">
                 <div class="p-relative">
                     <input type="text" placeholder="Search Here">
@@ -79,13 +79,14 @@
                     </button>
                 </div>
             </form>
-        </div>
+        </div> --}}
 
     </div>
 </div>
 <div class="body-overlay"></div>
 <!-- tp-offcanvus-area-end -->
 
+@if(Route::currentRouteName() === 'frontend.products' || Route::currentRouteName() === 'frontend.product.details' || Route::currentRouteName() === 'frontend.cart' || Route::currentRouteName() === 'frontend.wishlist' || Route::currentRouteName() === 'frontend.checkout' || Route::currentRouteName() === 'frontend.citizen.logout' || Route::currentRouteName() === 'frontend.myProfile' || Route::currentRouteName() === 'frontend.orders' || Route::currentRouteName() === 'frontend.address' || Route::currentRouteName() === 'frontend.accountDetails' || Route::currentRouteName() === 'frontend.citizen.login' || Route::currentRouteName() === 'frontend.citizen.register' || Route::currentRouteName() === 'frontend.change-password' || Route::currentRouteName() === 'frontend.citizen.forget-password.request' || Route::currentRouteName() === 'frontend.citizen.password.reset')
 <div class="tp-header-area z-index-6 dc-head-new-sec sticky-sub-top">
     <div class="container-fluid home-container">
         <div class="row align-items-center">
@@ -160,7 +161,7 @@
                     </a>
                     </div>
 
-                    <div class="tp-header-icon search d-none d-xl-block">
+                    {{-- <div class="tp-header-icon search d-none d-xl-block">
                         <a href="#" class="serach-new-icon-sec" title="Search Product">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </a>
@@ -174,18 +175,19 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 
         </div>
     </div>
 </div>
+@endif
 
 <!-- header area start -->
 <header>
     @if(Route::currentRouteName() === 'frontend.products' || Route::currentRouteName() === 'frontend.product.details' || Route::currentRouteName() === 'frontend.cart' || Route::currentRouteName() === 'frontend.wishlist' || Route::currentRouteName() === 'frontend.checkout' || Route::currentRouteName() === 'frontend.citizen.logout' || Route::currentRouteName() === 'frontend.myProfile' || Route::currentRouteName() === 'frontend.orders' || Route::currentRouteName() === 'frontend.address' || Route::currentRouteName() === 'frontend.accountDetails' || Route::currentRouteName() === 'frontend.citizen.login' || Route::currentRouteName() === 'frontend.citizen.register' || Route::currentRouteName() === 'frontend.change-password' || Route::currentRouteName() === 'frontend.citizen.forget-password.request' || Route::currentRouteName() === 'frontend.citizen.password.reset')
-        <div class="tp-header-area z-index-6 dc-header-section sticky-top">
+        <div class="tp-header-area z-index-5 dc-header-section sticky-top">
             <div class="container-fluid head-main-container">
                 <div class="row align-items-center">
                     <div class="col-xl-3 col-lg-8 col-6">
@@ -201,37 +203,37 @@
                             <nav class="tp-main-menu-content">
                                 <ul>
                                     <li class="{{ Route::currentRouteName() == 'frontend.about' ? 'active' : '' }}">
-                                        <a class="nav-link" href="{{ route('frontend.about') }}" title="About us">About us </a>
+                                        <a href="{{ route('frontend.about') }}" title="About us">About us </a>
                                     </li>
                                     <li class="{{ Route::currentRouteName() == 'frontend.services' ? 'active' : '' }}">
-                                        <a class="nav-link" href="{{ route('frontend.services') }}" title="Services">Services</a>
+                                        <a href="{{ route('frontend.services') }}" title="Services">Services</a>
                                     </li>
                                     <li class="{{ Route::currentRouteName() == 'frontend.products' ? 'active' : '' }}">
-                                        <a class="nav-link" href="{{ route('frontend.products') }}" title="Store">Store</a>
+                                        <a href="{{ route('frontend.products') }}" title="Store">Store</a>
                                     </li>
                                     <li class="{{ Route::currentRouteName() == 'frontend.awards' ? 'active' : '' }}">
-                                        <a class="nav-link" href="{{ route('frontend.awards') }}" title="Awards & Media">Awards & Media</a>
+                                        <a href="{{ route('frontend.awards') }}" title="Awards & Media">Awards & Media</a>
                                     </li>
                                     <li class="">
-                                        <a class="nav-link" href="#">Blogs</a>
+                                        <a href="#">Blogs</a>
                                     </li>
                                     <li class="{{ Route::currentRouteName() == 'frontend.careers' ? 'active' : '' }}">
-                                        <a class="nav-link" href="{{ route('frontend.careers') }}" title="Careers">Careers</a>
+                                        <a href="{{ route('frontend.careers') }}" title="Careers">Careers</a>
                                     </li>
                                     <li class="{{ Route::currentRouteName() == 'frontend.contact' ? 'active' : '' }}">
-                                        <a class="nav-link" href="{{ route('frontend.contact') }}" title="Contact us">Contact us</a>
+                                        <a href="{{ route('frontend.contact') }}" title="Contact us">Contact us</a>
                                     </li>
                                 </ul>
                             </nav>
                         </div>
 
-                        <div class="col-xl-1 col-lg-8 col-6">
+                        <div class="col-xl-1 col-lg-1 col-6 mob-col-sec">
                             <div class="tp-header-right d-flex align-items-center justify-content-end">
-                                <div class="tp-header-bar d-xl-none">
-                                    <button class="tp-menu-bar"><i class="fa-solid fa-bars"></i></button>
-                                </div>
+                               <div class="tp-header-bar d-xl-none">
+                                  <button class="tp-menu-bar"><i class="fa-solid fa-bars"></i></button>
+                               </div>
                             </div>
-                        </div>
+                         </div>
                     </div>
                 </div>
             </div>

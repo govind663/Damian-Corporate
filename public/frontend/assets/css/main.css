@@ -21759,47 +21759,47 @@ footer {
   .board-directors-grid {
     margin-bottom: 30px;
   }
-  
+
   .showroom-section {
         padding: 0 !important;
     }
-    
+
     .vision-strength-area {
         padding: 0;
     }
-    
+
     .visi-val-stre-about-us-sec {
         padding-bottom: 0 !important;
     }
-    
+
         .board-direc-sec {
         margin-bottom: 0 !important;
     }
-    
+
     .project-tab-sec,
     .awa-and-medi-sec,
     .careers-pl-sec,
     .open-post-pad-sec {
         padding: 0 !important;
     }
-    
+
     .career-pad-sec {
         padding-top: 0 !important;
     }
-    
+
     .open-posti-title-sec, .apply-now-title-sec {
         padding-bottom: 0;
     }
-    
+
     .design-title-sec {
         padding-top: 0;
     }
-    
+
     .contact-us-one-sec,
     .maps-one-sec {
         padding: 0 !important;
     }
-    
+
     .vision-image-area img {
         height: 100% !important;
     }
@@ -21830,7 +21830,7 @@ footer {
     .design-careers-sec-container {
         padding: 0 20px 30px;
     }
-    
+
     .careers-one-container {
         padding: 30px 20px 0;
     }
@@ -22047,16 +22047,16 @@ footer {
   .pbmit-element-portfolio-style-9 .swiper-hover-slide-nav li h3 {
     margin-bottom: 0;
   }
-  
+
   .tp-hero-thumb-box::after {
       display: none;
   }
-  
+
   .home-about-us-area {
       padding-right: 0 !important;
       margin-bottom: 20px;
   }
-  
+
   .home-about-us-area img {
       width: 100% !important;
       height: 100% !important;
@@ -22159,11 +22159,11 @@ footer {
     .manu-fact-about-us-sec {
         margin-bottom: 0 !important;
     }
-    
+
     .international-asso-title-sec {
         margin-bottom: 0 !important;
     }
-    
+
     .our-services-area {
         padding: 0 !important;
     }
@@ -23442,7 +23442,7 @@ footer {
 
 
 .store-one-sec {
-  padding: 80px 0;
+  padding: 0px 0;
 }
 
 .collection-mobile-back {
@@ -26206,7 +26206,7 @@ input[type=number] {
     .portfolio-mobile-section {
         display: block;
     }
-    
+
     .portfolio-desktop-version {
         display: none;
     }
