@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use App\Models\Citizen;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductColors;
 use App\Models\ProductSubCategory;
+use App\Models\ProductFaq;
+use App\Models\Wishlist;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -30,11 +33,15 @@ class StoreController extends Controller
         // ==== Fetch Product
         $products = Product::orderBy("id","desc")->whereNull('deleted_at')->get();
 
+        // ==== Fetch Product Faq
+        $productfaqs = ProductFaq::orderBy("id","asc")->whereNull('deleted_at')->get();
+
         return view('frontend.store.products', [
             'products' => $products,
             'productCategories' => $productCategories,
             'productSubCategories' => $productSubCategories,
-            'colors' => $colors
+            'colors' => $colors,
+            'productfaqs' => $productfaqs,
         ]);
     }
 
@@ -45,12 +52,86 @@ class StoreController extends Controller
         $product = Product::where('slug', $slug)->first();
 
         // Decode the JSON data for other images
-       $productOtherImages = $product->product_other_images ? json_decode($product->product_other_images, true) : [];
+        $productOtherImages = $product->product_other_images ? json_decode($product->product_other_images, true) : [];
 
         return view('frontend.store.product-details', [
             'product' => $product,
             'productOtherImages' => $productOtherImages,
         ]);
+    }
+
+    // ==== Products Fillter
+    public function filterProducts(Request $request)
+    {
+        // ===== Fetch Product Category
+        $productCategories = ProductCategory::orderBy("id", "asc")->whereNull('deleted_at')->get();
+
+        // ===== Fetch Product Sub Category
+        $productSubCategories = ProductSubCategory::orderBy("id", "asc")->whereNull('deleted_at')->get();
+
+        // ===== Fetch Product Colors
+        $colors = ProductColors::orderBy("id", "asc")->whereNull('deleted_at')->get();
+
+        // ==== Fetch Product Faq
+        $productfaqs = ProductFaq::orderBy("id", "asc")->whereNull('deleted_at')->get();
+
+        // Request categories
+        $categories = $request->categories;
+
+        // Request subCategories
+        $subCategories = $request->subCategories;
+
+        // Request colors
+        $colors = $request->colors;
+
+        // Request minPrice
+        $minPrice = $request->minPrice;
+
+        // Request maxPrice
+        $maxPrice = $request->maxPrice;
+
+        // ==== Fetch Products
+        $query = Product::query()->whereNull('deleted_at');
+
+        // Apply category filter if selected
+        if ($categories) {
+            $query->whereIn('product_category_id', $categories);
+        }
+
+        // Apply subcategory filter if selected
+        if ($subCategories) {
+            $query->whereIn('product_sub_category_id', $subCategories);
+        }
+
+        // Apply color filter if selected
+        if ($colors) {
+            $query->whereIn('product_colors_id', $colors);
+        }
+
+        // Apply price range if selected
+        if ($minPrice && $maxPrice) {
+            $query->whereBetween('price', [$minPrice, $maxPrice]);
+        }
+
+        $products = $query->orderBy("id", "desc")->get();
+
+        // Return only the products section
+        $data = [
+            'products' => $products,
+            'productCategories' => $productCategories,
+            'productSubCategories' => $productSubCategories,
+            'colors' => $colors,
+            'productfaqs' => $productfaqs,
+            'categories_id' => $categories,
+            'subCategories_id' => $subCategories,
+            'color_id' => $colors,
+            'minPrice' => $minPrice,
+            'maxPrice' => $maxPrice,
+        ];
+
+        // dd($data);
+
+        return response()->json($data);
     }
 
     // ==== Add to Cart
@@ -59,10 +140,64 @@ class StoreController extends Controller
         return view('frontend.store.cart');
     }
 
+    public function addToCart(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $citizenId = $request->input('citizen_id');
+
+        // Check if the product is already in the cart for the logged-in user
+        $existingCart = Cart::where('citizen_id', $citizenId)
+                            ->where('product_id', $productId)
+                            ->first();
+
+        if ($existingCart) {
+            // If the product already exists, return a message
+            return response()->json(['info' => false, 'message' => 'Product already exists in your cart.']);
+        } else {
+            // If the product doesn't exist, create a new cart entry
+            $cart = new Cart();
+            $cart->citizen_id = $citizenId;
+            $cart->product_id = $productId;
+            $cart->quantity = 1; // Default quantity when adding the product for the first time
+            $cart->inserted_by = Auth::guard('citizen')->id();
+            $cart->inserted_at = Carbon::now();
+            $cart->save();
+
+            return response()->json(['success' => true, 'message' => 'Product added to cart successfully!']);
+        }
+    }
+
     // ==== Add to Wishlist
     public function wishlist()
     {
         return view('frontend.store.wishlist');
+    }
+
+    public function addToWishlist(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $citizenId = $request->input('citizen_id');
+
+        // Check if the product is already in the wishlist for the logged-in user
+        $existingWishlist = Wishlist::where('citizen_id', $citizenId)
+                                    ->where('product_id', $productId)
+                                    ->first();
+
+        if ($existingWishlist) {
+            // If the product already exists, return a message
+            return response()->json(['info' => false, 'message' => 'This product is already in your wishlist.']);
+        } else {
+            // If the product doesn't exist in the wishlist, add it
+            $wishlist = new Wishlist();
+            $wishlist->citizen_id = $citizenId;
+            $wishlist->product_id = $productId;
+            $wishlist->quantity = 1; // Default quantity when adding the product for the first time
+            $wishlist->inserted_by = Auth::guard('citizen')->id();
+            $wishlist->inserted_at = Carbon::now();
+            $wishlist->save();
+
+            return response()->json(['success' => true, 'message' => 'Product added to wishlist successfully!']);
+        }
     }
 
     // ==== Checkout

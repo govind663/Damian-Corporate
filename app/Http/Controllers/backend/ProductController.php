@@ -195,33 +195,36 @@ class ProductController extends Controller
             }
 
 
+            // Decode existing images
             $bannerImagePaths = json_decode($product->product_other_images, true);
 
-            // Update product_other_images
+            // Check if new images are provided
             if ($request->hasFile('product_other_images')) {
-                // Delete existing images
+                // Delete existing images from the filesystem
                 if (!empty($bannerImagePaths)) {
                     foreach ($bannerImagePaths as $existingImage) {
                         $existingImagePath = public_path('/damian_corporate/product/product_other_images/' . $existingImage);
                         if (File::exists($existingImagePath)) {
-                            File::delete($existingImagePath); // Delete the image file
+                            File::delete($existingImagePath);
                         }
                     }
                 }
 
-                // Clear the array of existing images
-                $bannerImagePaths = [];
+                // Prepare array to store new image paths
+                $newImagePaths = [];
 
-                // Add new images to the paths array
+                // Process new uploaded images
                 foreach ($request->file('product_other_images') as $image) {
-                    // Validate the image before processing (add your validation rules)
-                    $new_name = Str::uuid() . '.' . $image->getClientOriginalExtension();
-                    $image->move(public_path('/damian_corporate/product/product_other_images/'), $new_name);
-                    $bannerImagePaths[] = $new_name; // Add the new image to the array
+                    // Generate a unique name for each image
+                    $newName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+                    // Move the image to the target directory
+                    $image->move(public_path('/damian_corporate/product/product_other_images/'), $newName);
+                    // Add the new image path to the array
+                    $newImagePaths[] = $newName;
                 }
 
-                // Update the product_other_images with the new image paths
-                $product->product_other_images = json_encode($bannerImagePaths);
+                // Update the product's `product_other_images` field with new paths
+                $product->product_other_images = json_encode($newImagePaths);
             }
 
             $product->product_category_id = $request->product_category_id ?? null;

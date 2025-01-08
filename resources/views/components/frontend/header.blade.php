@@ -86,106 +86,105 @@
 <div class="body-overlay"></div>
 <!-- tp-offcanvus-area-end -->
 
+<div class="tp-header-area z-index-6 dc-head-new-sec sticky-sub-top">
+    <div class="container-fluid home-container">
+        <div class="row align-items-center">
+            <div class="col-xl-12 col-lg-12">
+                <div class="tp-header-right d-flex align-items-center justify-content-end">
+                    <div class="tp-header-icon d-none d-xl-block position-relative">
+                        <a href="javascript:;" class="dc-icon-sec" data-bs-toggle="dropdown" aria-expanded="false" title="Citizen Details">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                        <div class="login-dropdown">
+                            <ul class="login-dropdown-options">
+                                @if(Auth::guard('citizen')->check())
+                                    {{-- Citizen Profile --}}
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('frontend.myProfile') }}" title="Citizen Profile">
+                                            <i class="fa-solid fa-user"></i> &nbsp; My Profile
+                                        </a>
+                                    </li>
+
+                                    {{-- Logout --}}
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('frontend.citizen.logout') }}" title="Logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <i class="fa-solid fa-right-from-bracket"></i> &nbsp; Logout
+                                        </a>
+                                        <form id="logout-form" action="{{ route('frontend.citizen.logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                @else
+                                    {{-- Login --}}
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('frontend.citizen.login') }}" title="Login">
+                                            <i class="fa-solid fa-right-to-bracket"></i> &nbsp; Login
+                                        </a>
+                                    </li>
+
+                                    {{-- Register (conditional check for route existence) --}}
+                                    @if (Route::has('frontend.citizen.register'))
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('frontend.citizen.register') }}" title="Register">
+                                                <i class="fa-solid fa-user-plus"></i> &nbsp; Register
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    {{-- Forgot Password --}}
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('frontend.citizen.forget-password.request') }}" title="Forgot Password">
+                                            <i class="fa-solid fa-lock"></i> &nbsp; Forgot Password
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tp-header-icon cart d-none d-xl-block">
+                        <a class="cart-icon-new-sec p-relative" href="{{ route('frontend.cart') }}" title="Add to cart">
+                            <i class="fa-sharp fa-solid fa-cart-shopping shopping-cart"></i>
+                            <span>
+                                <i class="far fa-plus"></i>
+                            </span>
+                        </a>
+                    </div>
+
+                    <div class="tp-header-icon cart d-none d-xl-block">
+                    <a class="cart-icon-new-sec p-relative" href="{{ route('frontend.wishlist') }}" title="Wishlist">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>
+                            <i class="far fa-plus"></i>
+                        </span>
+                    </a>
+                    </div>
+
+                    <div class="tp-header-icon search d-none d-xl-block">
+                        <a href="#" class="serach-new-icon-sec" title="Search Product">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </a>
+                        <div class="dropdown-search">
+                            <form class="search-form" action="#l" method="get">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="query" placeholder="Search Here" aria-label="Search" />
+                                    <button class="btn" type="submit" id="search-button" class="dropdown-search-btn-sec">
+                                        <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <!-- header area start -->
 <header>
     @if(Route::currentRouteName() === 'frontend.products' || Route::currentRouteName() === 'frontend.product.details' || Route::currentRouteName() === 'frontend.cart' || Route::currentRouteName() === 'frontend.wishlist' || Route::currentRouteName() === 'frontend.checkout' || Route::currentRouteName() === 'frontend.citizen.logout' || Route::currentRouteName() === 'frontend.myProfile' || Route::currentRouteName() === 'frontend.orders' || Route::currentRouteName() === 'frontend.address' || Route::currentRouteName() === 'frontend.accountDetails' || Route::currentRouteName() === 'frontend.citizen.login' || Route::currentRouteName() === 'frontend.citizen.register' || Route::currentRouteName() === 'frontend.change-password' || Route::currentRouteName() === 'frontend.citizen.forget-password.request' || Route::currentRouteName() === 'frontend.citizen.password.reset')
-        <div class="tp-header-area z-index-6 dc-head-new-sec sticky-sub-top">
-            <div class="container-fluid home-container">
-                <div class="row align-items-center">
-                    <div class="col-xl-12 col-lg-12">
-                        <div class="tp-header-right d-flex align-items-center justify-content-end">
-                            <div class="tp-header-icon d-none d-xl-block position-relative">
-                                <a href="javascript:;" class="dc-icon-sec" data-bs-toggle="dropdown" aria-expanded="false" title="Citizen Details">
-                                    <i class="fa-solid fa-user"></i>
-                                </a>
-                                <div class="login-dropdown">
-                                    <ul class="login-dropdown-options">
-                                        @if(Auth::guard('citizen')->check())
-                                            {{-- Citizen Profile --}}
-                                            <li>
-                                                <a class="dropdown-item" href="{{ route('frontend.myProfile') }}" title="Citizen Profile">
-                                                    <i class="fa-solid fa-user"></i> &nbsp; My Profile
-                                                </a>
-                                            </li>
-
-                                            {{-- Logout --}}
-                                            <li>
-                                                <a class="dropdown-item" href="{{ route('frontend.citizen.logout') }}" title="Logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                    <i class="fa-solid fa-right-from-bracket"></i> &nbsp; Logout
-                                                </a>
-                                                <form id="logout-form" action="{{ route('frontend.citizen.logout') }}" method="POST" class="d-none">
-                                                    @csrf
-                                                </form>
-                                            </li>
-                                        @else
-                                            {{-- Login --}}
-                                            <li>
-                                                <a class="dropdown-item" href="{{ route('frontend.citizen.login') }}" title="Login">
-                                                    <i class="fa-solid fa-right-to-bracket"></i> &nbsp; Login
-                                                </a>
-                                            </li>
-
-                                            {{-- Register (conditional check for route existence) --}}
-                                            @if (Route::has('frontend.citizen.register'))
-                                                <li>
-                                                    <a class="dropdown-item" href="{{ route('frontend.citizen.register') }}" title="Register">
-                                                        <i class="fa-solid fa-user-plus"></i> &nbsp; Register
-                                                    </a>
-                                                </li>
-                                            @endif
-
-                                            {{-- Forgot Password --}}
-                                            <li>
-                                                <a class="dropdown-item" href="{{ route('frontend.citizen.forget-password.request') }}" title="Forgot Password">
-                                                    <i class="fa-solid fa-lock"></i> &nbsp; Forgot Password
-                                                </a>
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="tp-header-icon cart d-none d-xl-block">
-                                <a class="cart-icon-new-sec p-relative" href="{{ route('frontend.cart') }}" title="Add to cart">
-                                    <i class="fa-sharp fa-solid fa-cart-shopping shopping-cart"></i>
-                                    <span>
-                                        <i class="far fa-plus"></i>
-                                    </span>
-                                </a>
-                            </div>
-
-                            <div class="tp-header-icon cart d-none d-xl-block">
-                            <a class="cart-icon-new-sec p-relative" href="{{ route('frontend.wishlist') }}" title="Wishlist">
-                                <i class="fa-solid fa-heart"></i>
-                                <span>
-                                    <i class="far fa-plus"></i>
-                                </span>
-                            </a>
-                            </div>
-
-                            <div class="tp-header-icon search d-none d-xl-block">
-                                <a href="#" class="serach-new-icon-sec" title="Search Product">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                </a>
-                                <div class="dropdown-search">
-                                    <form class="search-form" action="#l" method="get">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="query" placeholder="Search Here" aria-label="Search" />
-                                            <button class="btn" type="submit" id="search-button" class="dropdown-search-btn-sec">
-                                                <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
         <div class="tp-header-area z-index-6 dc-header-section sticky-top">
             <div class="container-fluid head-main-container">
                 <div class="row align-items-center">

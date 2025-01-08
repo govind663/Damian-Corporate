@@ -5,35 +5,6 @@
 @endsection
 
 @push('styles')
-<style>
-    .tp-shop-details__tab-big-img img {
-    width: 100%; /* Ensure the image takes up the full width of the container */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: cover; /* Ensures the image covers the container without stretching */
-    display: block;
-}
-
-.tp-shop-details__tab-big-img {
-    display: flex; /* Centers the image inside the container */
-    justify-content: center;
-    align-items: center;
-    overflow: hidden; /* Ensures no overflow for larger images */
-    width: 100%; /* Match the container width */
-    height: 400px; /* Set a consistent height */
-    background-color: #f8f8f8; /* Optional: Placeholder background */
-}
-
-.nav img {
-    width: 100%; /* Ensure the thumbnail takes full width of the button */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: contain; /* Prevents cutting off parts of the thumbnail */
-    max-height: 80px; /* Restrict thumbnail height */
-    border: 1px solid #ddd; /* Optional: Add a border for better appearance */
-    padding: 4px; /* Optional: Add padding */
-    background-color: #fff; /* Optional: Background for the thumbnails */
-}
-
-</style>
 @endpush
 
 @section('content')
@@ -61,6 +32,7 @@
     <div class="tp-product-details-area product-detail-sec">
         <div class="container">
             <div class="row">
+                {{-- product-details-image-area start --}}
                 <div class="col-xl-6 col-lg-6">
                     <div class="tp-shop-details__wrapper product-shop-detail-wrapper">
                         <div class="tp-shop-details__tab-content-box mb-20">
@@ -98,6 +70,8 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- Product Details --}}
                 <div class="col-xl-6 col-lg-6">
                     <div class="tp-shop-details__right-warp product-details-right-warp-sec">
                         <div class="row d-flex">
@@ -110,12 +84,12 @@
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="pro-del-atw-sec">
                                     <div class="pro-del-wi-sec">
-                                        <a href="{{ route('frontend.wishlist') }}" class="add_to_wishlist" title="Wishlist">
+                                        <a href="javascript:void(0)" class="add_to_wishlist" title="Wishlist" data-product-id="{{ $product->id }}">
                                             <img src="{{ asset('frontend/assets/img/icon/wishlist.png') }}" class="img-responsive" alt="Add To wishlist" title="Add To wishlist">
                                         </a>
                                     </div>
                                     <div class="pro-del-atc-sec">
-                                        <a href="{{ route('frontend.cart') }}" class="add_to_cart" title="Add To Cart">
+                                        <a href="javascript:void(0)" class="add_to_cart" title="Add To Cart" data-product-id="{{ $product->id }}">
                                             <img src="{{ asset('frontend/assets/img/icon/add-to-cart.png') }}" class="img-responsive" alt="Add To Cart" title="Add To Cart">
                                         </a>
                                     </div>
@@ -171,17 +145,65 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
-        $('.tp-cart-minus').on('click', function () {
-            let input = $(this).closest('.quantity-sec-new').find('.quantity-input'); // Find the related input
-            let value = parseInt(input.val()) || 0;
-            value = Math.max(1, value - 1); // Ensure minimum value is 1
-            input.val(value);
+        // Get citizenId from the Blade template
+        let citizenId = '{{ Auth::guard('citizen')->id() }}';  // Use the citizen id from Laravel session
+
+        // Add to Cart
+        $('.add_to_cart').on('click', function (e) {
+            e.preventDefault(); // Prevent the default behavior (i.e., redirection)
+
+            let productId = $(this).data('product-id'); // Get the product ID from the data attribute
+
+            $.ajax({
+                url: '{{ route('frontend.addToCart') }}', // Your cart add route
+                method: 'GET',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    product_id: productId,
+                    citizen_id: citizenId, // Pass citizen_id
+                },
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message); // Show success toaster message
+                        toastr.info(response.message); // Show info toaster message
+                        toastr.warning(response.message); // Show info toaster message
+                    } else {
+                        toastr.error(response.message); // Show error toaster message
+                    }
+                },
+                error: function () {
+                    toastr.error('An error occurred. Please try again later.');
+                }
+            });
         });
 
-        $('.tp-cart-plus').on('click', function () {
-            let input = $(this).closest('.quantity-sec-new').find('.quantity-input'); // Find the related input
-            let value = parseInt(input.val()) || 0;
-            input.val(value + 1);
+        // Add to Wishlist
+        $('.add_to_wishlist').on('click', function (e) {
+            e.preventDefault(); // Prevent the default behavior (i.e., redirection)
+
+            let productId = $(this).data('product-id'); // Get the product ID from the data attribute
+
+            $.ajax({
+                url: '{{ route('frontend.addToWishlist') }}', // Your wishlist add route
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    product_id: productId,
+                    citizen_id: citizenId, // Pass citizen_id
+                },
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message); // Show success toaster message
+                        toastr.info(response.message); // Show info toaster message
+                        toastr.warning(response.message); // Show info toaster message
+                    } else {
+                        toastr.error(response.message); // Show error toaster message
+                    }
+                },
+                error: function () {
+                    toastr.error('An error occurred. Please try again later.');
+                }
+            });
         });
     });
 </script>
