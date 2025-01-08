@@ -27,7 +27,7 @@ return new class extends Migration
             $table->text('product_other_images')->nullable();
 
             // ==== product price
-            $table->string('price')->nullable();
+            $table->integer('price')->nullable();
             $table->string('discount_type')->nullable()->comment('1 => Percent, 2 => Amount');
             $table->string('discount_price_in_percentage')->nullable();
             $table->string('discount_price_in_amount')->nullable();
