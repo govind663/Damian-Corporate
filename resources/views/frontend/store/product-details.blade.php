@@ -100,22 +100,29 @@
                         <div class="tp-shop-details__price product-price-detail-sec pt-10">
                             <div class="row d-flex">
                                 <div class="col-md-8 col-sm-6 col-xs-12">
-                                    <span class="product-price-detail-span-sec">₹ {{ $product->price }} /-</span>
-                                        <del>₹ {{ $product->discount_price_after_percentage }} /-</del>
+                                    <span class="product-price-detail-span-sec">
+                                        ₹ {{ number_format($product->discount_price_after_percentage, 0) }} /-
+                                    </span>
+                                        <del>₹ {{ $product->price }} /-</del>
                                     <span class="red-color" style="border-radius: 2px;">-{{ $product->discount_price_in_percentage }}%</span>
                                 </div>
 
+                                {{-- Quantity --}}
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                     <div class="quantity-sec-new p-relative">
-                                        <input type="number" class="quantity-input-number" value="1" min="1">
-                                        <div class="qty_button cart-minus tp-cart-minus">
-                                            <i class="fa-solid fa-caret-up"></i>
-                                        </div>
-                                        <div class="qty_button cart-plus tp-cart-plus">
+                                        <input type="number" class="quantity-input-number" value="1" min="1" data-product-id="{{ $product->id }}" />
+                                        <div class="qty_button cart-minus tp-cart-minus" data-action="decrement" data-product-id="{{ $product->id }}">
                                             <i class="fa-solid fa-caret-down"></i>
                                         </div>
+                                        <div class="qty_button cart-plus tp-cart-plus" data-action="increment" data-product-id="{{ $product->id }}">
+                                            <i class="fa-solid fa-caret-up"></i>
+                                        </div>
                                     </div>
+                                    {{-- <div class="total-price" id="total-price-{{ $product->id }}">
+                                        ₹{{ $product->price }}
+                                    </div> --}}
                                 </div>
+
                             </div>
                         </div>
 
@@ -143,6 +150,7 @@
 @endsection
 
 @push('scripts')
+{{-- Add to Cart and Wishlist --}}
 <script>
     $(document).ready(function () {
         // Get citizenId from the Blade template
@@ -165,8 +173,9 @@
                 success: function (response) {
                     if (response.success) {
                         toastr.success(response.message); // Show success toaster message
-                        toastr.info(response.message); // Show info toaster message
-                        toastr.warning(response.message); // Show info toaster message
+                        // toastr.info(response.message); // Show info toaster message
+                        // toastr.warning(response.message); // Show info toaster message
+                        location.reload(); // Reload the page to reflect the changes
                     } else {
                         toastr.error(response.message); // Show error toaster message
                     }
@@ -194,8 +203,9 @@
                 success: function (response) {
                     if (response.success) {
                         toastr.success(response.message); // Show success toaster message
-                        toastr.info(response.message); // Show info toaster message
-                        toastr.warning(response.message); // Show info toaster message
+                        // toastr.info(response.message); // Show info toaster message
+                        // toastr.warning(response.message); // Show info toaster message
+                        location.reload(); // Reload the page to reflect the changes
                     } else {
                         toastr.error(response.message); // Show error toaster message
                     }
@@ -205,6 +215,54 @@
                 }
             });
         });
+    });
+</script>
+
+{{-- Quantity Increment and Decrement --}}
+<script>
+    $(document).ready(function () {
+        // Handle quantity increment and decrement
+        $('.qty_button').on('click', function () {
+            let action = $(this).data('action'); // Either 'increment' or 'decrement'
+            let productId = $(this).data('product-id');
+            let quantityInput = $(`.quantity-input-number[data-product-id="${productId}"]`);
+            let currentQuantity = parseInt(quantityInput.val());
+
+            // Update quantity value
+            if (action === 'increment') {
+                quantityInput.val(currentQuantity + 1);
+            } else if (action === 'decrement' && currentQuantity > 1) {
+                quantityInput.val(currentQuantity - 1);
+            }
+
+            // Trigger AJAX request to update the cart
+            updateCartQuantity(productId, quantityInput.val());
+        });
+
+        // Update cart quantity via AJAX
+        function updateCartQuantity(productId, newQuantity) {
+            $.ajax({
+                url: '{{ route('frontend.updateCartQuantity') }}', // Replace with your route
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    product_id: productId,
+                    quantity: newQuantity,
+                },
+                success: function (response) {
+                    if (response.success) {
+                        // Update the total price dynamically
+                        // $(`#total-price-${productId}`).text(`₹${response.new_total_price}`);
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error(response.message);
+                    }
+                },
+                error: function () {
+                    toastr.error('An error occurred. Please try again later.');
+                }
+            });
+        }
     });
 </script>
 @endpush

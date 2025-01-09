@@ -197,7 +197,7 @@
                                 </a>
                             </h3>
                             <div class="price">
-                                <span>₹ {{ $value->discount_price_after_percentage }}</span> ₹ {{ $value->price }}
+                                <span>₹ {{ $value->price }}</span> ₹ {{ number_format($value->discount_price_after_percentage, 0) }} /-
                             </div>
                             <ul class="product-buttons">
                                 <li>
@@ -298,8 +298,9 @@
                 success: function (response) {
                     if (response.success) {
                         toastr.success(response.message); // Show success toaster message
-                        toastr.info(response.message); // Show info toaster message
-                        toastr.warning(response.message); // Show info toaster message
+                        // toastr.info(response.message); // Show info toaster message
+                        // toastr.warning(response.message); // Show info toaster message
+                        location.reload(); // Reload the page to reflect the changes
                     } else {
                         toastr.error(response.message); // Show error toaster message
                     }
@@ -327,8 +328,9 @@
                 success: function (response) {
                     if (response.success) {
                         toastr.success(response.message); // Show success toaster message
-                        toastr.info(response.message); // Show info toaster message
-                        toastr.warning(response.message); // Show info toaster message
+                        // toastr.info(response.message); // Show info toaster message
+                        // toastr.warning(response.message); // Show info toaster message
+                        location.reload(); // Reload the page to reflect the changes
                     } else {
                         toastr.error(response.message); // Show error toaster message
                     }

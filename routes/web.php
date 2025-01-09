@@ -168,6 +168,16 @@ Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitize
 
     // ==== Checkout
     Route::get('checkout', [StoreController::class, 'checkout'])->name('frontend.checkout');
+
+    // ==== Update Cart Quantity
+    Route::post('cart/update-quantity', [StoreController::class, 'updateCartQuantity'])->name('frontend.updateCartQuantity');
+
+    // ==== Remove Cart Item
+    Route::post('remove-cart-item', [StoreController::class, 'removeCartItem'])->name('frontend.removeCartItem');
+
+    // ==== Remove Wishlist Item
+    Route::delete('/wishlist/{id}', [StoreController::class, 'destroy'])->name('wishlist.destroy');
+
 });
 
 // ===== Admin Register

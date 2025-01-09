@@ -28,4 +28,16 @@ class Wishlist extends Model
         'modified_at',
         'deleted_at',
     ];
+
+    // ==== Relationship between Citizen
+    public function citizen()
+    {
+        return $this->belongsTo(Citizen::class, 'citizen_id', 'id');
+    }
+
+    // ==== Relationship between Product
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
 }

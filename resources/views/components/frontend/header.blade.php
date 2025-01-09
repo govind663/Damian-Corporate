@@ -1,4 +1,3 @@
-
 <!-- search popup start -->
 {{-- <div class="search__popup d-none">
     <div class="container-fluid home-container">
@@ -53,33 +52,67 @@
             </a>
         </div>
 
-        <div class="tp-main-menu-mobile d-xl-none"></div>
-        <div class="tpoffcanvas__social mob-off-canvas-sec">
-            <div class="social-icon">
-                <a href="{{ route('frontend.citizen.login') }}" title="Login">
-                    <i class="fa-solid fa-user"></i>
-                </a>
-                <a href="{{ route('frontend.citizen.register') }}" title="Register">
-                    <i class="fa-solid fa-user-plus"></i>
-                </a>
-                <a href="{{ route('frontend.cart') }}" title="cart">
-                    <i class="fa-sharp fa-solid fa-cart-shopping shopping-cart"></i>
-                </a>
-                <a href="{{ route('frontend.wishlist') }}" title="wishlist">
-                    <i class="fa-solid fa-heart"></i>
-                </a>
-            </div>
-        </div>
-        {{-- <div class="tpoffcanvas__input">
-            <form action="#">
-                <div class="p-relative">
-                    <input type="text" placeholder="Search Here">
-                    <button>
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
+        @php
+            // ==== Fetch Proroduct ID from the database Pluck
+            $productId = DB::table('products')->pluck('id')->toArray();
+
+            // ==== Fetch Product Quantity from the cart database Pluck citizen_id and product_id
+            $cartQuantity = DB::table('carts')
+                            // ->whereIn('product_id', $productId)
+                            ->where('citizen_id', Auth::guard('citizen')->id())
+                            ->first('quantity');
+
+            // ==== Fetch Product Quantity from the wishlist database Pluck citizen_id and product_id
+            $wishlistQuantity = DB::table('wishlists')
+                            // ->whereIn('product_id', $productId)
+                            ->where('citizen_id', Auth::guard('citizen')->id())
+                            ->first('quantity');
+        @endphp
+        <div class="tp-main-menu-mobile d-xl-none">
+            <div class="tpoffcanvas__social mob-off-canvas-sec">
+                <div class="social-icon">
+                    <a href="{{ route('frontend.citizen.login') }}" title="Login">
+                        <i class="fa-solid fa-user"></i>
+                    </a>
+                    <a href="{{ route('frontend.citizen.register') }}" title="Register">
+                        <i class="fa-solid fa-user-plus"></i>
+                    </a>
+                    {{-- Chek Auth Citizen Cart Quantity --}}
+                    @if(Auth::guard('citizen')->check())
+                    <a href="{{ route('frontend.cart') }}" title="cart">
+                        <i class="fa-sharp fa-solid fa-cart-shopping shopping-cart"></i>
+                        <span class="cart-count">{{ $cartQuantity->quantity ?? 0 }}</span>
+                    </a>
+                    @else
+                    <a href="{{ route('frontend.cart') }}" title="cart">
+                        <i class="fa-sharp fa-solid fa-cart-shopping shopping-cart"></i>
+                    </a>
+                    @endif
+
+                    {{-- Chek Auth Citizen Wishlist Quantity --}}
+                    @if(Auth::guard('citizen')->check())
+                    <a href="{{ route('frontend.wishlist') }}" title="wishlist">
+                        <i class="fa-solid fa-heart"></i>
+                        <span class="wishlist-count">{{ $wishlistQuantity->quantity ?? 0 }}</span>
+                    </a>
+                    @else
+                    <a href="{{ route('frontend.wishlist') }}" title="wishlist">
+                        <i class="fa-solid fa-heart"></i>
+                    </a>
+                    @endif
                 </div>
-            </form>
-        </div> --}}
+            </div>
+            {{-- <div class="tpoffcanvas__input">
+                <form action="#">
+                    <div class="p-relative">
+                        <input type="text" placeholder="Search Here">
+                        <button>
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                </form>
+            </div> --}}
+        </div>
 
     </div>
 </div>
@@ -143,23 +176,75 @@
                         </div>
                     </div>
 
+                    @php
+                        // ==== Fetch Proroduct ID from the database Pluck
+                        $productId = DB::table('products')->pluck('id')->whereNull('deleted_at')->toArray();
+
+                        // ==== Fetch Product Quantity from the cart database Pluck citizen_id and product_id
+                        $cartQuantity = DB::table('carts')
+                                        // ->whereIn('product_id', $productId)
+                                        ->where('citizen_id', Auth::guard('citizen')->id())
+                                        ->whereNull('deleted_at')
+                                        ->first('quantity');
+
+                        // ==== Fetch Product Quantity from the wishlist database Pluck citizen_id and product_id
+                        $wishlistQuantity = DB::table('wishlists')
+                                        // ->whereIn('product_id', $productId)
+                                        ->where('citizen_id', Auth::guard('citizen')->id())
+                                        ->whereNull('deleted_at')
+                                        ->first('quantity');
+                    @endphp
+
+                    {{-- Chek Auth Citizen Cart Quantity --}}
+                    @if(Auth::guard('citizen')->check())
+                        <div class="tp-header-icon cart d-none d-xl-block">
+                            <a class="cart-icon-new-sec p-relative" href="{{ route('frontend.cart') }}" title="Add to cart">
+                                <i class="fa-sharp fa-solid fa-cart-shopping shopping-cart"></i>
+
+                                @if(!empty($cartQuantity))
+                                    {{ $cartQuantity->quantity ?? '0' }}
+                                @else
+                                    <span>
+                                        <i class="far fa-plus"></i>
+                                    </span>
+                                @endif
+                            </a>
+                        </div>
+                    @else
+                        <div class="tp-header-icon cart d-none d-xl-block">
+                            <a class="cart-icon-new-sec p-relative" href="{{ route('frontend.cart') }}" title="Add to cart">
+                                <i class="fa-sharp fa-solid fa-cart-shopping shopping-cart"></i>
+                                <span>
+                                    <i class="far fa-plus"></i>
+                                </span>
+                            </a>
+                        </div>
+                    @endif
+
+                    {{-- Chek Auth Citizen Wishlist Quantity --}}
+                    @if(Auth::guard('citizen')->check())
                     <div class="tp-header-icon cart d-none d-xl-block">
-                        <a class="cart-icon-new-sec p-relative" href="{{ route('frontend.cart') }}" title="Add to cart">
-                            <i class="fa-sharp fa-solid fa-cart-shopping shopping-cart"></i>
+                        <a class="cart-icon-new-sec p-relative" href="{{ route('frontend.wishlist') }}" title="Wishlist">
+                            <i class="fa-solid fa-heart"></i>
+                            @empty($wishlistQuantity)
+                            <span>
+                                <i class="far fa-plus"></i>
+                            </span>
+                            @else
+                            {{ $wishlistQuantity->quantity ?? '0' }}
+                            @endempty
+                        </a>
+                    </div>
+                    @else
+                    <div class="tp-header-icon cart d-none d-xl-block">
+                        <a class="cart-icon-new-sec p-relative" href="{{ route('frontend.wishlist') }}" title="Wishlist">
+                            <i class="fa-solid fa-heart"></i>
                             <span>
                                 <i class="far fa-plus"></i>
                             </span>
                         </a>
                     </div>
-
-                    <div class="tp-header-icon cart d-none d-xl-block">
-                    <a class="cart-icon-new-sec p-relative" href="{{ route('frontend.wishlist') }}" title="Wishlist">
-                        <i class="fa-solid fa-heart"></i>
-                        <span>
-                            <i class="far fa-plus"></i>
-                        </span>
-                    </a>
-                    </div>
+                    @endif
 
                     {{-- <div class="tp-header-icon search d-none d-xl-block">
                         <a href="#" class="serach-new-icon-sec" title="Search Product">

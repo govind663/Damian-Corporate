@@ -17,7 +17,9 @@
                     <div class="breadcrumb__list">
                        <span><a href="{{ route('frontend.home') }}" title="Home">Home</a></span>
                        <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
-                       <span>Wishlist</span>
+                       <span><a href="{{ route('frontend.products') }}" title="Home">Store</a></span>
+                       <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
+                       <span class="active">Wishlist</span>
                     </div>
                  </div>
               </div>
@@ -33,154 +35,69 @@
                 <table class="table wishlist-table">
                     <thead>
                         <tr class="table-head wishlist-table-head">
-                            <th>image</th>
-                            <th>product name</th>
-                            <th>price</th>
-                            <th>availability</th>
-                            <th>action</th>
+                            <th>Image</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Availability</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <a href="{{ route('frontend.product.details') }}" title="Product Details" class="img-link">
-                                    <img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-1.webp') }}" alt="wishlist-product-1" title="wishlist-product-1">
-                                </a>
-                            </td>
-                            <td>
-                                <a href="{{ route('frontend.product.details') }}" title="Product Details" class="product-name">
-                                    EPIC Table - Danform
-                                </a>
-                                <div class="mobile-cart-content row">
-                                    <div class="col">
-                                        <p>in stock</p>
-                                    </div>
-                                    <div class="col">
-                                        <h2 class="td-color">₹ 10,000</h2>
-                                    </div>
-                                    <div class="col">
-                                        <h2 class="td-color">
-                                            <a href="{{ route('frontend.cart') }}" class="cart" title="cart">
-                                                <i class="fa-regular fa-cart-shopping"></i>
-                                            </a>
-                                            <a href="{{ route('frontend.wishlist') }}" class="icon me-1" title="Whishlist">
-                                                <i class="fa-solid fa-xmark"></i>
-                                            </a>
-                                        </h2>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h2>₹ 10,000</h2>
-                            </td>
-                            <td>
-                                <p>in stock</p>
-                            </td>
-                            <td>
-                                <div class="icon-box d-flex gap-2 justify-content-center">
-                                    <a href="{{ route('frontend.cart') }}" class="cart" title="cart">
-                                        <i class="fa-regular fa-cart-shopping"></i>
+                        @foreach ($wishlistItems as $item)
+                            <tr>
+                                <td>
+                                    <a href="{{ route('frontend.product.details', $item->product?->slug) }}" title="Product Details" class="img-link">
+                                        <img src="{{ asset('/damian_corporate/product/project_image/' . $item->product?->image) }}" alt="{{ $item->product?->image }}" title="{{ $item->product?->image }}">
                                     </a>
-                                    <a href="{{ route('frontend.wishlist') }}" class="icon me-1" title="Whishlist">
-                                        <i class="fa-solid fa-xmark"></i>
+                                </td>
+                                <td>
+                                    <a href="{{ route('frontend.product.details', $item->product?->slug) }}" title="Product Details" class="product-name">
+                                        {{ $item->product?->name }}
                                     </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="{{ route('frontend.product.details') }}" title="Product Details" class="img-link">
-                                    <img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-2.webp') }}" class="img-fluid" alt="">
-                                </a>
-                            </td>
-                            <td>
-                                <a href="{{ route('frontend.product.details') }}" title="Product Details" class="product-name">
-                                    ORBIT Chair - Danform
-                                </a>
-                                <div class="mobile-cart-content row">
-                                    <div class="col">
-                                        <p>in stock</p>
+                                    <div class="mobile-cart-content row">
+                                        <div class="col">
+                                            <p>in stock</p>
+                                        </div>
+                                        <div class="col">
+                                            <h2 class="td-color">
+                                                {{ number_format($item->product?->discount_price_after_percentage, 0) }}
+                                            </h2>
+                                        </div>
+                                        <div class="col">
+                                            <h2 class="td-color">
+                                                <a href="{{ route('frontend.cart') }}" class="cart" title="cart">
+                                                    <i class="fa-regular fa-cart-shopping"></i>
+                                                </a>
+                                                <a href="{{ route('frontend.wishlist') }}" class="icon me-1" title="Whishlist">
+                                                    <i class="fa-solid fa-xmark"></i>
+                                                </a>
+                                            </h2>
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <h2 class="td-color">₹ 10,000</h2>
+                                </td>
+                                <td>
+                                    <h2>₹ {{ number_format($item->product?->discount_price_after_percentage, 0) }}</h2>
+                                </td>
+                                <td>
+                                    <p>in stock</p>
+                                </td>
+                                <td>
+                                    <div class="icon-box d-flex gap-2 justify-content-center">
+                                        <a href="{{ route('frontend.cart') }}" class="cart add_to_cart" title="cart">
+                                            <i class="fa-regular fa-cart-shopping"></i>
+                                        </a>
+                                        <a href="javascript:void(0)" class="icon me-1 remove-wishlist-item" data-id="{{ $item->id }}" title="Whishlist">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </a>
                                     </div>
-                                    <div class="col">
-                                        <h2 class="td-color">
-                                            <a href="{{ route('frontend.cart') }}" class="cart" title="Add to Cart">
-                                                <i class="fa-regular fa-cart-shopping"></i>
-                                            </a>
-                                            <a href="{{ route('frontend.wishlist') }}" class="icon me-1" title="Whishlist">
-                                                <i class="fa-solid fa-xmark"></i>
-                                            </a>
-                                        </h2>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h2>₹ 10,000</h2>
-                            </td>
-                            <td>
-                                <p>in stock</p>
-                            </td>
-                            <td>
-                                <div class="icon-box d-flex gap-2 justify-content-center">
-                                    <a href="{{ route('frontend.cart') }}" class="cart" title="Add to Cart">
-                                        <i class="fa-regular fa-cart-shopping"></i>
-                                    </a>
-                                    <a href="{{ route('frontend.wishlist') }}" class="icon me-1" title="Whishlist">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="{{ route('frontend.product.details') }}" title="Product Details" class="img-link">
-                                    <img src="{{ asset('frontend/assets/img/wishlist/wishlist-product-3.webp') }}" alt="wishlist-product-3" title="wishlist-product-3" class="img-fluid">
-                                </a>
-                            </td>
-                            <td><a href="#">Comb Chair - Kristensen</a>
-                                <div class="mobile-cart-content row">
-                                    <div class="col">
-                                        <p>in stock</p>
-                                    </div>
-                                    <div class="col">
-                                        <h2 class="td-color">₹ 10,000</h2>
-                                    </div>
-                                    <div class="col">
-                                        <h2 class="td-color">
-                                            <a href="{{ route('frontend.cart') }}" class="cart" title="Add to Cart">
-                                                <i class="fa-regular fa-cart-shopping"></i>
-                                            </a>
-                                            <a href="{{ route('frontend.wishlist') }}" class="icon me-1" title="Whishlist">
-                                                <i class="fa-solid fa-xmark"></i>
-                                            </a>
-                                        </h2>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h2>₹ 10,000</h2>
-                            </td>
-                            <td>
-                                <p>in stock</p>
-                            </td>
-                            <td>
-                                <div class="icon-box d-flex gap-2 justify-content-center">
-                                    <a href="{{ route('frontend.cart') }}" class="cart" title="Add to Cart">
-                                        <i class="fa-regular fa-cart-shopping"></i>
-                                    </a>
-                                    <a href="{{ route('frontend.wishlist') }}" class="icon me-1" title="Whishlist">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
             <div class="wishlist-buttons">
-                <a href="category-page.html" class="tp-btn-border" title="Continue Shopping">
+                <a href="{{ route('frontend.products') }}" class="tp-btn-border" title="Continue Shopping">
                     <i class="fa-sharp fa-regular fa-arrow-left"></i>
                     <span>continue shopping</span>
                 </a>
@@ -196,5 +113,34 @@
 @endsection
 
 @push('scripts')
+{{-- Remove from wishlist AJAX request --}}
+<script>
+    $(document).on('click', '.remove-wishlist-item', function () {
+        let itemId = $(this).data('id');
+        let url = '{{ route("wishlist.destroy", ":id") }}';
+        url = url.replace(':id', itemId); // Replace the placeholder with the actual item ID
+
+        if (confirm('Are you sure you want to remove this item from your wishlist?')) {
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message); // Show success message
+                        location.reload(); // Reload the page to reflect the changes
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while removing the item.');
+                }
+            });
+        }
+    });
+</script>
 
 @endpush

@@ -134,16 +134,30 @@ class StoreController extends Controller
         return response()->json($data);
     }
 
-    // ==== Add to Cart
+    // ==== Cart
     public function cart()
     {
-        return view('frontend.store.cart');
+        // ===== Fetch Product
+        $products = Product::orderBy("id", "desc")->whereNull('deleted_at')->get();
+
+        // ===== Fetch Cart
+        $cartItems = Cart::with('product', 'citizen')->where('citizen_id', Auth::guard('citizen')->user()->id)->whereNull('deleted_at')->get();
+        // dd($cartItems);
+
+        return view('frontend.store.cart', [
+            'products' => $products,
+            'cartItems' => $cartItems,
+        ]);
     }
 
+    // ==== Add To Cart
     public function addToCart(Request $request)
     {
         $productId = $request->input('product_id');
         $citizenId = $request->input('citizen_id');
+
+        // Fetch the product from the database
+        $product = Product::find($productId);
 
         // Check if the product is already in the cart for the logged-in user
         $existingCart = Cart::where('citizen_id', $citizenId)
@@ -158,7 +172,8 @@ class StoreController extends Controller
             $cart = new Cart();
             $cart->citizen_id = $citizenId;
             $cart->product_id = $productId;
-            $cart->quantity = 1; // Default quantity when adding the product for the first time
+            $cart->quantity = 1;
+            $cart->product_total_price = $product->price;
             $cart->inserted_by = Auth::guard('citizen')->id();
             $cart->inserted_at = Carbon::now();
             $cart->save();
@@ -167,12 +182,100 @@ class StoreController extends Controller
         }
     }
 
-    // ==== Add to Wishlist
-    public function wishlist()
+    // ==== Update Cart Quantity
+    public function updateCartQuantity(Request $request)
     {
-        return view('frontend.store.wishlist');
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'required|integer|min:1',
+        ], [
+            'quantity.min' => 'Invalid quantity.',
+        ]);
+
+        $productId = $request->product_id;
+        $quantity = $request->quantity;
+
+        $citizenId = $request->citizen_id ?? Auth::guard('citizen')->id();
+
+        $product = Product::find($productId);
+
+        if (!$product) {
+            return response()->json(['success' => false, 'message' => 'Product not found.']);
+        }
+
+        $newTotalPrice = $product->discount_price_after_percentage * $quantity;
+
+        $cart = Cart::updateOrCreate(
+            [
+                'citizen_id' => $citizenId,
+                'product_id' => $productId,
+            ]
+        );
+        $cart->quantity = $quantity;
+        $cart->product_total_price = $newTotalPrice;
+        $cart->modified_by = Auth::guard('citizen')->id();
+        $cart->modified_at = Carbon::now();
+        $cart->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Cart updated successfully.',
+            'new_total_price' => $newTotalPrice,
+        ]);
     }
 
+    // ==== Remove Cart Item
+    public function removeCartItem(Request $request)
+    {
+        $productId = $request->product_id;
+
+        // Retrieve citizen ID
+        $citizenId = Auth::guard('citizen')->id();
+
+        // Validate the request
+        if (!$productId) {
+            return response()->json(['success' => false, 'message' => 'Invalid product ID.']);
+        }
+
+        // Check if the cart item exists
+        $cartItem = Cart::where('citizen_id', $citizenId)->where('product_id', $productId)->first();
+
+        if (!$cartItem) {
+            return response()->json(['success' => false, 'message' => 'Cart item not found.']);
+        }
+
+        // Remove the cart item
+        $cartItem->deleted_by = $citizenId;
+        $cartItem->deleted_at = Carbon::now();
+        $cartItem->delete();
+
+        // Optionally, recalculate the total cart price
+        $newTotalPrice = Cart::where('citizen_id', $citizenId)->sum('product_total_price');
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Item removed from the cart successfully.',
+            'new_total_price' => $newTotalPrice,
+        ]);
+    }
+
+    // ==== Wishlist
+    public function wishlist()
+    {
+        // ===== Fetch Product
+        $products = Product::orderBy("id", "desc")->whereNull('deleted_at')->get();
+
+        // ===== Fetch Wishlist
+        $wishlistItems = Wishlist::with('product', 'citizen')->where('citizen_id', Auth::guard('citizen')->user()->id)->whereNull('deleted_at')->get();
+        // dd($wishlistItems);
+
+        return view('frontend.store.wishlist', [
+            'products' => $products,
+            'wishlistItems' => $wishlistItems,
+        ]);
+    }
+
+    // ==== Add To Wishlist
     public function addToWishlist(Request $request)
     {
         $productId = $request->input('product_id');
@@ -200,10 +303,37 @@ class StoreController extends Controller
         }
     }
 
+    // ==== Remove Wishlist Item
+    public function destroy($id)
+    {
+        // Assuming you have a Wishlist model
+        $wishlistItem = Wishlist::find($id);
+
+        if ($wishlistItem) {
+            $wishlistItem->deleted_by = Auth::guard('citizen')->id();
+            $wishlistItem->deleted_at = Carbon::now();
+            $wishlistItem->delete();
+
+            return response()->json(['success' => true, 'message' => 'Item removed from wishlist.']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Item not found.'], 404);
+    }
+
     // ==== Checkout
     public function checkout()
     {
-        return view('frontend.store.checkout');
+        // ===== Fetch Product
+        $products = Product::orderBy("id", "desc")->whereNull('deleted_at')->get();
+
+        // ===== Fetch Cart
+        $cartItems = Cart::with('product', 'citizen')->where('citizen_id', Auth::guard('citizen')->user()->id)->whereNull('deleted_at')->get();
+        // dd($cartItems);
+
+        return view('frontend.store.checkout', [
+            'products' => $products,
+            'cartItems' => $cartItems,
+        ]);
     }
 
     // ==== MY Profile
