@@ -5,50 +5,6 @@
 @endsection
 
 @push('styles')
-<style>
-    .product-grid .product-image {
-        position: relative;
-        width: 100%;
-        padding-top: 100%; /* Maintains a perfect square aspect ratio */
-        overflow: hidden;
-        background-color: #f9f9f9; /* Optional: Placeholder background */
-    }
-
-    .product-grid .product-image img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* Ensures the image covers the container without distortion */
-        border-radius: 8px; /* Optional: Adds rounded corners */
-        transition: transform 0.3s ease; /* Adds smooth scaling effect */
-    }
-
-    .product-grid .product-image:hover img {
-        transform: scale(1.1); /* Slightly scales the image on hover */
-    }
-
-    .product-grid .product-image {
-        position: relative;
-        width: 97%;
-        padding-top: 97%;
-        overflow: hidden;
-        background-color: #f9f9f9;
-    }
-
-    @media (max-width: 767px) {
-        .store-one-sec {
-            padding: 0px 0px 0px 0px !important;
-        }
-    }
-
-    @media (max-width: 767px) {
-        .home-container {
-            padding: 12px 20px;
-        }
-    }
-</style>
 @endpush
 
 @section('content')
@@ -75,7 +31,7 @@
         <div class="container-fluid home-container">
             <div class="row">
                 {{-- side-bar start --}}
-                <div class="col-xl-3 col-lg-4 collection-filter">
+                <div class="col-xl-3 col-lg-3 collection-filter">
                     <!-- side-bar collapse block stat -->
                     <div class="collection-filter-block">
                         <!-- brand filter start -->
@@ -176,46 +132,50 @@
                 <!-- side-bar collapse block end here -->
 
                 {{-- Start Store Product Section --}}
-                <div class="col-md-3 col-sm-6 col-xs-12" id="product-grid">
-                    @foreach($products as $key => $value)
-                    <div class="product-grid" >
-                        <div class="product-image">
-                            <a href="{{ route('frontend.product.details', $value->slug) }}" title="{{ $value->name }}" class="image">
-                                @if (!empty($value->image))
-                                    <img class="pic-1" src="{{ asset('/damian_corporate/product/project_image/' . $value->image) }}" alt="{{ $value->image }}" title="{{ $value->image }}">
-                                    <img class="pic-2" src="{{ asset('/damian_corporate/product/project_image/' . $value->image) }}" alt="{{ $value->image }}" title="{{ $value->image }}">
-                                @endif
-                            </a>
-                            <span class="product-new-label">
-                                {{ $value->product_type == '1' ? 'New' : ($value->product_type == '2' ? 'Sale' : ($value->product_type == '3' ? 'Best Seller' : 'Featured')) }}
-                            </span>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="store-pro-title">
-                                <a href="{{ route('frontend.product.details', $value->slug) }}">
-                                    {{ $value->name }}
-                                </a>
-                            </h3>
-                            <div class="price">
-                                <span>₹ {{ $value->price }}</span> ₹ {{ number_format($value->discount_price_after_percentage, 0) }} /-
+                <div class="col-xl-9 col-lg-9 col-md-8">
+                    <div class="row">
+                        @foreach($products as $key => $value)
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="product-grid">
+                                <div class="product-image">
+                                    <a href="{{ route('frontend.product.details', $value->slug) }}" title="{{ $value->name }}" class="image">
+                                        @if (!empty($value->image))
+                                            <img class="pic-1" src="{{ asset('/damian_corporate/product/project_image/' . $value->image) }}" alt="{{ $value->image }}" title="{{ $value->image }}" style="height: 300px !important; width: 300px !important;">
+                                            <img class="pic-2" src="{{ asset('/damian_corporate/product/project_image/' . $value->image) }}" alt="{{ $value->image }}" title="{{ $value->image }}" style="height: 300px !important; width: 300px !important;">
+                                        @endif
+                                    </a>
+                                    <span class="product-new-label">
+                                        {{ $value->product_type == '1' ? 'New' : ($value->product_type == '2' ? 'Sale' : ($value->product_type == '3' ? 'Best Seller' : 'Featured')) }}
+                                    </span>
+                                </div>
+                                <div class="product-content">
+                                    <h3 class="store-pro-title">
+                                        <a href="{{ route('frontend.product.details', $value->slug) }}">
+                                            {{ $value->name }}
+                                        </a>
+                                    </h3>
+                                    <div class="price">
+                                        <span>₹ {{ $value->price }}</span> ₹ {{ number_format($value->discount_price_after_percentage, 0) }} /-
+                                    </div>
+                                    <ul class="product-buttons">
+                                        <li>
+                                            <a href="javascript:void(0)" class="add-to-cart addToCart" data-product-id="{{ $value->id }}">
+                                                <i class="fas fa-shopping-bag"></i>
+                                                Add to Cart
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" class="quick-view addToWishlist" data-product-id="{{ $value->id }}">
+                                                <i class="far fa-heart"></i>
+                                                Wishlist
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            <ul class="product-buttons">
-                                <li>
-                                    <a href="javascript:void(0)" class="add-to-cart addToCart" data-product-id="{{ $value->id }}">
-                                        <i class="fas fa-shopping-bag"></i>
-                                        Add to Cart
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="quick-view addToWishlist" data-product-id="{{ $value->id }}">
-                                        <i class="far fa-heart"></i>
-                                        Wishlist
-                                    </a>
-                                </li>
-                            </ul>
                         </div>
+                        @endforeach
                     </div>
-                    @endforeach
                 </div>
                 {{-- End Store Product Section--}}
 
