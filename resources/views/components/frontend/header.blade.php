@@ -128,6 +128,7 @@
                     <div class="tp-header-icon d-none d-xl-block position-relative">
                         <a href="javascript:;" class="dc-icon-sec" data-bs-toggle="dropdown" aria-expanded="false" title="Citizen Details">
                             <i class="fa-solid fa-user"></i>
+                            {{ Auth::guard('citizen')->check() ? Auth::guard('citizen')->user()->f_name : '' }} {{ Auth::guard('citizen')->check() ? Auth::guard('citizen')->user()->l_name : '' }}
                         </a>
                         <div class="login-dropdown">
                             <ul class="login-dropdown-options">
@@ -270,7 +271,7 @@
 @endif
 
 <!-- header area start -->
-<header>
+{{-- <header> --}}
     @if(Route::currentRouteName() === 'frontend.products' || Route::currentRouteName() === 'frontend.product.details' || Route::currentRouteName() === 'frontend.cart' || Route::currentRouteName() === 'frontend.wishlist' || Route::currentRouteName() === 'frontend.checkout' || Route::currentRouteName() === 'frontend.citizen.logout' || Route::currentRouteName() === 'frontend.myProfile' || Route::currentRouteName() === 'frontend.orders' || Route::currentRouteName() === 'frontend.address' || Route::currentRouteName() === 'frontend.accountDetails' || Route::currentRouteName() === 'frontend.citizen.login' || Route::currentRouteName() === 'frontend.citizen.register' || Route::currentRouteName() === 'frontend.change-password' || Route::currentRouteName() === 'frontend.citizen.forget-password.request' || Route::currentRouteName() === 'frontend.citizen.password.reset')
         <div class="tp-header-area z-index-5 dc-header-section sticky-top">
             <div class="container-fluid head-main-container">
@@ -372,7 +373,7 @@
             </div>
         </div>
     @endif
-</header>
+{{-- </header> --}}
 
 
 <!-- header area end -->

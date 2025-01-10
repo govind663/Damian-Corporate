@@ -330,9 +330,12 @@ class StoreController extends Controller
         $cartItems = Cart::with('product', 'citizen')->where('citizen_id', Auth::guard('citizen')->user()->id)->whereNull('deleted_at')->get();
         // dd($cartItems);
 
+        $productId = Cart::where('citizen_id', Auth::guard('citizen')->user()->id)->first();
+
         return view('frontend.store.checkout', [
             'products' => $products,
             'cartItems' => $cartItems,
+            'productId' => $productId
         ]);
     }
 

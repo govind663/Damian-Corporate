@@ -20,6 +20,7 @@ use App\Http\Controllers\frontend\Auth\LoginController as CitizenLoginController
 use App\Http\Controllers\frontend\Auth\RegisterController as CitizenRegisterController;
 use App\Http\Controllers\frontend\Auth\ForgotPasswordController as CitizenForgotPasswordController;
 use App\Http\Controllers\frontend\Auth\ResetPasswordController as CitizenResetPasswordController;
+use App\Http\Controllers\frontend\CheckoutController;
 
 
 // ===== Backend Controllers
@@ -177,6 +178,14 @@ Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitize
 
     // ==== Remove Wishlist Item
     Route::delete('/wishlist/{id}', [StoreController::class, 'destroy'])->name('wishlist.destroy');
+
+    // ==== Checkout Store
+    Route::post('checkout/store',  [CheckoutController::class, 'checkoutStore'])->name('frontend.checkout.store');
+
+    // ==== Payment Success/Failure by Easebuzz
+    Route::post('/payment/success', [CheckoutController::class, 'success'])->name('payment.success');
+    Route::post('/payment/failure', [CheckoutController::class, 'failure'])->name('payment.failure');
+
 
 });
 

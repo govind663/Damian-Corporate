@@ -65,11 +65,11 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="quantity-sec-new p-relative">
-                                        <input type="number" class="quantity-input-number" value="{{ $value->quantity }}" min="1" data-product-id="{{ $value->id }}" />
-                                        <div class="qty_button cart-minus tp-cart-minus" data-action="decrement" data-product-id="{{ $value->id }}">
+                                        <input type="number" class="quantity-input-number" value="{{ $value->quantity }}" min="1" data-product-id="{{ $value->product_id }}" />
+                                        <div class="qty_button cart-minus tp-cart-minus" data-action="decrement" data-product-id="{{ $value->product_id }}">
                                             <i class="fa-solid fa-caret-down"></i>
                                         </div>
-                                        <div class="qty_button cart-plus tp-cart-plus" data-action="increment" data-product-id="{{ $value->id }}">
+                                        <div class="qty_button cart-plus tp-cart-plus" data-action="increment" data-product-id="{{ $value->product_id }}">
                                             <i class="fa-solid fa-caret-up"></i>
                                         </div>
                                     </div>
@@ -148,7 +148,6 @@
                 return; // Stop further execution
             }
 
-
             // Trigger AJAX request to update the cart
             updateCartQuantity(productId, quantityInput.val());
         });
@@ -165,24 +164,36 @@
                 },
                 success: function (response) {
                     if (response.success) {
-                        // Update the total price dynamically
-                        $(`#total-price-${productId}`).text(`₹${response.new_total_price}`);
+                        // Update the product's total price
+                        $(`#price-content-${productId}`).text(response.new_total_price.toLocaleString('en-IN'));
+
+                        // Optionally update a cart-wide total if needed
+                        updateCartTotal();
+
                         toastr.success(response.message);
-                        location.reload();
                     } else {
                         toastr.error(response.message);
-                        location.reload();
                     }
                 },
                 error: function () {
                     toastr.error('An error occurred. Please try again later.');
-                    location.reload();
                 }
             });
+        }
+
+        // Update cart-wide total dynamically
+        function updateCartTotal() {
+            let total = 0;
+            $('.price-content').each(function () {
+                total += parseFloat($(this).text().replace(/,/g, '')); // Remove commas and parse to float
+            });
+
+            $('#cart-total').text(`₹${total.toLocaleString('en-IN')}`);
         }
     });
 </script>
 
+{{-- Remove Item --}}
 <script>
     $(document).ready(function () {
         $('.remove').on('click', function (e) {
@@ -225,6 +236,7 @@
     });
 </script>
 
+{{-- Detect Page Reload --}}
 <script>
     // Function to detect page reload
     window.addEventListener('load', function () {

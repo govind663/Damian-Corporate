@@ -9,6 +9,10 @@
     .form-select {
         padding: 1.375rem 2.25rem .375rem .75rem !important;
     }
+
+    .invalid-feedback {
+        color: #ffffff !important;
+    }
 </style>
 @endpush
 
@@ -36,29 +40,45 @@
     <!-- checkout area start -->
     <section class="checkout-section">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-7">
-                    <div class="checkout-bill-area-sec">
-                        <h3 class="checkout-bill-title-sec">Billing Details</h3>
-                        <div class="tp-checkout-bill-form">
-                            <form action="#">
+            <form action="{{ route('frontend.checkout.store') }}" method="POST" class="tp-checkout-form" enctype="multipart/form-data">
+                @csrf
+
+                <input type="hidden" name="citizen_id" value="{{ Auth::guard('citizen')->user()->id }}">
+                <input type="hidden" name="product_id" value="{{ $productId->product_id }}">
+                <input type="hidden" name="cart_id" value="{{ $productId->id }}">
+
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="checkout-bill-area-sec">
+                            <h3 class="checkout-bill-title-sec">Billing Details</h3>
+                            <div class="tp-checkout-bill-form">
                                 <div class="tp-checkout-bill-inner">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="checkout-input-sec">
-                                                <label>First Name <span>*</span></label>
-                                                <input id="f_name" name="f_name" type="text" class="form-control" placeholder="First Name" value="{{ Auth::guard('citizen')->user()->f_name }}" readonly>
+                                                <label><b>First Name : <span>*</span></b></label>
+                                                <input id="f_name" name="f_name" type="text" class="@error('f_name') is-invalid @enderror" placeholder="First Name" value="{{ Auth::guard('citizen')->user()->f_name }}" readonly>
+                                                @error('f_name')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="checkout-input-sec">
-                                                <label>Last Name <span>*</span></label>
-                                                <input id="l_name" name="l_name" type="text" class="form-control" placeholder="Last Name" value="{{ Auth::guard('citizen')->user()->l_name }}" readonly>
+                                                <label><b>Last Name : <span>*</span></b></label>
+                                                <input id="l_name" name="l_name" type="text" class="@error('l_name') is-invalid @enderror" placeholder="Last Name" value="{{ Auth::guard('citizen')->user()->l_name }}" readonly>
+                                                @error('l_name')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="checkout-input-sec">
-                                                <label>Email address <span>*</span></label>
+                                                <label><b>Email address : <span>*</span></b></label>
                                                 <input type="email" id="email" name="email" class="@error('email') is-invalid @enderror" value="{{ Auth::user() ? Auth::user()->email : old('email') }}" placeholder="Email address" readonly>
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">
@@ -69,7 +89,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="checkout-input-sec">
-                                                <label>Phone <span>*</span></label>
+                                                <label><b>Phone : <span>*</span></b></label>
                                                 <input type="text" id="phone" name="phone" class="@error('phone') is-invalid @enderror" value="{{ Auth::user() ? Auth::user()->phone : old('phone') }}" placeholder="Phone" readonly>
                                                 @error('phone')
                                                     <span class="invalid-feedback" role="alert">
@@ -79,40 +99,21 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="checkout-input-sec">
-                                                <label>Country <span>*</span></label>
-                                                <input type="text" id="country" name="country" class="@error('country') is-invalid @enderror" placeholder="Country" value="{{ old('country') }}" >
-                                                @error('country')
+                                                <label><b>Postcode ZIP : <span>*</span></b></label>
+                                                <input type="text" id="postcode" name="postcode" class="@error('postcode') is-invalid @enderror" value="{{ old('postcode') }}" placeholder="Postcode">
+                                                @error('postcode')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-input-sec">
-                                                <label>Street address</label>
-                                                <input type="text" id="street_address" name="street_address" class="@error('street_address') is-invalid @enderror" value="{{ old('street_address') }}" value="{{ old('street_address') }}" placeholder="House number and street name">
-                                                @error('street_address')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
 
+                                        <div class="col-md-6">
                                             <div class="checkout-input-sec">
-                                                <input type="text" id="apartment_address" name="apartment_address" class="@error('apartment_address') is-invalid @enderror" value="{{ old('apartment_address') }}" placeholder="Apartment, suite, unit, etc. (optional)">
-                                                @error('apartment_address')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-input-sec">
-                                                <label>City</label>
+                                                <label><b>City : <span>*</span></b></label>
                                                 <input type="text" id="city" name="city" class="@error('city') is-invalid @enderror" value="{{ old('city') }}" placeholder="City">
                                                 @error('city')
                                                     <span class="invalid-feedback" role="alert">
@@ -121,12 +122,13 @@
                                                 @enderror
                                             </div>
                                         </div>
+
                                         <div class="col-md-6">
                                             <div class="checkout-input-sec">
-                                                <label>State <span>*</span></label>
+                                                <label><b>State : <span>*</span></b></label>
                                                 <select class="form-select form-select-xl @error('state') is-invalid @enderror" name="state" id="state">
                                                     <option value="">Select State</option>
-                                                    <optgroup>
+                                                    <optgroup label="State">
                                                         <option value="1" {{ old('state') == '1' ? 'selected' : '' }}>Andhra Pradesh</option>
                                                         <option value="2" {{ old('state') == '2' ? 'selected' : '' }}>Arunachal Pradesh</option>
                                                         <option value="3" {{ old('state') == '3' ? 'selected' : '' }}>Assam</option>
@@ -172,11 +174,12 @@
                                                 @enderror
                                             </div>
                                         </div>
+
                                         <div class="col-md-6">
                                             <div class="checkout-input-sec">
-                                                <label>Postcode ZIP</label>
-                                                <input type="text" id="postcode" name="postcode" class="@error('postcode') is-invalid @enderror" value="{{ old('postcode') }}" placeholder="Postcode">
-                                                @error('postcode')
+                                                <label><b>Country : <span>*</span></b></label>
+                                                <input type="text" id="country" name="country" class="@error('country') is-invalid @enderror" placeholder="Country" value="{{ old('country') }}" >
+                                                @error('country')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -186,112 +189,149 @@
 
                                         <div class="col-md-12">
                                             <div class="checkout-input-sec">
-                                                <label>Order notes (optional)</label>
-                                                <textarea id="notes" name="notes" class="textarea_editor border-radius-0" placeholder="Notes" value="{{ old('notes') }}">{{ old('notes') }}</textarea>
+                                                <label><b>Street address : <span>*</span></b></label>
+                                                <input type="text" id="street_address" name="street_address" class="@error('street_address') is-invalid @enderror" value="{{ old('street_address') }}" value="{{ old('street_address') }}" placeholder="House number and street name">
+                                                @error('street_address')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+
+                                            <div class="checkout-input-sec">
+                                                <label><b>Apartment, suite, unit, etc. (optional) : </b></label>
+                                                <input type="text" id="apartment_address" name="apartment_address" class="@error('apartment_address') is-invalid @enderror" value="{{ old('apartment_address') }}" placeholder="Apartment, suite, unit, etc. (optional)">
+                                                @error('apartment_address')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="checkout-input-sec">
+                                                <label><b>Order Notes (Optional) : </b></label>
+                                                <textarea id="notes" name="notes" class="textarea_editor border-radius-0" placeholder="Order Notes (Optional)" value="{{ old('notes') }}">{{ old('notes') }}</textarea>
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <!-- checkout place order -->
+                        <div class="checkout-place-sec">
+                            <h3 class="checkout-place-title-sec">Your Order</h3>
+
+                            <div class="tp-order-info-list order-info-list-sec">
+                                <ul>
+                                    <!-- header -->
+                                    <li class="order-info-list-header-sec">
+                                        <h4>Product</h4>
+                                        <h4>Total</h4>
+                                    </li>
+
+                                    <!-- item list -->
+                                    @foreach($cartItems as $key => $value)
+                                    <li class="tp-order-info-list-desc">
+                                        <p>
+                                            {{ $value['product']['name'] }}
+                                            <span> x {{ $value['quantity'] }}</span>
+                                        </p>
+                                        <span>₹ {{ number_format($value['product']['discount_price_after_percentage'] * $value['quantity'], 2) }}</span>
+                                    </li>
+                                    @endforeach
+
+                                    <!-- Subtotal -->
+                                    <li class="order-info-list-subtotal-sec">
+                                        <span>Subtotal</span>
+                                        <input type="hidden" id="subtotal" name="subtotal" value="{{ $cartItems->sum(function($item) {
+                                            return (float) $item['product']['discount_price_after_percentage'] * (int) $item['quantity'];
+                                        }) }}">
+                                        <span id="subtotal-amount">₹ {{ number_format($cartItems->sum(function($item) {
+                                            return (float) $item['product']['discount_price_after_percentage'] * (int) $item['quantity'];
+                                        }), 2) }}</span>
+                                    </li>
+
+                                    <!-- Shipping -->
+                                    <li class="tp-order-info-list-shipping">
+                                        <span>Shipping</span>
+                                        <div class="tp-order-info-list-shipping-item d-flex flex-column align-items-end">
+                                            <span>
+                                                <input id="flat_rate" type="radio" name="shipping" value="200" onclick="updateTotal(200)" checked>
+                                                <label for="flat_rate">Flat rate: <span>₹ 200</span></label>
+                                            </span>
+                                            <span>
+                                                <input id="local_pickup" type="radio" name="shipping" value="200" onclick="updateTotal(200)">
+                                                <label for="local_pickup">Local pickup: <span>₹ 200</span></label>
+                                            </span>
+                                            <span>
+                                                <input id="free_shipping" type="radio" name="shipping" value="0" onclick="updateTotal(0)">
+                                                <label for="free_shipping">Free shipping</label>
+                                            </span>
+                                        </div>
+                                    </li>
+
+                                    <!-- Total -->
+                                    <li class="tp-order-info-list-total">
+                                        <span>Total</span>
+                                        <input type="hidden" name="total" value="{{ number_format($cartItems->sum(function($item) {
+                                            return (float) $item['product']['discount_price_after_percentage'] * (int) $item['quantity'];
+                                        }) + 200, 2) }}">
+                                        <span id="total-amount">₹ {{ number_format($cartItems->sum(function($item) {
+                                            return (float) $item['product']['discount_price_after_percentage'] * (int) $item['quantity'];
+                                        }) + 200, 2) }}</span> <!-- Defaulting to Flat Rate -->
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="tp-checkout-payment">
+                                <div class="tp-checkout-payment-item">
+                                    <input type="radio" id="back_transfer" name="payment" value="1">
+                                    <label for="back_transfer" data-bs-toggle="direct-bank-transfer">Direct Bank
+                                        Transfer</label>
+                                </div>
+                                <div class="tp-checkout-payment-item">
+                                    <input type="radio" id="cheque_payment" name="payment" value="2">
+                                    <label for="cheque_payment">Cheque Payment</label>
+                                </div>
+                                <div class="tp-checkout-payment-item">
+                                    <input type="radio" id="cod" name="payment" value="3">
+                                    <label for="cod">Cash on Delivery</label>
+                                </div>
+                                <div class="tp-checkout-payment-item paypal-payment">
+                                    <input type="radio" id="paypal" name="payment" value="4">
+                                    <label for="paypal">PayPal
+                                        <img src="{{ asset('frontend/assets/img/icon/payment-option.png') }}" alt="payment-option" title="payment-option">
+                                        <a href="https://www.paypal.com/" title="What is PayPal?">
+                                            What is PayPal?
+                                        </a>
+                                    </label>
+                                </div>
+                            </div>
+
+
+                            <div class="tp-checkout-agree">
+                                <div class="checkout-option-sec">
+                                    <input id="read_all" type="checkbox">
+                                    <label for="read_all">I have read and agree to the website.</label>
+                                </div>
+                            </div>
+
+                            <div class="tp-checkout-btn-wrapper">
+                                <button type="submit" class="tp-btn-theme text-center w-100">
+                                    <i class="fa-solid fa-right-to-bracket"></i>
+                                    <span>Place Order</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5">
-                    <!-- checkout place order -->
-                    <div class="checkout-place-sec">
-                        <h3 class="checkout-place-title-sec">Your Order</h3>
-
-                        <div class="tp-order-info-list order-info-list-sec">
-                            <ul>
-                                <!-- header -->
-                                <li class="order-info-list-header-sec">
-                                    <h4>Product</h4>
-                                    <h4>Total</h4>
-                                </li>
-
-                                <!-- item list -->
-                                @foreach($cartItems as $key => $value)
-                                <li class="tp-order-info-list-desc">
-                                    <p>{{ $value['product']['name'] }} <span> x {{ $value['quantity'] }}</span></p>
-                                    <span>₹ {{ $value['product']['price'] * $value['quantity'] }}</span>
-                                </li>
-                                @endforeach
-
-                                <!-- subtotal -->
-                                <li class="order-info-list-subtotal-sec">
-                                    <span>Subtotal</span>
-                                    <span>₹ {{ $cartItems->sum(function($item) {
-                                        return $item['product']['price'] * $item['quantity'];
-                                    }) }}</span>
-                                </li>
-
-                                <!-- shipping -->
-                                <li class="tp-order-info-list-shipping">
-                                    <span>Shipping</span>
-                                    <div class="tp-order-info-list-shipping-item d-flex flex-column align-items-end">
-                                        <span>
-                                            <input id="flat_rate" type="radio" name="shipping">
-                                            <label for="flat_rate">Flat rate: <span>₹ 200</span></label>
-                                        </span>
-                                        <span>
-                                            <input id="local_pickup" type="radio" name="shipping">
-                                            <label for="local_pickup">Local pickup: <span>₹ 200</span></label>
-                                        </span>
-                                        <span>
-                                            <input id="free_shipping" type="radio" name="shipping">
-                                            <label for="free_shipping">Free shipping</label>
-                                        </span>
-                                    </div>
-                                </li>
-
-                                <!-- total -->
-                                <li class="tp-order-info-list-total">
-                                    <span>Total</span>
-                                    <span>₹ {{ $cartItems->sum(function($item) {
-                                        return $item['product']['price'] * $item['quantity'];
-                                    }) + 200 }}</span> <!-- Adding the shipping fee to total -->
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="tp-checkout-payment">
-                            <div class="tp-checkout-payment-item">
-                                <input type="radio" id="back_transfer" name="payment">
-                                <label for="back_transfer" data-bs-toggle="direct-bank-transfer">Direct Bank
-                                    Transfer</label>
-                            </div>
-                            <div class="tp-checkout-payment-item">
-                                <input type="radio" id="cheque_payment" name="payment">
-                                <label for="cheque_payment">Cheque Payment</label>
-                            </div>
-                            <div class="tp-checkout-payment-item">
-                                <input type="radio" id="cod" name="payment">
-                                <label for="cod">Cash on Delivery</label>
-                            </div>
-                            <div class="tp-checkout-payment-item paypal-payment">
-                                <input type="radio" id="paypal" name="payment">
-                                <label for="paypal">PayPal
-                                    <img src="{{ asset('frontend/assets/img/icon/payment-option.png') }}" alt="payment-option" title="payment-option">
-                                    <a href="https://www.paypal.com/" title="What is PayPal?">
-                                        What is PayPal?
-                                    </a>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="tp-checkout-agree">
-                            <div class="checkout-option-sec">
-                                <input id="read_all" type="checkbox">
-                                <label for="read_all">I have read and agree to the website.</label>
-                            </div>
-                        </div>
-                        <div class="tp-checkout-btn-wrapper">
-                            <a href="#" class="tp-btn-theme text-center w-100" title="Place Order">
-                                <span>Place Order</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
     </section>
     <!-- checkout area end -->
@@ -300,61 +340,23 @@
 
 @push('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get references to necessary elements
-        const cartItems = @json($cartItems); // Get cart items from PHP
-        const shippingOptions = document.querySelectorAll('input[name="shipping"]');
-        const subtotalElement = document.querySelector('.order-info-list-subtotal-sec span:last-child');
-        const totalElement = document.querySelector('.tp-order-info-list-total span:last-child');
-        const placeOrderBtn = document.querySelector('.tp-checkout-btn-wrapper a');
+    function updateTotal(shippingCost) {
+        // Calculate subtotal (pass the subtotal from server to JavaScript)
+        const subtotal = {{ $cartItems->sum(function($item) {
+            return (float) $item['product']['discount_price_after_percentage'] * (int) $item['quantity'];
+        }) }};
 
-        // Function to calculate subtotal
-        function calculateSubtotal() {
-            const subtotal = cartItems.reduce((total, item) => {
-                return total + (item.product.price * item.quantity);
-            }, 0);
-            return subtotal;
-        }
+        // Calculate total
+        const total = subtotal + parseFloat(shippingCost);
 
-        // Function to update the total with shipping
-        function updateTotal() {
-            const subtotal = calculateSubtotal();
-            let shippingCharge = 0;
+        // Update total on the page
+        document.getElementById('total-amount').innerText = `₹ ${total.toFixed(2)}`;
+    }
 
-            // Get selected shipping option and apply corresponding charge
-            shippingOptions.forEach(option => {
-                if (option.checked) {
-                    if (option.id === 'flat_rate' || option.id === 'local_pickup') {
-                        shippingCharge = 200;
-                    } else if (option.id === 'free_shipping') {
-                        shippingCharge = 0;
-                    }
-                }
-            });
-
-            const total = subtotal + shippingCharge;
-
-            // Update the subtotal and total in the UI
-            subtotalElement.textContent = `₹ ${subtotal}`;
-            totalElement.textContent = `₹ ${total}`;
-        }
-
-        // Event listener for shipping option changes
-        shippingOptions.forEach(option => {
-            option.addEventListener('change', updateTotal);
-        });
-
-        // Initial calculation on page load
-        updateTotal();
-
-        // Optional: disable the "Place Order" button if the user hasn't agreed to the terms
-        placeOrderBtn.addEventListener('click', function(event) {
-            const checkbox = document.getElementById('read_all');
-            if (!checkbox.checked) {
-                event.preventDefault();
-                alert('You must agree to the terms to place an order.');
-            }
-        });
+    // Trigger default shipping cost (flat rate) on load
+    document.addEventListener('DOMContentLoaded', () => {
+        const defaultShipping = document.querySelector('input[name="shipping"]:checked').value;
+        updateTotal(defaultShipping);
     });
 </script>
 @endpush
