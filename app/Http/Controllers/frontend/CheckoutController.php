@@ -4,6 +4,7 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\OrderRequest;
+use App\Models\Citizen;
 use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -12,38 +13,52 @@ use App\Services\EasebuzzPaymentService;
 
 class CheckoutController extends Controller
 {
+    private $easebuzzPaymentService;
+
+    public function __construct(EasebuzzPaymentService $easebuzzPaymentService)
+    {
+        $this->easebuzzPaymentService = $easebuzzPaymentService;
+    }
+
     // ==== Checkout Store
-    public function checkoutStore(Request $request, EasebuzzPaymentService $easebuzzPaymentService)
+    public function checkoutStore(Request $request, EasebuzzPaymentService $easebuzzPaymentService, string $citizenId, string $cartId, string $productId)
     {
         // $request->validated();
-
         try {
+
             $order = new Order();
-            $order->product_id = $request->product_id;
-            $order->citizen_id = $request->citizen_id;
+
+            $order->product_id = $productId;
+            $order->citizen_id = $citizenId;
             $order->cart_id = $request->cart_id;
-            $order->order_number = Carbon::now()->format('ymd') . str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
+            $order->transaction_token = Carbon::now()->format('ymd') . str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
             $order->order_status = 1; // Order status as 'Placed'
             $order->order_date = Carbon::now();
             $order->order_total_price = $request->total;
             $order->payment_method = $request->payment;
+            // dd($order->cart_id);
 
             // Set payment status and payment date based on payment method
             if ($request->payment == 4 || $request->payment == 1) {
                 // PayPal or Bank Transfer
                 $order->payment_status = 1; // Pending
                 $order->payment_date = null; // No payment date yet
+                // Generate Tranx Id
+                $order->payment_transaction_id = $easebuzzPaymentService->generateTranxId(
+                    $order->transaction_token . '-' . $productId . '-' . $citizenId . '-' . $cartId . '-' . Carbon::now()->toDateTimeString()
+                );
             } else if ($request->payment == 2 || $request->payment == 3) {
                 // Cheque Payment or Cash On Delivery
                 $order->payment_status = 3; // Completed (for offline payments)
                 $order->payment_date = Carbon::now(); // Payment received
+                // Generate Tranx Id
+                $order->payment_transaction_id = $easebuzzPaymentService->generateTranxId(
+                    $order->transaction_token . '-' . $productId . '-' . $citizenId . '-' . $cartId . '-' . Carbon::now()->toDateTimeString()
+                );
             }
 
-            // Generate a unique transaction token for the order in hash format (md5) by concatenating order number, product id and citizen id
-            $order->transaction_token = md5($order->order_number . '-' . $order->product_id . '-' . $order->citizen_id);
-
-            // payment_transaction_id generate by easebuzz
-            $order->payment_transaction_id = $request->txnid;
+            // Generate a unique transaction token for the order in hash format (md5) by concatenating order number, product id and citizen id and cart id date and time
+            $order->transaction_token = md5($order->transaction_token . '-' . $productId . '-' . $citizenId . '-' . $cartId . '-' . Carbon::now()->toDateTimeString());
             $order->inserted_at = Carbon::now();
             $order->inserted_by = Auth::guard('citizen')->user()->id;
             $order->save();
@@ -86,7 +101,7 @@ class CheckoutController extends Controller
     {
         $paymentData = [
             'key' => config('services.easebuzz.key'),
-            'txnid' => $order->order_number,
+            'txnid' => $order->transaction_token,
             'amount' => $order->order_total_price,
             'productinfo' => 'Order Payment',
             'firstname' => $user['name'],
@@ -118,7 +133,7 @@ class CheckoutController extends Controller
         }
     }
 
-    public function success(Request $request)
+    public function success(Request $request, EasebuzzPaymentService $easebuzzPaymentService)
     {
         try {
             // Get the order by txnid (transaction token)
@@ -128,9 +143,15 @@ class CheckoutController extends Controller
                 return redirect()->route('frontend.orders')->with('error', 'Order not found!');
             }
 
-            // Update order payment status to successful
-            $order->payment_status = 3; // Paid
-            $order->payment_date = Carbon::now();
+            // Update order payment status to successful based on payment method
+            if ($request->payment == 4 || $request->payment == 1) {
+                $order->payment_status = 3; // Paid
+                $order->payment_date = Carbon::now();
+            } else if ($request->payment == 2 || $request->payment == 3) {
+                $order->payment_status = 1; // Pending payment
+                $order->payment_date = Carbon::now();
+            }
+
             $order->save();
 
             return redirect()->route('frontend.orders')->with('message', 'Payment successful!');

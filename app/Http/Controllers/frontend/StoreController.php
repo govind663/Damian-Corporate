@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use App\Models\Citizen;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductColors;
@@ -334,10 +335,15 @@ class StoreController extends Controller
 
         $productId = Cart::where('citizen_id', Auth::guard('citizen')->user()->id)->first();
 
+        // ===== Fetch States
+        $states = State::orderBy("id","asc")->where('status', '1')->whereNull('deleted_at')->get(['id', 'state_name']);
+        // dd($states);
+
         return view('frontend.store.checkout', [
             'products' => $products,
             'cartItems' => $cartItems,
-            'productId' => $productId
+            'productId' => $productId,
+            'states' => $states
         ]);
     }
 
@@ -350,7 +356,18 @@ class StoreController extends Controller
     // ==== Orders
     public function orders()
     {
-        return view('frontend.store.orders');
+        $orders = Order::with('product', 'citizen', 'cart')->where('citizen_id', Auth::guard('citizen')->user()->id)->whereNull('deleted_at')->paginate(10);;
+        // dd($orders);
+
+        foreach ($orders as $key => $order) {
+            $order->order_date = Carbon::parse($order->order_date)->format('d M, Y');
+            $order->payment_date = Carbon::parse($order->payment_date)->format('d M, Y');
+        }
+        // dd($orders);
+
+        return view('frontend.store.orders', [
+            'orders' => $orders
+        ]);
     }
 
     // ==== Address

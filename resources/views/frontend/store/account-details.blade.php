@@ -188,7 +188,6 @@
                                                                 @endphp
                                                                 <option value="{{ $state->id }}" {{ $selected }}>{{ $state->state_name }}</option>
                                                             @endforeach
-
                                                         </optgroup>
                                                     </select>
                                                     @error('state')

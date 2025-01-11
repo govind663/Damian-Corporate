@@ -89,7 +89,7 @@
                             <ul class="cart-listing-sec">
                                 <li>Total
                                     <span class="total-price" id="total-price-{{ $value->id ?? '' }}">
-                                        ₹ <span id="price-content-{{ $value->id ?? '' }}">{{ number_format($value->price ?? 0) }}</span> /-
+                                        ₹ <span id="price-content-{{ $value->id ?? '' }}">{{ number_format($value->product_total_price ?? 0) }}</span> /-
                                     </span>
                                 </li>
                             </ul>
@@ -169,6 +169,7 @@
 
                         // Optionally update a cart-wide total if needed
                         updateCartTotal();
+                        window.location.reload();
 
                         toastr.success(response.message);
                     } else {
@@ -244,7 +245,7 @@
             // Update the price for reloads
             const priceElement = document.getElementById('price-content-{{ $value->id ?? '' }}');
             if (priceElement) {
-                priceElement.textContent = "{{ number_format($value->product_total_price ?? 0, 2) }}";
+                priceElement.textContent = "{{ number_format($value->product_total_price ?? 0) }}";
             }
         }
     });

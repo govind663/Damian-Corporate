@@ -5,6 +5,86 @@
 @endsection
 
 @push('styles')
+<style>
+    /* Container for image zoom effect */
+    .swiper-slide img {
+        transition: transform 0.3s ease-in-out; /* Smooth transition effect */
+        animation: none; /* Reset animation by default */
+    }
+
+    /* Apply zoom effect on hover */
+    .swiper-slide:hover img {
+        transform: scale(1.1); /* Zoom in by 10% */
+        animation: zoomIn 0.3s ease-in-out; /* Apply animation */
+    }
+
+    /* Keyframes for zoom-in animation */
+    @keyframes zoomIn {
+        0% {
+            transform: scale(1); /* Initial scale */
+        }
+        100% {
+            transform: scale(1.1); /* Final scale */
+        }
+    }
+
+    /* Ensure the thumbnails have a proper layout */
+    .thumbnail-slider .swiper-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        overflow: hidden;
+        /* border: 1px solid #ddd; */
+        /* border-radius: 5px; */
+        transition: transform 0.3s ease;
+    }
+
+    /* Add hover effect for thumbnails */
+    .thumbnail-slider .swiper-slide:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Ensure proper spacing between thumbnails */
+    .thumbnail-slider {
+        margin-top: 20px;
+    }
+
+    /* Style for navigation arrows */
+    .swiper-button-next, .swiper-button-prev {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 30px; /* Small arrow button size */
+        height: 30px;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        border-radius: 50%; /* Make the button round */
+        color: #fff; /* White arrow color */
+        font-size: 18px; /* Adjust arrow size */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Optional: Adjust arrow visibility when not hovered */
+    .swiper-button-next, .swiper-button-prev {
+        opacity: 0.6;
+    }
+
+    .swiper-button-next:hover, .swiper-button-prev:hover {
+        opacity: 1; /* Full opacity on hover */
+    }
+
+    /* Position the arrows centrally */
+    .swiper-button-next {
+        right: 10px; /* Right arrow */
+    }
+
+    .swiper-button-prev {
+        left: 10px; /* Left arrow */
+    }
+</style>
 @endpush
 
 @section('content')
@@ -35,38 +115,37 @@
                 {{-- product-details-image-area start --}}
                 <div class="col-xl-6 col-lg-6">
                     <div class="tp-shop-details__wrapper product-shop-detail-wrapper">
-                        <div class="tp-shop-details__tab-content-box mb-20">
-                            <div class="tab-content" id="nav-tabContent">
+                        <!-- Main Slider -->
+                        <div class="swiper-container main-slider pro-details-slider-sec">
+                            <div class="swiper-wrapper">
                                 @foreach ($productOtherImages as $index => $image)
-                                    <div class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}"
-                                         id="nav-{{ $index }}"
-                                         role="tabpanel"
-                                         aria-labelledby="nav-{{ $index }}-tab">
-                                        <div class="tp-shop-details__tab-big-img">
-                                            {{-- Add Image Path --}}
-                                            <img src="{{ asset('damian_corporate/product/product_other_images/' . $image) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}">
-                                        </div>
+                                    <div class="swiper-slide">
+                                        <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}" style="width: 600px; height: 425px">
                                     </div>
                                 @endforeach
                             </div>
+
+                            <!-- Navigation Arrows -->
+                            <div class="swiper-button-next pro-details-btn-sec"></div>
+                            <div class="swiper-button-prev pro-details-btn-sec"></div>
+
+                            <!-- Pagination Dots -->
+                            <div class="swiper-pagination pro-details-pagination-sec"></div>
                         </div>
-                        <div class="pd-store-tab-btn tp-shop-details__tab-btn-box">
-                            <nav>
-                                <div class="nav nav-tab pd-nav-tab-sec" id="nav-tab" role="tablist">
-                                    @foreach ($productOtherImages as $index => $image)
-                                        <button class="nav-links {{ $index === 0 ? 'active' : '' }}"
-                                                id="nav-{{ $index }}-tab"
-                                                data-bs-toggle="tab"
-                                                data-bs-target="#nav-{{ $index }}"
-                                                type="button"
-                                                role="tab"
-                                                aria-controls="nav-{{ $index }}"
-                                                aria-selected="{{ $index === 0 ? 'true' : 'false' }}">
-                                            <img src="{{ asset('damian_corporate/product/product_other_images/' . $image) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}">
-                                        </button>
-                                    @endforeach
-                                </div>
-                            </nav>
+
+                        <!-- Thumbnail Slider -->
+                        <div class="swiper-container thumbnail-slider pro-details-thumbnail-nav-sec">
+                            <div class="swiper-wrapper">
+                                @foreach($productOtherImages as $image)
+                                    <div class="swiper-slide">
+                                        <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}" style="width: 90px; height: 90px">
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            <!-- Add navigation buttons -->
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
                         </div>
                     </div>
                 </div>
@@ -263,6 +342,98 @@
                 }
             });
         }
+    });
+</script>
+
+<script>
+    // Initialize the Thumbnail Slider
+    var thumbnailSwiper = new Swiper('.thumbnail-slider', {
+       slidesPerView: 6, // Number of thumbnails visible
+       spaceBetween: 10, // Spacing between thumbnails
+       freeMode: true, // Allows free movement of thumbnails
+       watchSlidesVisibility: true,
+       watchSlidesProgress: true,
+    });
+
+    // Initialize the Main Slider
+    var mainSwiper = new Swiper('.main-slider', {
+       loop: true,
+       navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+       },
+       pagination: {
+          el: '.swiper-pagination',
+          clickable: true, // Makes dots clickable
+       },
+       thumbs: {
+          swiper: thumbnailSwiper, // Link to the Thumbnail Slider
+       },
+    });
+</script>
+
+<script>
+    $(function () {
+       var mySwiper = new Swiper('.manufacturing-facility-area-active', {
+          spaceBetween: 30,
+          loop: true,
+          navigation: {
+             nextEl: '.swiper-button-next',
+             prevEl: '.swiper-button-prev',
+          },
+          breakpoints: {
+             576: {
+                slidesPerView: 1
+             },
+             768: {
+                slidesPerView: 2
+             },
+             992: {
+                slidesPerView: 3
+             },
+             1200: {
+                slidesPerView: 3
+             }
+          }
+       });
+    });
+</script>
+
+<script>
+    $(function () {
+       var mySwiper = new Swiper('.directors-area-active', {
+          spaceBetween: 30,
+          slidesPerView: 3,
+          loop: true,
+          navigation: {
+             nextEl: '.swiper-button-next',
+             prevEl: '.swiper-button-prev',
+          },
+       });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const thumbnailSlider = new Swiper('.thumbnail-slider', {
+            loop: true, // Enable looping
+            spaceBetween: 10, // Space between thumbnails
+            slidesPerView: 4, // Number of thumbnails visible at a time
+            autoplay: {
+                delay: 2000, // Slide every 2 seconds
+                disableOnInteraction: false, // Continue autoplay after user interaction
+            },
+            breakpoints: {
+                640: { slidesPerView: 3 },
+                768: { slidesPerView: 4 },
+                1024: { slidesPerView: 5 },
+            },
+            // Enable navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
     });
 </script>
 @endpush

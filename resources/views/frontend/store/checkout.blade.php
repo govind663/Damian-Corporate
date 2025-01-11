@@ -9,9 +9,47 @@
     .form-select {
         padding: 1.375rem 2.25rem .375rem .75rem !important;
     }
+    .invalid-feedback{
+        color: rgb(255, 255, 255);
+    }
 
-    .invalid-feedback {
-        color: #ffffff !important;
+    .form-control,
+    .form-select {
+        padding: 1rem 0.75rem; /* Same padding for input and select fields */
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: rgba(255, 255, 255, 0.6); /* Match input field background */
+        background-clip: padding-box;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 4px; /* Slightly rounded corners */
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .profile-upload-container {
+        position: relative;
+        text-align: center;
+    }
+
+    .profile-upload-label {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+    }
+
+    #profile-preview img {
+        border: 3px solid #ddd;
+        padding: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-upload-label input {
+        display: none;
+    }
+
+    .textarea {
+        border : 1px solid rgba(255, 255, 255, 0.6);
     }
 </style>
 @endpush
@@ -40,7 +78,7 @@
     <!-- checkout area start -->
     <section class="checkout-section">
         <div class="container">
-            <form action="{{ route('frontend.checkout.store') }}" method="POST" class="tp-checkout-form" enctype="multipart/form-data">
+            <form action="{{ route('frontend.checkout.store', ['citizenId' => Auth::guard('citizen')->user()->id, 'productId' => $productId->product_id, 'cartId' => $productId->id]) }}" method="POST" class="tp-checkout-form" enctype="multipart/form-data">
                 @csrf
 
                 <input type="hidden" name="citizen_id" value="{{ Auth::guard('citizen')->user()->id }}">
@@ -102,7 +140,7 @@
                                         <div class="col-md-6">
                                             <div class="checkout-input-sec">
                                                 <label><b>Postcode ZIP : <span>*</span></b></label>
-                                                <input type="text" id="postcode" name="postcode" class="@error('postcode') is-invalid @enderror" value="{{ old('postcode') }}" placeholder="Postcode">
+                                                <input type="text" id="postcode" name="postcode" class="@error('postcode') is-invalid @enderror" value="{{ old('postcode') ? old('postcode') : Auth::guard('citizen')->user()->postcode }}" placeholder="Postcode">
                                                 @error('postcode')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -114,7 +152,7 @@
                                         <div class="col-md-6">
                                             <div class="checkout-input-sec">
                                                 <label><b>City : <span>*</span></b></label>
-                                                <input type="text" id="city" name="city" class="@error('city') is-invalid @enderror" value="{{ old('city') }}" placeholder="City">
+                                                <input type="text" id="city" name="city" class="@error('city') is-invalid @enderror" value="{{ old('city') ? old('city') : Auth::guard('citizen')->user()->city }}" placeholder="City">
                                                 @error('city')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -129,42 +167,12 @@
                                                 <select class="form-select form-select-xl @error('state') is-invalid @enderror" name="state" id="state">
                                                     <option value="">Select State</option>
                                                     <optgroup label="State">
-                                                        <option value="1" {{ old('state') == '1' ? 'selected' : '' }}>Andhra Pradesh</option>
-                                                        <option value="2" {{ old('state') == '2' ? 'selected' : '' }}>Arunachal Pradesh</option>
-                                                        <option value="3" {{ old('state') == '3' ? 'selected' : '' }}>Assam</option>
-                                                        <option value="4" {{ old('state') == '4' ? 'selected' : '' }}>Bihar</option>
-                                                        <option value="5" {{ old('state') == '5' ? 'selected' : '' }}>Chhattisgarh</option>
-                                                        <option value="6" {{ old('state') == '6' ? 'selected' : '' }}>Goa</option>
-                                                        <option value="7" {{ old('state') == '7' ? 'selected' : '' }}>Gujarat</option>
-                                                        <option value="8" {{ old('state') == '8' ? 'selected' : '' }}>Haryana</option>
-                                                        <option value="9" {{ old('state') == '9' ? 'selected' : '' }}>Himachal Pradesh</option>
-                                                        <option value="10" {{ old('state') == '10' ? 'selected' : '' }}>Jharkhand</option>
-                                                        <option value="11" {{ old('state') == '11' ? 'selected' : '' }}>Karnataka</option>
-                                                        <option value="12" {{ old('state') == '12' ? 'selected' : '' }}>Kerala</option>
-                                                        <option value="13" {{ old('state') == '13' ? 'selected' : '' }}>Madhya Pradesh</option>
-                                                        <option value="14" {{ old('state') == '14' ? 'selected' : '' }}>Maharashtra</option>
-                                                        <option value="15" {{ old('state') == '15' ? 'selected' : '' }}>Manipur</option>
-                                                        <option value="16" {{ old('state') == '16' ? 'selected' : '' }}>Meghalaya</option>
-                                                        <option value="17" {{ old('state') == '17' ? 'selected' : '' }}>Mizoram</option>
-                                                        <option value="18" {{ old('state') == '18' ? 'selected' : '' }}>Nagaland</option>
-                                                        <option value="19" {{ old('state') == '19' ? 'selected' : '' }}>Odisha</option>
-                                                        <option value="20" {{ old('state') == '20' ? 'selected' : '' }}>Punjab</option>
-                                                        <option value="21" {{ old('state') == '21' ? 'selected' : '' }}>Rajasthan</option>
-                                                        <option value="22" {{ old('state') == '22' ? 'selected' : '' }}>Sikkim</option>
-                                                        <option value="23" {{ old('state') == '23' ? 'selected' : '' }}>Tamil Nadu</option>
-                                                        <option value="24" {{ old('state') == '24' ? 'selected' : '' }}>Telangana</option>
-                                                        <option value="25" {{ old('state') == '25' ? 'selected' : '' }}>Tripura</option>
-                                                        <option value="26" {{ old('state') == '26' ? 'selected' : '' }}>Uttar Pradesh</option>
-                                                        <option value="27" {{ old('state') == '27' ? 'selected' : '' }}></option>Uttarakhand</option>
-                                                        <option value="28" {{ old('state') == '28' ? 'selected' : '' }}>West Bengal</option>
-                                                        <option value="29" {{ old('state') == '29' ? 'selected' : '' }}>Andaman and Nicobar Islands</option>
-                                                        <option value="30" {{ old('state') == '30' ? 'selected' : '' }}>Chandigarh</option>
-                                                        <option value="31" {{ old('state') == '31' ? 'selected' : '' }}>Dadra and Nagar Haveli and Daman and Diu</option>
-                                                        <option value="32" {{ old('state') == '32' ? 'selected' : '' }}>Delhi</option>
-                                                        <option value="33" {{ old('state') == '33' ? 'selected' : '' }}>Lakshadweep</option>
-                                                        <option value="34" {{ old('state') == '34' ? 'selected' : '' }}>Puducherry</option>
-                                                        <option value="35" {{ old('state') == '35' ? 'selected' : '' }}>Ladakh</option>
-                                                        <option value="36" {{ old('state') == '36' ? 'selected' : '' }}>Jammu and Kashmir</option>
+                                                        @foreach ($states as $state)
+                                                            @php
+                                                                $selected = old('state') == $state->id || Auth::guard('citizen')->user()->state == $state->id ? 'selected' : '';
+                                                            @endphp
+                                                            <option value="{{ $state->id }}" {{ $selected }}>{{ $state->state_name }}</option>
+                                                        @endforeach
                                                     </optgroup>
                                                 </select>
                                                 @error('state')
@@ -178,7 +186,7 @@
                                         <div class="col-md-6">
                                             <div class="checkout-input-sec">
                                                 <label><b>Country : <span>*</span></b></label>
-                                                <input type="text" id="country" name="country" class="@error('country') is-invalid @enderror" placeholder="Country" value="{{ old('country') }}" >
+                                                <input type="text" id="country" name="country" class="@error('country') is-invalid @enderror" placeholder="Country" value="{{ old('country') ? old('country') : Auth::guard('citizen')->user()->country }}" >
                                                 @error('country')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -254,7 +262,7 @@
                                         }) }}">
                                         <span id="subtotal-amount">₹ {{ number_format($cartItems->sum(function($item) {
                                             return (float) $item['product']['discount_price_after_percentage'] * (int) $item['quantity'];
-                                        }), 2) }}</span>
+                                        }), 0) }}</span>
                                     </li>
 
                                     <!-- Shipping -->
@@ -281,10 +289,10 @@
                                         <span>Total</span>
                                         <input type="hidden" name="total" value="{{ number_format($cartItems->sum(function($item) {
                                             return (float) $item['product']['discount_price_after_percentage'] * (int) $item['quantity'];
-                                        }) + 200, 2) }}">
+                                        }), 0) }}">
                                         <span id="total-amount">₹ {{ number_format($cartItems->sum(function($item) {
                                             return (float) $item['product']['discount_price_after_percentage'] * (int) $item['quantity'];
-                                        }) + 200, 2) }}</span> <!-- Defaulting to Flat Rate -->
+                                        }), 0) }}</span> <!-- Defaulting to Flat Rate -->
                                     </li>
                                 </ul>
                             </div>
@@ -322,12 +330,14 @@
                                 </div>
                             </div>
 
-                            <div class="tp-checkout-btn-wrapper">
-                                <button type="submit" class="tp-btn-theme text-center w-100">
-                                    <i class="fa-solid fa-right-to-bracket"></i>
-                                    <span>Place Order</span>
-                                </button>
-                            </div>
+                            @if (Auth::guard('citizen')->check())
+                                <div class="tp-checkout-btn-wrapper">
+                                    <button type="submit" class="tp-btn-theme text-center w-100">
+                                        <i class="fa-solid fa-right-to-bracket"></i>
+                                        <span>Place Order</span>
+                                    </button>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

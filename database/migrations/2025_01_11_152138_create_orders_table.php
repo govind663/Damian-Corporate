@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(Product::class)->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignIdFor(Citizen::class)->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignIdFor(Cart::class)->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->string('order_number')->unique()->nullable();
+            $table->string('transaction_token')->unique()->nullable();
             $table->string('order_status')->default('1')->nullable()->comment('1 => pending, 2 => processing, 3 => completed, 4 => cancelled');
             $table->timestamp('order_date')->nullable();
             // order total price

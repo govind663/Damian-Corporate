@@ -190,12 +190,11 @@ Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitize
     Route::delete('/wishlist/{id}', [StoreController::class, 'destroy'])->name('wishlist.destroy');
 
     // ==== Checkout Store
-    Route::post('checkout/store',  [CheckoutController::class, 'checkoutStore'])->name('frontend.checkout.store');
+    Route::post('checkout/store/{citizenId?}/{productId?}/{cartId?}',  [CheckoutController::class, 'checkoutStore'])->name('frontend.checkout.store');
 
     // ==== Payment Success/Failure by Easebuzz
     Route::post('/payment/success', [CheckoutController::class, 'success'])->name('payment.success');
     Route::post('/payment/failure', [CheckoutController::class, 'failure'])->name('payment.failure');
-
 
 });
 

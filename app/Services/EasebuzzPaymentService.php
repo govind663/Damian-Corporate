@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 
 class EasebuzzPaymentService
@@ -55,5 +57,20 @@ class EasebuzzPaymentService
         ]);
 
         return hash('sha512', $hashString);  // Return hashed string
+    }
+
+
+    // Existing method for generating transaction ID
+    public function generateTranxId($base)
+    {
+        $uniqueId = uniqid('', true);  // More randomness
+        $timestamp = Carbon::now()->format('YmdHis');  // Timestamp for uniqueness
+
+        // Ensure uniqueness
+        while (Order::where('transaction_token', $base . '-' . $timestamp . '-' . $uniqueId)->exists()) {
+            $uniqueId = uniqid('', true);
+        }
+
+        return hash('sha512', $base . '-' . $timestamp . '-' . $uniqueId);  // Combining base and unique values
     }
 }

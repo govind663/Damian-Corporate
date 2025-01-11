@@ -49,4 +49,10 @@ class Order extends Model
         return $this->belongsTo(Citizen::class, 'citizen_id', 'id');
     }
 
+    // === Relations with Cart
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class, 'cart_id', 'id');
+    }
+
 }
