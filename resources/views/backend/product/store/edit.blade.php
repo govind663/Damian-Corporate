@@ -106,7 +106,7 @@ Damian Corporate | Edit Product
                 </div>
 
                 <div class="form-group row mt-3">
-                    <label class="col-sm-2"><b>Product Color : <span class="text-danger">*</span></b></label>
+                    <label class="col-sm-2"><b>Product Color : </b></label>
                     <div class="col-sm-4 col-md-4">
                         <select name="product_colors_id" id="product_colors_id" class="custom-select2 form-control @error('product_colors_id') is-invalid @enderror">
                             <option value="">Select Product Color</option>
@@ -276,9 +276,9 @@ Damian Corporate | Edit Product
                 <hr>
 
                 <div class="form-group row mt-3">
-                    <label class="col-sm-1"><b>Depth : <span class="text-danger">*</span></b></label>
-                    <div class="col-sm-3 col-md-3">
-                        <input type="text" name="depth" id="depth" class="form-control @error('depth') is-invalid @enderror" value="{{ $product->depth }}" placeholder="Enter Depth.">
+                    <label class="col-sm-2"><b>Length (cm) : </b></label>
+                    <div class="col-sm-4 col-md-4">
+                        <input type="text" name="depth" id="depth" class="form-control @error('depth') is-invalid @enderror" value="{{ $product->depth }}" placeholder="Enter Length (cm).">
                         @error('depth')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -286,20 +286,32 @@ Damian Corporate | Edit Product
                         @enderror
                     </div>
 
-                    <label class="col-sm-1"><b>Width : <span class="text-danger">*</span></b></label>
-                    <div class="col-sm-3 col-md-3">
-                        <input type="text" name="width" id="width" class="form-control @error('width') is-invalid @enderror" value="{{ $product->width }}" placeholder="Enter Width.">
+                    <label class="col-sm-2"><b>Width / Depth (cm) : </b></label>
+                    <div class="col-sm-4 col-md-4">
+                        <input type="text" name="width" id="width" class="form-control @error('width') is-invalid @enderror" value="{{ $product->width }}" placeholder="Enter Width / Depth (cm).">
                         @error('width')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
+                </div>
 
-                    <label class="col-sm-1"><b>Height : <span class="text-danger">*</span></b></label>
-                    <div class="col-sm-3 col-md-3">
-                        <input type="text" name="height" id="height" class="form-control @error('height') is-invalid @enderror" value="{{ $product->height }}" placeholder="Enter Height.">
+                <div class="form-group row mt-3">
+                    <label class="col-sm-2"><b>Height (cm) : </b></label>
+                    <div class="col-sm-4 col-md-4">
+                        <input type="text" name="height" id="height" class="form-control @error('height') is-invalid @enderror" value="{{ $product->height }}" placeholder="Enter Height (cm).">
                         @error('height')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <label class="col-sm-2"><b>Seat Heigh (cm) : </b></label>
+                    <div class="col-sm-4 col-md-4">
+                        <input type="text" name="seat_height" id="seat_height" class="form-control @error('seat_height') is-invalid @enderror" value="{{ $product->seat_height }}" placeholder="Enter Seat Height (cm).">
+                        @error('seat_height')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

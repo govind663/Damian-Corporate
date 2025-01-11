@@ -50,7 +50,7 @@ Damian Corporate | Manaage Product
                 <h4 class="text-blue h4">All Product List</h4>
             </div>
             <div class="pb-20">
-                <table class="table hover multiple-select-row data-table-export1 nowrap p-3">
+                <table class="table hover data-table-export1 nowrap p-3">
                     <thead>
                         <tr>
                             <th>Sr. No.</th>
@@ -76,11 +76,11 @@ Damian Corporate | Manaage Product
 
                             <td class="text-wrap text-justify">{{ $value->product_sub_category->name }}</td>
 
+                            @if($value->image)
                             <td class="text-wrap text-justify">
-                                @if($value->image)
-                                    <img src="{{ asset('/damian_corporate/product/project_image/' . $value->image) }}" alt="{{ $value->image }}" style="width: 100px; height: auto;">
-                                @endif
+                                <img src="{{ asset('/damian_corporate/product/project_image/' . $value->image) }}" alt="{{ $value->image }}" style="width: 100px; height: auto;">
                             </td>
+                            @endif
 
                             <td class="text-wrap text-justify">{{ $value->name }}</td>
 

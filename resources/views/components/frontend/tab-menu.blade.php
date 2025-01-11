@@ -2,7 +2,11 @@
     <div class="profile-cont-sec">
         <div class="account-avatar">
             <div class="image">
-                <img src="{{ asset('frontend/assets/img/icon/profile.png') }}" alt="">
+                @if (!empty(Auth::guard('citizen')->user()->profile_image))
+                    <img src="{{ asset('/damian_corporate/citizen/profile_image/' . Auth::guard('citizen')->user()->profile_image) }}" alt="profile" title="profile">
+                @else
+                    <img src="{{ asset('frontend/assets/img/icon/profile.png') }}" alt="profile" title="profile">
+                @endif
             </div>
             <h6 class="my-profile-title">
                 Hello, <span>{{ Auth::guard('citizen')->user()->f_name ?? '' }} {{ Auth::guard('citizen')->user()->l_name ?? '' }}</span>

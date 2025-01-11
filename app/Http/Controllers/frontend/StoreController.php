@@ -11,10 +11,12 @@ use App\Models\ProductCategory;
 use App\Models\ProductColors;
 use App\Models\ProductSubCategory;
 use App\Models\ProductFaq;
+use App\Models\State;
 use App\Models\Wishlist;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class StoreController extends Controller
 {
@@ -357,10 +359,199 @@ class StoreController extends Controller
         return view('frontend.store.address');
     }
 
+    // ==== Billing Address
+    public function updateBillingAddress(Request $request, $id)
+    {
+        $request->validate([
+            'billing_address' => 'required|string|max:500',
+        ],[
+            'billing_address.required' => 'Billing Address is required',
+        ]);
+
+        try {
+
+            $citizen = Citizen::findOrFail($id);
+
+            $user = Auth::guard('citizen')->user();
+
+            if (!$user) {
+                return redirect()->back()->with('error', 'User not authenticated.');
+            }
+
+            $citizen->billing_address = $request->billing_address;
+            $citizen->updated_at = Carbon::now();
+            $citizen->updated_by = $user->id;
+            $citizen->save();
+
+            return redirect()->route('frontend.address')->with('message', 'Billing Address Updated Successfully!');
+        } catch (\Exception $ex) {
+            Log::error('Error updating billing address: ' . $ex->getMessage());
+            return redirect()->back()->with('error', 'Something went wrong while updating the Billing Address. Please try again.');
+        }
+    }
+
+    // ==== Shipping Address
+    public function updateShippingAddress(Request $request, $id)
+    {
+        $request->validate([
+            'shipping_address' => 'required|string|max:500',
+        ],[
+            'shipping_address.required' => 'Shipping Address is required',
+        ]);
+
+        try {
+
+            $citizen = Citizen::findOrFail($id);
+
+            $user = Auth::guard('citizen')->user();
+
+            if (!$user) {
+                return redirect()->back()->with('error', 'User not authenticated.');
+            }
+
+            $citizen->shipping_address = $request->shipping_address;
+            $citizen->updated_at = Carbon::now();
+            $citizen->updated_by = $user->id;
+            $citizen->save();
+
+            return redirect()->route('frontend.address')->with('message', 'Shipping Address Updated Successfully!');
+        } catch (\Exception $ex) {
+            Log::error('Error updating shipping address: ' . $ex->getMessage());
+            return redirect()->back()->with('error', 'Something went wrong while updating the Shipping Address. Please try again.');
+        }
+    }
+
     // ==== Account Details
     public function accountDetails()
     {
-        return view('frontend.store.account-details');
+        // ===== Fetch States
+        $states = State::orderBy("id","asc")->where('status', '1')->whereNull('deleted_at')->get(['id', 'state_name']);
+        // dd($states);
+
+        return view('frontend.store.account-details', [
+            'states' => $states
+        ]);
+    }
+
+    // ==== Update Account Details
+    public function updateAccountDetails(Request $request, $id)
+    {
+        // Validate the form data
+        // $request->validate([
+        //     'f_name' => 'required|string|max:255',
+        //     'l_name' => 'required|string|max:255',
+        //     'email' => [
+        //         'required',
+        //         'email',
+        //         'max:255'
+        //     ],
+        //     'phone' => [
+        //         'required',
+        //     ],
+        //     'postcode' => [
+        //         'required',
+        //     ],
+        //     'city' => [
+        //         'required',
+        //         'string',
+        //         'max:255'
+        //     ],
+        //     'state' => [
+        //         'required',
+        //         'integer',
+        //         'exists:states,id'
+        //     ],
+        //     'country' => [
+        //         'required',
+        //         'string',
+        //         'max:255'
+        //     ],
+        //     'billing_address' => [
+        //         'required',
+        //         'string',
+        //         'max:255'
+        //     ]
+        // ], [
+        //     'f_name.required' => __('First Name is required'),
+        //     'f_name.string' => __('First Name must be a string'),
+        //     'f_name.max' => __('First Name must not exceed 255 characters'),
+
+        //     'l_name.required' => __('Last Name is required'),
+        //     'l_name.string' => __('Last Name must be a string'),
+        //     'l_name.max' => __('Last Name must not exceed 255 characters'),
+
+        //     'email.required' => __('Email is required'),
+        //     'email.email' => __('Invalid email format'),
+        //     'email.regex' => __('Invalid email format'),
+        //     'email.max' => __('Email must not exceed 255 characters'),
+
+        //     'phone.required' => __('Phone is required'),
+
+        //     'postcode.required' => __('Postcode is required'),
+
+        //     'city.required' => __('City is required'),
+        //     'city.string' => __('City must be a string'),
+        //     'city.max' => __('City must not exceed 255 characters'),
+
+        //     'state.required' => __('State is required'),
+        //     'state.integer' => __('State must be an integer'),
+        //     'state.exists' => __('State does not exist'),
+
+        //     'country.required' => __('Country is required'),
+        //     'country.string' => __('Country must be a string'),
+        //     'country.max' => __('Country must not exceed 255 characters'),
+
+        //     'profile_image.required' => __('Profile Image is required'),
+        //     'profile_image.image' => __('Profile Image must be an image'),
+        //     'profile_image.mimes' => __('Profile Image must be a file of type: jpg, jpeg, png, svg'),
+        //     'profile_image.max' => __('Profile Image must not exceed 2MB'),
+        // ]);
+
+        try {
+
+            $id = decrypt($id);
+            $citizen = Citizen::findOrFail($id);
+
+            // Check and upload the profile image if provided
+            if ($request->hasFile('profile_image')) {
+
+                // Check if the old image exists and delete it
+                if ($citizen->profile_image) {
+                    $oldImagePath = public_path('/damian_corporate/citizen/profile_image/' . $citizen->profile_image);
+
+                    if (file_exists($oldImagePath) && is_file($oldImagePath)) {
+                        unlink($oldImagePath);
+                        unlink($oldImagePath); // Delete the old image file
+                    }
+                }
+
+                // Upload the new profile image
+                $profileImage = $request->file('profile_image');
+                $extension = $profileImage->getClientOriginalExtension();
+                $new_name = time() . rand(10, 999) . '.' . $extension;
+                $profileImage->move(public_path('/damian_corporate/citizen/profile_image/'), $new_name);
+                $citizen->profile_image = $new_name;
+
+            }
+
+            $citizen->f_name = $request->f_name;
+            $citizen->l_name = $request->l_name;
+            $citizen->email = $request->email;
+            $citizen->phone = $request->phone;
+            $citizen->postcode = $request->postcode;
+            $citizen->city = $request->city;
+            $citizen->state = $request->state;
+            $citizen->country = $request->country;
+            // $citizen->billing_address = $request->billing_address;
+            // $citizen->shipping_address = $request->shipping_address;
+            $citizen->updated_at = Carbon::now();
+            $citizen->updated_by = Auth::guard('citizen')->user()->id;
+            $citizen->save();
+
+            return redirect()->route('frontend.accountDetails')->with('message', 'Account Details Updated Successfully!');
+        } catch (\Exception $ex) {
+            return redirect()->back()->with('error', 'Something went wrong while updating the Account Details. Please try again.');
+        }
     }
 
     // ==== Change Password

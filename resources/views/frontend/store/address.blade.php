@@ -52,25 +52,19 @@
                                             <h3>Billing Address</h3>
                                             <address>
                                                 <p>
-                                                    <strong>Lorem Ipsum</strong>
-                                                </p>
-                                                <p>
-                                                    1234 Elm Street, Apt 56
-                                                    Springfield, IL 62704
-                                                    United States
-                                                </p>
-                                                <p>
-                                                    Mobile : (555) 123-4567
+                                                    {{ Auth::guard('citizen')->user()->billing_address ?? '' }}
                                                 </p>
                                             </address>
 
                                             <div class="address-button-sec">
-                                                <button class="tp-btn-border height">
+                                                <!-- Edit Button -->
+                                                <button class="tp-btn-border height" data-bs-toggle="modal" data-bs-target="#editBillingAddressModal">
                                                     <span>Edit</span>
                                                 </button>
-                                                <button class="tp-btn-border height">
+                                                <!-- Delete Button -->
+                                                {{-- <button class="tp-btn-border height">
                                                     <span>Delete</span>
-                                                </button>
+                                                </button> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -81,25 +75,17 @@
                                             <h3>Shipping Address</h3>
                                             <address>
                                                 <p>
-                                                    <strong>Lorem Ipsum</strong>
-                                                </p>
-                                                <p>
-                                                    1234 Elm Street, Apt 56
-                                                    Springfield, IL 62704
-                                                    United States
-                                                </p>
-                                                <p>
-                                                    Mobile : (555) 123-4567
+                                                    {{ Auth::guard('citizen')->user()->shipping_address ?? '' }}
                                                 </p>
                                             </address>
 
                                             <div class="address-button-sec">
-                                                <button class="tp-btn-border height">
+                                                <button class="tp-btn-border height" data-bs-toggle="modal" data-bs-target="#editShippingAddressModal">
                                                     <span>Edit</span>
                                                 </button>
-                                                <button class="tp-btn-border height">
+                                                {{-- <button class="tp-btn-border height">
                                                     <span>Delete</span>
-                                                </button>
+                                                </button> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -111,6 +97,62 @@
             </div>
         </section>
     <!-- My Account Section End -->
+
+    <!-- Modal Structure Start For Edit Billing Address -->
+    <div class="modal fade" id="editBillingAddressModal" tabindex="-1" aria-labelledby="editBillingAddressModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-dark text-2xl" id="editBillingAddressModalLabel">
+                        Edit Billing Address
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editBillingAddressForm" action="{{ route('frontend.updateBillingAddress', Auth::guard('citizen')->user()->id) }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+                        @csrf
+
+                        <input type="hidden" name="citizen_id" id="citizen_id" value="{{ Auth::guard('citizen')->user()->id }}">
+
+                        <!-- Address with Summernote -->
+                        <div class="mb-3">
+                            <textarea class="form-control" id="billing_address" name="billing_address" required value="{{ old('billing_address') }}" >{{ old('billing_address') ? old('billing_address') : Auth::guard('citizen')->user()->billing_address }}</textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Structure End For Edit Billing Address -->
+
+    <!-- Modal Structure Start For Edit Shipping Address -->
+    <div class="modal fade" id="editShippingAddressModal" tabindex="-1" aria-labelledby="editShippingAddressModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-dark text-2xl" id="editShippingAddressModalLabel">
+                        Edit Shipping Address
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editShippingAddressForm" action="{{ route('frontend.updateShippingAddress', Auth::guard('citizen')->user()->id) }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+                        @csrf
+
+                        <input type="hidden" name="citizen_id" id="citizen_id" value="{{ Auth::guard('citizen')->user()->id }}">
+
+                        <!-- Address with Summernote -->
+                        <div class="mb-3">
+                            <textarea class="form-control" id="shipping_address" name="shipping_address" required value="{{ old('shipping_address') }}" >{{ old('shipping_address') ? old('shipping_address') : Auth::guard('citizen')->user()->shipping_address }}</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')

@@ -127,7 +127,12 @@
                 <div class="tp-header-right d-flex align-items-center justify-content-end">
                     <div class="tp-header-icon d-none d-xl-block position-relative">
                         <a href="javascript:;" class="dc-icon-sec" data-bs-toggle="dropdown" aria-expanded="false" title="Citizen Details">
-                            <i class="fa-solid fa-user"></i>
+                            @if (!empty(Auth::guard('citizen')->user()->profile_image))
+                                <img src="{{ asset('/damian_corporate/citizen/profile_image/' . Auth::guard('citizen')->user()->profile_image) }}" alt="profile" title="profile" class="rounded-circle" width="40" height="40">
+                            @else
+                                <img src="{{ asset('/frontend/assets/img/icon/profile.png') }}" alt="profile" title="profile" class="rounded-circle" width="40" height="40">
+                            @endif
+                            &nbsp;
                             {{ Auth::guard('citizen')->check() ? Auth::guard('citizen')->user()->f_name : '' }} {{ Auth::guard('citizen')->check() ? Auth::guard('citizen')->user()->l_name : '' }}
                         </a>
                         <div class="login-dropdown">

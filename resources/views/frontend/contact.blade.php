@@ -14,7 +14,7 @@
         height: 66px !important;
     }
 
-    .form-control {
+    .{
         padding: 0.375rem .75rem;
         font-size: 1rem;
         font-weight: 900px;
@@ -153,7 +153,7 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 mb-20">
                                     <div class="tp-contact-input-box" style="text-align: left !important;">
-                                        <input type="text" name="name" id="name" style="color: #f4f4f4 !important;" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Name *">
+                                        <input type="text" name="name" id="name" style="color: #f4f4f4 !important;" class="@error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Name *">
                                         <div class="tp-contact-icon">
                                             <span>
                                                 <img width="17px" src="{{ asset('frontend/assets/img/icon/user.png') }}"  alt="user.png" title="user.png" />
@@ -168,7 +168,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 mb-20">
                                     <div class="tp-contact-input-box" style="text-align: left !important;">
-                                        <input type="email" name="email" id="email" style="color: #f4f4f4 !important;" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Emai Id *">
+                                        <input type="email" name="email" id="email" style="color: #f4f4f4 !important;" class="@error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Emai Id *">
                                         <div class="tp-contact-icon">
                                             <span>
                                                 <svg width="16" height="15" viewBox="0 0 16 15" fill="none"
@@ -189,7 +189,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 mb-20">
                                     <div class="tp-contact-input-box" style="text-align: left !important;">
-                                        <input type="text" maxlength="10" name="phone" id="phone" style="color: #f4f4f4 !important;" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" placeholder="Your Phone *">
+                                        <input type="text" maxlength="10" name="phone" id="phone" style="color: #f4f4f4 !important;" class="@error('phone') is-invalid @enderror" value="{{ old('phone') }}" placeholder="Your Phone *">
                                         <div class="tp-contact-icon">
                                             <span>
                                                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
@@ -210,7 +210,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 mb-20">
                                     <div class="tp-contact-input-box" style="text-align: left !important;">
-                                        <input type="text" name="address" id="address" style="color: #f4f4f4 !important;" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Address *">
+                                        <input type="text" name="address" id="address" style="color: #f4f4f4 !important;" class="@error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Address *">
                                         <div class="tp-contact-icon">
                                             <span>
                                                 <svg width="11" height="15" viewBox="0 0 11 15" fill="none"
@@ -230,7 +230,7 @@
                                 </div>
                                 <div class="col-lg-12 mb-20">
                                     <div class="tp-contact-textarea-box" style="text-align: left !important;">
-                                        <textarea placeholder="Messege" rows="5" name="messege" id="messege" style="color: #f4f4f4 !important;" class="form-control @error('messege') is-invalid @enderror" value="{{ old('messege') }}" >{{ old('messege') }}</textarea>
+                                        <textarea placeholder="Messege" rows="5" name="messege" id="messege" style="color: #f4f4f4 !important;" class="@error('messege') is-invalid @enderror" value="{{ old('messege') }}" >{{ old('messege') }}</textarea>
                                         <div class="tp-contact-icon">
                                             <span>
                                                 <svg width="14" height="11" viewBox="0 0 14 11" fill="none"

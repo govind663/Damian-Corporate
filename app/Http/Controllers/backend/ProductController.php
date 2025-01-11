@@ -112,6 +112,7 @@ class ProductController extends Controller
             $product->height = $request->height ?? null;
             $product->width = $request->width ?? null;
             $product->depth = $request->depth ?? null;
+            $product->seat_height = $request->seat_height ?? null;
             $product->product_type = $request->product_type ?? null;
             $product->status = $request->status ?? null;
             $product->inserted_at = Carbon::now();
@@ -242,6 +243,7 @@ class ProductController extends Controller
             $product->height = $request->height ?? null;
             $product->width = $request->width ?? null;
             $product->depth = $request->depth ?? null;
+            $product->seat_height = $request->seat_height ?? null;
             $product->product_type = $request->product_type ?? null;
             $product->status = $request->status ?? null;
             $product->modified_at = Carbon::now();

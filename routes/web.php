@@ -56,6 +56,7 @@ use App\Http\Controllers\backend\ProductColorsController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\ProductFaqController;
 
+
 Route::get('/login', function () {
     // check if the user session expire web guard then redirect to admin.login page else redirect to frontend.login page
     if (Auth::guard('web')->check()) {
@@ -151,8 +152,17 @@ Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitize
     // ==== Address
     Route::get('address', [StoreController::class, 'address'])->name('frontend.address');
 
+    // ==== Billing Address
+    Route::post('update-billing-address/{id}', [StoreController::class, 'updateBillingAddress'])->name('frontend.updateBillingAddress');
+
+    // ==== Shipping Address
+    Route::post('update-shipping-address/{id}', [StoreController::class, 'updateShippingAddress'])->name('frontend.updateShippingAddress');
+
     // ==== Account Details
     Route::get('account-details', [StoreController::class, 'accountDetails'])->name('frontend.accountDetails');
+
+    // ==== Update Account Details
+    Route::post('account-details/update/{id}', [StoreController::class, 'updateAccountDetails'])->name('frontend.updateAccountDetails');
 
     // ==== Change Password
     Route::get('change-password', [StoreController::class, 'changePassword'])->name('frontend.change-password');

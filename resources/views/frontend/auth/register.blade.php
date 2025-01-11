@@ -21,6 +21,10 @@
         height: 45px !important;
         border-radius: 2px !important;
     }
+
+    .invalid-feedback {
+        color: #ffffff !important;
+    }
 </style>
 @endpush
 
@@ -66,7 +70,7 @@
                                             <b>First Name : <span class="text-light">*</span></b>
                                         </label>
                                         <div class="tp-contact-input-box mt-5">
-                                            <input type="text" class="form-control @error('f_name') is-invalid @enderror" id="f_name" name="f_name" value="{{ old('f_name') }}" placeholder="Enter First Name">
+                                            <input type="text" class="@error('f_name') is-invalid @enderror" id="f_name" name="f_name" value="{{ old('f_name') }}" placeholder="Enter First Name">
                                             <div class="tp-contact-icon">
                                                 <span>
                                                     <i class="fa fa-user" aria-hidden="true"></i>
@@ -87,7 +91,7 @@
                                             <b>Last Name : <span class="text-light">*</span></b>
                                         </label>
                                         <div class="tp-contact-input-box mt-5">
-                                            <input type="text" class="form-control @error('l_name') is-invalid @enderror" id="l_name" name="l_name" value="{{ old('l_name') }}" placeholder="Enter Last Name">
+                                            <input type="text" class="@error('l_name') is-invalid @enderror" id="l_name" name="l_name" value="{{ old('l_name') }}" placeholder="Enter Last Name">
                                             <div class="tp-contact-icon">
                                                 <span>
                                                     <i class="fa fa-user" aria-hidden="true"></i>
@@ -108,7 +112,7 @@
                                             <b>E-Mail Address : <span class="text-light">*</span></b>
                                         </label>
                                         <div class="tp-contact-input-box mt-5">
-                                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" placeholder="Enter E-Mail Address">
+                                            <input type="email" class="@error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" placeholder="Enter E-Mail Address">
                                             <div class="tp-contact-icon">
                                                 <span>
                                                     <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -129,7 +133,7 @@
                                             <b>Mobile Number : <span class="text-light">*</span></b>
                                         </label>
                                         <div class="tp-contact-input-box mt-5">
-                                            <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}" placeholder="Enter Mobile Number">
+                                            <input type="text" class="@error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}" placeholder="Enter Mobile Number">
                                             <div class="tp-contact-icon">
                                                 <span>
                                                     <i class="fa fa-phone" aria-hidden="true"></i>
@@ -150,7 +154,7 @@
                                             <b>Password : <span class="text-light">*</span></b>
                                         </label>
                                         <div class="tp-contact-input-box mt-5">
-                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="password" placeholder="Enter Password">
+                                            <input id="password" type="password" class="@error('password') is-invalid @enderror" name="password" autocomplete="password" placeholder="Enter Password">
                                             <div class="tp-contact-icon">
                                                 <span>
                                                     <i class="fa fa-lock" aria-hidden="true"></i>
@@ -171,7 +175,7 @@
                                             <b>Confirm Password : <span class="text-light">*</span></b>
                                         </label>
                                         <div class="tp-contact-input-box mt-5">
-                                            <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" id="password_confirmation" autocomplete="password_confirmation" placeholder="Enter Confirm Password">
+                                            <input type="password" class="@error('password_confirmation') is-invalid @enderror" name="password_confirmation" id="password_confirmation" autocomplete="password_confirmation" placeholder="Enter Confirm Password">
                                             <div class="tp-contact-icon">
                                                 <span>
                                                     <i class="fa fa-lock" aria-hidden="true"></i>

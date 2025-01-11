@@ -21,6 +21,10 @@
         height: 45px !important;
         border-radius: 2px !important;
     }
+
+    .invalid-feedback {
+        color: #ffffff !important;
+    }
 </style>
 @endpush
 
@@ -64,7 +68,7 @@
                                     <div class="tp-contact-input-box">
                                         <label class="cart-email-sec" for="email"><b>E-Mail Address : <span class="text-light">*</span></b></label>
                                         <div class="tp-contact-input-box mt-5">
-                                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" placeholder="Enter E-Mail Address">
+                                            <input type="email" class="@error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" placeholder="Enter E-Mail Address">
                                             <div class="tp-contact-icon">
                                                 <span>
                                                     <i class="fa fa-envelope" aria-hidden="true"></i>

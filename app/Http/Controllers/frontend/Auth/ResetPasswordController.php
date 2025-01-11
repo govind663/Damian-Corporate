@@ -21,7 +21,7 @@ class ResetPasswordController extends Controller
         }
     }
 
-    public function updatePassword(Request $request)
+    public function citizenUpdatePassword (Request $request)
     {
         $request->validate([
             'email' => [
@@ -45,6 +45,7 @@ class ResetPasswordController extends Controller
             'password_confirmation' => [
                'required',
                'same:password',
+               'min:8',
             ],
 
         ],[
@@ -64,8 +65,10 @@ class ResetPasswordController extends Controller
             // 'password.must_contain_uppercase' => 'Password must contain at least one uppercase letter',
             // 'password.must_contain_numeric' => 'Password must contain at least one numeric character',
 
+
             'password_confirmation.required' => 'Password confirmation is required',
             'password_confirmation.same' => 'Password confirmation does not match',
+            'password_confirmation.min' => 'Password confirmation must be at least 8 characters long',
 
         ]);
 
@@ -81,7 +84,7 @@ class ResetPasswordController extends Controller
 
         DB::table('citizen_password_reset_tokens')->where(['email' => $request->email])->delete();
 
-        return redirect()->route('admin.login')->with('message', 'Your password has been changed successfully. You can now log in with your new password.');
+        return redirect()->route('frontend.citizen.login')->with('message', 'Your password has been changed successfully. You can now log in with your new password.');
 
     }
 }

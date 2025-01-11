@@ -30,6 +30,7 @@ class Product extends Model
         'height',
         'width',
         'depth',
+        'seat_height',
         'product_type',
         'status',
         'inserted_by',
