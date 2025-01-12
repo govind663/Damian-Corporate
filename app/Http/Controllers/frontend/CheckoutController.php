@@ -119,6 +119,7 @@ class CheckoutController extends Controller
         ];
 
         try {
+
             // Initiate the payment with Easebuzz
             $response = $easebuzzPaymentService->initiatePayment($paymentData);
 
@@ -136,6 +137,12 @@ class CheckoutController extends Controller
     public function success(Request $request, EasebuzzPaymentService $easebuzzPaymentService)
     {
         try {
+
+            // Validate the response hash from Easebuzz
+            if (!$easebuzzPaymentService->validateResponseHash($request->all())) {
+                throw new \Exception('Invalid payment response hash.');
+            }
+
             // Get the order by txnid (transaction token)
             $order = Order::where('transaction_token', $request->txnid)->first();
 
@@ -154,15 +161,22 @@ class CheckoutController extends Controller
 
             $order->save();
 
-            return redirect()->route('frontend.orders')->with('message', 'Payment successful!');
+            return redirect()->route('frontend.orders')->with('message', 'Payment successful and order placed successfully!');
         } catch (\Exception $e) {
             return redirect()->route('frontend.orders')->with('error', 'Something went wrong: ' . $e->getMessage());
         }
     }
 
-    public function failure(Request $request)
+    // ====== Handle payment failure
+    public function failure(Request $request, EasebuzzPaymentService $easebuzzPaymentService)
     {
         try {
+            // Validate the response hash from Easebuzz
+            if (!$easebuzzPaymentService->validateResponseHash($request->all())) {
+                throw new \Exception('Invalid payment response hash.');
+            }
+
+
             // Get the order by txnid (transaction token)
             $order = Order::where('transaction_token', $request->txnid)->first();
 
@@ -170,9 +184,15 @@ class CheckoutController extends Controller
                 return redirect()->route('frontend.orders')->with('error', 'Order not found!');
             }
 
-            // Update order payment status to failed
-            $order->payment_status = 4; // Failed
-            $order->payment_date = Carbon::now();
+            // Update order payment status to failed based on payment method
+            if ($request->payment == 4 || $request->payment == 1) {
+                $order->payment_status = 4; // Failed
+                $order->payment_date = Carbon::now();
+            } else if ($request->payment == 2 || $request->payment == 3) {
+                $order->payment_status = 1; // Pending payment
+                $order->payment_date = Carbon::now();
+            }
+
             $order->save();
 
             return redirect()->route('frontend.orders')->with('error', 'Payment failed. Please try again.');

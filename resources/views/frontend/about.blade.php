@@ -91,7 +91,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 mb-30 grid-item-2">
                         <div class="tp-project-3-item p-relative active">
                             <div class="tp-project-3-thumb">
-                                <img src="{{ asset('/damian_corporate/showroom/office_image/'. $value->office_image) }}" alt="{{ $value->office_image }}" title="{{ $value->office_image }}" class="mx-h-25rem">
+                                <img src="{{ asset('/damian_corporate/showroom/office_image/'. $value->office_image) }}" alt="{{ $value->office_image }}" title="{{ $value->office_image }}" loading="lazy" class="mx-h-25rem">
                             </div>
                             <div class="tp-project-3-content about-content-area hover-effect-rm">
                                 <span>{{ $value->office_name ?? '' }}</span>

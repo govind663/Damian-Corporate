@@ -9,21 +9,24 @@ use Illuminate\Support\Facades\Http;
 class EasebuzzPaymentService
 {
     private $baseUrl;
-    private $apiKey;
+    private $key;
+    private $salt;
+
 
     public function __construct()
     {
         $this->baseUrl = config('services.easebuzz.base_url');
-        $this->apiKey = config('services.easebuzz.key');
+        $this->key = config('services.easebuzz.key');
+        $this->salt = config('services.easebuzz.salt');
     }
 
-    public function initiatePayment(array $data)
+    public function initiatePayment(array $paymentData)
     {
         // Ensure all necessary fields are present
-        $data['hash'] = $this->generateHash($data);
+        $paymentData['hash'] = $this->generateHash($paymentData);
 
         // Make API Request
-        $response = Http::asForm()->post("{$this->baseUrl}/payment/initiateLink", $data);
+        $response = Http::asForm()->post("{$this->baseUrl}/payment/initiateLink", $paymentData);
 
         // Check response for success
         if ($response->successful()) {
@@ -34,43 +37,77 @@ class EasebuzzPaymentService
         throw new \Exception('Failed to initiate payment: ' . $response->body());
     }
 
-    private function generateHash(array $data)
+    private function generateHash(array $paymentData)
     {
-        // Add udf1 to udf7 dynamically, if available
-        $udfArray = array_fill(0, 7, '');  // Default empty values
-        for ($i = 1; $i <= 7; $i++) {
-            $key = "udf$i";
-            if (isset($data[$key])) {
-                $udfArray[$i - 1] = $data[$key];
+        // Validate required fields
+        $requiredFields = ['txnid', 'amount', 'productinfo', 'firstname', 'email'];
+        foreach ($requiredFields as $field) {
+            if (!isset($paymentData[$field])) {
+                throw new \InvalidArgumentException("Missing required field: $field");
             }
         }
 
+        // Add udf1 to udf7 dynamically, if available
+        $udfArray = array_map(fn($i) => $paymentData["udf$i"] ?? '', range(1, 7));
+
         // Prepare hash string
         $hashString = implode('|', [
-            $this->apiKey,
-            $data['txnid'],
-            $data['amount'],
-            $data['productinfo'],
-            $data['firstname'],
-            $data['email'],
-            ...$udfArray // Add udf1 to udf7 placeholders
+            $this->key,
+            $paymentData['txnid'],
+            $paymentData['amount'],
+            $paymentData['productinfo'],
+            $paymentData['firstname'],
+            $paymentData['email'],
+            ...$udfArray, // Include udf1 to udf7
         ]);
 
-        return hash('sha512', $hashString);  // Return hashed string
+        // Return hashed string
+        return hash('sha512', $hashString);
     }
 
 
     // Existing method for generating transaction ID
     public function generateTranxId($base)
     {
-        $uniqueId = uniqid('', true);  // More randomness
-        $timestamp = Carbon::now()->format('YmdHis');  // Timestamp for uniqueness
+        do {
+            $uniqueId = bin2hex(random_bytes(5)); // Stronger randomness
+            $timestamp = Carbon::now()->format('YmdHis'); // Timestamp for uniqueness
+            $transactionId = "$base-$timestamp-$uniqueId";
+        } while (Order::where('transaction_token', $transactionId)->exists());
 
-        // Ensure uniqueness
-        while (Order::where('transaction_token', $base . '-' . $timestamp . '-' . $uniqueId)->exists()) {
-            $uniqueId = uniqid('', true);
+        return hash('sha512', $transactionId); // Securely hash the transaction ID
+    }
+
+    /**
+     * Validate the response hash.
+     */
+    public function validateResponseHash(array $response)
+    {
+        // Validate required fields
+        $requiredFields = ['status', 'email', 'firstname', 'productinfo', 'amount', 'txnid', 'hash'];
+
+        foreach ($requiredFields as $field) {
+            if (!isset($response[$field])) {
+                throw new \InvalidArgumentException("Missing required response field: $field");
+            }
         }
 
-        return hash('sha512', $base . '-' . $timestamp . '-' . $uniqueId);  // Combining base and unique values
+        // Construct hash string
+        $hashString = implode('|', [
+            $this->salt,
+            $response['status'],
+            '', '', '', '', '', '', '', '', '', '', // Empty placeholders for udf fields
+            $response['email'],
+            $response['firstname'],
+            $response['productinfo'],
+            $response['amount'],
+            $response['txnid'],
+            $this->key,
+        ]);
+
+        // Generate and validate the hash
+        $generatedHash = hash('sha512', $hashString);
+        return hash_equals($generatedHash, $response['hash']); // Use timing-safe comparison
     }
+
 }

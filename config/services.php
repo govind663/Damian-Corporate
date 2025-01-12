@@ -35,4 +35,14 @@ return [
         ],
     ],
 
+    // === Easebuzz Payment Gateway === //
+    'easebuzz' => [
+        'base_url' => env('EASEBUZZ_BASE_URL'),
+        'key' => env('EASEBUZZ_KEY'),
+        'salt' => env('EASEBUZZ_SALT'),
+        'currency' => env('EASEBUZZ_CURRENCY'),
+        'success_url' => env('EASEBUZZ_SUCCESS_URL'),
+        'failure_url' => env('EASEBUZZ_FAILURE_URL'),
+    ],
+
 ];
