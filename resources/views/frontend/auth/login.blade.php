@@ -111,6 +111,15 @@
                                         Login
                                     </span>
                                 </button>
+
+                                @if (Route::has('frontend.citizen.forget-password.request'))
+                                <a href="{{ route('frontend.citizen.forget-password.request') }}" class="tp-btn-border height" title="Forgot Your Password?">
+                                    <span>
+                                        <i class="fa-solid fa-key"></i>
+                                        Forgot Your Password?
+                                    </span>
+                                </a>
+                            @endif
                             </div>
                         </form>
 
@@ -124,8 +133,8 @@
                             </a>
                         </div>
 
-                        <div class="login-three-btn-sec">
-                            <a href="#" class="tp-btn-border height" title="Google">
+                        {{-- <div class="login-three-btn-sec"> --}}
+                            {{-- <a href="#" class="tp-btn-border height" title="Google">
                                 <span>
                                     <i class="fa-brands fa-google"></i>
                                     With Google
@@ -136,8 +145,8 @@
                                     <i class="fa-brands fa-facebook-f"></i>
                                     Facebook
                                 </span>
-                            </a>
-                            @if (Route::has('frontend.citizen.forget-password.request'))
+                            </a> --}}
+                            {{-- @if (Route::has('frontend.citizen.forget-password.request'))
                                 <a href="{{ route('frontend.citizen.forget-password.request') }}" class="tp-btn-border height" title="Forgot Your Password?">
                                     <span>
                                         <i class="fa-solid fa-key"></i>
@@ -145,7 +154,7 @@
                                     </span>
                                 </a>
                             @endif
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="col-lg-6 right-login">

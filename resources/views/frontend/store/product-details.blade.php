@@ -9,36 +9,36 @@
     /*.bre-sec {*/
     /*    height: 200px;*/
     /*}*/
-    
+
     /*.bre-sec .breadcrumb-content {*/
     /*    padding: 155px 0 0;*/
     /*}*/
-    
+
     @media (max-width: 480px) {
         .bre-sec {
             height: 135px !important;
         }
-        
+
         .bre-sec .breadcrumb-content {
             padding: 100px 0 0 !important;
         }
     }
-    
+
     @media only screen and (min-width: 481px) and (max-width: 767px) {
         .bre-sec {
             height: 180px !important;
         }
-        
+
         .bre-sec .breadcrumb-content {
             padding: 140px 0 0 !important;
         }
     }
-    
+
     @media only screen and (min-width: 768px) and (max-width:991px) {
         .bre-sec {
             height: 120px;
         }
-        
+
         .bre-sec .breadcrumb-content {
             padding: 80px 0 0;
         }
@@ -182,7 +182,7 @@
                                     </div>
                                 @endforeach
                             </div>
-                            
+
                             <div class="thumbnail-button-next"></div>
                             <div class="thumbnail-button-prev"></div>
                         </div>
@@ -273,31 +273,48 @@
 {{-- Add to Cart and Wishlist --}}
 <script>
     $(document).ready(function () {
-        // Get citizenId from the Blade template
-        let citizenId = '{{ Auth::guard('citizen')->id() }}';  // Use the citizen id from Laravel session
+        // Set up CSRF token for AJAX
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // Check if the user is logged in
+        let citizenId = @json(Auth::guard('citizen')->check() ? Auth::guard('citizen')->id() : null);
+
+        // Function to handle login check
+        function handleLoginCheck(action) {
+            if (!citizenId) {
+                toastr.error('Please log in to ' + action + ' this product.');
+                window.location.href = '{{ route("frontend.citizen.login") }}'; // Redirect to login page
+                return false;
+            }
+            return true;
+        }
 
         // Add to Cart
         $('.add_to_cart').on('click', function (e) {
-            e.preventDefault(); // Prevent the default behavior (i.e., redirection)
+            e.preventDefault(); // Prevent the default behavior
 
-            let productId = $(this).data('product-id'); // Get the product ID from the data attribute
+            let productId = $(this).data('product-id'); // Get the product ID
+
+            // Check login status
+            if (!handleLoginCheck('add to cart')) return;
 
             $.ajax({
-                url: '{{ route('frontend.addToCart') }}', // Your cart add route
-                method: 'GET',
+                url: '{{ route("frontend.addToCart") }}', // Your cart add route
+                method: 'POST', // Use POST for modifying data
                 data: {
-                    _token: '{{ csrf_token() }}',
                     product_id: productId,
-                    citizen_id: citizenId, // Pass citizen_id
+                    citizen_id: citizenId // Pass citizen_id
                 },
                 success: function (response) {
                     if (response.success) {
-                        toastr.success(response.message); // Show success toaster message
-                        // toastr.info(response.message); // Show info toaster message
-                        // toastr.warning(response.message); // Show info toaster message
-                        location.reload(); // Reload the page to reflect the changes
+                        toastr.success(response.message); // Success message
+                        location.reload(); // Reload page to reflect changes
                     } else {
-                        toastr.error(response.message); // Show error toaster message
+                        toastr.error(response.message); // Error message
                     }
                 },
                 error: function () {
@@ -308,26 +325,26 @@
 
         // Add to Wishlist
         $('.add_to_wishlist').on('click', function (e) {
-            e.preventDefault(); // Prevent the default behavior (i.e., redirection)
+            e.preventDefault(); // Prevent the default behavior
 
-            let productId = $(this).data('product-id'); // Get the product ID from the data attribute
+            let productId = $(this).data('product-id'); // Get the product ID
+
+            // Check login status
+            if (!handleLoginCheck('add to wishlist')) return;
 
             $.ajax({
-                url: '{{ route('frontend.addToWishlist') }}', // Your wishlist add route
-                method: 'POST',
+                url: '{{ route("frontend.addToWishlist") }}', // Your wishlist add route
+                method: 'POST', // Use POST for modifying data
                 data: {
-                    _token: '{{ csrf_token() }}',
                     product_id: productId,
-                    citizen_id: citizenId, // Pass citizen_id
+                    citizen_id: citizenId // Pass citizen_id
                 },
                 success: function (response) {
                     if (response.success) {
-                        toastr.success(response.message); // Show success toaster message
-                        // toastr.info(response.message); // Show info toaster message
-                        // toastr.warning(response.message); // Show info toaster message
-                        location.reload(); // Reload the page to reflect the changes
+                        toastr.success(response.message); // Success message
+                        location.reload(); // Reload page to reflect changes
                     } else {
-                        toastr.error(response.message); // Show error toaster message
+                        toastr.error(response.message); // Error message
                     }
                 },
                 error: function () {
@@ -341,12 +358,28 @@
 {{-- Quantity Increment and Decrement --}}
 <script>
     $(document).ready(function () {
+        // Check if the user is logged in
+        let citizenId = @json(Auth::guard('citizen')->check() ? Auth::guard('citizen')->id() : null);
+
+        // Function to handle login check
+        function handleLoginCheck(action) {
+            if (!citizenId) {
+                toastr.error('Please log in to ' + action + ' this product.');
+                window.location.href = '{{ route("frontend.citizen.login") }}'; // Redirect to login page
+                return false;
+            }
+            return true;
+        }
+
         // Handle quantity increment and decrement
         $('.qty_button').on('click', function () {
             let action = $(this).data('action'); // Either 'increment' or 'decrement'
             let productId = $(this).data('product-id');
             let quantityInput = $(`.quantity-input-number[data-product-id="${productId}"]`);
             let currentQuantity = parseInt(quantityInput.val());
+
+            // Check if the user is logged in
+            if (!handleLoginCheck('update the quantity')) return;
 
             // Update quantity value
             if (action === 'increment') {
@@ -362,7 +395,7 @@
         // Update cart quantity via AJAX
         function updateCartQuantity(productId, newQuantity) {
             $.ajax({
-                url: '{{ route('frontend.updateCartQuantity') }}', // Replace with your route
+                url: '{{ route("frontend.updateCartQuantity") }}', // Replace with your route
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -371,7 +404,7 @@
                 },
                 success: function (response) {
                     if (response.success) {
-                        // Update the total price dynamically
+                        // Optionally, update the total price dynamically
                         // $(`#total-price-${productId}`).text(`₹${response.new_total_price}`);
                         toastr.success(response.message);
                     } else {
@@ -386,6 +419,7 @@
     });
 </script>
 
+{{-- Initialize Swiper --}}
 <script>
     // Initialize the Thumbnail Slider
     var thumbnailSwiper = new Swiper('.thumbnail-slider', {
@@ -413,53 +447,13 @@
     });
 </script>
 
+{{-- JavaScript to create the internal zoom functionality --}}
 <script>
-    $(function () {
-       var mySwiper = new Swiper('.manufacturing-facility-area-active', {
-          spaceBetween: 30,
-          loop: true,
-          navigation: {
-             nextEl: '.swiper-button-next',
-             prevEl: '.swiper-button-prev',
-          },
-          breakpoints: {
-             576: {
-                slidesPerView: 1
-             },
-             768: {
-                slidesPerView: 2
-             },
-             992: {
-                slidesPerView: 3
-             },
-             1200: {
-                slidesPerView: 3
-             }
-          }
-       });
-    });
-</script>
+    // JavaScript to create the internal zoom functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const zoomElements = document.querySelectorAll('.magic-zoom');
 
-<script>
-    $(function () {
-       var mySwiper = new Swiper('.directors-area-active', {
-          spaceBetween: 30,
-          slidesPerView: 3,
-          loop: true,
-          navigation: {
-             nextEl: '.swiper-button-next',
-             prevEl: '.swiper-button-prev',
-          },
-       });
-    });
-</script>
-
-<script>
-      // JavaScript to create the internal zoom functionality
-      document.addEventListener('DOMContentLoaded', function () {
-         const zoomElements = document.querySelectorAll('.magic-zoom');
-
-         zoomElements.forEach(zoomElement => {
+        zoomElements.forEach(zoomElement => {
             const img = zoomElement.querySelector('img');
             const lens = document.createElement('div');
             lens.classList.add('zoom-lens');
@@ -471,72 +465,74 @@
             lens.style.width = `${lensWidth}px`;
             lens.style.height = `${lensHeight}px`;
 
-            zoomElement.addEventListener('mousemove', function (e) {
-               const bounds = zoomElement.getBoundingClientRect();
-               const posX = e.clientX - bounds.left;
-               const posY = e.clientY - bounds.top;
+            zoomElement.addEventListener('mousemove', function(e) {
+                const bounds = zoomElement.getBoundingClientRect();
+                const posX = e.clientX - bounds.left;
+                const posY = e.clientY - bounds.top;
 
-               // Calculate the position of the lens
-               const lensX = posX - lensWidth / 2;
-               const lensY = posY - lensHeight / 2;
+                // Calculate the position of the lens
+                const lensX = posX - lensWidth / 2;
+                const lensY = posY - lensHeight / 2;
 
-               // Prevent the lens from going outside the image
-               if (lensX < 0) lens.style.left = '0';
-               else if (lensX + lensWidth > bounds.width) lens.style.left = `${bounds.width - lensWidth}px`;
-               else lens.style.left = `${lensX}px`;
+                // Prevent the lens from going outside the image
+                if (lensX < 0) lens.style.left = '0';
+                else if (lensX + lensWidth > bounds.width) lens.style.left = `${bounds.width - lensWidth}px`;
+                else lens.style.left = `${lensX}px`;
 
-               if (lensY < 0) lens.style.top = '0';
-               else if (lensY + lensHeight > bounds.height) lens.style.top = `${bounds.height - lensHeight}px`;
-               else lens.style.top = `${lensY}px`;
+                if (lensY < 0) lens.style.top = '0';
+                else if (lensY + lensHeight > bounds.height) lens.style.top = `${bounds.height - lensHeight}px`;
+                else lens.style.top = `${lensY}px`;
 
-               // Apply the zoom effect to the image
-               const zoomFactor = 2; // Adjust zoom factor (1.0 is no zoom, 2.0 is double zoom)
-               const imgX = (posX / bounds.width) * 100;
-               const imgY = (posY / bounds.height) * 100;
-               img.style.transformOrigin = `${imgX}% ${imgY}%`;
-               img.style.transform = `scale(${zoomFactor})`;
+                // Apply the zoom effect to the image
+                const zoomFactor = 2; // Adjust zoom factor (1.0 is no zoom, 2.0 is double zoom)
+                const imgX = (posX / bounds.width) * 100;
+                const imgY = (posY / bounds.height) * 100;
+                img.style.transformOrigin = `${imgX}% ${imgY}%`;
+                img.style.transform = `scale(${zoomFactor})`;
             });
 
-            zoomElement.addEventListener('mouseleave', function () {
-               lens.style.display = 'none';
-               img.style.transform = 'scale(1)';
+            zoomElement.addEventListener('mouseleave', function() {
+                lens.style.display = 'none';
+                img.style.transform = 'scale(1)';
             });
 
-            zoomElement.addEventListener('mouseenter', function () {
-               lens.style.display = 'block';
+            zoomElement.addEventListener('mouseenter', function() {
+                lens.style.display = 'block';
             });
-         });
-      });
+        });
+    });
 
-   </script>
+</script>
 
-   <script>
-      var thumbnailSwiper = new Swiper('.thumbnail-slider', {
-         slidesPerView: 6,
-         spaceBetween: 10,
-         freeMode: true,
-         watchSlidesVisibility: true,
-         watchSlidesProgress: true,
-         navigation: {
-            nextEl: '.thumbnail-button-next',
-            prevEl: '.thumbnail-button-prev',
-         },
-      });
+{{-- create the internal zoom functionality --}}
+<script>
+    var thumbnailSwiper = new Swiper('.thumbnail-slider', {
+        slidesPerView: 6
+        , spaceBetween: 10
+        , freeMode: true
+        , watchSlidesVisibility: true
+        , watchSlidesProgress: true
+        , navigation: {
+            nextEl: '.thumbnail-button-next'
+            , prevEl: '.thumbnail-button-prev'
+        , }
+    , });
 
-      var mainSwiper = new Swiper('.main-slider', {
-         loop: true,
-         navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-         },
-         pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-         },
-         thumbs: {
+    var mainSwiper = new Swiper('.main-slider', {
+        loop: true
+        , navigation: {
+            nextEl: '.swiper-button-next'
+            , prevEl: '.swiper-button-prev'
+        , }
+        , pagination: {
+            el: '.swiper-pagination'
+            , clickable: true
+        , }
+        , thumbs: {
             swiper: thumbnailSwiper, // Link the main slider to the thumbnail swiper
-         },
-      });
+        }
+    , });
 
-   </script>
+</script>
+
 @endpush

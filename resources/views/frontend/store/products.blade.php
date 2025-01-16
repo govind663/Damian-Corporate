@@ -9,36 +9,36 @@
     /*.bre-sec {*/
     /*    height: 200px;*/
     /*}*/
-    
+
     /*.bre-sec .breadcrumb-content {*/
     /*    padding: 155px 0 0;*/
     /*}*/
-    
+
     /*@media (max-width: 480px) {*/
     /*    .bre-sec {*/
     /*        height: 135px !important;*/
     /*    }*/
-        
+
     /*    .bre-sec .breadcrumb-content {*/
     /*        padding: 100px 0 0 !important;*/
     /*    }*/
     /*}*/
-    
+
     /*@media only screen and (min-width: 481px) and (max-width: 767px) {*/
     /*    .bre-sec {*/
     /*        height: 180px !important;*/
     /*    }*/
-        
+
     /*    .bre-sec .breadcrumb-content {*/
     /*        padding: 140px 0 0 !important;*/
     /*    }*/
     /*}*/
-    
+
     /*@media only screen and (min-width: 768px) and (max-width:991px) {*/
     /*    .bre-sec {*/
     /*        height: 120px;*/
     /*    }*/
-        
+
     /*    .bre-sec .breadcrumb-content {*/
     /*        padding: 80px 0 0;*/
     /*    }*/
@@ -268,6 +268,7 @@
 @endsection
 
 @push('scripts')
+{{-- Add to Cart and Wishlist --}}
 <script>
     $(document).ready(function () {
         // Set up CSRF token for AJAX
@@ -277,8 +278,18 @@
             }
         });
 
-        // Get citizenId from the Blade template
-        let citizenId = '{{ Auth::guard('citizen')->id() }}';  // Use the citizen id from Laravel session
+        // Check if the user is logged in
+        let citizenId = @json(Auth::guard('citizen')->check() ? Auth::guard('citizen')->id() : null);
+
+        // Function to handle login check
+        function handleLoginCheck(action) {
+            if (!citizenId) {
+                toastr.error('Please log in to ' + action + ' this product.');
+                window.location.href = '{{ route("frontend.citizen.login") }}'; // Redirect to login page
+                return false;
+            }
+            return true;
+        }
 
         // Add to Cart
         $('.add-to-cart').on('click', function (e) {
@@ -286,6 +297,10 @@
 
             let productId = $(this).data('product-id'); // Get the product ID from the data attribute
 
+            // Check if the user is logged in
+            if (!handleLoginCheck('add to cart')) return;
+
+            // Perform AJAX request to add to cart
             $.ajax({
                 url: '{{ route('frontend.addToCart') }}', // Your cart add route
                 method: 'POST',
@@ -297,8 +312,6 @@
                 success: function (response) {
                     if (response.success) {
                         toastr.success(response.message); // Show success toaster message
-                        // toastr.info(response.message); // Show info toaster message
-                        // toastr.warning(response.message); // Show info toaster message
                         location.reload(); // Reload the page to reflect the changes
                     } else {
                         toastr.error(response.message); // Show error toaster message
@@ -316,6 +329,10 @@
 
             let productId = $(this).data('product-id'); // Get the product ID from the data attribute
 
+            // Check if the user is logged in
+            if (!handleLoginCheck('add to wishlist')) return;
+
+            // Perform AJAX request to add to wishlist
             $.ajax({
                 url: '{{ route('frontend.addToWishlist') }}', // Your wishlist add route
                 method: 'POST',
@@ -327,8 +344,6 @@
                 success: function (response) {
                     if (response.success) {
                         toastr.success(response.message); // Show success toaster message
-                        // toastr.info(response.message); // Show info toaster message
-                        // toastr.warning(response.message); // Show info toaster message
                         location.reload(); // Reload the page to reflect the changes
                     } else {
                         toastr.error(response.message); // Show error toaster message
@@ -342,6 +357,7 @@
     });
 </script>
 
+{{-- Filter Products --}}
 <script>
     $(document).ready(function () {
         // Set up CSRF token for AJAX
@@ -454,44 +470,4 @@
     });
 </script>
 
-<script>
-  $(function () {
-     var mySwiper = new Swiper('.manufacturing-facility-area-active', {
-        spaceBetween: 30,
-        loop: true,
-        navigation: {
-           nextEl: '.swiper-button-next',
-           prevEl: '.swiper-button-prev',
-        },
-        breakpoints: {
-           576: {
-              slidesPerView: 1
-           },
-           768: {
-              slidesPerView: 2
-           },
-           992: {
-              slidesPerView: 3
-           },
-           1200: {
-              slidesPerView: 3
-           }
-        }
-     });
-  });
-</script>
-
-<script>
-  $(function () {
-     var mySwiper = new Swiper('.directors-area-active', {
-        spaceBetween: 30,
-        slidesPerView: 3,
-        loop: true,
-        navigation: {
-           nextEl: '.swiper-button-next',
-           prevEl: '.swiper-button-prev',
-        },
-     });
-  });
-</script>
 @endpush

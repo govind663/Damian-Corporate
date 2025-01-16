@@ -140,6 +140,13 @@ class StoreController extends Controller
     // ==== Cart
     public function cart()
     {
+        // Check if a citizen is authenticated
+        $authenticatedUser = Auth::guard('citizen')->user();
+        if (!$authenticatedUser) {
+            // Redirect to login page or show an error
+            return redirect()->route('frontend.citizen.login')->with('error', 'You need to be logged in to view your cart.');
+        }
+
         // ===== Fetch Product
         $products = Product::orderBy("id", "desc")->whereNull('deleted_at')->get();
 
@@ -156,11 +163,20 @@ class StoreController extends Controller
     // ==== Add To Cart
     public function addToCart(Request $request)
     {
+        // Check if the user is logged in
+        if (!Auth::guard('citizen')->check()) {
+            return response()->json(['success' => false, 'message' => 'Please log in to add products to your cart.'], 401);
+        }
+
         $productId = $request->input('product_id');
-        $citizenId = $request->input('citizen_id');
+        $citizenId = Auth::guard('citizen')->id(); // Get logged-in user's ID
 
         // Fetch the product from the database
         $product = Product::find($productId);
+
+        if (!$product) {
+            return response()->json(['success' => false, 'message' => 'Product not found.'], 404);
+        }
 
         // Check if the product is already in the cart for the logged-in user
         $existingCart = Cart::where('citizen_id', $citizenId)
@@ -168,16 +184,22 @@ class StoreController extends Controller
                             ->first();
 
         if ($existingCart) {
-            // If the product already exists, return a message
-            return response()->json(['info' => false, 'message' => 'Product already exists in your cart.']);
+            // If the product already exists, update the quantity and product_total_price
+            $existingCart->quantity += 1;
+            $existingCart->product_total_price += $product->price;
+            $existingCart->modified_by = $citizenId;
+            $existingCart->modified_at = Carbon::now();
+            $existingCart->save();
+
+            return response()->json(['success' => true, 'message' => 'Product quantity updated successfully!']);
         } else {
-            // If the product doesn't exist, create a new cart entry
+            // If the product does not exist, create a new cart item
             $cart = new Cart();
             $cart->citizen_id = $citizenId;
             $cart->product_id = $productId;
             $cart->quantity = 1;
             $cart->product_total_price = $product->price;
-            $cart->inserted_by = Auth::guard('citizen')->id();
+            $cart->inserted_by = $citizenId;
             $cart->inserted_at = Carbon::now();
             $cart->save();
 
@@ -265,6 +287,13 @@ class StoreController extends Controller
     // ==== Wishlist
     public function wishlist()
     {
+        // Check if a citizen is authenticated
+        $authenticatedUser = Auth::guard('citizen')->user();
+        if (!$authenticatedUser) {
+            // Redirect to login page or show an error
+            return redirect()->route('frontend.citizen.login')->with('error', 'You need to be logged in to view your wishlist.');
+        }
+
         // ===== Fetch Product
         $products = Product::orderBy("id", "desc")->whereNull('deleted_at')->get();
 

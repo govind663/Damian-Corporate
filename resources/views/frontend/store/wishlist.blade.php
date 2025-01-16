@@ -116,10 +116,23 @@
 {{-- Remove from wishlist AJAX request --}}
 <script>
     $(document).on('click', '.remove-wishlist-item', function () {
+        // Check if the user is logged in
+        let isLoggedIn = @json(Auth::guard('citizen')->check());
+        let loginUrl = '{{ route("frontend.citizen.login") }}'; // Login page URL
+
+        if (!isLoggedIn) {
+            toastr.error('Please log in to remove items from your wishlist.', '', { timeOut: 5000 });
+            setTimeout(() => {
+                window.location.href = loginUrl; // Redirect to login page after 5 seconds
+            }, 5000);
+            return false;
+        }
+
         let itemId = $(this).data('id');
         let url = '{{ route("wishlist.destroy", ":id") }}';
         url = url.replace(':id', itemId); // Replace the placeholder with the actual item ID
 
+        // Confirm before removing the item
         if (confirm('Are you sure you want to remove this item from your wishlist?')) {
             $.ajax({
                 url: url,
@@ -129,18 +142,19 @@
                 },
                 success: function (response) {
                     if (response.success) {
-                        alert(response.message); // Show success message
-                        location.reload(); // Reload the page to reflect the changes
+                        toastr.success(response.message, '', { timeOut: 3000 }); // Success message
+                        setTimeout(() => {
+                            location.reload(); // Reload the page to reflect the changes
+                        }, 3000);
                     } else {
-                        alert(response.message);
+                        toastr.error(response.message, '', { timeOut: 5000 }); // Error message
                     }
                 },
                 error: function () {
-                    alert('An error occurred while removing the item.');
+                    toastr.error('An error occurred while removing the item.', '', { timeOut: 5000 });
                 }
             });
         }
     });
 </script>
-
 @endpush

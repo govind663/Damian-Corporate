@@ -169,9 +169,11 @@
 
                         // Optionally update a cart-wide total if needed
                         updateCartTotal();
-                        window.location.reload();
-
                         toastr.success(response.message);
+                    } else if (response.logged_in === false) {
+                        // User not logged in
+                        toastr.error('Please log in to add products to your cart.');
+                        window.location.href = '{{ route('frontend.citizen.login') }}'; // Redirect to login page
                     } else {
                         toastr.error(response.message);
                     }
@@ -225,6 +227,10 @@
                         $('#cart-total').text(`₹${response.new_total_price}`);
                         toastr.success(response.message);
                         location.reload(); // Reload the page to reflect the changes
+                    } else if (response.logged_in === false) {
+                        // User not logged in
+                        toastr.error('Please log in to remove items from your cart.');
+                        window.location.href = '{{ route('frontend.citizen.login') }}'; // Redirect to login page
                     } else {
                         toastr.error(response.message);
                     }
