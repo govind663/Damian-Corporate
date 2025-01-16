@@ -30,9 +30,9 @@
                             @csrf
 
                             <div class="tp-footer-input-box">
-                                <input type="email" name="email" id="email" style="color: #f4f4f4 !important;" class="" required value="{{ old('email') }}" placeholder="Emai here*">
-                                @error('email')
-                                    <span class="text-danger">{{ $message }}</span>
+                                <input type="email" name="email_id" id="email_id" style="color: #f4f4f4 !important;" class="@error('email_id') is-invalid @enderror" value="{{ old('email_id') }}" placeholder="Emai here*">
+                                @error('email_id')
+                                    <span class="text-light">{{ $message }}</span>
                                 @enderror
                                 <div class="tp-footer-icon">
                                     <span>

@@ -47,6 +47,10 @@
     .invalid-feedback{
         color: rgb(253, 253, 253);
     }
+
+    .form-control.is-invalid, .was-validated .form-control:invalid {
+        border-color: #ece8e9;
+    }
 </style>
 @endpush
 
@@ -264,9 +268,15 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="col-lg-12">
+                                    <div class="tp-contact-input-btn" style="display: flex; justify-content: center; text-align: center;">
+                                        <button class="tp-btn-border height w-100"><span>Send Message</span></button>
+                                    </div>
+                                </div>
                             </div>
 
-                            <button class="tp-btn-border height "><span>Send Message</span></button>
+
                         </form>
 
                     </div>

@@ -90,7 +90,7 @@ class HomeController extends Controller
 
             $memberDetail = new ModelsSendSubscribeUsMail();
 
-            $memberDetail->email = $request->email;
+            $memberDetail->email = $request->email_id;
             $memberDetail->inserted_at = Carbon::now();
             $memberDetail->save();
 

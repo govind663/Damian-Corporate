@@ -4122,7 +4122,7 @@ only screen and (min-width: 768px) and (max-width: 991px),
   .tp-section-subtitle {
     font-size: 14px;
   }
-  
+
   .portfolio-area-subtitle {
     display: none !important;
     }
@@ -10374,7 +10374,7 @@ only screen and (min-width: 768px) and (max-width: 991px),
 .footer-cols-2-2 {
     padding-left: 30px;
 }
-    
+
 }
 
 .footer-cols-2-3 {
@@ -13328,7 +13328,7 @@ only screen and (min-width: 768px) and (max-width: 991px),
 @media (max-width: 767px) {
   .navbar-collapse {
     background-color: #1E1F23;
-    text-align: center;
+    text-align: left;
   }
 
   .tp-header-2-menu .navbar-nav li>a {
@@ -14687,7 +14687,7 @@ only screen and (min-width: 768px) and (max-width: 991px),
     .careers-one-title-sec {
       margin-top: 20px;
   }
-  
+
   .design-carrers-sec {
     padding-top: 30px;
   }
@@ -14697,14 +14697,14 @@ only screen and (min-width: 768px) and (max-width: 991px),
   .tp-about-5-style .tp-about-content {
     margin-bottom: 50px;
   }
-  
+
   .careers-one-title-sec {
       margin-top: 20px;
   }
 }
 
 .careers-one-title-sec {
- font-family: Averta-Regular;   
+ font-family: Averta-Regular;
 }
 
 .careers-one-title-sec h2 {
@@ -16667,9 +16667,9 @@ only screen and (min-width: 1200px) and (max-width: 1399px) {
   .product-details-title-sec {
     text-align: center;
   }
-  
+
   .prod-pri-det-span-sec {
-    text-align: center; 
+    text-align: center;
     padding-bottom: 15px;
   }
 
@@ -21622,7 +21622,7 @@ footer {
 }
 
 .design-careers-sec-container {
-    padding: 0 80px;    
+    padding: 0 80px;
 }
 
 .bre-sec .home-container,
@@ -21640,11 +21640,11 @@ footer {
   .home-container {
       padding: 30px 20px;
   }
-  
+
   .careers-one-container {
     padding: 30px 20px;
   }
-  
+
   .design-careers-sec-container {
     padding: 0 20px 30px;
   }
@@ -22201,7 +22201,7 @@ footer {
     .portfolio-desktop-version {
         display: none;
     }
-    
+
     .design-title-sec {
         padding-top: 0;
     }
@@ -22238,7 +22238,7 @@ footer {
     .bre-sec {
         height: 100px !important;
     }
-  
+
   .bre-sec .breadcrumb-content {
     padding: 65px 0 0 !important;
   }
@@ -22248,12 +22248,12 @@ footer {
     .bre-sec {
         height: 110px;
     }
-  
+
   .bre-sec .breadcrumb-content {
     padding: 75px 0 0;
   }
-    
-    
+
+
   .bre-new-sec {
      height: 100;
   }
@@ -22267,7 +22267,7 @@ footer {
     .bre-sec {
         height: 110px;
     }
-  
+
   .bre-sec .breadcrumb-content {
     padding: 75px 0 0;
   }
@@ -24372,7 +24372,7 @@ footer {
 
 @media (max-width: 767px) {
   .store-one-sec {
-    padding: 40px 0;
+    padding: 0px 0;
   }
 
   .store-faq-sec {
@@ -26309,7 +26309,7 @@ input[type=number] {
 }
 
 .pro-details-thumbnail-nav-sec img {
-  width: 100%; 
+  width: 100%;
   height: 60px;
   cursor: pointer;
   border: 2px solid transparent;

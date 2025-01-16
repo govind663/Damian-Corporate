@@ -23,11 +23,11 @@ class sendSubscribeUsMailRequest extends FormRequest
     {
         if ($this->id){
             $rule = [
-                'email' => 'required|string|email|max:255',
+                'email_id' => 'required|string|email|max:255',
             ];
         }else{
             $rule = [
-                'email' => 'required|string|email|max:255',
+                'email_id' => 'required|string|email|max:255',
             ];
         }
 
@@ -37,9 +37,9 @@ class sendSubscribeUsMailRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => 'Email is required',
-            'email.string' => 'Email must be string',
-            'email.email' => 'Email must be valid email',
+            'email_id.required' => 'Email is required',
+            'email_id.string' => 'Email must be string',
+            'email_id.email' => 'Email must be valid email',
         ];
     }
 }

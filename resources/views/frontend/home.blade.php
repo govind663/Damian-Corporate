@@ -50,6 +50,14 @@
             color: #fff !important;
             text-align: justify !important;
         }
+
+        .invalid-feedback{
+            color: rgb(253, 253, 253);
+        }
+
+        .form-control.is-invalid, .was-validated .form-control:invalid {
+            border-color: #ece8e9;
+        }
     </style>
 @endpush
 
@@ -381,7 +389,7 @@
                                         </div>
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                                {{ $message }}
                                             </span>
                                         @enderror
                                     </div>
@@ -404,7 +412,7 @@
                                         </div>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                                {{ $message }}
                                             </span>
                                         @enderror
                                     </div>
@@ -427,7 +435,7 @@
                                         </div>
                                         @error('phone')
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                                {{ $message }}
                                             </span>
                                         @enderror
                                     </div>
@@ -450,7 +458,7 @@
                                         </div>
                                         @error('address')
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                                {{ $message }}
                                             </span>
                                         @enderror
                                     </div>
@@ -471,14 +479,30 @@
                                         </div>
                                         @error('messege')
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                                {{ $message }}
                                             </span>
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
 
-                            <button class="tp-btn-border height w-100"><span>Send Message</span></button>
+                                <div class="col-lg-12 mb-30">
+                                    <div class="tp-contact-textarea-box" style="display: flex; justify-content: center; text-align: center;">
+                                        {!! NoCaptcha::display() !!}
+
+                                        @error('g-recaptcha-response')
+                                        <span class="invalid-feedback" role="alert">
+                                            {{ $message }}
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="tp-contact-input-btn" style="display: flex; justify-content: center; text-align: center;">
+                                        <button class="tp-btn-border height w-100"><span>Send Message</span></button>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -572,4 +596,6 @@
         });
     });
 </script>
+
+{!! NoCaptcha::renderJs() !!}
 @endpush
