@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class EasebuzzPaymentService
 {
@@ -26,12 +27,19 @@ class EasebuzzPaymentService
             ? 'https://pay.easebuzz.in/payment/initiate'
             : 'https://testpay.easebuzz.in/payment/initiate';
 
-        $paymentData['hash'] = $this->generateHash($paymentData); // Add hash generation if required
+        $paymentData['hash'] = $this->generateHash($paymentData);
+
+        Log::info('Easebuzz Request Data', ['data' => $paymentData]);
 
         $response = Http::post($url, $paymentData);
+        Log::info('Easebuzz Response', ['status' => $response->status(), 'body' => $response->body()]);
 
         if ($response->successful()) {
-            return $response->json(); // Ensure this contains 'payment_url'
+            $responseData = $response->json();
+            if (isset($responseData['payment_url'])) {
+                return $responseData;
+            }
+            throw new \Exception('No payment URL received in response.');
         }
 
         throw new \Exception('Easebuzz API Error: ' . $response->body());
