@@ -106,7 +106,7 @@ class CheckoutController extends Controller
             'txnid' => $order->transaction_token,
             'amount' => $order->order_total_price,
             'productinfo' => 'Order Payment',
-            'firstname' => $user['name'],
+            'firstname' => $user['name'] ?? 'Guest', // Default to 'Guest' if name is missing
             'email' => $user['email'],
             'phone' => $user['phone'],
             'postcode' => $user['postcode'],
@@ -115,7 +115,7 @@ class CheckoutController extends Controller
             'country' => $user['country'],
             'address1' => $user['address'],
             'address2' => $user['apartment_address'],
-            'notes' => $user['notes'],
+            'notes' => $user['notes'] ?? '',
             'surl' => route('payment.success'),
             'furl' => route('payment.failure'),
         ];
