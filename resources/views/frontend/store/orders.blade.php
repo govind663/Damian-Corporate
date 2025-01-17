@@ -234,11 +234,6 @@
                                                     </tr>
                                                 @endforeach
                                             </tbody>
-
-                                            <!-- Pagination Links -->
-                                            {{-- <div class="pagination-wrapper">
-                                                {{ $orders->links() }}
-                                            </div> --}}
                                         </table>
                                     </div>
                                 </div>
