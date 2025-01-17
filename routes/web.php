@@ -189,6 +189,9 @@ Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitize
     // ==== Remove Wishlist Item
     Route::delete('/wishlist/{id}', [StoreController::class, 'destroy'])->name('wishlist.destroy');
 
+    // ==== Get Cart Total
+    Route::post('/cart/total', [StoreController::class, 'getCartTotal'])->name('cart.total');
+
     // ==== Checkout Store
     Route::post('checkout/store/{citizenId?}/{productId?}/{cartId?}',  [CheckoutController::class, 'checkoutStore'])->name('frontend.checkout.store');
 

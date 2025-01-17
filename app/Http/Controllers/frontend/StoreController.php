@@ -186,7 +186,7 @@ class StoreController extends Controller
         if ($existingCart) {
             // If the product already exists, update the quantity and product_total_price
             $existingCart->quantity += 1;
-            $existingCart->product_total_price += $product->price;
+            $existingCart->product_total_price += $product->discount_price_after_percentage;
             $existingCart->modified_by = $citizenId;
             $existingCart->modified_at = Carbon::now();
             $existingCart->save();
@@ -198,7 +198,7 @@ class StoreController extends Controller
             $cart->citizen_id = $citizenId;
             $cart->product_id = $productId;
             $cart->quantity = 1;
-            $cart->product_total_price = $product->price;
+            $cart->product_total_price = $product->discount_price_after_percentage;
             $cart->inserted_by = $citizenId;
             $cart->inserted_at = Carbon::now();
             $cart->save();
@@ -282,6 +282,27 @@ class StoreController extends Controller
             'success' => true,
             'message' => 'Item removed from the cart successfully.',
             'new_total_price' => $newTotalPrice,
+        ]);
+    }
+
+    // ==== Get Cart Total
+    public function getCartTotal(Request $request)
+    {
+        // Get the authenticated user ID
+        $userId = Auth::guard('citizen')->id();
+
+        if (!$userId) {
+            return response()->json(['success' => false, 'message' => 'User not authenticated.']);
+        }
+
+        // Calculate the total price
+        $totalPrice = Cart::where('citizen_id', $userId)
+            ->whereNull('deleted_at')
+            ->sum('product_total_price');
+
+        return response()->json([
+            'success' => true,
+            'total_price' => $totalPrice,
         ]);
     }
 

@@ -88,12 +88,13 @@
                         <div class="cart-total-sec">
                             <ul class="cart-listing-sec">
                                 <li>Total
-                                    <span class="total-price" id="total-price-{{ $value->id ?? '' }}">
-                                        ₹ <span id="price-content-{{ $value->id ?? '' }}">{{ number_format($value->product_total_price ?? 0) }}</span> /-
+                                    <span class="total-price">
+                                        ₹ <span id="price-content-{{ $value->id ?? '' }}">0</span> /-
                                     </span>
                                 </li>
                             </ul>
                         </div>
+
                         <div class="col-md-12 col-sm-6 col-xs-12">
                             <div class="payment-way mT20 mB20">
                                 <h2> We Accept </h2>
@@ -170,6 +171,9 @@
                         // Optionally update a cart-wide total if needed
                         updateCartTotal();
                         toastr.success(response.message);
+                        // Refresh the page
+                        window.location.reload();
+
                     } else if (response.logged_in === false) {
                         // User not logged in
                         toastr.error('Please log in to add products to your cart.');
@@ -254,6 +258,40 @@
                 priceElement.textContent = "{{ number_format($value->product_total_price ?? 0) }}";
             }
         }
+    });
+</script>
+
+{{-- Fetch Cart Total --}}
+<script>
+    $(document).ready(function () {
+        function fetchCartTotal() {
+            $.ajax({
+                url: '{{ route('cart.total') }}', // Backend route
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}' // CSRF token for security
+                },
+                success: function (response) {
+                    if (response.success) {
+                        // Update the total price in the DOM
+                        $('#price-content-{{ $value->id ?? '' }}').text(response.total_price.toLocaleString());
+                    } else {
+                        toastr.error(response.message || 'Failed to fetch total price.');
+                    }
+                },
+                error: function () {
+                    toastr.error('An error occurred. Please try again.');
+                }
+            });
+        }
+
+        // Trigger the function to fetch and update the cart total
+        fetchCartTotal();
+
+        // Optionally, refresh total price on certain actions (e.g., add/remove cart item)
+        $('.update-cart-item').on('click', function () {
+            fetchCartTotal();
+        });
     });
 </script>
 @endpush
