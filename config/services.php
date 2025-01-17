@@ -43,7 +43,7 @@ return [
         'currency' => env('EASEBUZZ_CURRENCY'),
         'success_url' => env('EASEBUZZ_SUCCESS_URL'),
         'failure_url' => env('EASEBUZZ_FAILURE_URL'),
-        'env' => env('EASEBUZZ_ENV', 'test'), // test or production
+        'env' => env('EASEBUZZ_ENV', 'production'), // test or production
     ],
 
 ];

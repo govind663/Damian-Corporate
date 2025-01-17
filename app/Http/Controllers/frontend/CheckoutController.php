@@ -60,7 +60,7 @@ class CheckoutController extends Controller
             }
 
             // Generate a unique transaction token for the order in hash format (md5) by concatenating order number, product id and citizen id and cart id date and time
-            // $order->transaction_token = md5($order->transaction_token . '-' . $productId . '-' . $citizenId . '-' . $cartId . '-' . Carbon::now()->toDateTimeString());
+            $order->transaction_token = md5($order->transaction_token . '-' . $productId . '-' . $citizenId . '-' . $cartId . '-' . Carbon::now()->toDateTimeString());
             $order->inserted_at = Carbon::now();
             $order->inserted_by = Auth::guard('citizen')->user()->id;
             $order->save();
@@ -103,7 +103,7 @@ class CheckoutController extends Controller
     {
         $paymentData = [
             'key' => config('services.easebuzz.key'),
-            'txnid' => $order->transaction_token,
+            'txnid' => $easebuzzPaymentService->generateTranxId($order->transaction_token),
             'amount' => $order->order_total_price,
             'productinfo' => 'Order Payment',
             'firstname' => $user['name'] ?? 'Guest', // Default to 'Guest' if name is missing
@@ -127,7 +127,17 @@ class CheckoutController extends Controller
             Log::info('Easebuzz API Response:', ['response' => $response]);
 
             if (isset($response['payment_url'])) {
-                return redirect()->away($response['payment_url']);
+                // Redirect to payment gateway
+                return redirect()->away($response['payment_url'])
+                    ->with('paymentData', $paymentData)
+                    ->with('order', $order)
+                    ->with('user', $user)
+                    ->with('response', $response)
+                    ->with('paymentMethod', 'easebuzz')
+                    ->with('paymentGateway', 'easebuzz');
+
+            } else if (isset($response['error'])) {
+                throw new \Exception('Error initiating payment: ' . $response['error']);
             }
 
             throw new \Exception('Error initiating payment: No payment URL received.');

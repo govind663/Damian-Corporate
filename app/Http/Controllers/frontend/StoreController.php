@@ -659,4 +659,10 @@ class StoreController extends Controller
 
         return redirect()->route('frontend.myProfile')->with("message", "Password changed successfully!");
     }
+
+    // ==== Checkout Index
+    public function processCheck(Request $request)
+    {
+        return view('frontend.checkout.index');
+    }
 }

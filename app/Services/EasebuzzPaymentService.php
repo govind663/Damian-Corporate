@@ -24,8 +24,12 @@ class EasebuzzPaymentService
     public function initiatePayment(array $paymentData)
     {
         $url = config('services.easebuzz.env') === 'production'
-            ? 'https://pay.easebuzz.in/payment/initiate'
+            ? $this->baseUrl . '/payment/initiate'
             : 'https://testpay.easebuzz.in/payment/initiate';
+
+        $paymentData['key'] = $this->key;
+        $paymentData['salt'] = $this->salt;
+        $paymentData['timestamp'] = Carbon::now()->timestamp;
 
         $paymentData['hash'] = $this->generateHash($paymentData);
 
