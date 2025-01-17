@@ -270,15 +270,15 @@
                                         <span>Shipping</span>
                                         <div class="tp-order-info-list-shipping-item d-flex flex-column align-items-end">
                                             <span>
-                                                <input id="flat_rate" type="radio" name="shipping" value="200" onclick="updateTotal(200)" checked>
+                                                <input id="flat_rate" type="radio" name="shipping" value="{{ 200 ?? 0 }}" onclick="updateTotal(200)" checked>
                                                 <label for="flat_rate">Flat rate: <span>₹ 200</span></label>
                                             </span>
                                             <span>
-                                                <input id="local_pickup" type="radio" name="shipping" value="200" onclick="updateTotal(200)">
+                                                <input id="local_pickup" type="radio" name="shipping" value="{{ 200 ?? 0 }}" onclick="updateTotal(200)">
                                                 <label for="local_pickup">Local pickup: <span>₹ 200</span></label>
                                             </span>
                                             <span>
-                                                <input id="free_shipping" type="radio" name="shipping" value="0" onclick="updateTotal(0)">
+                                                <input id="free_shipping" type="radio" name="shipping" value="{{ 0 ?? 0 }}" onclick="updateTotal(0)">
                                                 <label for="free_shipping">Free shipping</label>
                                             </span>
                                         </div>
@@ -289,10 +289,10 @@
                                         <span>Total</span>
                                         <input type="hidden" name="total" value="{{ number_format($cartItems->sum(function($item) {
                                             return (float) $item['product']['discount_price_after_percentage'] * (int) $item['quantity'];
-                                        }), 0) }}">
+                                        }), 2) }}">
                                         <span id="total-amount">₹ {{ number_format($cartItems->sum(function($item) {
                                             return (float) $item['product']['discount_price_after_percentage'] * (int) $item['quantity'];
-                                        }), 0) }}</span> <!-- Defaulting to Flat Rate -->
+                                        }), 2) }}</span> <!-- Defaulting to Flat Rate -->
                                     </li>
                                 </ul>
                             </div>

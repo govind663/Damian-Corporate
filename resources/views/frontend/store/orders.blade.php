@@ -175,8 +175,8 @@
                                                     <th>Order Status</th>
                                                     <th>Payment Method</th>
                                                     <th>Payment Status</th>
-                                                    <th>Total</th>
-                                                    <th>Invoice</th>
+                                                    <th>Total Amount (₹)</th>
+                                                    {{-- <th>Invoice</th> --}}
                                                 </tr>
                                             </thead>
 
@@ -225,12 +225,12 @@
                                                                 <span class="bg badge-danger">Delivered</span>
                                                             @endif
                                                         </td>
-                                                        <td data-label="Total">{{ $order->order_total_price }}</td>
-                                                        <td data-label="Action">
+                                                        <td data-label="Total">{{ number_format($order->order_total_price, 0) }}</td>
+                                                        {{-- <td data-label="Action">
                                                             <a class="tp-btn-theme height pro-btn-sec" href="#" title="View">
-                                                                <i class="fa fa-eye"></i> View
+                                                                <i class="fa fa-eye"></i>
                                                             </a>
-                                                        </td>
+                                                        </td> --}}
                                                     </tr>
                                                 @endforeach
                                             </tbody>
