@@ -175,12 +175,12 @@
                             {{-- Check Auth Citizen Wishlist Quantity --}}
                             @if(Auth::guard('citizen')->check())
                                 <div class="tp-header-icon wishlist d-none d-xl-block">
-                                    <a class="wishlist-icon-new-sec p-relative" href="{{ route('frontend.wishlist') }}" title="Wishlist">
-                                        <i class="fa-solid fa-heart" style="color:white !important;"></i>
+                                    <a class="cart-icon-new-sec p-relative" href="{{ route('frontend.wishlist') }}" title="Wishlist">
+                                        <i class="fa-solid fa-heart"></i>
 
                                         @empty($wishlistQuantity)
                                             <span>
-                                                <i class="far fa-plus" style="color:white !important;"></i>
+                                                <i class="far fa-plus" ></i>
                                             </span>
                                         @else
                                             <span class="wishlist-count-circle"
@@ -206,7 +206,7 @@
                                 </div>
                             @else
                                 <div class="tp-header-icon wishlist d-none d-xl-block">
-                                    <a class="wishlist-icon-new-sec p-relative" href="{{ route('frontend.wishlist') }}" title="Wishlist">
+                                    <a class="cart-icon-new-sec p-relative" href="{{ route('frontend.wishlist') }}" title="Wishlist">
                                         <i class="fa-solid fa-heart" style="color:white !important;"></i>
                                         <span>
                                             <i class="far fa-plus" style="color:white !important;"></i>
