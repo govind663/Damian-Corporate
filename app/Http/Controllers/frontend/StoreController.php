@@ -252,29 +252,30 @@ class StoreController extends Controller
     // ==== Remove Cart Item
     public function removeCartItem(Request $request)
     {
-        $productId = $request->product_id;
-
-        // Retrieve citizen ID
         $citizenId = Auth::guard('citizen')->id();
 
-        // Validate the request
+        if (!$citizenId) {
+            return response()->json(['success' => false, 'message' => 'User not authenticated.']);
+        }
+
+        $productId = $request->product_id;
+
         if (!$productId) {
             return response()->json(['success' => false, 'message' => 'Invalid product ID.']);
         }
 
-        // Check if the cart item exists
-        $cartItem = Cart::where('citizen_id', $citizenId)->where('product_id', $productId)->first();
+        $cartItem = Cart::where('citizen_id', $citizenId)
+            ->where('product_id', $productId)
+            ->first();
 
         if (!$cartItem) {
             return response()->json(['success' => false, 'message' => 'Cart item not found.']);
         }
 
-        // Remove the cart item
         $cartItem->deleted_by = $citizenId;
-        $cartItem->deleted_at = Carbon::now();
+        $cartItem->deleted_at = now();
         $cartItem->delete();
 
-        // Optionally, recalculate the total cart price
         $newTotalPrice = Cart::where('citizen_id', $citizenId)->sum('product_total_price');
 
         return response()->json([

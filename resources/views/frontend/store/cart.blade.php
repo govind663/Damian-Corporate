@@ -55,7 +55,7 @@
                                                 {{ $value->product?->name }}
                                             </a>
                                         </h3>
-                                        <a href="javascript:void(0)" title="Remove this item" class="remove" data-product-id="{{ $value->id }}">
+                                        <a href="javascript:void(0)" title="Remove this item" class="remove" data-product-id="{{ $value->product_id }}">
                                             <p>
                                                 <i class="fa fa-trash"></i>
                                                 Remove Item
