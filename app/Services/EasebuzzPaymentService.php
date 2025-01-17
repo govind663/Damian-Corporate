@@ -22,19 +22,19 @@ class EasebuzzPaymentService
 
     public function initiatePayment(array $paymentData)
     {
-        // Ensure all necessary fields are present
-        $paymentData['hash'] = $this->generateHash($paymentData);
+        $url = config('services.easebuzz.env') === 'production'
+            ? 'https://pay.easebuzz.in/payment/initiate'
+            : 'https://testpay.easebuzz.in/payment/initiate';
 
-        // Make API Request
-        $response = Http::asForm()->post("{$this->baseUrl}/payment/initiateLink", $paymentData);
+        $paymentData['hash'] = $this->generateHash($paymentData); // Add hash generation if required
 
-        // Check response for success
+        $response = Http::post($url, $paymentData);
+
         if ($response->successful()) {
-            return $response->json();  // Return the successful response
+            return $response->json(); // Ensure this contains 'payment_url'
         }
 
-        // Handle errors and throw exception
-        throw new \Exception('Failed to initiate payment: ' . $response->body());
+        throw new \Exception('Easebuzz API Error: ' . $response->body());
     }
 
     private function generateHash(array $paymentData)

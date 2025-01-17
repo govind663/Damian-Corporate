@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\EasebuzzPaymentService;
+use Illuminate\Support\Facades\Log;
 
 class CheckoutController extends Controller
 {
@@ -120,19 +121,21 @@ class CheckoutController extends Controller
         ];
 
         try {
-
-            // Initiate the payment with Easebuzz
             $response = $easebuzzPaymentService->initiatePayment($paymentData);
 
-            // If the payment initiation is successful, redirect to the payment URL
+            // Log the response to understand the issue
+            Log::info('Easebuzz API Response:', $response);
+
             if (isset($response['payment_url'])) {
                 return redirect()->away($response['payment_url']);
             }
 
             throw new \Exception('Error initiating payment: No payment URL received.');
         } catch (\Exception $e) {
+            Log::error('Easebuzz Payment Error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Error with payment processing: ' . $e->getMessage());
         }
+
     }
 
     public function success(Request $request, EasebuzzPaymentService $easebuzzPaymentService)
