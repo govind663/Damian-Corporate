@@ -103,13 +103,13 @@ class CheckoutController extends Controller
     {
         $paymentData = [
             'key' => config('services.easebuzz.key'),
-            'txnid' => $easebuzzPaymentService->generateTranxId($order->transaction_token),
+            'txnid' => $order->transaction_token,
             'amount' => $order->order_total_price,
             'productinfo' => 'Order Payment',
-            'firstname' => $user['name'] ?? 'Guest', // Default to 'Guest' if name is missing
-            'email' => $user['email'],
-            'phone' => $user['phone'],
-            'postcode' => $user['postcode'],
+            'firstname' => Auth::guard('citizen')->user()->f_name . ' ' . Auth::guard('citizen')->user()->l_name,
+            'email' => Auth::guard('citizen')->user()->email,
+            'phone' => Auth::guard('citizen')->user()->phone,
+            'postcode' => Auth::guard('citizen')->user()->postcode,
             'city' => $user['city'],
             'state' => $user['state'],
             'country' => $user['country'],
@@ -127,17 +127,9 @@ class CheckoutController extends Controller
             Log::info('Easebuzz API Response:', ['response' => $response]);
 
             if (isset($response['payment_url'])) {
-                // Redirect to payment gateway
-                return redirect()->away($response['payment_url'])
-                    ->with('paymentData', $paymentData)
-                    ->with('order', $order)
-                    ->with('user', $user)
-                    ->with('response', $response)
-                    ->with('paymentMethod', 'easebuzz')
-                    ->with('paymentGateway', 'easebuzz');
 
-            } else if (isset($response['error'])) {
-                throw new \Exception('Error initiating payment: ' . $response['error']);
+                // Redirect to Easebuzz payment gateway
+                return redirect()->away($response['payment_url']);
             }
 
             throw new \Exception('Error initiating payment: No payment URL received.');

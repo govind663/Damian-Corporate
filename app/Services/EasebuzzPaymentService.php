@@ -23,13 +23,9 @@ class EasebuzzPaymentService
 
     public function initiatePayment(array $paymentData)
     {
-        $url = config('services.easebuzz.env') === 'production'
-            ? $this->baseUrl . '/payment/initiate'
+        $url = config('services.easebuzz.env') === 'test'
+            ? 'https://pay.easebuzz.in/payment/initiate'
             : 'https://testpay.easebuzz.in/payment/initiate';
-
-        $paymentData['key'] = $this->key;
-        $paymentData['salt'] = $this->salt;
-        $paymentData['timestamp'] = Carbon::now()->timestamp;
 
         $paymentData['hash'] = $this->generateHash($paymentData);
 
@@ -38,15 +34,24 @@ class EasebuzzPaymentService
         $response = Http::post($url, $paymentData);
         Log::info('Easebuzz Response', ['status' => $response->status(), 'body' => $response->body()]);
 
+        Log::info('Easebuzz API Response', [
+            'status' => $response->status(),
+            'body' => $response->body()
+        ]);
+
         if ($response->successful()) {
             $responseData = $response->json();
             if (isset($responseData['payment_url'])) {
                 return $responseData;
+            } else {
+                Log::error('Error in response, payment URL not found', ['response' => $responseData]);
+                throw new \Exception('No payment URL received in response.');
             }
-            throw new \Exception('No payment URL received in response.');
+        } else {
+            Log::error('Error with Easebuzz API', ['response' => $response->body()]);
+            throw new \Exception('Easebuzz API Error: ' . $response->body());
         }
 
-        throw new \Exception('Easebuzz API Error: ' . $response->body());
     }
 
     private function generateHash(array $paymentData)
