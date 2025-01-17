@@ -40,7 +40,7 @@ Damian Corporate | Edit Product
         </div>
 
 
-        <form method="POST" action="{{ route('product.update', $product->id) }}" class="form-horizontal" enctype="multipart/form-data" id="product-form') }}" class="form-horizontal" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('product.update', $product->id) }}" class="form-horizontal" enctype="multipart/form-data" id="product-form') }}" class="form-horizontal">
             @csrf
             @method('PATCH')
 
@@ -161,10 +161,10 @@ Damian Corporate | Edit Product
                 <div class="form-group row mt-3">
                     <label class="col-sm-3"><b>Upload Project Image : <span class="text-danger">*</span></b></label>
                     <div class="col-sm-9 col-md-9">
-                        <input type="file" onchange="agentPreviewFile()" accept=".png, .jpg, .jpeg" name="project_image" id="project_image" class="form-control @error('project_image') is-invalid @enderror" value="{{ $product->image }}" placeholder="Upload Project Image.">
+                        <input type="file" onchange="agentPreviewFile()" accept=".png, .jpg, .jpeg, .webp" name="project_image" id="project_image" class="form-control @error('project_image') is-invalid @enderror" value="{{ $product->image }}" placeholder="Upload Project Image.">
                         <small class="text-secondary"><b>Note : The file size  should be less than 2MB .</b></small>
                         <br>
-                        <small class="text-secondary"><b>Note : Only files in .jpg, .jpeg, .png format can be uploaded .</b></small>
+                        <small class="text-secondary"><b>Note : Only files in .jpg, .jpeg, .png, .webp format can be uploaded .</b></small>
                         <br>
                         @error('project_image')
                             <span class="invalid-feedback" role="alert">
@@ -322,7 +322,7 @@ Damian Corporate | Edit Product
                 <h5 class="text-justify text-primary">Other Product Image :</h5>
                 <hr>
 
-                <table class="table table-bordered p-3"  id="dynamicBannerImageTable">
+                <table class="table table-bordered p-3" id="dynamicBannerImageTable">
                     <thead>
                         <tr>
                             <th>Product Image : <span class="text-danger">*</span></th>
@@ -332,7 +332,7 @@ Damian Corporate | Edit Product
                     <tbody>
                         @if(!empty($product->product_other_images))
                             @foreach($product->product_other_images as $key => $image)
-                                <tr>
+                                <tr id="banner-image-row-{{ $key }}">
                                     <td width="85%">
                                         <div class="row d-flex col-sm-8 col-md-8">
                                             @if(!empty($image))
@@ -341,10 +341,10 @@ Damian Corporate | Edit Product
                                             <div id="banner-container-{{ $key }}">
                                                 <div id="file-banner-{{ $key }}"></div>
                                             </div>
-                                            <input type="file" onchange="bannerPreviewFiles({{ $key }})" accept=".png, .jpg, .jpeg" name="product_other_images[]" id="product_other_images_{{ $key }}" class="form-control mt-2 @error('product_other_images.*') is-invalid @enderror" value="{{ $image }}">
+                                            <input type="file" onchange="bannerPreviewFiles({{ $key }})" accept=".png, .jpg, .jpeg, .webp" name="product_other_images[]" id="product_other_images_{{ $key }}" class="form-control mt-2 @error('product_other_images.*') is-invalid @enderror" value="{{ $image }}">
                                             <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
                                             <br>
-                                            <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png format can be uploaded.</b></small>
+                                            <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
                                             @error('product_other_images.*')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -356,18 +356,18 @@ Damian Corporate | Edit Product
                                         @if($loop->first)
                                             <button type="button" class="btn btn-primary" id="addBannerImageRow">Add More</button>
                                         @else
-                                            <button type="button" class="btn btn-danger removeBannerImageRow">Remove</button>
+                                            <button type="button" class="btn btn-danger removeBannerImageRow" data-row-id="{{ $key }}">Remove</button>
                                         @endif
                                     </td>
                                 </tr>
                             @endforeach
                         @else
-                            <tr>
+                            <tr id="banner-image-row-0">
                                 <td>
-                                    <input type="file" onchange="bannerPreviewFiles(0)" accept=".png, .jpg, .jpeg" name="product_other_images[]" id="product_other_images_0" class="form-control @error('product_other_images.*') is-invalid @enderror">
+                                    <input type="file" onchange="bannerPreviewFiles(0)" accept=".png, .jpg, .jpeg, .webp" name="product_other_images[]" id="product_other_images_0" class="form-control @error('product_other_images.*') is-invalid @enderror">
                                     <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
                                     <br>
-                                    <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png format can be uploaded.</b></small>
+                                    <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
                                     @error('product_other_images.0')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -414,7 +414,7 @@ Damian Corporate | Edit Product
 
         if (file) {
             const fileType = file.type;
-            const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+            const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
             const validPdfTypes = ['application/pdf'];
 
             if (validImageTypes.includes(fileType)) {
@@ -538,10 +538,10 @@ Damian Corporate | Edit Product
                             <div id="banner-container-${rowId}">
                                 <div id="file-banner-${rowId}"></div>
                             </div>
-                            <input type="file" onchange="bannerPreviewFiles(${rowId})" accept=".png, .jpg, .jpeg" name="product_other_images[]" id="product_other_images_${rowId}" class="form-control @error('product_other_images.*') is-invalid @enderror">
+                            <input type="file" onchange="bannerPreviewFiles(${rowId})" accept=".png, .jpg, .jpeg, .webp" name="product_other_images[]" id="product_other_images_${rowId}" class="form-control @error('product_other_images.*') is-invalid @enderror" value="{{ old('product_other_images.${rowId}') }}">
                             <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
                             <br>
-                            <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png format can be uploaded.</b></small>
+                            <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png,.webp format can be uploaded.</b></small>
                         </div>
                     </td>
                     <td>
@@ -566,7 +566,7 @@ Damian Corporate | Edit Product
 
         if (file) {
             const fileType = file.type;
-            const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+            const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 
             if (validImageTypes.includes(fileType)) {
                 // Image preview

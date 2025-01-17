@@ -196,36 +196,41 @@ class ProductController extends Controller
             }
 
 
-            // Decode existing images
+            // Decode existing images (JSON object to array with keys as IDs)
             $bannerImagePaths = json_decode($product->product_other_images, true);
 
             // Check if new images are provided
             if ($request->hasFile('product_other_images')) {
-                // Delete existing images from the filesystem
+                // Prepare array to store updated image paths
+                $updatedImagePaths = [];
+
+                // Retain existing images if required
                 if (!empty($bannerImagePaths)) {
-                    foreach ($bannerImagePaths as $existingImage) {
+                    foreach ($bannerImagePaths as $id => $existingImage) {
                         $existingImagePath = public_path('/damian_corporate/product/product_other_images/' . $existingImage);
                         if (File::exists($existingImagePath)) {
-                            File::delete($existingImagePath);
+                            // Keep the old image paths (if no deletion required)
+                            $updatedImagePaths[$id] = $existingImage;
                         }
                     }
                 }
 
-                // Prepare array to store new image paths
-                $newImagePaths = [];
-
                 // Process new uploaded images
                 foreach ($request->file('product_other_images') as $image) {
-                    // Generate a unique name for each image
-                    $newName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+                    // Generate a unique ID for each new image
+                    $newId = Str::uuid();
+                    $newName = $newId . '.' . $image->getClientOriginalExtension();
+
                     // Move the image to the target directory
                     $image->move(public_path('/damian_corporate/product/product_other_images/'), $newName);
-                    // Add the new image path to the array
-                    $newImagePaths[] = $newName;
+
+                    // Add the new image path to the array with the unique ID as the key
+                    $updatedImagePaths[(string)$newId] = $newName;
                 }
 
-                // Update the product's `product_other_images` field with new paths
-                $product->product_other_images = json_encode($newImagePaths);
+                // Update the product's `product_other_images` field with the new JSON structure
+                $product->product_other_images = json_encode($updatedImagePaths);
+                $product->save();
             }
 
             $product->product_category_id = $request->product_category_id ?? null;
@@ -271,7 +276,6 @@ class ProductController extends Controller
 
             $product = Product::findOrFail($id);
             $product->update($data);
-            $product->delete();
 
             return redirect()->route('product.index')->with('message','Product has been successfully deleted.');
 

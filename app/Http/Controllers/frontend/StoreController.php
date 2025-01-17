@@ -57,6 +57,9 @@ class StoreController extends Controller
         // Decode the JSON data for other images
         $productOtherImages = $product->product_other_images ? json_decode($product->product_other_images, true) : [];
 
+        // Ensure $productOtherImages is an array
+        $productOtherImages = is_array($productOtherImages) ? $productOtherImages : [];
+
         return view('frontend.store.product-details', [
             'product' => $product,
             'productOtherImages' => $productOtherImages,

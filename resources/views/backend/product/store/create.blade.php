@@ -158,10 +158,10 @@ Damian Corporate | Add Product
                 <div class="form-group row mt-3">
                     <label class="col-sm-3"><b>Upload Project Image : <span class="text-danger">*</span></b></label>
                     <div class="col-sm-9 col-md-9">
-                        <input type="file" onchange="agentPreviewFile()" accept=".png, .jpg, .jpeg" name="project_image" id="project_image" class="form-control @error('project_image') is-invalid @enderror" value="{{ old('project_image') }}" placeholder="Upload Project Image.">
+                        <input type="file" onchange="agentPreviewFile()" accept=".png, .jpg, .jpeg, .webp" name="project_image" id="project_image" class="form-control @error('project_image') is-invalid @enderror" value="{{ old('project_image') }}" placeholder="Upload Project Image.">
                         <small class="text-secondary"><b>Note : The file size  should be less than 2MB .</b></small>
                         <br>
-                        <small class="text-secondary"><b>Note : Only files in .jpg, .jpeg, .png format can be uploaded .</b></small>
+                        <small class="text-secondary"><b>Note : Only files in .jpg, .jpeg, .png, .webp format can be uploaded .</b></small>
                         <br>
                         @error('project_image')
                             <span class="invalid-feedback" role="alert">
@@ -276,7 +276,7 @@ Damian Corporate | Add Product
                             </span>
                         @enderror
                     </div>
-                    
+
                     <!-- <label class="col-sm-2"><b>Depth (cm) : </b></label>-->
                     <!--<div class="col-sm-4 col-md-4">-->
                     <!--    <input type="text" name="depth_new" id="depth_new" class="form-control @error('depth_new') is-invalid @enderror" value="{{ old('depth_new') }}" placeholder="Enter Depth (cm).">-->
@@ -327,10 +327,10 @@ Damian Corporate | Add Product
                                     <div id="banner-container-0">
                                         <div id="file-banner-0"></div>
                                     </div>
-                                    <input type="file" onchange="bannerPreviewFiles(0)" accept=".png, .jpg, .jpeg" name="product_other_images[]" id="product_other_images_0" required class="form-control @error('product_other_images.*') is-invalid @enderror">
+                                    <input type="file" onchange="bannerPreviewFiles(0)" accept=".png, .jpg, .jpeg, .webp" name="product_other_images[]" id="product_other_images_0" required class="form-control @error('product_other_images.*') is-invalid @enderror">
                                     <small class="text-secondary"><b>Note : The file size  should be less than 2MB .</b></small>
                                     <br>
-                                    <small class="text-secondary"><b>Note : Only files in .jpg, .jpeg, .png format can be uploaded .</b></small>
+                                    <small class="text-secondary"><b>Note : Only files in .jpg, .jpeg, .png, .webp format can be uploaded .</b></small>
                                     <br>
                                     @error('product_other_images.0')
                                         <span class="invalid-feedback" role="alert">
@@ -378,7 +378,7 @@ Damian Corporate | Add Product
 
         if (file) {
             const fileType = file.type;
-            const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+            const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
             const validPdfTypes = ['application/pdf'];
 
             if (validImageTypes.includes(fileType)) {
@@ -510,10 +510,10 @@ Damian Corporate | Add Product
                         <div id="banner-container-${rowId}">
                             <div id="file-banner-${rowId}"></div>
                         </div>
-                        <input type="file" onchange="bannerPreviewFiles(${rowId})" accept=".png, .jpg, .jpeg" name="product_other_images[]" id="product_other_images_${rowId}" class="form-control @error('product_other_images.*') is-invalid @enderror">
+                        <input type="file" onchange="bannerPreviewFiles(${rowId})" accept=".png, .jpg, .jpeg, .webp" name="product_other_images[]" id="product_other_images_${rowId}" class="form-control @error('product_other_images.*') is-invalid @enderror">
                         <small class="text-secondary"><b>Note : The file size  should be less than 2MB .</b></small>
                         <br>
-                        <small class="text-secondary"><b>Note : Only files in .jpg, .jpeg, .png format can be uploaded .</b></small>
+                        <small class="text-secondary"><b>Note : Only files in .jpg, .jpeg, .png, .webp format can be uploaded .</b></small>
                         <br>
                         @error('product_other_images.${rowId}')
                             <span class="invalid-feedback" role="alert">
@@ -542,7 +542,7 @@ Damian Corporate | Add Product
 
         if (file) {
             const fileType = file.type;
-            const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+            const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
             const validPdfTypes = ['application/pdf'];
 
             if (validImageTypes.includes(fileType)) {

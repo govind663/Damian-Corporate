@@ -30,7 +30,7 @@ class ProductRequest extends FormRequest
                 'slug' => 'required|string|max:255',
                 'description' => 'required|string',
                 'project_image' => 'mimes:jpeg,png,jpg|max:2048',
-                'product_other_images.*' => 'mimes:jpeg,png,jpg|max:2048',
+                'product_other_images.*' => 'mimes:jpeg,png,jpg,webp|max:2048',
                 'price' => 'required|numeric',
                 'discount_type' => 'required|numeric',
                 // 'height' => 'required|string|max:255',
@@ -49,7 +49,7 @@ class ProductRequest extends FormRequest
                 'slug' => 'required|string|max:255',
                 'description' => 'required|string',
                 'project_image' => 'required|mimes:jpeg,png,jpg|max:2048',
-                'product_other_images.*' => 'required|mimes:jpeg,png,jpg|max:2048',
+                'product_other_images.*' => 'required|mimes:jpeg,png,jpg,webp|max:2048',
                 'price' => 'required|numeric',
                 'discount_type' => 'required|numeric',
                 // 'height' => 'required|string|max:255',
@@ -91,7 +91,7 @@ class ProductRequest extends FormRequest
             'project_image.max' => __('Product Image size must be less than or equal to 2MB'),
 
             'product_other_images.*.required' => __('Product Other Images is required'),
-            'product_other_images.*.mimes' => __('Product Other Images must be a jpeg, png, jpg'),
+            'product_other_images.*.mimes' => __('Product Other Images must be a jpeg, png, jpg, webp'),
             'product_other_images.*.max' => __('Product Other Images size must be less than or equal to 2MB'),
 
             'price.required' => __('Price is required'),
