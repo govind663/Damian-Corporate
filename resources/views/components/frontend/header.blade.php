@@ -209,7 +209,7 @@
                                     <a class="cart-icon-new-sec p-relative" href="{{ route('frontend.wishlist') }}" title="Wishlist">
                                         <i class="fa-solid fa-heart" style="color:white !important;"></i>
                                         <span>
-                                            <i class="far fa-plus" style="color:white !important;"></i>
+                                            <i class="far fa-plus"></i>
                                         </span>
                                     </a>
                                 </div>
