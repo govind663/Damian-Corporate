@@ -123,8 +123,8 @@ class CheckoutController extends Controller
         try {
             $response = $easebuzzPaymentService->initiatePayment($paymentData);
 
-            // Log the response to understand the issue
-            Log::info('Easebuzz API Response:', $response);
+            // Ensure $response is logged as part of the context array
+            Log::info('Easebuzz API Response:', ['response' => $response]);
 
             if (isset($response['payment_url'])) {
                 return redirect()->away($response['payment_url']);
@@ -132,7 +132,10 @@ class CheckoutController extends Controller
 
             throw new \Exception('Error initiating payment: No payment URL received.');
         } catch (\Exception $e) {
-            Log::error('Easebuzz Payment Error: ' . $e->getMessage());
+            Log::error('Easebuzz Payment Error', [
+                'message' => $e->getMessage(),
+                'paymentData' => $paymentData,
+            ]);
             return redirect()->back()->with('error', 'Error with payment processing: ' . $e->getMessage());
         }
 
