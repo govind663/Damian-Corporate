@@ -47,7 +47,7 @@
                             <tr>
                                 <td>
                                     <a href="{{ route('frontend.product.details', $item->product?->slug) }}" title="Product Details" class="img-link">
-                                        <img src="{{ asset('/damian_corporate/product/project_image/' . $item->product?->image) }}" alt="{{ $item->product?->image }}" title="{{ $item->product?->image }}">
+                                        <img src="{{ asset('/damian_corporate/product/project_image/' . $item->product?->image) }}" alt="{{ $item->product?->image }}" title="{{ $item->product?->image }}" style="height: 100px !important;">
                                     </a>
                                 </td>
                                 <td>

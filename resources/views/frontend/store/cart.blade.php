@@ -40,7 +40,7 @@
                                     <div class="img-wrapper">
                                         <a href="{{ route('frontend.product.details', $value->product?->slug) }}" title="wishlist-product-3" class="img-link">
                                             @if (!empty($value->product?->image))
-                                                <img src="{{ asset('/damian_corporate/product/project_image/' . $value->product?->image) }}" alt="{{ $value->product?->image }}" title="{{ $value->product?->image }}" class="img-responsive">
+                                                <img src="{{ asset('/damian_corporate/product/project_image/' . $value->product?->image) }}" alt="{{ $value->product?->image }}" title="{{ $value->product?->image }}" class="img-responsive" style="height: 100px !important;">
                                             @endif
                                         </a>
                                     </div>

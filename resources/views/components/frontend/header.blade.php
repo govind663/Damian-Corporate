@@ -110,22 +110,25 @@
                             </div>
 
                             @php
-                                // ==== Fetch Proroduct ID from the database Pluck
-                                $productId = DB::table('products')->pluck('id')->whereNull('deleted_at')->toArray();
+                                // ==== Fetch Product IDs from the products table
+                                $productIds = DB::table('products')
+                                    ->whereNull('deleted_at')
+                                    ->pluck('id')
+                                    ->toArray();
 
-                                // ==== Fetch Product Quantity from the cart database Pluck citizen_id and product_id
+                                // ==== Count products in the cart for the authenticated citizen
                                 $cartQuantity = DB::table('carts')
-                                                // ->whereIn('product_id', $productId)
-                                                ->where('citizen_id', Auth::guard('citizen')->id())
-                                                ->whereNull('deleted_at')
-                                                ->first('quantity');
+                                    ->whereIn('product_id', $productIds)
+                                    ->where('citizen_id', Auth::guard('citizen')->id())
+                                    ->whereNull('deleted_at')
+                                    ->sum('quantity'); // Use sum instead of count
 
-                                // ==== Fetch Product Quantity from the wishlist database Pluck citizen_id and product_id
+                                // ==== Count products in the wishlist for the authenticated citizen
                                 $wishlistQuantity = DB::table('wishlists')
-                                                // ->whereIn('product_id', $productId)
-                                                ->where('citizen_id', Auth::guard('citizen')->id())
-                                                ->whereNull('deleted_at')
-                                                ->first('quantity');
+                                    ->whereIn('product_id', $productIds)
+                                    ->where('citizen_id', Auth::guard('citizen')->id())
+                                    ->whereNull('deleted_at')
+                                    ->sum('quantity'); // Use sum instead of count
                             @endphp
 
                             {{-- Check Auth Citizen Cart Quantity --}}
@@ -134,7 +137,7 @@
                                     <a class="cart-icon-new-sec p-relative" href="{{ route('frontend.cart') }}" title="Add to cart">
                                         <i class="fa-sharp fa-solid fa-cart-shopping shopping-cart"></i>
 
-                                        @if(!empty($cartQuantity) && $cartQuantity->quantity > 0)
+                                        @if(!empty($cartQuantity) && $cartQuantity > 0)
                                             <span class="cart-count-circle"
                                                 style="
                                                     position: absolute;
@@ -151,7 +154,7 @@
                                                     font-size: 12px;
                                                     padding: 0;
                                                     text-align: center;">
-                                                <b>{{ $cartQuantity->quantity }}</b>
+                                                <b>{{ $cartQuantity }}</b>
                                             </span>
 
                                         @else
@@ -199,7 +202,7 @@
                                                     font-size: 12px;
                                                     padding: 0;
                                                     text-align: center;">
-                                                <b>{{ $wishlistQuantity->quantity ?? '0' }}</b>
+                                                <b>{{ $wishlistQuantity }}</b>
                                             </span>
                                         @endempty
                                     </a>
