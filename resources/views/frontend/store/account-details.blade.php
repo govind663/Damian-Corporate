@@ -233,13 +233,23 @@
         const previewImage = document.getElementById('profile-image-preview');
         const file = fileInput.files[0];
 
+        // If a new image is selected, update the preview
         if (file) {
             const reader = new FileReader();
             reader.onload = function (e) {
                 previewImage.src = e.target.result;
             };
             reader.readAsDataURL(file);
+        } else {
+            // If no new file is selected, use the existing profile image
+            const existingImage = "{{ asset('/damian_corporate/citizen/profile_image/' . Auth::guard('citizen')->user()->profile_image) }}";
+            previewImage.src = existingImage;
         }
     }
+
+    // Run this function on page load if there is an existing image
+    document.addEventListener('DOMContentLoaded', function () {
+        previewProfileImage();
+    });
 </script>
 @endpush

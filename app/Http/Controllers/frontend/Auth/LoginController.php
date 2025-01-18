@@ -28,7 +28,7 @@ class LoginController extends Controller
             // Regenerate session ID for security
             $request->session()->regenerate();
 
-            return redirect()->route('frontend.myProfile')->with('message', 'You are successfully logged in!');
+            return redirect()->route('frontend.products')->with('message', 'You are successfully logged in!');
         }
         else{
             return redirect()->route('frontend.citizen.login')->with(['Input' => $request->only('email','password'), 'error' => 'Your Email id and Password do not match our records!']);

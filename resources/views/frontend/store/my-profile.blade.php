@@ -41,15 +41,9 @@
                                 <h3>Dashboard</h3>
                                 <div class="welcome">
                                     <p>
-                                        Hello, Lorem Ipsum (If not Lorem Ipsum !<a href="login.html" class="logout">
-                                        Logout</a>)
+                                        Hello, {{ Auth::guard('citizen')->user()->f_name }} {{ Auth::guard('citizen')->user()->l_name }}
                                     </p>
                                 </div>
-                                <p>
-                                    From your account dashboard you can view your <a href="#">recent orders</a>, manage
-                                    your <a href="#">shipping and billing addresses</a>, and <a href="#">edit your
-                                    password and account details</a>.
-                                </p>
                             </div>
                         </div>
                     </div>
