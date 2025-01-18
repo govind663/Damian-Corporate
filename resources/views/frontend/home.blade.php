@@ -49,10 +49,9 @@
     <div class="hero-slider">
         <div class="video-container">
             @if (!empty($banners->banner_image))
-                <img src="{{ asset('/damian_corporate/banner/banner_image/' . $banners->banner_image) }}" alt="{{ $banners->banner_image }}" title="{{ $banners->banner_image }}">
+                <img src="{{ asset('/damian_corporate/banner/banner_image/' . $banners->banner_image) }}">
             @elseif (!empty($banners->banner_video))
-                <video src="{{ asset('/damian_corporate/banner/banner_video/' . $banners->banner_video) }}" autoplay muted loop
-                    alt="{{ $banners->banner_video }}" title="{{ $banners->banner_video }}">
+                <video src="{{ asset('/damian_corporate/banner/banner_video/' . $banners->banner_video) }}" autoplay muted loop>
                 </video>
             @endif
         </div>
@@ -69,7 +68,7 @@
                 <div class="col-xl-5 col-lg-5">
                     <div class="tp-hero-thumb-box home-about-us-area p-relative pr-40">
                         <div class="tp-hero-thumb wow fadeInLeft">
-                            <img src="{{ asset('frontend/assets/img/about/About_Us.png') }}" alt="About_US" title="About_US" width="441" height="300">
+                            <img src="{{ asset('frontend/assets/img/about/About_Us.png') }}"width="441" height="300">
                         </div>
                     </div>
                 </div>
@@ -86,7 +85,7 @@
                                 {!! Str::limit($introductions->description ?? '', 540) !!}
                             </p>
                         </div>
-                        <a class="tp-btn-black" href="{{ route('frontend.about') }}" title="Know More">
+                        <a class="tp-btn-black" href="{{ route('frontend.about') }}">
                             <span>Know More</span>
                         </a>
                     </div>
@@ -164,7 +163,7 @@
                                     @foreach ($ourServices as $key => $value)
                                         <li>
                                             <h3 class="pbmit-title-data-hover">
-                                                <a class="pbmit-svg-btn" href="{{ route('frontend.services') }}" title="{{ $value->service_title }}">
+                                                <a class="pbmit-svg-btn" href="{{ route('frontend.services') }}">
                                                     <span class="pbminfotech-box-number">{{ $key + 1 }}</span>
                                                     <span>{{ $value->service_title }}</span>
                                                     <i class="fa fa-up-right"></i>
@@ -181,7 +180,7 @@
                                             <div class="pbmit-featured-img-wrapper">
                                                 <div class="pbmit-featured-wrapper">
                                                     <video
-                                                        src="{{ asset('frontend/assets/video/Architectural-Design-Build.mp4') }}" alt="Architectural Design Build"
+                                                        src="{{ asset('frontend/assets/video/Architectural-Design-Build.mp4') }}"
                                                         autoplay muted loop height="425" width="570"></video>
                                                     <!--<img src="frontend/assets/img/service/architecture-design-build.png"-->
                                                     <!--   height="500px" alt="">-->
@@ -192,7 +191,7 @@
                                             <div class="pbmit-featured-img-wrapper">
                                                 <div class="pbmit-featured-wrapper">
                                                     <video
-                                                        src="{{ asset('frontend/assets/video/Residential-Design-Build.mp4') }}" alt="Residential Design Build"
+                                                        src="{{ asset('frontend/assets/video/Residential-Design-Build.mp4') }}"
                                                         autoplay muted loop height="425" width="570"></video>
                                                     <!--<img src="frontend/assets/img/service/Residential Design & Build.jpeg"-->
                                                     <!--   height="500px" alt="">-->
@@ -203,7 +202,7 @@
                                             <div class="pbmit-featured-img-wrapper">
                                                 <div class="pbmit-featured-wrapper">
                                                     <video
-                                                        src="{{ asset('frontend/assets/video/Commercial-Design-Build.mp4') }}" alt="Commercial Design Build"
+                                                        src="{{ asset('frontend/assets/video/Commercial-Design-Build.mp4') }}"
                                                         autoplay muted loop height="425" width="570"></video>
                                                     <!--<img src="frontend/assets/img/service/Commercial Design & Build.jpeg"-->
                                                     <!--   height="500" alt="" />-->
@@ -214,7 +213,7 @@
                                             <div class="pbmit-featured-img-wrapper">
                                                 <div class="pbmit-featured-wrapper">
                                                     <video
-                                                        src="{{ asset('frontend/assets/video/Modular-Furniture-Design-Build.mp4') }}" alt="Modular Furniture Design Build"
+                                                        src="{{ asset('frontend/assets/video/Modular-Furniture-Design-Build.mp4') }}"
                                                         autoplay muted loop height="425" width="570"></video>
                                                     <!--<img src="frontend/assets/img/service/Partition Systems.jpeg" height="500"-->
                                                     <!--   alt="" />-->
@@ -245,8 +244,8 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                <h3 class="por-header-sec"><a class="pbmit-svg-btn"
-                        href="#">
+                <h3 class="por-header-sec">
+                    <a class="pbmit-svg-btn"href="#">
                         <span class="pbminfotech-box-number">01</span>
                         <span>Architecture Design & Build</span>
                     </a>
@@ -307,10 +306,10 @@
             <div class="row align-items-center testimonial-info-sec">
                 <div class="col-xl-3 col-lg-3 col-md-3 col">
                     <div class="tp-testimonial-2-thumb">
-                        <img src="{{ asset('frontend/assets/img/testimonial/testimonials-img.jpg') }}" alt="testimonials-img" title="testimonials-img" />
+                        <img src="{{ asset('frontend/assets/img/testimonial/testimonials-img.jpg') }}"/>
                     </div>
                 </div>
-                <img src="{{ asset('frontend/assets/img/testimonial/chair.png') }}" style="animation-duration:3s;" class="shape-chair wow bounceInRight" alt="chair" title="chair" />
+                <img src="{{ asset('frontend/assets/img/testimonial/chair.png') }}" style="animation-duration:3s;" class="shape-chair wow bounceInRight"/>
                 <div class="col-xl-9 col-lg-9 col-md-9">
                     <div class="tp-testimonial-2-wrapper p-relative">
                         <div class="swiper-container tp-testimonial-2-active">
@@ -491,7 +490,7 @@
                 </div>
                 <div class="col-xl-6 col-lg-6">
                     <div class="tp-contact-left">
-                        <img src="{{ asset('/frontend/assets/img/contact/get-in-touch-img.jpeg') }}" alt="get-in-touch-img" title="get-in-touch-img" />
+                        <img src="{{ asset('/frontend/assets/img/contact/get-in-touch-img.jpeg') }}" />
                     </div>
                 </div>
             </div>
