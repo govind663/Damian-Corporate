@@ -33,24 +33,6 @@
             color: #fffdfd !important;
         }
 
-        .tp-section-subtitle {
-            color: #fff !important;
-            left: 8% !important;
-            position: absolute;
-            display: inline-block;
-            padding-bottom: 5px;
-            font-size: 175px;
-            font-style: normal;
-            font-weight: 300;
-            opacity: .1;
-            font-family: var(--tp-ff-heading);
-        }
-
-        .tp-about-text b {
-            color: #fff !important;
-            text-align: justify !important;
-        }
-
         .invalid-feedback{
             color: rgb(253, 253, 253);
         }
@@ -133,12 +115,10 @@
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                             <div class="tp-project-2-item">
                                 <div class="tp-project-2-thumb portfolio-section-thumb mb-30">
-                                    <div class="image-wrapper">
-                                        <a href="{{ route('frontend.project.details', $value->slug) }}" class="tp-project-2-thumb-link" title="{{ $value->project_name }}">
-                                        <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}" alt="{{ $value->project_image }}" title="{{ $value->project_image }}" loading="lazy" width="380px" height="241px">
+                                    <a href="{{ route('frontend.project.details', $value->slug) }}" class="tp-project-2-thumb-link">
+                                        <img src="{{ asset('/damian_corporate/project/project_image/' . $value->project_image) }}"loading="lazy" width="100%" height="240px">
                                         <div class="image-overlay"></div>
                                     </a>
-                                    </div>
                                 </div>
                                 <div class="project-info">
                                     <h4 class="tp-project-2-title">
@@ -155,7 +135,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <a class="tp-btn-black load-more"href="#" title="Load More">
+                        <a class="tp-btn-black load-more"href="javascript:void(0);" title="Load More">
                             <span>Load More</span>
                         </a>
                     </div>
