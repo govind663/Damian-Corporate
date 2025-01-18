@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\PreventBackHistoryMiddleware;
 use App\Http\Middleware\PreventCitizenBackHistoryMiddleware;
+use App\Http\Middleware\RemoveTrailingSlash;
 
 // ===== Frontend Controllers
 use App\Http\Controllers\frontend\HomeController as FrontendHomeController;
@@ -70,7 +71,7 @@ Route::get('/login', function () {
 
 
 // ==== Frontend
-Route::group(['prefix'=> '', 'middleware'=>[PreventCitizenBackHistoryMiddleware::class]],function(){
+Route::group(['prefix'=> '', 'middleware'=>[PreventCitizenBackHistoryMiddleware::class, RemoveTrailingSlash::class]],function(){
 
     // ==== Home
     Route::get('/', [FrontendHomeController::class, 'index'])->name('frontend.home');
