@@ -11,7 +11,7 @@
     <meta name="author" content="Damian Corporate,">
 
     {{-- Security Policy --}}
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self';">
+    {{-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self';"> --}}
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="content">

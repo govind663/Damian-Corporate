@@ -21650,7 +21650,7 @@ footer {
   }
 
   .home-navbar {
-    padding: 0 20px;
+    padding: 8px 20px;
   }
 
   .bre-sec .home-container {
@@ -24402,7 +24402,7 @@ footer {
 /* Login-page Section */
 
 .login-page {
-  padding: 80px 0;
+  padding: 40px 0;
 }
 
 .cart-sec-title {
@@ -24513,14 +24513,14 @@ footer {
   }
 
   .login-page {
-    padding: 40px 0;
+    padding: 0px 0;
   }
 }
 
 
 /* Wishlist Section */
 .wishlist-section {
-  padding: 80px 0;
+  padding: 40px 0;
 }
 
 .wishlist-section .wishlist-table .wishlist-table-head {
@@ -24557,7 +24557,7 @@ footer {
 
 @media (max-width: 767px) {
   .wishlist-section {
-    padding: 40px 0;
+    padding: 0px 0;
   }
 }
 
@@ -24874,7 +24874,7 @@ footer {
 
 /* Checkout Section */
 .checkout-section {
-  padding: 80px 0;
+  padding: 40px 0;
 }
 
 .checkout-section .checkout-bill-area-sec {
@@ -25175,14 +25175,14 @@ only screen and (min-width: 576px) and (max-width: 767px) {
 
 @media (max-width: 768px) {
   .checkout-section {
-    padding: 40px 0;
+    padding: 0px 0;
   }
 }
 
 
 /* Cart Section */
 .cart-section {
-  padding: 80px 0;
+  padding: 40px 0;
 }
 
 .cart-section .table-content table {
@@ -25297,7 +25297,7 @@ only screen and (min-width: 576px) and (max-width: 767px) {
 
 @media (max-width: 767px) {
   .cart-section {
-    padding: 40px 0;
+    padding: 0px 0;
   }
 
   .cart-page-total-sec {
@@ -25317,7 +25317,7 @@ only screen and (min-width: 576px) and (max-width: 767px) {
 
 /* My Profile Section*/
 .my-profile-section {
-  padding: 80px 0;
+  padding: 40px 0;
 }
 
 .my-profile-section .myaccount-tab-menu {
@@ -25499,7 +25499,7 @@ only screen and (min-width: 576px) and (max-width: 767px) {
   }
 
   .my-profile-section {
-    padding: 40px 0;
+    padding: 0px 0;
   }
 }
 
