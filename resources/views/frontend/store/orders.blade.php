@@ -165,7 +165,7 @@
                             <div class="order-sec">
                                 <div class="myaccount-content">
                                     <h3>My Orders</h3>
-                                    <div class="myaccount-table table-responsive text-center">
+                                    <div class="myaccount-table table-responsive text-center mt-20">
                                         <table class="table table-bordered">
                                             <thead class="thead-light">
                                                 <tr>
@@ -181,58 +181,82 @@
                                             </thead>
 
                                             <tbody>
-                                                @foreach ($orders as $key => $order)
+                                                @if (count($orders) > 0)
+                                                    @foreach ($orders as $key => $order)
+                                                        <tr>
+                                                            <td data-label="No">{{ ++$key }}</td>
+                                                            <td data-label="Product Name">{{ $order->product->name }}</td>
+                                                            <td data-label="Order Date">{{ $order->order_date }}</td>
+                                                            <td data-label="Order Status">
+                                                                @if ($order->order_status == 1)
+                                                                    <span class="bg badge-primary">Pending</span>
+                                                                @elseif ($order->order_status == 2)
+                                                                    <span class="bg badge-warning">Processing</span>
+                                                                @elseif ($order->order_status == 3)
+                                                                    <span class="bg badge-info">Shipped</span>
+                                                                @elseif ($order->order_status == 4)
+                                                                    <span class="bg badge-success">Delivered</span>
+                                                                @endif
+                                                            </td>
+
+                                                            {{-- 1 => Bank Transfer, 2 => Check Payment , 3 => Cash On Delivery, 4 => PayPal --}}
+                                                            @php
+                                                                $paymentMethod = '';
+
+                                                                if ($order->payment_method == 1) {
+                                                                    $paymentMethod = 'Bank Transfer';
+                                                                } elseif ($order->payment_method == 2) {
+                                                                    $paymentMethod = 'Check Payment';
+                                                                } elseif ($order->payment_method == 3) {
+                                                                    $paymentMethod = 'Cash On Delivery';
+                                                                } elseif ($order->payment_method == 4) {
+                                                                    $paymentMethod = 'PayPal';
+                                                                }
+                                                            @endphp
+                                                            <td data-label="Payment Method">{{ $paymentMethod }}</td>
+
+                                                            <td data-label="Payment Status">
+                                                                @if ($order->payment_status == 1)
+                                                                    <span class="bg badge-primary">Pending</span>
+                                                                @elseif ($order->payment_status == 2)
+                                                                    <span class="bg badge-warning">Processing</span>
+                                                                @elseif ($order->payment_status == 3)
+                                                                    <span class="bg badge-success">Completed</span>
+                                                                @elseif ($order->payment_status == 4)
+                                                                    <span class="bg badge-danger">Delivered</span>
+                                                                @endif
+                                                            </td>
+                                                            <td data-label="Total">{{ number_format($order->order_total_price, 0) }}</td>
+                                                            {{-- <td data-label="Action">
+                                                                <a class="tp-btn-theme height pro-btn-sec" href="#" title="View">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                            </td> --}}
+                                                        </tr>
+                                                    @endforeach
+                                                @else
                                                     <tr>
-                                                        <td data-label="No">{{ ++$key }}</td>
-                                                        <td data-label="Product Name">{{ $order->product->name }}</td>
-                                                        <td data-label="Order Date">{{ $order->order_date }}</td>
-                                                        <td data-label="Order Status">
-                                                            @if ($order->order_status == 1)
-                                                                <span class="bg badge-primary">Pending</span>
-                                                            @elseif ($order->order_status == 2)
-                                                                <span class="bg badge-warning">Processing</span>
-                                                            @elseif ($order->order_status == 3)
-                                                                <span class="bg badge-info">Shipped</span>
-                                                            @elseif ($order->order_status == 4)
-                                                                <span class="bg badge-success">Delivered</span>
-                                                            @endif
+                                                        <td colspan="7" class="text-center">
+                                                            <div class="empty-cart">
+                                                                <h3 class="text-center">No Orders Found</h3>
+                                                                <p class="text-center">It looks like you haven't placed any orders yet. Start shopping now!</p>
+                                                                <div class="sign-up-btn-wrap text-center">
+                                                                    <div class="btn-sec">
+                                                                        <a href="{{ route('frontend.products') }}">
+                                                                            <button class="tp-btn-theme" type="button">
+                                                                                <span>
+                                                                                    <i class="fa-solid fa-cart-shopping"></i>
+                                                                                    Continue Shopping
+                                                                                </span>
+                                                                            </button>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </td>
-
-                                                        {{-- 1 => Bank Transfer, 2 => Check Payment , 3 => Cash On Delivery, 4 => PayPal --}}
-                                                        @php
-                                                            $paymentMethod = '';
-
-                                                            if ($order->payment_method == 1) {
-                                                                $paymentMethod = 'Bank Transfer';
-                                                            } elseif ($order->payment_method == 2) {
-                                                                $paymentMethod = 'Check Payment';
-                                                            } elseif ($order->payment_method == 3) {
-                                                                $paymentMethod = 'Cash On Delivery';
-                                                            } elseif ($order->payment_method == 4) {
-                                                                $paymentMethod = 'PayPal';
-                                                            }
-                                                        @endphp
-                                                        <td data-label="Payment Method">{{ $paymentMethod }}</td>
-
-                                                        <td data-label="Payment Status">
-                                                            @if ($order->payment_status == 1)
-                                                                <span class="bg badge-primary">Pending</span>
-                                                            @elseif ($order->payment_status == 2)
-                                                                <span class="bg badge-warning">Processing</span>
-                                                            @elseif ($order->payment_status == 3)
-                                                                <span class="bg badge-success">Completed</span>
-                                                            @elseif ($order->payment_status == 4)
-                                                                <span class="bg badge-danger">Delivered</span>
-                                                            @endif
-                                                        </td>
-                                                        <td data-label="Total">{{ number_format($order->order_total_price, 0) }}</td>
-                                                        {{-- <td data-label="Action">
-                                                            <a class="tp-btn-theme height pro-btn-sec" href="#" title="View">
-                                                                <i class="fa fa-eye"></i>
-                                                            </a>
-                                                        </td> --}}
                                                     </tr>
-                                                @endforeach
+                                                @endif
+
                                             </tbody>
                                         </table>
                                     </div>

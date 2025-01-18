@@ -15,6 +15,8 @@ class Cart extends Model
         'citizen_id',
         'product_id',
         'quantity',
+        'product_total_price',
+        'payment_status',
         'inserted_by',
         'inserted_at',
         'modified_by',

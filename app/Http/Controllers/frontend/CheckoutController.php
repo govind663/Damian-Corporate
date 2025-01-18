@@ -4,6 +4,7 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\OrderRequest;
+use App\Models\Cart;
 use App\Models\Citizen;
 use App\Models\Order;
 use Carbon\Carbon;
@@ -63,6 +64,14 @@ class CheckoutController extends Controller
             $order->transaction_token = md5($order->transaction_token . '-' . $productId . '-' . $citizenId . '-' . $cartId . '-' . Carbon::now()->toDateTimeString());
             $order->inserted_at = Carbon::now();
             $order->inserted_by = Auth::guard('citizen')->user()->id;
+
+            // update cart Payment Status
+            $cart = Cart::find($request->cart_id);
+            if ($cart) {
+                $cart->payment_status = $order->payment_status; // Paid
+                $cart->save();
+            }
+
             $order->save();
 
             // User Basic Details

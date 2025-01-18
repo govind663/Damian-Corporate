@@ -122,6 +122,11 @@
     .swiper-button-prev {
         left: 10px; /* Left arrow */
     }
+
+    .pro-details-slider-sec img {
+        width: 100%;
+        max-width: 573px !important;
+    }
 </style>
 @endpush
 
@@ -159,7 +164,7 @@
                                 @foreach ($productOtherImages as $index => $image)
                                     <div class="swiper-slide">
                                         <div class="magic-zoom">
-                                            <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}" class="img-fluid" >
+                                            <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}">
                                         </div>
                                     </div>
                                 @endforeach
@@ -178,7 +183,7 @@
                             <div class="swiper-wrapper">
                                 @foreach($productOtherImages as $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}" class="img-thumbnail">
+                                        <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}">
                                     </div>
                                 @endforeach
                             </div>
@@ -306,17 +311,8 @@
         // Function to handle login check
         function handleLoginCheck(action) {
             if (!citizenId) {
-                // Show toaster message with time duration
-                let message = 'Please log in to ' + action + ' this product.';
-                toastr.error(message, 'Login Required', {
-                    timeOut: 5000 // 5 seconds duration
-                });
-
-                // Redirect to login page after 5 seconds
-                setTimeout(function () {
-                    window.location.href = '{{ route("frontend.citizen.login") }}'; // Redirect to login page
-                }, 5000); // Wait for 5 seconds before redirecting
-
+                toastr.error('Please log in to ' + action + ' this product.');
+                window.location.href = '{{ route("frontend.citizen.login") }}'; // Redirect to login page
                 return false;
             }
             return true;

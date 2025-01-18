@@ -154,7 +154,12 @@ class StoreController extends Controller
         $products = Product::orderBy("id", "desc")->whereNull('deleted_at')->get();
 
         // ===== Fetch Cart
-        $cartItems = Cart::with('product', 'citizen')->where('citizen_id', Auth::guard('citizen')->user()->id)->whereNull('deleted_at')->get();
+        $cartItems = Cart::with('product', 'citizen')
+            ->orderBy('id', 'desc')
+            ->where('citizen_id', Auth::guard('citizen')->user()->id)
+            ->where('payment_status', '1')
+            ->whereNull('deleted_at')
+            ->get();
         // dd($cartItems);
 
         return view('frontend.store.cart', [
@@ -384,7 +389,7 @@ class StoreController extends Controller
         $products = Product::orderBy("id", "desc")->whereNull('deleted_at')->get();
 
         // ===== Fetch Cart
-        $cartItems = Cart::with('product', 'citizen')->where('citizen_id', Auth::guard('citizen')->user()->id)->whereNull('deleted_at')->get();
+        $cartItems = Cart::with('product', 'citizen')->where('citizen_id', Auth::guard('citizen')->user()->id)->orderBy('id', 'desc')->whereNull('deleted_at')->get();
         // dd($cartItems);
 
         $productId = Cart::where('citizen_id', Auth::guard('citizen')->user()->id)->first();
@@ -410,7 +415,7 @@ class StoreController extends Controller
     // ==== Orders
     public function orders()
     {
-        $orders = Order::with('product', 'citizen', 'cart')->where('citizen_id', Auth::guard('citizen')->user()->id)->whereNull('deleted_at')->paginate(10);;
+        $orders = Order::with('product', 'citizen', 'cart')->where('citizen_id', Auth::guard('citizen')->user()->id)->whereNull('deleted_at')->orderBy('id', 'desc')->get();
         // dd($orders);
 
         foreach ($orders as $key => $order) {
@@ -577,6 +582,7 @@ class StoreController extends Controller
         //     'profile_image.mimes' => __('Profile Image must be a file of type: jpg, jpeg, png, svg'),
         //     'profile_image.max' => __('Profile Image must not exceed 2MB'),
         // ]);
+
 
         try {
 

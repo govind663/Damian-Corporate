@@ -120,6 +120,7 @@
                                 $cartQuantity = DB::table('carts')
                                     ->whereIn('product_id', $productIds)
                                     ->where('citizen_id', Auth::guard('citizen')->id())
+                                    ->where('payment_status', 1)
                                     ->whereNull('deleted_at')
                                     ->sum('quantity'); // Use sum instead of count
 
