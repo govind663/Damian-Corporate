@@ -306,8 +306,17 @@
         // Function to handle login check
         function handleLoginCheck(action) {
             if (!citizenId) {
-                toastr.error('Please log in to ' + action + ' this product.');
-                window.location.href = '{{ route("frontend.citizen.login") }}'; // Redirect to login page
+                // Show toaster message with time duration
+                let message = 'Please log in to ' + action + ' this product.';
+                toastr.error(message, 'Login Required', {
+                    timeOut: 5000 // 5 seconds duration
+                });
+
+                // Redirect to login page after 5 seconds
+                setTimeout(function () {
+                    window.location.href = '{{ route("frontend.citizen.login") }}'; // Redirect to login page
+                }, 5000); // Wait for 5 seconds before redirecting
+
                 return false;
             }
             return true;
@@ -378,14 +387,30 @@
 {{-- Quantity Increment and Decrement --}}
 <script>
     $(document).ready(function () {
+        // Set up CSRF token for AJAX
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         // Check if the user is logged in
         let citizenId = @json(Auth::guard('citizen')->check() ? Auth::guard('citizen')->id() : null);
 
         // Function to handle login check
         function handleLoginCheck(action) {
             if (!citizenId) {
-                toastr.error('Please log in to ' + action + ' this product.');
-                window.location.href = '{{ route("frontend.citizen.login") }}'; // Redirect to login page
+                // Show toaster message with time duration
+                let message = 'Please log in to ' + action + ' this product.';
+                toastr.error(message, 'Login Required', {
+                    timeOut: 5000 // 5 seconds duration
+                });
+
+                // Redirect to login page after 5 seconds
+                setTimeout(function () {
+                    window.location.href = '{{ route("frontend.citizen.login") }}'; // Redirect to login page
+                }, 5000); // Wait for 5 seconds before redirecting
+
                 return false;
             }
             return true;

@@ -466,7 +466,7 @@
                                 </div>
 
                                 <div class="col-lg-12 mb-30">
-                                    <div class="tp-contact-textarea-box" style="display: flex; justify-content: center; text-align: center;">
+                                    <div class="tp-contact-input-box" style="display: flex; justify-content: center; text-align: center;">
                                         {!! NoCaptcha::display() !!}
 
                                         @error('g-recaptcha-response')
@@ -474,8 +474,6 @@
                                             {{ $message }}
                                         </span>
                                         @enderror
-
-                                        {{-- <button class="tp-btn-border height" style="margin-left: 80px;"><span>Send Message</span></button> --}}
                                     </div>
                                 </div>
 

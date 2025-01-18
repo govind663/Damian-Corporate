@@ -284,8 +284,17 @@
         // Function to handle login check
         function handleLoginCheck(action) {
             if (!citizenId) {
-                toastr.error('Please log in to ' + action + ' this product.');
-                window.location.href = '{{ route("frontend.citizen.login") }}'; // Redirect to login page
+                // Show toaster message with time duration
+                let message = 'Please log in to ' + action + ' this product.';
+                toastr.error(message, 'Login Required', {
+                    timeOut: 5000 // 5 seconds duration
+                });
+
+                // Redirect to login page after 5 seconds
+                setTimeout(function () {
+                    window.location.href = '{{ route("frontend.citizen.login") }}'; // Redirect to login page
+                }, 5000); // Wait for 5 seconds before redirecting
+
                 return false;
             }
             return true;
