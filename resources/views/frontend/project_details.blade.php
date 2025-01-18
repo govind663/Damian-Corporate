@@ -31,7 +31,7 @@
                         <div class="breadcrumb__list">
                             <span><a href="{{ route('frontend.home') }}" title="Home">Home</a></span>
                             <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
-                            <span>Project Details</span>
+                            <span><a href="{{ route('frontend.services') }}" title="Home">Projects</a></span>
                             <span class="dvdr"><i class="fa-solid fa-angle-right"></i></span>
                             <span>{{ $project->project_name }}</span>
                         </div>
