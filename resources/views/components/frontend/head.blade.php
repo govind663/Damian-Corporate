@@ -10,6 +10,9 @@
     <meta name="keywords" content="Damian Corporate, Damian, Corporate">
     <meta name="author" content="Damian Corporate,">
 
+    {{-- Security Policy --}}
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self';">
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="content">
     <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">

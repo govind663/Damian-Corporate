@@ -207,12 +207,12 @@
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="pro-del-atw-sec">
                                     <div class="pro-del-wi-sec">
-                                        <a href="javascript:void(0)" class="add_to_wishlist" title="Wishlist" data-product-id="{{ $product->id }}">
+                                        <a href="javascript:void(0)" class="quick-view" title="Wishlist" data-product-id="{{ $product->id }}">
                                             <img src="{{ asset('frontend/assets/img/icon/wishlist.png') }}" class="img-responsive">
                                         </a>
                                     </div>
                                     <div class="pro-del-atc-sec">
-                                        <a href="javascript:void(0)" class="add_to_cart" title="Add To Cart" data-product-id="{{ $product->id }}">
+                                        <a href="javascript:void(0)" class="add-to-cart" title="Add To Cart" data-product-id="{{ $product->id }}">
                                             <img src="{{ asset('frontend/assets/img/icon/add-to-cart.png') }}" class="img-responsive">
                                         </a>
                                     </div>
@@ -308,38 +308,49 @@
         // Check if the user is logged in
         let citizenId = @json(Auth::guard('citizen')->check() ? Auth::guard('citizen')->id() : null);
 
-        // Function to handle login check
+        // Function to handle login check with action as a parameter
         function handleLoginCheck(action) {
             if (!citizenId) {
-                toastr.error('Please log in to ' + action + ' this product.');
-                window.location.href = '{{ route("frontend.citizen.login") }}'; // Redirect to login page
+                // Show toaster message with time duration
+                let message = `Please log in to ${action} this product.`;
+                toastr.error(message, 'Login Required', {
+                    timeOut: 5000 // 5 seconds duration
+                });
+
+                // Redirect to login page after 5 seconds
+                setTimeout(function () {
+                    window.location.href = '{{ route("frontend.citizen.login") }}'; // Redirect to login page
+                }, 5000); // Wait for 5 seconds before redirecting
+
                 return false;
             }
             return true;
         }
 
         // Add to Cart
-        $('.add_to_cart').on('click', function (e) {
-            e.preventDefault(); // Prevent the default behavior
+        $('.add-to-cart').on('click', function (e) {
+            e.preventDefault(); // Prevent the default behavior (i.e., redirection)
 
-            let productId = $(this).data('product-id'); // Get the product ID
+            let productId = $(this).data('product-id'); // Get the product ID from the data attribute
 
-            // Check login status
+            // Check if the user is logged in
             if (!handleLoginCheck('add to cart')) return;
 
+            // Perform AJAX request to add to cart
             $.ajax({
-                url: '{{ route("frontend.addToCart") }}', // Your cart add route
-                method: 'POST', // Use POST for modifying data
+                url: '{{ route('frontend.addToCart') }}', // Your cart add route
+                method: 'POST',
                 data: {
+                    _token: '{{ csrf_token() }}',
                     product_id: productId,
-                    citizen_id: citizenId // Pass citizen_id
+                    citizen_id: citizenId, // Pass citizen_id
                 },
                 success: function (response) {
                     if (response.success) {
-                        toastr.success(response.message); // Success message
-                        location.reload(); // Reload page to reflect changes
+                        toastr.success(response.message); // Show success toaster message
+                        location.reload(); // Reload the page to reflect the changes
                     } else {
-                        toastr.error(response.message); // Error message
+                        toastr.error(response.message); // Show error toaster message
                     }
                 },
                 error: function () {
@@ -349,27 +360,29 @@
         });
 
         // Add to Wishlist
-        $('.add_to_wishlist').on('click', function (e) {
-            e.preventDefault(); // Prevent the default behavior
+        $('.quick-view').on('click', function (e) {
+            e.preventDefault(); // Prevent the default behavior (i.e., redirection)
 
-            let productId = $(this).data('product-id'); // Get the product ID
+            let productId = $(this).data('product-id'); // Get the product ID from the data attribute
 
-            // Check login status
+            // Check if the user is logged in
             if (!handleLoginCheck('add to wishlist')) return;
 
+            // Perform AJAX request to add to wishlist
             $.ajax({
-                url: '{{ route("frontend.addToWishlist") }}', // Your wishlist add route
-                method: 'POST', // Use POST for modifying data
+                url: '{{ route('frontend.addToWishlist') }}', // Your wishlist add route
+                method: 'POST',
                 data: {
+                    _token: '{{ csrf_token() }}',
                     product_id: productId,
-                    citizen_id: citizenId // Pass citizen_id
+                    citizen_id: citizenId, // Pass citizen_id
                 },
                 success: function (response) {
                     if (response.success) {
-                        toastr.success(response.message); // Success message
-                        location.reload(); // Reload page to reflect changes
+                        toastr.success(response.message); // Show success toaster message
+                        location.reload(); // Reload the page to reflect the changes
                     } else {
-                        toastr.error(response.message); // Error message
+                        toastr.error(response.message); // Show error toaster message
                     }
                 },
                 error: function () {

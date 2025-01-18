@@ -218,11 +218,12 @@ class StoreController extends Controller
     // ==== Update Cart Quantity
     public function updateCartQuantity(Request $request)
     {
+        // Validate the request
         $request->validate([
             'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1',
         ], [
-            'quantity.min' => 'Invalid quantity.',
+            'quantity.min' => 'Invalid quantity. Quantity must be at least 1.',
         ]);
 
         $productId = $request->product_id;
@@ -230,29 +231,50 @@ class StoreController extends Controller
 
         $citizenId = $request->citizen_id ?? Auth::guard('citizen')->id();
 
+        // Find the product
         $product = Product::find($productId);
-
         if (!$product) {
-            return response()->json(['success' => false, 'message' => 'Product not found.']);
+            return response()->json([
+                'success' => false,
+                'message' => 'Product not found.',
+            ], 404);
         }
 
+        // Check if the quantity is less than 1 and equal to 0 and return a message
+        if ($quantity < 1) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Quantity must be at least 1.',
+            ], 400);
+        }
+
+        // Calculate the new total price
         $newTotalPrice = $product->discount_price_after_percentage * $quantity;
 
-        $cart = Cart::updateOrCreate(
-            [
-                'citizen_id' => $citizenId,
-                'product_id' => $productId,
-            ]
-        );
+        // Fetch the existing cart or create a new one
+        $cart = Cart::firstOrNew([
+            'citizen_id' => $citizenId,
+            'product_id' => $productId,
+        ]);
+
+        // Conditional message based on whether the cart is new or exists
+        $isNewCart = !$cart->exists;
+
+        // Update or create the cart entry
         $cart->quantity = $quantity;
         $cart->product_total_price = $newTotalPrice;
         $cart->modified_by = Auth::guard('citizen')->id();
         $cart->modified_at = Carbon::now();
         $cart->save();
 
+        // Conditional message
+        $message = ($quantity > 1)
+            ? 'Cart updated successfully.'
+            : 'Quantity must be at least 1.';
+
         return response()->json([
             'success' => true,
-            'message' => 'Cart updated successfully.',
+            'message' => $message,
             'new_total_price' => $newTotalPrice,
         ]);
     }

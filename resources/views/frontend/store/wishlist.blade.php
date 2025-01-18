@@ -5,6 +5,11 @@
 @endsection
 
 @push('styles')
+<style>
+    .add-to-cart {
+        padding: 15px 0;
+    }
+</style>
 @endpush
 
 @section('content')
@@ -84,7 +89,7 @@
                                     </td>
                                     <td>
                                         <div class="icon-box d-flex gap-2 justify-content-center">
-                                            <a href="{{ route('frontend.cart') }}" class="cart add_to_cart" title="cart">
+                                            <a href="javascript:void(0)" class="add-to-cart" title="cart" data-product-id="{{ $item->product?->id }}">
                                                 <i class="fa-regular fa-cart-shopping"></i>
                                             </a>
                                             <a href="javascript:void(0)" class="icon me-1 remove-wishlist-item" data-id="{{ $item->id }}" title="Whishlist">
@@ -136,6 +141,74 @@
 @endsection
 
 @push('scripts')
+{{-- Add to Cart and Wishlist --}}
+<script>
+    $(document).ready(function () {
+        // Set up CSRF token for AJAX
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // Check if the user is logged in
+        let citizenId = @json(Auth::guard('citizen')->check() ? Auth::guard('citizen')->id() : null);
+
+        // Function to handle login check with action as a parameter
+        function handleLoginCheck(action) {
+            if (!citizenId) {
+                // Show toaster message with time duration
+                let message = `Please log in to ${action} this product.`;
+                toastr.error(message, 'Login Required', {
+                    timeOut: 5000 // 5 seconds duration
+                });
+
+                // Redirect to login page after 5 seconds
+                setTimeout(function () {
+                    window.location.href = '{{ route("frontend.citizen.login") }}'; // Redirect to login page
+                }, 5000); // Wait for 5 seconds before redirecting
+
+                return false;
+            }
+            return true;
+        }
+
+        // Add to Cart
+        $('.add-to-cart').on('click', function (e) {
+            e.preventDefault(); // Prevent the default behavior (i.e., redirection)
+
+            let productId = $(this).data('product-id'); // Get the product ID from the data attribute
+
+            // Check if the user is logged in
+            if (!handleLoginCheck('add to cart')) return;
+
+            // Perform AJAX request to add to cart
+            $.ajax({
+                url: '{{ route('frontend.addToCart') }}', // Your cart add route
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    product_id: productId,
+                    citizen_id: citizenId, // Pass citizen_id
+                },
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message); // Show success toaster message
+                        location.reload(); // Reload the page to reflect the changes
+                    } else {
+                        toastr.error(response.message); // Show error toaster message
+                    }
+                },
+                error: function () {
+                    toastr.error('An error occurred. Please try again later.');
+                }
+            });
+        });
+
+
+    });
+</script>
+
 {{-- Remove from wishlist AJAX request --}}
 <script>
     $(document).on('click', '.remove-wishlist-item', function () {
