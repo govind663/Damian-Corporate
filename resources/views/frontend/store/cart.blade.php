@@ -34,52 +34,72 @@
             <div class="row">
                 <div class="col-md-7 col-sm-6 col-xs-12">
                     <div class="card-order">
-                        @foreach ($cartItems as $value)
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="img-wrapper">
-                                        <a href="{{ route('frontend.product.details', $value->product?->slug) }}" title="wishlist-product-3" class="img-link">
-                                            @if (!empty($value->product?->image))
-                                                <img src="{{ asset('/damian_corporate/product/project_image/' . $value->product?->image) }}" alt="{{ $value->product?->image }}" title="{{ $value->product?->image }}" class="img-responsive" style="height: 100px !important;">
-                                            @endif
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="product-price">
-                                        <p>₹ {{ number_format($value->product?->discount_price_after_percentage, 0) }} /- </p>
-                                    </div>
-                                    <div class="product-heading">
-                                        <h3>
-                                            <a href="{{ route('frontend.product.details', $value->product?->slug) }}" title="{{ $value->product?->name }}">
-                                                {{ $value->product?->name }}
+                        @if (count($cartItems) > 0)
+                            @foreach ($cartItems as $value)
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="img-wrapper">
+                                            <a href="{{ route('frontend.product.details', $value->product?->slug) }}" title="wishlist-product-3" class="img-link">
+                                                @if (!empty($value->product?->image))
+                                                    <img src="{{ asset('/damian_corporate/product/project_image/' . $value->product?->image) }}" alt="{{ $value->product?->image }}" title="{{ $value->product?->image }}" class="img-responsive" style="height: 100px !important; width: 131px !important;">
+                                                @endif
                                             </a>
-                                        </h3>
-                                        <a href="javascript:void(0)" title="Remove this item" class="remove" data-product-id="{{ $value->product_id }}">
-                                            <p>
-                                                <i class="fa fa-trash"></i>
-                                                Remove Item
-                                            </p>
-                                        </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="product-price">
+                                            <p>₹ {{ number_format($value->product?->discount_price_after_percentage, 0) }} /- </p>
+                                        </div>
+                                        <div class="product-heading">
+                                            <h3>
+                                                <a href="{{ route('frontend.product.details', $value->product?->slug) }}" title="{{ $value->product?->name }}">
+                                                    {{ $value->product?->name }}
+                                                </a>
+                                            </h3>
+                                            <a href="javascript:void(0)" title="Remove this item" class="remove" data-product-id="{{ $value->product_id }}">
+                                                <p>
+                                                    <i class="fa fa-trash"></i>
+                                                    Remove Item
+                                                </p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="quantity-sec-new p-relative">
+                                            <input type="number" class="quantity-input-number" value="{{ $value->quantity }}" min="1" data-product-id="{{ $value->product_id }}" />
+                                            <div class="qty_button cart-minus tp-cart-minus" data-action="decrement" data-product-id="{{ $value->product_id }}">
+                                                <i class="fa-solid fa-caret-down"></i>
+                                            </div>
+                                            <div class="qty_button cart-plus tp-cart-plus" data-action="increment" data-product-id="{{ $value->product_id }}">
+                                                <i class="fa-solid fa-caret-up"></i>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="total-price" id="total-price-{{ $value->id }}">
+                                            ₹{{ $value->price }}
+                                        </div> --}}
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="quantity-sec-new p-relative">
-                                        <input type="number" class="quantity-input-number" value="{{ $value->quantity }}" min="1" data-product-id="{{ $value->product_id }}" />
-                                        <div class="qty_button cart-minus tp-cart-minus" data-action="decrement" data-product-id="{{ $value->product_id }}">
-                                            <i class="fa-solid fa-caret-down"></i>
-                                        </div>
-                                        <div class="qty_button cart-plus tp-cart-plus" data-action="increment" data-product-id="{{ $value->product_id }}">
-                                            <i class="fa-solid fa-caret-up"></i>
-                                        </div>
-                                    </div>
-                                    {{-- <div class="total-price" id="total-price-{{ $value->id }}">
-                                        ₹{{ $value->price }}
-                                    </div> --}}
+                                <hr class="hr-line">
+                            @endforeach
+                        @else
+                        <div class="empty-cart">
+                            <h3 class="text-center">Cart is empty</h3>
+                            <p class="text-center">It looks like you haven't added anything to your cart yet. Start shopping now!</p>
+                            <div class="sign-up-btn-wrap text-center">
+                                <div class="btn-sec">
+                                    <a href="{{ route('frontend.products') }}">
+                                        <button class="tp-btn-theme" name="update_cart" type="submit">
+                                            <span>
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                                Continue Shopping
+                                            </span>
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
-                            <hr class="hr-line">
-                        @endforeach
+                        </div>
+                        @endif
+
                     </div>
                 </div>
                 <div class="col-md-5 col-sm-6 col-xs-12">

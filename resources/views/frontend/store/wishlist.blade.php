@@ -43,56 +43,79 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($wishlistItems as $item)
+                        @if(count($wishlistItems) > 0)
+                            @foreach ($wishlistItems as $item)
+                                <tr>
+                                    <td>
+                                        <a href="{{ route('frontend.product.details', $item->product?->slug) }}" title="Product Details" class="img-link">
+                                            <img src="{{ asset('/damian_corporate/product/project_image/' . $item->product?->image) }}" alt="{{ $item->product?->image }}" title="{{ $item->product?->image }}" style="height: 100px !important; width: 131px !important;">
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('frontend.product.details', $item->product?->slug) }}" title="Product Details" class="product-name">
+                                            {{ $item->product?->name }}
+                                        </a>
+                                        <div class="mobile-cart-content row">
+                                            <div class="col">
+                                                <p>in stock</p>
+                                            </div>
+                                            <div class="col">
+                                                <h2 class="td-color">
+                                                    {{ number_format($item->product?->discount_price_after_percentage, 0) }}
+                                                </h2>
+                                            </div>
+                                            <div class="col">
+                                                <h2 class="td-color">
+                                                    <a href="{{ route('frontend.cart') }}" class="cart" title="cart">
+                                                        <i class="fa-regular fa-cart-shopping"></i>
+                                                    </a>
+                                                    <a href="{{ route('frontend.wishlist') }}" class="icon me-1" title="Whishlist">
+                                                        <i class="fa-solid fa-xmark"></i>
+                                                    </a>
+                                                </h2>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h2>₹ {{ number_format($item->product?->discount_price_after_percentage, 0) }}</h2>
+                                    </td>
+                                    <td>
+                                        <p>in stock</p>
+                                    </td>
+                                    <td>
+                                        <div class="icon-box d-flex gap-2 justify-content-center">
+                                            <a href="{{ route('frontend.cart') }}" class="cart add_to_cart" title="cart">
+                                                <i class="fa-regular fa-cart-shopping"></i>
+                                            </a>
+                                            <a href="javascript:void(0)" class="icon me-1 remove-wishlist-item" data-id="{{ $item->id }}" title="Whishlist">
+                                                <i class="fa-solid fa-xmark"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
                             <tr>
-                                <td>
-                                    <a href="{{ route('frontend.product.details', $item->product?->slug) }}" title="Product Details" class="img-link">
-                                        <img src="{{ asset('/damian_corporate/product/project_image/' . $item->product?->image) }}" alt="{{ $item->product?->image }}" title="{{ $item->product?->image }}" style="height: 100px !important;">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{{ route('frontend.product.details', $item->product?->slug) }}" title="Product Details" class="product-name">
-                                        {{ $item->product?->name }}
-                                    </a>
-                                    <div class="mobile-cart-content row">
-                                        <div class="col">
-                                            <p>in stock</p>
-                                        </div>
-                                        <div class="col">
-                                            <h2 class="td-color">
-                                                {{ number_format($item->product?->discount_price_after_percentage, 0) }}
-                                            </h2>
-                                        </div>
-                                        <div class="col">
-                                            <h2 class="td-color">
-                                                <a href="{{ route('frontend.cart') }}" class="cart" title="cart">
-                                                    <i class="fa-regular fa-cart-shopping"></i>
+                                <td colspan="5" class="text-center">
+                                    <div class="empty-cart">
+                                        <h6 class="text-center">Wishlist is empty</h6>
+                                        {{-- <p class="text-center">It looks like you haven't added anything to your wishlist yet. Start shopping now!</p>
+                                        <div class="sign-up-btn-wrap text-center">
+                                            <div class="btn-sec">
+                                                <a href="{{ route('frontend.products') }}">
+                                                    <button class="tp-btn-theme" name="update_cart" type="submit">
+                                                        <span>
+                                                            <i class="fa-solid fa-cart-shopping"></i>
+                                                            Continue Shopping
+                                                        </span>
+                                                    </button>
                                                 </a>
-                                                <a href="{{ route('frontend.wishlist') }}" class="icon me-1" title="Whishlist">
-                                                    <i class="fa-solid fa-xmark"></i>
-                                                </a>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h2>₹ {{ number_format($item->product?->discount_price_after_percentage, 0) }}</h2>
-                                </td>
-                                <td>
-                                    <p>in stock</p>
-                                </td>
-                                <td>
-                                    <div class="icon-box d-flex gap-2 justify-content-center">
-                                        <a href="{{ route('frontend.cart') }}" class="cart add_to_cart" title="cart">
-                                            <i class="fa-regular fa-cart-shopping"></i>
-                                        </a>
-                                        <a href="javascript:void(0)" class="icon me-1 remove-wishlist-item" data-id="{{ $item->id }}" title="Whishlist">
-                                            <i class="fa-solid fa-xmark"></i>
-                                        </a>
+                                            </div>
+                                        </div> --}}
                                     </div>
                                 </td>
                             </tr>
-                        @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
