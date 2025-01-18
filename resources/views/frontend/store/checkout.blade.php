@@ -9,8 +9,13 @@
     .form-select {
         padding: 1.375rem 2.25rem .375rem .75rem !important;
     }
-    .invalid-feedback{
-        color: rgb(255, 255, 255);
+    .invalid-feedback strong {
+        color: rgb(237, 233, 233);
+    }
+
+    .form-control.is-invalid, .was-validated .form-control:invalid {
+        border-color: #e9e8e8;
+        background-image: none !important;
     }
 
     .form-control,

@@ -45,8 +45,8 @@
 
     /* Dropdown open state: background white and text black */
     .careers-dropdown-select .nice-select {
-        background-color: #ffffff !important; /* Set the background of the dropdown to white */
-        color: #000000 !important; /* Set the text color to black */
+        background-color: transparent !important; /* Set the background of the dropdown to white */
+        color: #ede8e8 !important; /* Set the text color to black */
     }
 
     /* When dropdown is open and hovered, background should stay white with black text */
@@ -54,8 +54,6 @@
         background-color: #ffffff !important;
         color: #000000 !important;
     }
-
-
 
     .careers-textarea textarea {
         height: 205px;
@@ -65,6 +63,21 @@
         color: #fffdfd !important;
     }
 
+    .invalid-feedback strong {
+        color: rgb(237, 233, 233);
+    }
+
+    .form-control.is-invalid, .was-validated .form-control:invalid {
+        border-color: #e9e8e8;
+        background-image: none !important;
+    }
+
+    .tp-btn-theme.theme-lg {
+        padding: 0 61px;
+        height: 75px;
+        line-height: 75px;
+        border-radius: 2px;
+    }
 </style>
 @endpush
 
@@ -392,7 +405,7 @@
                                 <div class="col-xl-4 col-lg-4 mb-30" style="text-align: left !important;">
                                     <div class="tp-form-input-box careers-input-box">
                                         <div class="careers-dropdown-select">
-                                            <select name="job_position_id" id="job_position_id" class="form-control @error('job_position_id') is-invalid @enderror">
+                                            <select name="job_position_id" id="job_position_id" class="form-control nice-select @error('job_position_id') is-invalid @enderror">
                                                 <option value="">Select Job Position</option>
                                                 @foreach ($job_positions as $key => $value)
                                                     <option value="{{ $value->id }}" {{ old('job_position_id') == $value->id ? 'selected' : '' }}>{{ $value->job_title ?? '' }}</option>
@@ -429,9 +442,9 @@
                                 </div>
 
                                 <div class="col-xl-4 col-lg-4">
-                                    <div class="tp-form-input-box careers-input-box" style="text-align: left !important;">
-                                        <label for="resume" class="form-label" style="color: #fff !important;"><b>Upload Resume : <span class="text-light">*</span></b></label>
-                                        <input type="file" onchange="agentPreviewResumeFile()" accept=".png, .jpg, .jpeg, .pdf" name="resume" id="resume" class="form-control @error('resume') is-invalid @enderror" value="{{ old('resume') }}" placeholder="Upload Resume*">
+                                    <div class="tp-form-input-box careers-input-box" style="text-align: left !important; margin-bottom: 10px;">
+                                        <label for="resume" class="form-label" style="color: #fff !important;"><b>Upload Resume <small style="font-size: 13px;">(Files must be PDF, under 2MB.)</small> : <span class="text-light">*</span></b></label>
+                                        <input type="file" onchange="agentPreviewResumeFile()" accept=".pdf" name="resume" id="resume" class="form-control @error('resume') is-invalid @enderror" value="{{ old('resume') }}" placeholder="Upload Resume*">
                                         <!--<small class="text-light" ><b>Note : The file size  should be less than 2MB .</b></small>-->
                                         <!--<br>-->
                                         <!--<small class="text-light"><b>Note : Only files in .jpg, .jpeg, .png format can be uploaded .</b></small>-->
@@ -441,15 +454,15 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                        <br>
+                                        {{-- <br>
                                         <div id="preview-resume-container">
                                             <div id="file-resume-preview"></div>
-                                        </div>
+                                        </div> --}}
                                     </div>
 
                                     <div class="tp-form-input-box careers-input-box" style="text-align: left !important;">
-                                        <label for="portfolio" class="form-label" style="color: #fff !important;"><b>Upload Portfolio : <span class="text-light">*</span></b></label>
-                                        <input type="file" onchange="agentPreviewPortfolioFile()" accept=".png, .jpg, .jpeg, .pdf" name="portfolio" id="portfolio" class="form-control @error('portfolio') is-invalid @enderror" value="{{ old('portfolio') }}" placeholder="Upload Portfolio*">
+                                        <label for="portfolio" class="form-label" style="color: #fff !important;"><b>Upload Portfolio <small style="font-size: 13px;">(Files must be JPG/PNG/JPEG, under 2MB.)</small> : <span class="text-light">*</span></b></label>
+                                        <input type="file" onchange="agentPreviewPortfolioFile()" accept=".png, .jpg, .jpeg" name="portfolio" id="portfolio" class="form-control @error('portfolio') is-invalid @enderror" value="{{ old('portfolio') }}" placeholder="Upload Portfolio*">
                                         <!--<small class="text-light"><b>Note : The file size  should be less than 2MB .</b></small>-->
                                         <!--<br>-->
                                         <!--<small class="text-light"><b>Note : Only files in .jpg, .jpeg, .png format can be uploaded .</b></small>-->
@@ -459,34 +472,34 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                        <br>
+                                        {{-- <br>
                                         <div id="preview-portfolio-container">
                                             <div id="file-portfolio-preview"></div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12 mb-30">
-                                    <div class="tp-contact-textarea-box" style="display: flex; justify-content: center; text-align: center;">
+                                <div class="col-xl-8 col-lg-8 mb-30">
+                                    <div class="tp-form-input-box careers-input-box" style="display: flex; justify-content: center; text-align: center;">
                                         {!! NoCaptcha::display() !!}
 
                                         @error('g-recaptcha-response')
                                         <span class="invalid-feedback" role="alert">
-                                            {{ $message }}
+                                            <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
+
+                                        <button type="submit" class="tp-btn-theme theme-lg" style="margin-left: 80px;">
+                                            <span>
+                                                <i class="fas fa-paper-plane mr-10"></i>
+                                                SUBMIT
+                                            </span>
+                                        </button>
                                     </div>
                                 </div>
+
                             </div>
-
-                            <button type="submit" class="tp-btn-theme theme-lg" >
-                                <span>
-                                    <i class="fas fa-paper-plane mr-10"></i>
-                                    SUBMIT
-                                </span>
-                            </button>
                         </form>
-
                     </div>
                 </div>
             </div>

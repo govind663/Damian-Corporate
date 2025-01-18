@@ -39,6 +39,7 @@
 
         .form-control.is-invalid, .was-validated .form-control:invalid {
             border-color: #ece8e9;
+            background-image: none !important;
         }
     </style>
 @endpush
@@ -474,12 +475,14 @@
                                             {{ $message }}
                                         </span>
                                         @enderror
+
+                                        {{-- <button class="tp-btn-border height" style="margin-left: 80px;"><span>Send Message</span></button> --}}
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="tp-contact-input-btn" style="display: flex; justify-content: center; text-align: center;">
-                                        <button class="tp-btn-border height w-100"><span>Send Message</span></button>
+                                        <button class="tp-btn-border height"><span>Send Message</span></button>
                                     </div>
                                 </div>
                             </div>
