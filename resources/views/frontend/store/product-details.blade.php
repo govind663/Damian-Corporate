@@ -159,7 +159,7 @@
                                 @foreach ($productOtherImages as $index => $image)
                                     <div class="swiper-slide">
                                         <div class="magic-zoom">
-                                            <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}">
+                                            <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}" class="img-fluid" >
                                         </div>
                                     </div>
                                 @endforeach
@@ -178,7 +178,7 @@
                             <div class="swiper-wrapper">
                                 @foreach($productOtherImages as $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}">
+                                        <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}" class="img-thumbnail">
                                     </div>
                                 @endforeach
                             </div>
