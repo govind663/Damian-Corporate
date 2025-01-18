@@ -60,12 +60,8 @@
                                         @if(!empty($bannerImages) && is_array($bannerImages))
                                             @foreach($bannerImages as $image)
                                                 <div class="swiper-slide">
-                                                    <a href="{{ asset('/damian_corporate/project_details/banner_image/' . $image) }}"
-                                                       data-lightbox="project-gallery"
-                                                       data-title="{{ $image }}">
-                                                        <img src="{{ asset('/damian_corporate/project_details/banner_image/' . $image) }}"
-                                                             alt="{{ $image }}"
-                                                             title="{{ $image }}">
+                                                    <a href="{{ asset('/damian_corporate/project_details/banner_image/' . $image) }}" data-lightbox="project-gallery">
+                                                        <img src="{{ asset('/damian_corporate/project_details/banner_image/' . $image) }}">
                                                     </a>
                                                 </div>
                                             @endforeach
@@ -240,10 +236,38 @@
 </script>
 
 <script>
+    var swiper = new Swiper('.postbox__thumb-slider-active', {
+        loop: true,
+        autoplay: {
+            delay: 3000, // Adjust the delay as needed
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: '.postbox-arrow-next',
+            prevEl: '.postbox-arrow-prev',
+        },
+        slidesPerView: 1,
+        spaceBetween: 10,
+    });
+</script>
+
+
+<script>
     lightbox.option({
         'resizeDuration': 200,
         'wrapAround': true,
-        'alwaysShowNavOnTouchDevices': true
+        'alwaysShowNavOnTouchDevices': true,
+        'showImageNumberLabel': false,
+        'keyPress': false,
+        'fadeDuration': 500,
+        'imageFadeDuration': 500,
+        'disableScrolling': true,
+        'disableScrollingOnTouch': true,
+        'disableScrollingOnMobile': true,
+        'disableScrollingOnDesktop': true,
+        'disableScrollingOnTablet': true,
+        'disableScrollingOnLaptop': true,
+        'disableScrollingOnMonitor': true
     });
 </script>
 @endpush
