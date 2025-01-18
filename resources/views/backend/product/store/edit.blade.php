@@ -278,26 +278,14 @@ Damian Corporate | Edit Product
                 <div class="form-group row mt-3">
                     <label class="col-sm-2"><b>Length (cm) : </b></label>
                     <div class="col-sm-4 col-md-4">
-                        <input type="text" name="depth" id="depth" class="form-control @error('depth') is-invalid @enderror" value="{{ $product->depth }}" placeholder="Enter Length (cm).">
-                        @error('depth')
+                        <input type="text" name="length" id="length" class="form-control @error('length') is-invalid @enderror" value="{{ $product->length }}" placeholder="Enter Length (cm).">
+                        @error('length')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
 
-                    <label class="col-sm-2"><b>Width / Depth (cm) : </b></label>
-                    <div class="col-sm-4 col-md-4">
-                        <input type="text" name="width" id="width" class="form-control @error('width') is-invalid @enderror" value="{{ $product->width }}" placeholder="Enter Width / Depth (cm).">
-                        @error('width')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row mt-3">
                     <label class="col-sm-2"><b>Height (cm) : </b></label>
                     <div class="col-sm-4 col-md-4">
                         <input type="text" name="height" id="height" class="form-control @error('height') is-invalid @enderror" value="{{ $product->height }}" placeholder="Enter Height (cm).">
@@ -307,7 +295,31 @@ Damian Corporate | Edit Product
                             </span>
                         @enderror
                     </div>
+                </div>
 
+                <div class="form-group row mt-3">
+                    <label class="col-sm-2"><b>Width (cm) : </b></label>
+                    <div class="col-sm-4 col-md-4">
+                        <input type="text" name="width" id="width" class="form-control @error('width') is-invalid @enderror" value="{{ $product->width }}" placeholder="Enter Width(cm).">
+                        @error('width')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <label class="col-sm-2"><b>Depth (cm) : </b></label>
+                    <div class="col-sm-4 col-md-4">
+                        <input type="text" name="depth" id="depth" class="form-control @error('depth') is-invalid @enderror" value="{{ $product->depth }}" placeholder="Enter Depth (cm).">
+                        @error('depth')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row mt-3">
                     <label class="col-sm-2"><b>Seat Heigh (cm) : </b></label>
                     <div class="col-sm-4 col-md-4">
                         <input type="text" name="seat_height" id="seat_height" class="form-control @error('seat_height') is-invalid @enderror" value="{{ $product->seat_height }}" placeholder="Enter Seat Height (cm).">

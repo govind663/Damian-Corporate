@@ -109,6 +109,7 @@ class ProductController extends Controller
             $product->discount_price_after_ammount = $request->discount_price_after_ammount ?? null;
             $product->discount_price_in_percentage = $request->discount_price_in_percentage ?? null;
             $product->discount_price_after_percentage = $request->discount_price_after_percentage ?? null;
+            $product->length = $request->length ?? null;
             $product->height = $request->height ?? null;
             $product->width = $request->width ?? null;
             $product->depth = $request->depth ?? null;
@@ -245,6 +246,7 @@ class ProductController extends Controller
             $product->discount_price_after_ammount = $request->discount_price_after_ammount ?? null;
             $product->discount_price_in_percentage = $request->discount_price_in_percentage ?? null;
             $product->discount_price_after_percentage = $request->discount_price_after_percentage ?? null;
+            $product->length = $request->length ?? null;
             $product->height = $request->height ?? null;
             $product->width = $request->width ?? null;
             $product->depth = $request->depth ?? null;

@@ -33,6 +33,7 @@ class ProductRequest extends FormRequest
                 'product_other_images.*' => 'mimes:jpeg,png,jpg,webp|max:2048',
                 'price' => 'required|numeric',
                 'discount_type' => 'required|numeric',
+                // 'length' => 'required|string|max:255',
                 // 'height' => 'required|string|max:255',
                 // 'width' => 'required|string|max:255',
                 // 'depth' => 'required|string|max:255',
@@ -52,6 +53,7 @@ class ProductRequest extends FormRequest
                 'product_other_images.*' => 'required|mimes:jpeg,png,jpg,webp|max:2048',
                 'price' => 'required|numeric',
                 'discount_type' => 'required|numeric',
+                // 'length' => 'required|string|max:255',
                 // 'height' => 'required|string|max:255',
                 // 'width' => 'required|string|max:255',
                 // 'depth' => 'required|string|max:255',
@@ -100,6 +102,10 @@ class ProductRequest extends FormRequest
             'discount_type.required' => __('Discount Type is required'),
             'discount_type.numeric' => __('Discount Type must be a number'),
 
+            'length.required' => __('Length is required'),
+            'length.string' => __('Length must be a string'),
+            'length.max' => __('Length must be less than 255 characters'),
+
             'height.required' => __('Height is required'),
             'height.string' => __('Height must be a string'),
             'height.max' => __('Height must be less than 255 characters'),
@@ -111,6 +117,10 @@ class ProductRequest extends FormRequest
             'depth.required' => __('Depth is required'),
             'depth.string' => __('Depth must be a string'),
             'depth.max' => __('Depth must be less than 255 characters'),
+
+            'seat_height.required' => __('Seat Height is required'),
+            'seat_height.string' => __('Seat Height must be a string'),
+            'seat_height.max' => __('Seat Height must be less than 255 characters'),
 
             'product_type.required' => __('Product Type is required'),
             'product_type.numeric' => __('Product Type must be a number'),

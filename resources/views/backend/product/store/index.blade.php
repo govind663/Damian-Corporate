@@ -50,7 +50,7 @@ Damian Corporate | Manaage Product
                 <h4 class="text-blue h4">All Product List</h4>
             </div>
             <div class="pb-20">
-                <table class="table hover data-table-export1 nowrap p-3">
+                <table class="table hover data-table-export1 nowrap">
                     <thead>
                         <tr>
                             <th>Sr. No.</th>

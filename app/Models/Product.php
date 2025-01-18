@@ -27,6 +27,7 @@ class Product extends Model
         'discount_price_after_percentage',
         'discount_price_in_amount',
         'discount_price_after_ammount',
+        'length',
         'height',
         'width',
         'depth',

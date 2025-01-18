@@ -178,7 +178,7 @@
                             <div class="swiper-wrapper">
                                 @foreach($productOtherImages as $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}">
+                                        <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}">
                                     </div>
                                 @endforeach
                             </div>
@@ -203,12 +203,12 @@
                                 <div class="pro-del-atw-sec">
                                     <div class="pro-del-wi-sec">
                                         <a href="javascript:void(0)" class="add_to_wishlist" title="Wishlist" data-product-id="{{ $product->id }}">
-                                            <img src="{{ asset('frontend/assets/img/icon/wishlist.png') }}" class="img-responsive" alt="Add To wishlist" title="Add To wishlist">
+                                            <img src="{{ asset('frontend/assets/img/icon/wishlist.png') }}" class="img-responsive">
                                         </a>
                                     </div>
                                     <div class="pro-del-atc-sec">
                                         <a href="javascript:void(0)" class="add_to_cart" title="Add To Cart" data-product-id="{{ $product->id }}">
-                                            <img src="{{ asset('frontend/assets/img/icon/add-to-cart.png') }}" class="img-responsive" alt="Add To Cart" title="Add To Cart">
+                                            <img src="{{ asset('frontend/assets/img/icon/add-to-cart.png') }}" class="img-responsive">
                                         </a>
                                     </div>
                                 </div>
@@ -255,9 +255,29 @@
                         <div class="tp-shop-details__text-2 product-dimension-sec">
                             <h6 class="pro-dim-title-sec">Product Dimensions :</h6>
                             <ul class="pro-dimen-listing-sec">
-                                <li>Height (cm) : {{ $product->height }}</li>
-                                <li>Width (cm) : {{ $product->width }}</li>
-                                <li>Depth (cm) : {{ $product->depth }}</li>
+                                @if (!empty($product->length))
+                                    <li>Length (cm) : {{ $product->length }}</li>
+                                @else
+                                    <li>Length  : N/A</li>
+                                @endif
+
+                                @if (!empty($product->height))
+                                    <li>Height (cm) : {{ $product->height }}</li>
+                                @else
+                                    <li>Height (cm) : N/A</li>
+                                @endif
+
+                                @if (!empty($product->width))
+                                    <li>Width (cm) : {{ $product->width }}</li>
+                                @else
+                                    <li>Width (cm) : N/A</li>
+                                @endif
+
+                                @if (!empty($product->depth))
+                                    <li>Depth (cm) : {{ $product->depth }}</li>
+                                @else
+                                    <li>Depth (cm) : N/A</li>
+                                @endif
                             </ul>
                         </div>
                     </div>

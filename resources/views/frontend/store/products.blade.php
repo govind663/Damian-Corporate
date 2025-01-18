@@ -177,10 +177,10 @@
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="product-grid">
                                 <div class="product-image">
-                                    <a href="{{ route('frontend.product.details', $value->slug) }}" title="{{ $value->name }}" class="image">
+                                    <a href="{{ route('frontend.product.details', $value->slug) }}" class="image">
                                         @if (!empty($value->image))
-                                            <img class="pic-1" src="{{ asset('/damian_corporate/product/project_image/' . $value->image) }}" alt="{{ $value->image }}" title="{{ $value->image }}">
-                                            <img class="pic-2" src="{{ asset('/damian_corporate/product/project_image/' . $value->image) }}" alt="{{ $value->image }}" title="{{ $value->image }}">
+                                            <img class="pic-1" src="{{ asset('/damian_corporate/product/project_image/' . $value->image) }}">
+                                            <img class="pic-2" src="{{ asset('/damian_corporate/product/project_image/' . $value->image) }}">
                                         @endif
                                     </a>
                                     <span class="product-new-label">
