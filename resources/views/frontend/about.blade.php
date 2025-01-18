@@ -275,7 +275,7 @@
         projectItems.forEach(el => el.classList.remove('active')); // Remove 'active' from all
         item.classList.add('active'); // Add 'active' to the hovered item
         item.classList.remove('inactive'); // Ensure hovered item is not 'inactive'
-        
+
         // Mark other items as 'inactive'
         projectItems.forEach(el => {
           if (el !== item) el.classList.add('inactive');

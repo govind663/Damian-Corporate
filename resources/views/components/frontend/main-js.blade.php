@@ -1,27 +1,27 @@
 <!-- JS here -->
-<script src="{{ asset('frontend/assets/js/vendor/jquery.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/three.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/gsap.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/gsap-scroll-to-plugin.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/gsap-scroll-trigger.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/gsap-scroll-smoother.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/gsap-split-text.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/hover-effect.umd.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/vendor/waypoints.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/bootstrap-bundle.js') }}"></script>
-{{-- <script src="frontend/assets/js/ajax-form.js"></script> --}}
-<script src="{{ asset('frontend/assets/js/imagesloaded-pkgd.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/isotope-pkgd.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/jarallax.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/magnific-popup.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/nice-select.js') }}"></script>
-{{-- <script src="frontend/assets/js/purecounter.js"></script>
-<script src="frontend/assets/js/range-slider.js"></script> --}}
-<script src="{{ asset('frontend/assets/js/wow.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/slick.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/swiper-bundle.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/services-slider.js') }}"></script>
-{{-- <script src="{{ asset('frontend/assets/js/main.js') }}"></script> --}}
+<script src="{{ asset('frontend/assets/js/vendor/jquery.js') }}" defer type="text/javascript" charset="utf-8" ></script>
+<script src="{{ asset('frontend/assets/js/three.js') }}" defer type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('frontend/assets/js/gsap.js') }}" defer type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('frontend/assets/js/gsap-scroll-to-plugin.js') }}" defer type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('frontend/assets/js/gsap-scroll-trigger.js') }}" defer type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('frontend/assets/js/gsap-scroll-smoother.js') }}" defer type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('frontend/assets/js/gsap-split-text.js') }}" defer type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('frontend/assets/js/hover-effect.umd.js') }}" defer type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('frontend/assets/js/vendor/waypoints.js') }}" defer type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('frontend/assets/js/bootstrap-bundle.js') }}" defer type="text/javascript" charset="utf-8"></script>
+{{-- <script src="frontend/assets/js/ajax-form.js" defer type="text/javascript" charset="utf-8"></script> --}}
+<script src="{{ asset('frontend/assets/js/imagesloaded-pkgd.js') }}" defer type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('frontend/assets/js/isotope-pkgd.js') }}" defer type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('frontend/assets/js/jarallax.js') }}" defer type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('frontend/assets/js/magnific-popup.js') }}" defer type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('frontend/assets/js/nice-select.js') }}" defer type="text/javascript" charset="utf-8"></script>
+{{-- <script src="frontend/assets/js/purecounter.js" defer type="text/javascript" charset="utf-8"></script>
+<script src="frontend/assets/js/range-slider.js" defer type="text/javascript" charset="utf-8"></script> --}}
+<script src="{{ asset('frontend/assets/js/wow.js') }}" defer type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('frontend/assets/js/slick.js') }}" defer type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('frontend/assets/js/swiper-bundle.js') }}" defer type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('frontend/assets/js/services-slider.js') }}" defer type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('frontend/assets/js/main.js') }}" defer type="text/javascript" charset="utf-8"></script>
 
 <!-- Toaster Java Script -->
 <script>
