@@ -9,6 +9,10 @@
     RewriteCond %{HTTPS} off
     RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
 
+    # Redirect trailing slash for damian-corporate
+    RewriteCond %{REQUEST_URI} ^/damian-corporate/$ [NC]
+    RewriteRule ^(.*)/$ /$1 [R=301,L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -24,10 +28,11 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ server.php
-    
+
     RewriteCond %{REQUEST_METHOD} !^(GET|POST|DELETE|PATCH)
     RewriteRule .* - [R=405,L]
 </IfModule>
+
 
 # BEGIN cPanel-generated php ini directives, do not edit
 # Manual editing of this file may result in unexpected behavior.
