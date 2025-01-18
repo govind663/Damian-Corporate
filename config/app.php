@@ -123,14 +123,4 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    // ==== Laravel NoCaptcha ====
-    'aliases' => [
-        'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
-    ],
-
-    'providers' => [
-        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
-    ],
-
-
 ];
