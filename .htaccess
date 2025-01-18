@@ -9,10 +9,6 @@
     RewriteCond %{HTTPS} off
     RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
 
-    # Redirect trailing slash for damian-corporate
-    RewriteCond %{REQUEST_URI} ^/damian-corporate/$ [NC]
-    RewriteRule ^(.*)/$ /$1 [R=301,L]
-
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -31,6 +27,41 @@
 
     RewriteCond %{REQUEST_METHOD} !^(GET|POST|DELETE|PATCH)
     RewriteRule .* - [R=405,L]
+
+    # Redirect to / if the request is empty
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ / [R=301,L]
+
+    # Remove trailing slash
+    RewriteCond %{REQUEST_URI} !/$
+    RewriteRule ^(.*)/$ $1 [R=301,L]
+
+    # Remove trailing index.php
+    RewriteCond %{REQUEST_URI} !/index\.php
+    RewriteRule ^(.*)/index\.php$ $1 [R=301,L]
+
+    # Remove trailing index.html
+    RewriteCond %{REQUEST_URI} !/index\.html
+    RewriteRule ^(.*)/index\.html$ $1 [R=301,L]
+
+    # Remove trailing index.htm
+    RewriteCond %{REQUEST_URI} !/index\.htm
+    RewriteRule ^(.*)/index\.htm$ $1 [R=301,L]
+
+    # Remove trailing index
+    RewriteCond %{REQUEST_URI} !/index
+    RewriteRule ^(.*)/index$ $1 [R=301,L]
+
+    # SEO redirects
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/sitemap.xml$ $1/sitemap.xml [R=301,L]
+    RewriteRule ^(.*)/robots\.txt$ $1/robots.txt [R=301,L]
+    RewriteRule ^(.*)/favicon\.ico$ $1/favicon.ico [R=301,L]
+    RewriteRule ^(.*)/humans\.txt$ $1/humans.txt [R=301,L]
+    RewriteRule ^(.*)/ads\.txt$ $1/ads.txt [R=301,L]
+
 </IfModule>
 
 # BEGIN cPanel-generated php ini directives, do not edit
