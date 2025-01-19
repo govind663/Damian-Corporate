@@ -6,12 +6,14 @@ use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use GuzzleHttp\Client;
 
 class EasebuzzPaymentService
 {
     private $baseUrl;
     private $key;
     private $salt;
+    protected $client;
 
 
     public function __construct()
@@ -24,8 +26,8 @@ class EasebuzzPaymentService
     public function initiatePayment(array $paymentData)
     {
         $url = config('services.easebuzz.env') === 'test'
-            ? 'https://pay.easebuzz.in/payment/initiate'
-            : 'https://testpay.easebuzz.in/payment/initiate';
+                ? 'https://testpay.easebuzz.in/payment/initiate'
+                : 'https://pay.easebuzz.in/payment/initiate';
 
         $paymentData['hash'] = $this->generateHash($paymentData);
 
@@ -42,7 +44,11 @@ class EasebuzzPaymentService
         if ($response->successful()) {
             $responseData = $response->json();
             if (isset($responseData['payment_url'])) {
-                return $responseData;
+                Log::info('Easebuzz Payment URL', ['url' => $responseData['payment_url']]);
+                return $responseData['payment_url'];
+            } elseif (isset($responseData['url'])) {
+                Log::info('Easebuzz Payment URL', ['url' => $responseData['url']]);
+                return $responseData['url'];
             } else {
                 Log::error('Error in response, payment URL not found', ['response' => $responseData]);
                 throw new \Exception('No payment URL received in response.');
@@ -56,21 +62,22 @@ class EasebuzzPaymentService
 
     private function generateHash(array $paymentData)
     {
-        // Validate required fields
-        $requiredFields = ['txnid', 'amount', 'productinfo', 'firstname', 'email'];
-        foreach ($requiredFields as $field) {
-            if (!isset($paymentData[$field])) {
-                throw new \InvalidArgumentException("Missing required field: $field");
-            }
-        }
+        $data = [
+            'key' => $this->key,
+            'txnid' => $paymentData['txnid'],
+            'amount' => $paymentData['amount'],
+            'productinfo' => $paymentData['productinfo'],
+            'firstname' => $paymentData['firstname'],
+            'email' => $paymentData['email'],
+        ];
 
         // Add udf1 to udf7 dynamically, if available
         $udfArray = array_map(fn($i) => $paymentData["udf$i"] ?? '', range(1, 7));
+        $data['udf1'] = implode('|', $udfArray);
 
         // Prepare hash string
         $hashString = implode('|', [
             $this->key,
-            $paymentData['key'],
             $paymentData['txnid'],
             $paymentData['amount'],
             $paymentData['productinfo'],

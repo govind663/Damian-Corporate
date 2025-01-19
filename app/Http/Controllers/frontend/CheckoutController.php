@@ -204,6 +204,17 @@ class CheckoutController extends Controller
      */
     public function processEasebuzzPayment(Request $request, EasebuzzPaymentService $easebuzzPaymentService)
     {
+
+        // Validate form data
+        $request->validate([
+            'txnid' => 'required',
+            'amount' => 'required|numeric',
+            'firstname' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|numeric',
+            'productinfo' => 'required',
+        ]);
+
         // Prepare data to send
         $paymentData = [
             'key' => config('services.easebuzz.key'),
