@@ -70,12 +70,14 @@ class EasebuzzPaymentService
         // Prepare hash string
         $hashString = implode('|', [
             $this->key,
+            $paymentData['key'],
             $paymentData['txnid'],
             $paymentData['amount'],
             $paymentData['productinfo'],
             $paymentData['firstname'],
             $paymentData['email'],
-            ...$udfArray, // Include udf1 to udf7
+            implode('|', $udfArray),
+            $this->salt
         ]);
 
         // Return hashed string
@@ -93,38 +95,6 @@ class EasebuzzPaymentService
         } while (Order::where('transaction_token', $transactionId)->exists());
 
         return hash('sha512', $transactionId); // Securely hash the transaction ID
-    }
-
-    /**
-     * Validate the response hash.
-     */
-    public function validateResponseHash(array $response)
-    {
-        // Validate required fields
-        $requiredFields = ['status', 'email', 'firstname', 'productinfo', 'amount', 'txnid', 'hash'];
-
-        foreach ($requiredFields as $field) {
-            if (!isset($response[$field])) {
-                throw new \InvalidArgumentException("Missing required response field: $field");
-            }
-        }
-
-        // Construct hash string
-        $hashString = implode('|', [
-            $this->salt,
-            $response['status'],
-            '', '', '', '', '', '', '', '', '', '', // Empty placeholders for udf fields
-            $response['email'],
-            $response['firstname'],
-            $response['productinfo'],
-            $response['amount'],
-            $response['txnid'],
-            $this->key,
-        ]);
-
-        // Generate and validate the hash
-        $generatedHash = hash('sha512', $hashString);
-        return hash_equals($generatedHash, $response['hash']); // Use timing-safe comparison
     }
 
 }

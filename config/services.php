@@ -39,7 +39,9 @@ return [
     'easebuzz' => [
         'key' => env('EASEBUZZ_KEY'),
         'salt' => env('EASEBUZZ_SALT'),
-        'env' => env('EASEBUZZ_ENV', 'test'), // Set to 'test' for sandbox environment
+        'base_url' => env('EASEBUZZ_BASE_URL'),
+        'env' => env('EASEBUZZ_ENV', 'test'), // ensure 'test' or 'live' is set
     ],
+
 
 ];

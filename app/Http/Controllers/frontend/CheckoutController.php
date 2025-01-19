@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
-    private $easebuzzPaymentService;
+    public $easebuzzPaymentService;
 
     public function __construct(EasebuzzPaymentService $easebuzzPaymentService)
     {
@@ -63,8 +63,6 @@ class CheckoutController extends Controller
                 );
             }
 
-            // Generate a unique transaction token for the order in hash format (md5) by concatenating order number, product id and citizen id and cart id date and time
-            $order->transaction_token = md5($order->transaction_token . '-' . $productId . '-' . $citizenId . '-' . $cartId . '-' . Carbon::now()->toDateTimeString());
             $order->inserted_at = Carbon::now();
             $order->inserted_by = Auth::guard('citizen')->user()->id;
 
@@ -94,35 +92,49 @@ class CheckoutController extends Controller
             // Handle redirect based on payment method
             if ($request->payment == 4 || $request->payment == 1) {
 
-                $order = Order::find($order->id); // Get the order from database
-                $product = Product::find($order->product_id); // Get product info based on order
-                $user = Citizen::find($order->citizen_id); // Get user info based on order
-                $cart = Cart::find($order->cart_id); // Get cart info based on order
-                $billingAddress = [
-                    'postcode' => $request->postcode,
-                    'city' => $request->city,
-                    'state' => $request->state,
-                    'country' => $request->country,
-                    'address' => $request->street_address,
-                    'apartment_address' => $request->apartment_address,
-                ];
+                // $order = Order::find($order->id); // Get the order from database
+                // $product = Product::find($order->product_id); // Get product info based on order
+                // $user = Citizen::find($order->citizen_id); // Get user info based on order
+                // $cart = Cart::find($order->cart_id); // Get cart info based on order
+                // $billingAddress = [
+                //     'postcode' => $request->postcode,
+                //     'city' => $request->city,
+                //     'state' => $request->state,
+                //     'country' => $request->country,
+                //     'address' => $request->street_address,
+                //     'apartment_address' => $request->apartment_address,
+                // ];
 
-                // Prepare data to send
-                $mailData = [
-                    'order' => $order,
-                    'user' => $user,
-                    'product' => $product,
-                    'billingAddress' => $billingAddress,
-                    'cart' => $cart,
-                ];
+                // // Prepare data to send
+                // $mailData = [
+                //     'order' => $order,
+                //     'user' => $user,
+                //     'product' => $product,
+                //     'billingAddress' => $billingAddress,
+                //     'cart' => $cart,
+                // ];
 
-                // Send the email with the invoice attached
-                Mail::to($user['email'], 'Damian Corporate')
-                ->cc(['shweta@matrixbricks.com','riddhi@matrixbricks.com'])
-                ->send(new OrderInvoiceMail($mailData));
+                // // Send the email with the invoice attached
+                // Mail::to($user['email'], 'Damian Corporate')
+                // ->cc(['shweta@matrixbricks.com','riddhi@matrixbricks.com'])
+                // ->send(new OrderInvoiceMail($mailData));
 
-                // Redirect to Easebuzz Payment Gateway for PayPal or Bank Transfer
-                return $this->processEasebuzzPayment($easebuzzPaymentService, $order, $user);
+
+                return redirect()->route('frontend.payment', [
+                    'transaction_token' => $order->transaction_token,
+                    'order_id' => $order->id,
+                    'citizen_id' => $citizenId,
+                    'product_id' => $productId,
+                    'cart_id' => $cartId
+                ])->with([
+                    'payment' => $request->payment,
+                    'txnid' => $order->transaction_token,
+                    'order_id' => $order->id,
+                    'citizenId' => $citizenId,
+                    'productId' => $productId,
+                    'cartId' => $cartId,
+                ]);
+
             } else if ($request->payment == 2 || $request->payment == 3) {
 
                 $order = Order::find($order->id); // Get the order from database
@@ -160,47 +172,74 @@ class CheckoutController extends Controller
         }
     }
 
+
+    public function payment(Request $request, $txnid , $order_id, $citizenId, $productId, $cartId)
+    {
+        $order = Order::find($order_id);
+        $user = Citizen::find($citizenId);
+        $cart = Cart::get();
+        $product = Product::find($productId);
+        $amount = $order->order_total_price;
+        // dd($amount);
+
+        return view('frontend.store.online.payment', [
+            'order' => $order,
+            'user' => $user,
+            'cart' => $cart,
+            'product' => $product,
+            'txnid' => $txnid,
+            'orderId' => $order_id,
+            'citizenId' => $citizenId,
+            'productId' => $productId,
+            'cartId' => $cartId,
+            'amount' => $amount,
+        ]);
+    }
+
     /**
      * Redirect to Easebuzz payment gateway.
      *
      * @param Order $order
      * @return \Illuminate\Http\RedirectResponse
      */
-    private function processEasebuzzPayment(EasebuzzPaymentService $easebuzzPaymentService, $order, $user)
+    public function processEasebuzzPayment(Request $request, EasebuzzPaymentService $easebuzzPaymentService)
     {
+        // Prepare data to send
         $paymentData = [
             'key' => config('services.easebuzz.key'),
-            'txnid' => $order->transaction_token,
-            'amount' => $order->order_total_price,
-            'productinfo' => 'Order Payment',
-            'firstname' => Auth::guard('citizen')->user()->f_name . ' ' . Auth::guard('citizen')->user()->l_name,
-            'email' => Auth::guard('citizen')->user()->email,
-            'phone' => Auth::guard('citizen')->user()->phone,
-            'postcode' => Auth::guard('citizen')->user()->postcode,
-            'city' => $user['city'],
-            'state' => $user['state'],
-            'country' => $user['country'],
-            'address1' => $user['address'],
-            'address2' => $user['apartment_address'],
-            'notes' => $user['notes'] ?? '',
+            'txnid' => $request->txnid,
+            'amount' => $request->amount,
+            'productinfo' => $request->productinfo,
+            'firstname' => $request->firstname,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'postcode' => $request->zipcode,
+            'city' => $request->city,
+            'state' => $request->state,
+            'country' => $request->country,
+            'address1' => $request->address1,
+            'address2' => $request->address2,
             'surl' => route('payment.success'),
             'furl' => route('payment.failure'),
         ];
-
         try {
+            // Log payment data before making the API call
+            Log::info('Easebuzz API Request:', ['paymentData' => $paymentData]);
+
+            // Initiate payment with Easebuzz API
             $response = $easebuzzPaymentService->initiatePayment($paymentData);
 
-            // Ensure $response is logged as part of the context array
+            // Log the raw API response
             Log::info('Easebuzz API Response:', ['response' => $response]);
 
             if (isset($response['payment_url'])) {
-
                 // Redirect to Easebuzz payment gateway
                 return redirect()->away($response['payment_url']);
             }
 
             throw new \Exception('Error initiating payment: No payment URL received.');
         } catch (\Exception $e) {
+            // Log error details
             Log::error('Easebuzz Payment Error', [
                 'message' => $e->getMessage(),
                 'paymentData' => $paymentData,
@@ -213,11 +252,6 @@ class CheckoutController extends Controller
     public function success(Request $request, EasebuzzPaymentService $easebuzzPaymentService)
     {
         try {
-
-            // Validate the response hash from Easebuzz
-            if (!$easebuzzPaymentService->validateResponseHash($request->all())) {
-                throw new \Exception('Invalid payment response hash.');
-            }
 
             // Get the order by txnid (transaction token)
             $order = Order::where('transaction_token', $request->txnid)->first();
@@ -247,11 +281,6 @@ class CheckoutController extends Controller
     public function failure(Request $request, EasebuzzPaymentService $easebuzzPaymentService)
     {
         try {
-            // Validate the response hash from Easebuzz
-            if (!$easebuzzPaymentService->validateResponseHash($request->all())) {
-                throw new \Exception('Invalid payment response hash.');
-            }
-
 
             // Get the order by txnid (transaction token)
             $order = Order::where('transaction_token', $request->txnid)->first();
