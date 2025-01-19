@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.2",
         "anhskohbo/no-captcha": "^3.6",
+        "barryvdh/laravel-dompdf": "^3.0",
         "doctrine/dbal": "^4.2",
         "guzzlehttp/guzzle": "^7.9",
         "laravel/framework": "^11.31",

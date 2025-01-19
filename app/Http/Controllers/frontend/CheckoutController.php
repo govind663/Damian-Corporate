@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\EasebuzzPaymentService;
 use Illuminate\Support\Facades\Log;
+use App\Mail\OrderInvoiceMail;
+use App\Models\Product;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -90,10 +93,65 @@ class CheckoutController extends Controller
 
             // Handle redirect based on payment method
             if ($request->payment == 4 || $request->payment == 1) {
+
+                $order = Order::find($order->id); // Get the order from database
+                $product = Product::find($order->product_id); // Get product info based on order
+                $user = Citizen::find($order->citizen_id); // Get user info based on order
+                $cart = Cart::find($order->cart_id); // Get cart info based on order
+                $billingAddress = [
+                    'postcode' => $request->postcode,
+                    'city' => $request->city,
+                    'state' => $request->state,
+                    'country' => $request->country,
+                    'address' => $request->street_address,
+                    'apartment_address' => $request->apartment_address,
+                ];
+
+                // Prepare data to send
+                $mailData = [
+                    'order' => $order,
+                    'user' => $user,
+                    'product' => $product,
+                    'billingAddress' => $billingAddress,
+                    'cart' => $cart,
+                ];
+
+                // Send the email with the invoice attached
+                Mail::to($user['email'], 'Damian Corporate')
+                ->cc(['shweta@matrixbricks.com','riddhi@matrixbricks.com'])
+                ->send(new OrderInvoiceMail($mailData));
+
                 // Redirect to Easebuzz Payment Gateway for PayPal or Bank Transfer
                 return $this->processEasebuzzPayment($easebuzzPaymentService, $order, $user);
             } else if ($request->payment == 2 || $request->payment == 3) {
-                // For Cheque Payment or Cash on Delivery, directly submit and redirect
+
+                $order = Order::find($order->id); // Get the order from database
+                $product = Product::find($order->product_id); // Get product info based on order
+                $user = Citizen::find($order->citizen_id); // Get user info based on order
+                $cart = Cart::find($order->cart_id); // Get cart info based on order
+                $billingAddress = [
+                    'postcode' => $request->postcode,
+                    'city' => $request->city,
+                    'state' => $request->state,
+                    'country' => $request->country,
+                    'address' => $request->street_address,
+                    'apartment_address' => $request->apartment_address,
+                ];
+
+                // Prepare data to send
+                $mailData = [
+                    'order' => $order,
+                    'user' => $user,
+                    'product' => $product,
+                    'billingAddress' => $billingAddress,
+                    'cart' => $cart,
+                ];
+
+                // Send the email with the invoice attached
+                Mail::to($user['email'], 'Damian Corporate')
+                ->cc(['shweta@matrixbricks.com','riddhi@matrixbricks.com'])
+                ->send(new OrderInvoiceMail($mailData));
+
                 return redirect()->route('frontend.orders')->with('message', 'Order placed successfully!');
             }
 
