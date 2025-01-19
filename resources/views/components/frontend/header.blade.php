@@ -84,7 +84,7 @@
                                         style="
                                             background-color: transparent !important;
                                             border: 1px solid rgb(203, 196, 179);
-                                            width: 260px;
+                                            width: 230px;
                                             padding: 5px;
                                             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
                                             border-radius: 0px;
