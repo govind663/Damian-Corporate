@@ -22,8 +22,31 @@
         border-radius: 2px !important;
     }
 
-    .invalid-feedback {
-        color: #ffffff !important;
+    .invalid-feedback strong {
+        color: rgb(237, 233, 233);
+    }
+
+    .form-control.is-invalid, .was-validated .form-control:invalid {
+        border-color: #e9e8e8;
+        background-image: none !important;
+    }
+
+    /* Media query for mobile view */
+    @media (max-width: 768px) {
+        .button-group {
+            flex-direction: column; /* Stack the buttons vertically */
+            gap: 5px; /* Reduce the gap between buttons */
+            margin-top: 15px; /* Slightly adjust the margin for mobile view */
+        }
+
+        .button-group .tp-btn-border {
+            width: 100%; /* Make buttons take full width */
+            text-align: center; /* Center align text and icons */
+        }
+
+        .button-group a.tp-btn-border {
+            text-decoration: none; /* Ensure links are styled consistently */
+        }
     }
 </style>
 @endpush

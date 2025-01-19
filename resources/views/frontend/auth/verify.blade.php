@@ -97,13 +97,12 @@
                     <tr>
                         <td style="text-align:center;">
                             <p style="font-size:16px; color:rgba(69, 80, 86, 0.7411764705882353); line-height:18px; margin:0 0 0;">
-                                &copy;
+                                &copy; {{ date('Y') }}
                                 <strong>
-                                    <a href="{{ route('frontend.home') }}" title="Damian Corporate" target="_blank">
-                                        || Damian Corporate ||
+                                    <a href="{{ route('frontend.home') }}" title="Damian Corporate" target="_blank" style="color: #000000;">
+                                        Damian Corporate
                                     </a>
-                                </strong>
-
+                                </strong>. All rights reserved.
                             </p>
                         </td>
                     </tr>

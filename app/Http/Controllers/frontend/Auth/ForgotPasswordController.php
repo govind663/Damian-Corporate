@@ -26,7 +26,7 @@ class ForgotPasswordController extends Controller
                 'unique:citizen_password_reset_tokens,email',  // check unique email in citizen_password_reset_tokens table
             ],
         ],[
-            'email.required' => 'Email Id is required.',
+            'email.required' => 'E-Mail Address is required.',
             'email.email' => 'Invalid email format.',
             'email.exists' => 'Email does not exist.',
             'email.unique' => 'This email has already requested password reset.',

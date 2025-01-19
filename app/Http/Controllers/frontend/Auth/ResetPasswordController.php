@@ -49,10 +49,10 @@ class ResetPasswordController extends Controller
             ],
 
         ],[
-            'email.required' => 'Email is required',
-            'email.email' => 'Invalid email format',
-            'email.regex' => 'Invalid email format',
-            'email.exists' => 'Email does not exist',
+            'email.required' => 'E-Mail Address is required',
+            'email.email' => 'Invalid E-Mail Address format',
+            'email.regex' => 'Invalid E-Mail Address format',
+            'email.exists' => 'E-Mail Address does not exist',
 
             'password.required' => 'Password is required',
             'password.confirmed' => 'Password confirmation does not match',

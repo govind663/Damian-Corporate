@@ -67,7 +67,7 @@
 
                                 <div class="tp-header-icon d-block d-xl-none" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
                                     {{-- Mobile Only display User details --}}
-                                    <li class="nav-item dropdown" style="margin-bottom: 5px;">
+                                    <li class="nav-item dropdown">
                                         {{-- Display User's Name --}}
                                         <a class="nav-link dropdown-toggle" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             @if (!empty(Auth::guard('citizen')->user()->profile_image))
@@ -84,11 +84,10 @@
                                         style="
                                             background-color: transparent !important;
                                             border: 1px solid rgb(203, 196, 179);
-                                            margin-bottom: 20px !important;
-                                            width: 230px;
+                                            width: 260px;
                                             padding: 5px;
                                             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-                                            border-radius: 8px;
+                                            border-radius: 0px;
                                             overflow: hidden;
                                             z-index: 1050;
                                             position: absolute;
@@ -96,6 +95,10 @@
                                             left: 0;
                                             transform: translate3d(0px, 10px, 0px);
                                             transition: opacity 0.15s linear, transform 0.15s linear;
+                                            transform-origin: 50% 0% 0px;
+                                            opacity: 1;
+                                            pointer-events: auto;
+                                            margin-bottom: 20px;
                                         ">
                                             @if(Auth::guard('citizen')->check())
 
@@ -147,7 +150,7 @@
                                         <a class="nav-link" href="{{ route('frontend.cart') }}" title="Cart" style="position: relative; display: inline-flex; align-items: center; font-size: 18px; text-decoration: none; color: #fcf5f5;">
                                             <i class="fa-solid fa-cart-shopping" style="font-size: 24px;"></i>
                                             @if (!empty($cartQuantity) && $cartQuantity > 0)
-                                                <span style="position: absolute; top: -10px; right: -10px; background-color: #ff5722; color: #fff; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; border: 2px solid #fff;">
+                                                <span style="position: absolute; top: -10px; right: -10px; background-color: #078415; color: #fff; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; border: 2px solid #fff;">
                                                     <b>{{ $cartQuantity }}</b>
                                                 </span>
                                             @else
@@ -163,7 +166,7 @@
                                         <a class="nav-link" href="{{ route('frontend.wishlist') }}" title="Wishlist" style="position: relative; display: inline-flex; align-items: center; font-size: 18px; text-decoration: none; color: #f6f3f3;">
                                             <i class="fa-solid fa-heart" style="font-size: 24px;"></i>
                                             @if (!empty($wishlistQuantity) && $wishlistQuantity > 0)
-                                                <span style="position: absolute; top: -10px; right: -10px; background-color: #ff5722; color: #fff; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; border: 2px solid #fff;">
+                                                <span style="position: absolute; top: -10px; right: -10px; background-color: #078415; color: #fff; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; border: 2px solid #fff;">
                                                     {{ $wishlistQuantity }}
                                                 </span>
                                             @else
