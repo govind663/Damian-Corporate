@@ -81,45 +81,33 @@ class StoreController extends Controller
         // ==== Fetch Product Faq
         $productfaqs = ProductFaq::orderBy("id", "asc")->whereNull('deleted_at')->get();
 
-        // Request categories
-        $categories = $request->categories;
+        // Fetch filters from the request
+        $categories = $request->input('categories_id', []);
+        $subCategories = $request->input('subCategories_id', []);
+        $selectedColors = $request->input('color_id', []);
+        $minPrice = $request->input('minPrice', null);
+        $maxPrice = $request->input('maxPrice', null);
+        // dd($minPrice, $maxPrice, $categories, $subCategories, $selectedColors);
 
-        // Request subCategories
-        $subCategories = $request->subCategories;
-
-        // Request colors
-        $colors = $request->colors;
-
-        // Request minPrice
-        $minPrice = $request->minPrice;
-
-        // Request maxPrice
-        $maxPrice = $request->maxPrice;
-
-        // ==== Fetch Products
+        // Initialize query
         $query = Product::query()->whereNull('deleted_at');
 
-        // Apply category filter if selected
-        if ($categories) {
+        // Apply filters to the query
+        if (!empty($categories)) {
             $query->whereIn('product_category_id', $categories);
         }
-
-        // Apply subcategory filter if selected
-        if ($subCategories) {
+        if (!empty($subCategories)) {
             $query->whereIn('product_sub_category_id', $subCategories);
         }
-
-        // Apply color filter if selected
-        if ($colors) {
-            $query->whereIn('product_colors_id', $colors);
+        if (!empty($selectedColors)) {
+            $query->whereIn('product_colors_id', $selectedColors);
+        }
+        if ($minPrice !== null && $maxPrice !== null) {
+            $query->whereBetween('discount_price_after_percentage', [(float) $minPrice, (float) $maxPrice]);
         }
 
-        // Apply price range if selected
-        if ($minPrice && $maxPrice) {
-            $query->whereBetween('price', [$minPrice, $maxPrice]);
-        }
-
-        $products = $query->orderBy("id", "desc")->get();
+        $products = $query->orderBy('id', 'desc')->get();
+        // dd($products);
 
         // Return only the products section
         $data = [

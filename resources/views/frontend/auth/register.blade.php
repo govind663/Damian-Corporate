@@ -237,7 +237,7 @@
                 </div>
                 <div class="col-lg-6 right-login">
                     <div class="login-right-side-img-sec">
-                        <img src="{{ asset('frontend/assets/img/contact/login-sec-img.jpg') }}" alt="login-sec-img" title="login-sec-img">
+                        <img src="{{ asset('frontend/assets/img/contact/login-sec-img.jpg') }}">
                     </div>
                 </div>
             </div>

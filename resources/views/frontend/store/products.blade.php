@@ -172,7 +172,7 @@
 
                 {{-- Start Store Product Section --}}
                 <div class="col-xl-9 col-lg-9 col-md-12">
-                    <div class="row">
+                    <div class="row" id="product-grid">
                         @foreach($products as $key => $value)
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="product-grid">
@@ -369,6 +369,26 @@
 {{-- Filter Products --}}
 <script>
     $(document).ready(function () {
+
+        // Check if the user is logged in
+        let citizenId = @json(Auth::guard('citizen')->check() ? Auth::guard('citizen')->id() : null);
+
+        // Handle Login Check Function
+        function handleLoginCheck(action) {
+            // Check if the user is logged in (this depends on your application's logic)
+            let isLoggedIn = {{ auth()->check() ? 'true' : 'false' }}; // Check if the user is logged in
+
+            if (!isLoggedIn) {
+                // If not logged in, show a message or redirect to login page
+                toastr.error('Please log in to ' + action + '.');
+                // Optionally, you can redirect the user to the login page
+                window.location.href = '{{ route("login") }}';
+                return false;
+            }
+
+            return true;
+        }
+
         // Set up CSRF token for AJAX
         $.ajaxSetup({
             headers: {
@@ -404,12 +424,12 @@
                 url: "{{ route('frontend.products.filter') }}", // Update this route as per your backend logic
                 method: "POST",
                 data: {
-                    categories: categories,
-                    subCategories: subCategories,
-                    colors: colors,
-                    minPrice: minPrice,
-                    maxPrice: maxPrice,
-                    _token: "{{ csrf_token() }}",
+                    categories_id: categories,  // Send selected category IDs
+                    subCategories_id: subCategories,  // Send selected subcategory IDs
+                    color_id: colors,  // Send selected color IDs
+                    minPrice: minPrice,  // Send min price
+                    maxPrice: maxPrice,  // Send max price
+                    _token: "{{ csrf_token() }}",  // CSRF token
                 },
                 success: function (response) {
                     // Clear previous products
@@ -417,66 +437,176 @@
 
                     // Check if products are found
                     if (response.products.length === 0) {
+                        // Display the "No products found" message
                         $('#product-grid').append(`
-                            <div class="no-products-message">
-                                <p>No products available in store</p>
+                            <div class="empty-cart">
+                                <h3 class="text-center">No products found</h3>
+                                <p class="text-center">
+                                    It looks like no products match your selected filters.
+                                    <br>
+                                    Please try adjusting the filters to find what you're looking for.
+                                </p>
+                                <div class="sign-up-btn-wrap text-center">
+                                    <div class="btn-sec">
+                                        <a href="{{ route('frontend.products') }}">
+                                            <button class="tp-btn-theme" type="button">
+                                                <span>
+                                                    <i class="fa-solid fa-cart-shopping"></i>
+                                                    Continue Shopping
+                                                </span>
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         `);
                     } else {
                         // Update the product list with the fetched data
-                        $.each(response.products, function(index, product) {
+                        $.each(response.products, function (index, product) {
                             $('#product-grid').append(`
-                                <div class="product-grid">
-                                    <div class="product-image">
-                                        <a href="{{ route('frontend.product.details', '') }}/${product.slug}" title="${product.name}" class="image">
-                                            ${product.image ? `
-                                                <img class="pic-1" src="{{ asset('/damian_corporate/product/project_image/') }}/${product.image}" alt="${product.image}">
-                                                <img class="pic-2" src="{{ asset('/damian_corporate/product/project_image/') }}/${product.image}" alt="${product.image}">
-                                            ` : ''}
-                                        </a>
-                                        <span class="product-new-label">
-                                            ${product.product_type === 1 ? 'New' : (product.product_type === 2 ? 'Sale' : (product.product_type === 3 ? 'Best Seller' : 'Featured'))}
-                                        </span>
-                                    </div>
-                                    <div class="product-content">
-                                        <h3 class="store-pro-title">
-                                            <a href="{{ route('frontend.product.details', '') }}/${product.slug}">
-                                                ${product.name}
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <div class="product-grid">
+                                        <div class="product-image">
+                                            <a href="{{ route('frontend.product.details', '') }}/${product.slug}" title="${product.name}" class="image">
+                                                ${product.image ? `
+                                                    <img class="pic-1" src="{{ asset('/damian_corporate/product/project_image/') }}/${product.image}" alt="${product.image}">
+                                                    <img class="pic-2" src="{{ asset('/damian_corporate/product/project_image/') }}/${product.image}" alt="${product.image}">
+                                                ` : ''}
                                             </a>
-                                        </h3>
-                                        <div class="price">
-                                            <span>₹ ${product.discount_price_after_percentage}</span> ₹ ${product.price}
+                                            <span class="product-new-label">
+                                                ${product.product_type === 1 ? 'New' : (product.product_type === 2 ? 'Sale' : (product.product_type === 3 ? 'Best Seller' : 'Featured'))}
+                                            </span>
                                         </div>
-                                        <ul class="product-buttons">
-                                            <li>
-                                                <a href="javascript:void(0)" class="add-to-cart addToCart" data-product-id="${product.id}">
-                                                    <i class="fas fa-shopping-bag"></i>
-                                                    Add to Cart
+                                        <div class="product-content">
+                                            <h3 class="store-pro-title">
+                                                <a href="{{ route('frontend.product.details', '') }}/${product.slug}">
+                                                    ${product.name}
                                                 </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0)" class="quick-view addToWishlist" data-product-id="${product.id}">
-                                                    <i class="far fa-heart"></i>
-                                                    Wishlist
-                                                </a>
-                                            </li>
-                                        </ul>
+                                            </h3>
+                                            <div class="price">
+                                                <span>₹ ${product.discount_price_after_percentage}</span> ₹ ${product.price}
+                                            </div>
+                                            <ul class="product-buttons">
+                                                <li>
+                                                    <a href="javascript:void(0)" class="add-to-cart addToCart" data-product-id="${product.id}">
+                                                        <i class="fas fa-shopping-bag"></i>
+                                                        Add to Cart
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="quick-view addToWishlist" data-product-id="${product.id}">
+                                                        <i class="far fa-heart"></i>
+                                                        Wishlist
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             `);
                         });
+
+                        // Rebind the event handlers for the new "Add to Cart" and "Add to Wishlist" buttons
+                        bindCartWishlistEvents();
                     }
                 },
                 error: function (xhr) {
                     console.error(xhr.responseText); // Log any errors
                 },
+                complete: function () {
+                    // Reset the CSRF token
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                },
+                beforeSend: function () {
+                    // Show loading indicator
+                    $('#product-grid').append(`
+                        <div class="col-md-12">
+                            <div class="loading">
+                                <i class="fas fa-spinner fa-pulse"></i>
+                            </div>
+                        </div>
+                    `);
+                }
             });
         }
 
         // Event listeners for filters
         $("input[name='categories[]'], input[name='sub_categories[]'], input[name='colors[]']").on('change', fetchProducts);
         $('#min_price, #max_price').on('input', fetchProducts);
+
+        // Function to bind the Add to Cart and Wishlist events
+        function bindCartWishlistEvents() {
+            // Add to Cart
+            $('.add-to-cart').on('click', function (e) {
+                e.preventDefault(); // Prevent the default behavior (i.e., redirection)
+
+                let productId = $(this).data('product-id'); // Get the product ID from the data attribute
+
+                // Check if the user is logged in
+                if (!handleLoginCheck('add to cart')) return;
+
+                // Perform AJAX request to add to cart
+                $.ajax({
+                    url: '{{ route('frontend.addToCart') }}', // Your cart add route
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: productId,
+                        citizen_id: citizenId, // Pass citizen_id
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.success(response.message); // Show success toaster message
+                            location.reload(); // Reload the page to reflect the changes
+                        } else {
+                            toastr.error(response.message); // Show error toaster message
+                        }
+                    },
+                    error: function () {
+                        toastr.error('An error occurred. Please try again later.');
+                    }
+                });
+            });
+
+            // Add to Wishlist
+            $('.quick-view').on('click', function (e) {
+                e.preventDefault(); // Prevent the default behavior (i.e., redirection)
+
+                let productId = $(this).data('product-id'); // Get the product ID from the data attribute
+
+                // Check if the user is logged in
+                if (!handleLoginCheck('add to wishlist')) return;
+
+                // Perform AJAX request to add to wishlist
+                $.ajax({
+                    url: '{{ route('frontend.addToWishlist') }}', // Your wishlist add route
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: productId,
+                        citizen_id: citizenId, // Pass citizen_id
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.success(response.message); // Show success toaster message
+                            location.reload(); // Reload the page to reflect the changes
+                        } else {
+                            toastr.error(response.message); // Show error toaster message
+                        }
+                    },
+                    error: function () {
+                        toastr.error('An error occurred. Please try again later.');
+                    }
+                });
+            });
+        }
+
+        // Call this function initially to bind the events when the page loads
+        bindCartWishlistEvents();
     });
 </script>
-
 @endpush
