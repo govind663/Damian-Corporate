@@ -257,11 +257,11 @@
                                 <span class="mtext">Product</span>
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="{{ route('product-faq.index') }}" class="{{ (Route::currentRouteName() === 'product-faq.index') || (Route::currentRouteName() === 'product-faq.create') || (Route::currentRouteName() === 'product-faq.edit') ? 'active' : '' }}">
                                 <span class="mtext">FAQ</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
 

@@ -224,7 +224,7 @@
     <!-- End Store Section -->
 
     {{-- Start Store Faq Section --}}
-    <div class="store-faq-sec black-bg">
+    {{-- <div class="store-faq-sec black-bg">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12 col-lg-12">
@@ -262,7 +262,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- End Store Faq Section --}}
 
 @endsection

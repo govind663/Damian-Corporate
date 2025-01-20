@@ -257,34 +257,28 @@
                                 {!! $product->description !!}
                             </p>
                         </div>
+                        @if (!empty($product->length) || !empty($product->height) || !empty($product->width) || !empty($product->depth))
                         <div class="tp-shop-details__text-2 product-dimension-sec">
                             <h6 class="pro-dim-title-sec">Product Dimensions :</h6>
                             <ul class="pro-dimen-listing-sec">
                                 @if (!empty($product->length))
                                     <li>Length (cm) : {{ $product->length }}</li>
-                                @else
-                                    <li>Length  : N/A</li>
                                 @endif
 
                                 @if (!empty($product->height))
                                     <li>Height (cm) : {{ $product->height }}</li>
-                                @else
-                                    <li>Height (cm) : N/A</li>
                                 @endif
 
                                 @if (!empty($product->width))
                                     <li>Width (cm) : {{ $product->width }}</li>
-                                @else
-                                    <li>Width (cm) : N/A</li>
                                 @endif
 
                                 @if (!empty($product->depth))
                                     <li>Depth (cm) : {{ $product->depth }}</li>
-                                @else
-                                    <li>Depth (cm) : N/A</li>
                                 @endif
                             </ul>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

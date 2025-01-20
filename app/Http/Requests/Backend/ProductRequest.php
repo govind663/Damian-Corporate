@@ -30,7 +30,7 @@ class ProductRequest extends FormRequest
                 'slug' => 'required|string|max:255',
                 'description' => 'required|string',
                 'project_image' => 'mimes:jpeg,png,jpg|max:2048',
-                'product_other_images.*' => 'mimes:jpeg,png,jpg,webp|max:2048',
+                'product_other_images.*' => 'nullable|mimes:jpeg,png,jpg,webp|max:2048',
                 'price' => 'required|numeric',
                 'discount_type' => 'required|numeric',
                 // 'length' => 'required|string|max:255',

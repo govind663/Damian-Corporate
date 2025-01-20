@@ -196,74 +196,11 @@ class CheckoutController extends Controller
         ]);
     }
 
-    /**
-     * Redirect to Easebuzz payment gateway.
-     *
-     * @param Order $order
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function processEasebuzzPayment(Request $request, EasebuzzPaymentService $easebuzzPaymentService)
-    {
-
-        // Validate form data
-        $request->validate([
-            'txnid' => 'required',
-            'amount' => 'required|numeric',
-            'firstname' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required|numeric',
-            'productinfo' => 'required',
-        ]);
-
-        // Prepare data to send
-        $paymentData = [
-            'key' => config('services.easebuzz.key'),
-            'txnid' => $request->txnid,
-            'amount' => $request->amount,
-            'productinfo' => $request->productinfo,
-            'firstname' => $request->firstname,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'postcode' => $request->zipcode,
-            'city' => $request->city,
-            'state' => $request->state,
-            'country' => $request->country,
-            'address1' => $request->address1,
-            'address2' => $request->address2,
-            'surl' => route('payment.success'),
-            'furl' => route('payment.failure'),
-        ];
-        try {
-            // Log payment data before making the API call
-            Log::info('Easebuzz API Request:', ['paymentData' => $paymentData]);
-
-            // Initiate payment with Easebuzz API
-            $response = $easebuzzPaymentService->initiatePayment($paymentData);
-
-            // Log the raw API response
-            Log::info('Easebuzz API Response:', ['response' => $response]);
-
-            if (isset($response['payment_url'])) {
-                // Redirect to Easebuzz payment gateway
-                return redirect()->away($response['payment_url']);
-            }
-
-            throw new \Exception('Error initiating payment: No payment URL received.');
-        } catch (\Exception $e) {
-            // Log error details
-            Log::error('Easebuzz Payment Error', [
-                'message' => $e->getMessage(),
-                'paymentData' => $paymentData,
-            ]);
-            return redirect()->back()->with('error', 'Error with payment processing: ' . $e->getMessage());
-        }
-
-    }
-
-    public function success(Request $request, EasebuzzPaymentService $easebuzzPaymentService)
+    public function success(Request $request)
     {
         try {
 
+            // dd('Transaction is successful.');
             // Get the order by txnid (transaction token)
             $order = Order::where('transaction_token', $request->txnid)->first();
 
@@ -276,7 +213,7 @@ class CheckoutController extends Controller
                 $order->payment_status = 3; // Paid
                 $order->payment_date = Carbon::now();
             } else if ($request->payment == 2 || $request->payment == 3) {
-                $order->payment_status = 1; // Pending payment
+                $order->payment_status = 3; // Pending payment
                 $order->payment_date = Carbon::now();
             }
 
@@ -289,7 +226,7 @@ class CheckoutController extends Controller
     }
 
     // ====== Handle payment failure
-    public function failure(Request $request, EasebuzzPaymentService $easebuzzPaymentService)
+    public function failure(Request $request)
     {
         try {
 

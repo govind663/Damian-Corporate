@@ -353,7 +353,7 @@ Damian Corporate | Edit Product
                                             <div id="banner-container-{{ $key }}">
                                                 <div id="file-banner-{{ $key }}"></div>
                                             </div>
-                                            <input type="file" onchange="bannerPreviewFiles({{ $key }})" accept=".png, .jpg, .jpeg, .webp" name="product_other_images[]" id="product_other_images_{{ $key }}" class="form-control mt-2 @error('product_other_images.*') is-invalid @enderror" value="{{ $image }}">
+                                            <input type="file" onchange="bannerPreviewFiles({{ $key }})" accept=".png, .jpg, .jpeg, .webp" name="product_other_images[]" id="product_other_images_{{ $key }}" class="form-control mt-2 @error('product_other_images.*') is-invalid @enderror">
                                             <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
                                             <br>
                                             <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
@@ -544,20 +544,20 @@ Damian Corporate | Edit Product
         $('#addBannerImageRow').click(function () {
             rowId++;
             const newRow = `
-                <tr>
+                <tr id="banner-image-row-${rowId}">
                     <td>
                         <div class="col-sm-12 col-md-12">
                             <div id="banner-container-${rowId}">
                                 <div id="file-banner-${rowId}"></div>
                             </div>
-                            <input type="file" onchange="bannerPreviewFiles(${rowId})" accept=".png, .jpg, .jpeg, .webp" name="product_other_images[]" id="product_other_images_${rowId}" class="form-control @error('product_other_images.*') is-invalid @enderror" value="{{ old('product_other_images.${rowId}') }}">
+                            <input type="file" onchange="bannerPreviewFiles(${rowId})" accept=".png, .jpg, .jpeg, .webp" name="product_other_images[]" id="product_other_images_${rowId}" class="form-control @error('product_other_images.*') is-invalid @enderror">
                             <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
                             <br>
-                            <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png,.webp format can be uploaded.</b></small>
+                            <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
                         </div>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-danger removeBannerImageRow">Remove</button>
+                        <button type="button" class="btn btn-danger removeBannerImageRow" data-row-id="${rowId}">Remove</button>
                     </td>
                 </tr>`;
             $('#dynamicBannerImageTable tbody').append(newRow);
@@ -565,7 +565,13 @@ Damian Corporate | Edit Product
 
         // Remove a row
         $(document).on('click', '.removeBannerImageRow', function () {
-            $(this).closest('tr').remove();
+            const rowId = $(this).data('row-id'); // Get the row ID
+            $(`#banner-image-row-${rowId}`).remove(); // Remove the row
+            // Update the row ID
+            rowId--;
+            $('#dynamicBannerImageTable tbody tr').each(function (index) {
+                $(this).attr('id', `banner-image-row-${index}`);
+            });
         });
     });
 
@@ -589,12 +595,13 @@ Damian Corporate | Edit Product
                 reader.readAsDataURL(file);
             } else {
                 // Unsupported file type
-                filePreview.innerHTML = '<p class="text-danger">Unsupported file type. Please upload .jpg, .jpeg, or .png.</p>';
+                filePreview.innerHTML = '<p class="text-danger">Unsupported file type. Please upload .jpg, .jpeg, .png, or .webp.</p>';
             }
 
             previewContainer.style.display = 'block';
         } else {
             // No file selected
+            filePreview.innerHTML = '';
             previewContainer.style.display = 'none';
         }
     }

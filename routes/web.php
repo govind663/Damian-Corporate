@@ -71,7 +71,7 @@ Route::get('/login', function () {
 
 
 // ==== Frontend
-Route::group(['prefix'=> '', 'middleware'=>[PreventCitizenBackHistoryMiddleware::class, RemoveTrailingSlash::class]],function(){
+Route::group(['prefix'=> ''],function(){
 
     // ==== Home
     Route::get('/', [FrontendHomeController::class, 'index'])->name('frontend.home');
@@ -106,7 +106,7 @@ Route::group(['prefix'=> '', 'middleware'=>[PreventCitizenBackHistoryMiddleware:
 });
 
 // ==== Store Product [Ecommerce] Group
-Route::group(['prefix'=> 'store', 'middleware'=>[PreventCitizenBackHistoryMiddleware::class]], function(){
+Route::group(['prefix'=> 'store', ], function(){
 
     // ==== Store Register
     Route::get('register', [CitizenRegisterController::class, 'citizenRegister'])->name('frontend.citizen.register');
@@ -142,7 +142,7 @@ Route::group(['prefix'=> 'store', 'middleware'=>[PreventCitizenBackHistoryMiddle
 });
 
 // ==== Citizen Dashboard
-Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitizenBackHistoryMiddleware::class]], function(){
+Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen']], function(){
 
     // ==== My Profile
     Route::get('my-profile', [StoreController::class, 'myProfile'])->name('frontend.myProfile');
@@ -200,11 +200,11 @@ Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitize
     Route::get('frontend/payment/{transaction_token}/{order_id}/{citizen_id}/{product_id}/{cart_id}', [CheckoutController::class, 'payment'])->name('frontend.payment');
     Route::post('/payment/process/store', [CheckoutController::class, 'processEasebuzzPayment'])->name('frontend.payment.process');
 
-    // ==== Payment Success/Failure by Easebuzz
-    Route::post('/payment/success', [CheckoutController::class, 'success'])->name('payment.success');
-    Route::post('/payment/failure', [CheckoutController::class, 'failure'])->name('payment.failure');
-
 });
+
+// ==== Payment Success/Failure by Easebuzz
+Route::get('/payment/success', [CheckoutController::class, 'success'])->name('payment.success');
+Route::get('/payment/failure', [CheckoutController::class, 'failure'])->name('payment.failure');
 
 // ===== Admin Register
 Route::get('admin/register', [RegisterController::class,'register'])->name('admin.register');
@@ -224,7 +224,7 @@ Route::get('admin/reset-password/{token}', [ResetPasswordController::class, 'sho
 Route::post('admin/reset-password', [ResetPasswordController::class, 'updatePassword'])->name('admin.password.update');
 
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', PreventBackHistoryMiddleware::class]], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth:web']], function () {
 
     // ===== Admin Dashboard
     Route::get('home', [HomeController::class, 'adminHome'])->name('admin.dashboard');
@@ -321,24 +321,24 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', PreventBackHisto
 });
 
 // ==== Robots
-Route::get('/robots.txt', function () {
-    return response("User-agent: *\nDisallow:", 200)
-        ->header('Content-Type', 'text/plain')
-        ->header('X-Robots-Tag', 'noindex')
-        ->header('X-Content-Type-Options', 'nosniff')
-        ->header('X-XSS-Protection', '1; mode=block')
-        ->header('X-Frame-Options', 'SAMEORIGIN');
-});
+// Route::get('/robots.txt', function () {
+//     return response("User-agent: *\nDisallow:", 200)
+//         ->header('Content-Type', 'text/plain')
+//         ->header('X-Robots-Tag', 'noindex')
+//         ->header('X-Content-Type-Options', 'nosniff')
+//         ->header('X-XSS-Protection', '1; mode=block')
+//         ->header('X-Frame-Options', 'SAMEORIGIN');
+// });
 
 // ==== Sitemap
-Route::get('/sitemap.xml', function () {
-    return response()->view('sitemap')
-        ->header('Content-Type', 'text/xml')
-        ->header('X-Robots-Tag', 'noindex')
-        ->header('X-Content-Type-Options', 'nosniff')
-        ->header('X-XSS-Protection', '1; mode=block')
-        ->header('X-Frame-Options', 'SAMEORIGIN')
-        ->header('Content-Type', 'application/xml')
-        ->header('Content-Disposition', 'attachment; filename="sitemap.xml"')
-        ->header('Content-Transfer-Encoding', 'binary');
-});
+// Route::get('/sitemap.xml', function () {
+//     return response()->view('sitemap')
+//         ->header('Content-Type', 'text/xml')
+//         ->header('X-Robots-Tag', 'noindex')
+//         ->header('X-Content-Type-Options', 'nosniff')
+//         ->header('X-XSS-Protection', '1; mode=block')
+//         ->header('X-Frame-Options', 'SAMEORIGIN')
+//         ->header('Content-Type', 'application/xml')
+//         ->header('Content-Disposition', 'attachment; filename="sitemap.xml"')
+//         ->header('Content-Transfer-Encoding', 'binary');
+// });

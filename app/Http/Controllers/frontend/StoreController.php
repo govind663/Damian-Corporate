@@ -425,7 +425,7 @@ class StoreController extends Controller
     // ==== Orders
     public function orders()
     {
-        $orders = Order::with('product', 'citizen', 'cart')->where('citizen_id', Auth::guard('citizen')->user()->id)->whereNull('deleted_at')->orderBy('id', 'desc')->get();
+        $orders = Order::where('citizen_id', Auth::guard('citizen')->user()->id)->whereNull('deleted_at')->orderBy('id', 'desc')->get();
         // dd($orders);
 
         foreach ($orders as $key => $order) {
@@ -677,11 +677,5 @@ class StoreController extends Controller
         ]);
 
         return redirect()->route('frontend.myProfile')->with("message", "Password changed successfully!");
-    }
-
-    // ==== Checkout Index
-    public function processCheck(Request $request)
-    {
-        return view('frontend.checkout.index');
     }
 }

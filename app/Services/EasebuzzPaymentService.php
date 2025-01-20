@@ -25,15 +25,21 @@ class EasebuzzPaymentService
 
     public function initiatePayment(array $paymentData)
     {
-        $url = config('services.easebuzz.env') === 'test'
-                ? 'https://testpay.easebuzz.in/payment/initiate'
-                : 'https://pay.easebuzz.in/payment/initiate';
+        // dd('hello');
+
+        $url = 'https://testpay.easebuzz.in/payment/initiate';
+        // dd($url);
+
+        // dd($paymentData);
 
         $paymentData['hash'] = $this->generateHash($paymentData);
 
         Log::info('Easebuzz Request Data', ['data' => $paymentData]);
 
         $response = Http::post($url, $paymentData);
+        // dd($response);
+
+
         Log::info('Easebuzz Response', ['status' => $response->status(), 'body' => $response->body()]);
 
         Log::info('Easebuzz API Response', [
