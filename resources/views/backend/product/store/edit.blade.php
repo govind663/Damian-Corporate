@@ -341,19 +341,35 @@ Damian Corporate | Edit Product
                             <th>Action</th>
                         </tr>
                     </thead>
+                    @php
+                        $bannerImages = is_string($product->product_other_images)
+                                        ? json_decode($product->product_other_images, true)
+                                        : $product->product_other_images;
+
+                        $bannerImages = $bannerImages ?? []; // Ensure it's always an array
+                    @endphp
+
                     <tbody>
-                        @if(!empty($productOtherImages))
-                            @foreach($productOtherImages as $key => $image)
+                        @if (!empty($bannerImages))
+                            @foreach ($bannerImages as $key => $image)
                                 <tr id="banner-image-row-{{ $key }}">
                                     <td width="85%">
                                         <div class="row d-flex col-sm-8 col-md-8">
-                                            @if(!empty($image))
-                                                <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}" alt="{{ $image }}" class="img-thumbnail" style="max-width: 150px; max-height: 150px;">
+                                            @if (!empty($image))
+                                                <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}"
+                                                     alt="{{ $image }}"
+                                                     class="img-thumbnail"
+                                                     style="max-width: 150px; max-height: 150px;">
                                             @endif
                                             <div id="banner-container-{{ $key }}">
                                                 <div id="file-banner-{{ $key }}"></div>
                                             </div>
-                                            <input type="file" onchange="bannerPreviewFiles({{ $key }})" accept=".png, .jpg, .jpeg, .webp" name="product_other_images[]" id="product_other_images_{{ $key }}" class="form-control mt-2 @error('product_other_images.*') is-invalid @enderror">
+                                            <input type="file"
+                                                   onchange="bannerPreviewFiles({{ $key }})"
+                                                   accept=".png, .jpg, .jpeg, .webp"
+                                                   name="product_other_images[]"
+                                                   id="product_other_images_{{ $key }}"
+                                                   class="form-control mt-2 @error('product_other_images.*') is-invalid @enderror">
                                             <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
                                             <br>
                                             <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
@@ -365,10 +381,10 @@ Damian Corporate | Edit Product
                                         </div>
                                     </td>
                                     <td width="15%">
-                                        @if($loop->first)
+                                        @if ($loop->first)
                                             <button type="button" class="btn btn-primary" id="addBannerImageRow">Add More</button>
                                         @else
-                                            <button type="button" class="btn btn-danger removeBannerImageRow" data-row-id="{{ $key }}">Remove</button>
+                                            <button type="button" class="btn btn-danger removeBannerImageRow">Remove</button>
                                         @endif
                                     </td>
                                 </tr>
@@ -376,7 +392,12 @@ Damian Corporate | Edit Product
                         @else
                             <tr id="banner-image-row-0">
                                 <td>
-                                    <input type="file" onchange="bannerPreviewFiles(0)" accept=".png, .jpg, .jpeg, .webp" name="product_other_images[]" id="product_other_images_0" class="form-control @error('product_other_images.*') is-invalid @enderror">
+                                    <input type="file"
+                                           onchange="bannerPreviewFiles(0)"
+                                           accept=".png, .jpg, .jpeg, .webp"
+                                           name="product_other_images[]"
+                                           id="product_other_images_0"
+                                           class="form-control @error('product_other_images.*') is-invalid @enderror">
                                     <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
                                     <br>
                                     <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
@@ -565,14 +586,26 @@ Damian Corporate | Edit Product
 
         // Remove a row
         $(document).on('click', '.removeBannerImageRow', function () {
-            const rowId = $(this).data('row-id'); // Get the row ID
-            $(`#banner-image-row-${rowId}`).remove(); // Remove the row
-            // Update the row ID
-            rowId--;
-            $('#dynamicBannerImageTable tbody tr').each(function (index) {
-                $(this).attr('id', `banner-image-row-${index}`);
-            });
+            const row = $(this).closest('tr');
+            const tableBody = $('#dynamicBannerImageTable tbody');
+            const remainingRows = tableBody.find('tr').length;
+
+            if (remainingRows === 1) {
+                // If only one row is left, prevent removal
+                alert('At least one image must be present. Please add a new image before removing this one.');
+            } else {
+                const imageName = row.find('img').attr('alt'); // Get the image name from alt attribute
+
+                if (imageName) {
+                    // Add the image name to a hidden field for removal
+                    const removeInput = `<input type="hidden" name="images_to_remove[]" value="${imageName}">`;
+                    $('#dynamicBannerImageTable').append(removeInput);
+                }
+
+                row.remove(); // Remove the row
+            }
         });
+
     });
 
     // Function for banner image preview
@@ -606,4 +639,5 @@ Damian Corporate | Edit Product
         }
     }
 </script>
+
 @endpush

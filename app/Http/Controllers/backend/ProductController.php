@@ -148,7 +148,6 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->product_other_images = json_decode($product->product_other_images, true);
-        $productOtherImages = $product->product_other_images;
 
         // ===== Fetch Product Category
         $productCategories = ProductCategory::orderBy("id","desc")->whereNull('deleted_at')->get();
@@ -164,7 +163,6 @@ class ProductController extends Controller
             'productCategories' => $productCategories,
             'productSubCategories' => $productSubCategories,
             'colors' => $colors,
-            'productOtherImages' => $productOtherImages
         ]);
     }
 
@@ -199,32 +197,36 @@ class ProductController extends Controller
             }
 
 
-            // Delete existing images
-            if (!empty($bannerImagePaths)) {
-                foreach ($bannerImagePaths as $existingImage) {
-                    $existingImagePath = public_path('/damian_corporate/product/product_other_images/' . $existingImage);
-                    if (File::exists($existingImagePath)) {
-                        File::delete($existingImagePath); // Delete the image file
+            // Get existing images from the database
+            $existingImages = json_decode($product->product_other_images, true) ?? [];
+
+            // Remove marked images
+            if ($request->has('images_to_remove')) {
+                foreach ($request->images_to_remove as $imageToRemove) {
+                    $imagePath = public_path('/damian_corporate/product/product_other_images/' . $imageToRemove);
+
+                    // Delete the file from storage
+                    if (File::exists($imagePath)) {
+                        File::delete($imagePath);
                     }
+
+                    // Remove the image name from the existing images array
+                    $existingImages = array_filter($existingImages, fn($image) => $image !== $imageToRemove);
                 }
             }
 
-            // Clear the array of existing images
-            $bannerImagePaths = [];
-
-            // Check if new images are uploaded
+            // Add new images
             if ($request->hasFile('product_other_images')) {
-                // Add new images to the paths array
                 foreach ($request->file('product_other_images') as $image) {
-                    // Validate the image before processing (add your validation rules)
-                    $new_name = Str::uuid() . '.' . $image->getClientOriginalExtension();
-                    $image->move(public_path('/damian_corporate/product/product_other_images'), $new_name);
-                    $bannerImagePaths[] = $new_name; // Add the new image to the array
+                    // Validate the image (optional: add validation rules)
+                    $newName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+                    $image->move(public_path('/damian_corporate/product/product_other_images'), $newName);
+                    $existingImages[] = $newName;
                 }
             }
 
-            // Update the product_other_images with the new image paths
-            $product->product_other_images = json_encode($bannerImagePaths);
+            // Update the product with the final list of images
+            $product->product_other_images = json_encode(array_values($existingImages)); // Reindex the array
 
             $product->product_category_id = $request->product_category_id ?? null;
             $product->product_sub_category_id = $request->product_sub_category_id ?? null;
