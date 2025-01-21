@@ -148,6 +148,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->product_other_images = json_decode($product->product_other_images, true);
+        $productOtherImages = $product->product_other_images;
 
         // ===== Fetch Product Category
         $productCategories = ProductCategory::orderBy("id","desc")->whereNull('deleted_at')->get();
@@ -162,7 +163,8 @@ class ProductController extends Controller
             'product' => $product,
             'productCategories' => $productCategories,
             'productSubCategories' => $productSubCategories,
-            'colors' => $colors
+            'colors' => $colors,
+            'productOtherImages' => $productOtherImages
         ]);
     }
 

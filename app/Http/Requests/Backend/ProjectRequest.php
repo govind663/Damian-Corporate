@@ -23,7 +23,7 @@ class ProjectRequest extends FormRequest
     {
         if ($this->id){
             $rule = [
-                'project_image' => 'mimes:jpeg,png,jpg|max:2048',
+                'project_image' => 'mimes:jpeg,png,jpg,webp|max:2048',
                 'project_name' => 'required|max:255|string',
                 'slug' => 'required|max:255|string',
                 'category_id' => 'required|max:255|numeric',
@@ -31,7 +31,7 @@ class ProjectRequest extends FormRequest
             ];
         }else{
             $rule = [
-                'project_image' => 'required|mimes:jpeg,png,jpg|max:2048',
+                'project_image' => 'required|mimes:jpeg,png,jpg,webp|max:2048',
                 'project_name' => 'required|max:255|string',
                 'slug' => 'required|max:255|string|unique:projects,slug',
                 'category_id' => 'required|max:255|numeric',
@@ -45,7 +45,7 @@ class ProjectRequest extends FormRequest
     {
         return [
             'project_image.required' => 'Please upload a project image',
-            'project_image.mimes' => __('Project image must be a file of type: jpeg, png, jpg'),
+            'project_image.mimes' => __('Project image must be a file of type: jpeg, png, jpg, webp.'),
             'project_image.max' => __('The size of project image should not exceed 2 MB.'),
 
             'project_name.required' => __('Project Name is required'),

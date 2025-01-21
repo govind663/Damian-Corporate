@@ -106,10 +106,10 @@ Damian Corporate | Edit Project
                 <div class="form-group row mt-3">
                     <label class="col-sm-2"><b>Upload Project Image : <span class="text-danger">*</span></b></label>
                     <div class="col-sm-4 col-md-4">
-                        <input type="file" onchange="agentPreviewFile()" accept=".png, .jpg, .jpeg" name="project_image" id="project_image" class="form-control @error('project_image') is-invalid @enderror" value="{{ $project->project_image }}" placeholder="Upload Project Image.">
+                        <input type="file" onchange="agentPreviewFile()" accept=".png, .jpg, .jpeg, .webp" name="project_image" id="project_image" class="form-control @error('project_image') is-invalid @enderror" value="{{ $project->project_image }}" placeholder="Upload Project Image.">
                         <small class="text-secondary"><b>Note : The file size  should be less than 2MB .</b></small>
                         <br>
-                        <small class="text-secondary"><b>Note : Only files in .jpg, .jpeg, .png format can be uploaded .</b></small>
+                        <small class="text-secondary"><b>Note : Only files in .jpg, .jpeg, .png, webp format can be uploaded .</b></small>
                         <br>
                         @error('project_image')
                             <span class="invalid-feedback" role="alert">
@@ -158,7 +158,7 @@ Damian Corporate | Edit Project
 
         if (file) {
             const fileType = file.type;
-            const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+            const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
             const validPdfTypes = ['application/pdf'];
 
             if (validImageTypes.includes(fileType)) {

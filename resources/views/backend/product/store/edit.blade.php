@@ -342,8 +342,8 @@ Damian Corporate | Edit Product
                         </tr>
                     </thead>
                     <tbody>
-                        @if(!empty($product->product_other_images))
-                            @foreach($product->product_other_images as $key => $image)
+                        @if(!empty($productOtherImages))
+                            @foreach($productOtherImages as $index => $image)
                                 <tr id="banner-image-row-{{ $key }}">
                                     <td width="85%">
                                         <div class="row d-flex col-sm-8 col-md-8">
