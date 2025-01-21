@@ -55,14 +55,14 @@
                                         ->where('citizen_id', Auth::guard('citizen')->id())
                                         ->where('payment_status', 1)
                                         ->whereNull('deleted_at')
-                                        ->sum('quantity'); // Use sum instead of count
+                                        ->count('id'); // Use sum instead of count
 
                                     // ==== Count products in the wishlist for the authenticated citizen
                                     $wishlistQuantity = DB::table('wishlists')
                                         ->whereIn('product_id', $productIds)
                                         ->where('citizen_id', Auth::guard('citizen')->id())
                                         ->whereNull('deleted_at')
-                                        ->sum('quantity'); // Use sum instead of count
+                                        ->count('id'); // Use sum instead of count
                                 @endphp
 
                                 <div class="tp-header-icon d-block d-xl-none" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
@@ -261,14 +261,14 @@
                                         ->where('citizen_id', Auth::guard('citizen')->id())
                                         ->where('payment_status', 1)
                                         ->whereNull('deleted_at')
-                                        ->sum('quantity'); // Use sum instead of count
+                                        ->count('id'); // Use sum instead of count
 
                                     // ==== Count products in the wishlist for the authenticated citizen
                                     $wishlistQuantity = DB::table('wishlists')
                                         ->whereIn('product_id', $productIds)
                                         ->where('citizen_id', Auth::guard('citizen')->id())
                                         ->whereNull('deleted_at')
-                                        ->sum('quantity'); // Use sum instead of count
+                                        ->count('id'); // Use sum instead of count
                                 @endphp
 
                                 {{-- Check Auth Citizen Cart Quantity --}}

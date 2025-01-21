@@ -305,18 +305,19 @@
                             <div class="tp-checkout-payment">
                                 <div class="tp-checkout-payment-item">
                                     <input type="radio" id="back_transfer" name="payment" value="1">
-                                    <label for="back_transfer" data-bs-toggle="direct-bank-transfer">Direct Bank
-                                        Transfer</label>
+                                    <label for="back_transfer" data-bs-toggle="direct-bank-transfer">
+                                        Online Payment
+                                    </label>
                                 </div>
-                                <div class="tp-checkout-payment-item">
+                                {{-- <div class="tp-checkout-payment-item">
                                     <input type="radio" id="cheque_payment" name="payment" value="2">
                                     <label for="cheque_payment">Cheque Payment</label>
-                                </div>
+                                </div> --}}
                                 <div class="tp-checkout-payment-item">
                                     <input type="radio" id="cod" name="payment" value="3">
                                     <label for="cod">Cash on Delivery</label>
                                 </div>
-                                <div class="tp-checkout-payment-item paypal-payment">
+                                {{-- <div class="tp-checkout-payment-item paypal-payment">
                                     <input type="radio" id="paypal" name="payment" value="4">
                                     <label for="paypal">PayPal
                                         <img src="{{ asset('frontend/assets/img/icon/payment-option.png') }}" alt="payment-option" title="payment-option">
@@ -324,14 +325,22 @@
                                             What is PayPal?
                                         </a>
                                     </label>
-                                </div>
+                                </div> --}}
                             </div>
 
 
                             <div class="tp-checkout-agree">
                                 <div class="checkout-option-sec">
                                     <input id="read_all" type="checkbox">
-                                    <label for="read_all">I have read and agree to the website.</label>
+                                    <label>
+                                        <b>
+                                            <a href="javascript:void(0)" data-toggle="modal" data-target=".bd-tc-modal-lg" class="text-white text-bold">
+                                                I have read and agree to the website.
+                                            </a>
+
+                                            {{-- <span class="text-danger">*</span> --}}
+                                        </b>
+                                    </label>
                                 </div>
                             </div>
 
@@ -351,9 +360,50 @@
     </section>
     <!-- checkout area end -->
 
+    <!-- MODAL Terms & Condition -->
+    <div class="modal fade bd-tc-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="justify-content: space-between; background-color: #f8f9fa; padding: 20px;">
+                    <h5 class="modal-title" style="font-size: 1.5rem; color: #343a40;">Terms & Conditions</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="font-size: 1.5rem; color: #343a40;">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-mod" style="font-size: 1rem; color: #495057; padding: 30px;">
+                    <ul class="ml-3">
+                        <li class="mt-2" style="line-height: 1.8;">Welcome to our e-commerce website! By accessing or using our services, you agree to comply with these Terms & Conditions.</li>
+                        <li class="mt-2" style="line-height: 1.8;">We reserve the right to update or modify these Terms & Conditions at any time without prior notice. Please check periodically for changes.</li>
+                        <li class="mt-2" style="line-height: 1.8;">All users must be at least 18 years of age to use our services. By accessing or using our site, you confirm that you are 18 years or older.</li>
+                        <li class="mt-2" style="line-height: 1.8;">We do not guarantee the availability or accuracy of product listings. All information provided on the website is subject to change without notice.</li>
+                        <li class="mt-2" style="line-height: 1.8;">Users are responsible for maintaining the confidentiality of their account and password. You agree to accept responsibility for all activities that occur under your account.</li>
+                        <li class="mt-2" style="line-height: 1.8;">Product pricing and availability are subject to change without notice. We reserve the right to modify the pricing or discontinue products at any time.</li>
+                        <li class="mt-2" style="line-height: 1.8;">You agree to provide accurate, current, and complete information during the checkout process. Failure to do so may result in the cancellation of your order.</li>
+                        <li class="mt-2" style="line-height: 1.8;">Payment for products purchased on our website must be made in full at the time of checkout. We accept a variety of payment methods, including credit/debit cards, and online payment systems.</li>
+                        <li class="mt-2" style="line-height: 1.8;">Once an order has been placed, we will process and ship it according to our shipping policies. Please review the shipping and delivery information on our website for estimated delivery times.</li>
+                        <li class="mt-2" style="line-height: 1.8;">We offer a return and refund policy, which allows you to return eligible products within a specified period after receipt. Please review our return policy for details on how to initiate a return.</li>
+                        <li class="mt-2" style="line-height: 1.8;">We are not responsible for any delays, errors, or damages caused by third-party services, including shipping carriers and payment processors.</li>
+                        <li class="mt-2" style="line-height: 1.8;">You agree not to engage in any fraudulent, unlawful, or harmful activities on our site, including hacking, distributing viruses, or submitting false information.</li>
+                        <li class="mt-2" style="line-height: 1.8;">By using our site, you agree to indemnify and hold harmless our company, affiliates, and employees from any claims, damages, or losses arising from your use of our services.</li>
+                        <li class="mt-2" style="line-height: 1.8;">All content on this website, including text, images, and logos, are protected by copyright laws. You may not use any content from our site without our express written consent.</li>
+                        <li class="mt-2" style="line-height: 1.8;">This agreement shall be governed by the laws of [Your Country], and any disputes will be resolved in the courts located within [Your Jurisdiction].</li>
+                        <li class="mt-2" style="line-height: 1.8;">If you have any questions or concerns about our Terms & Conditions, please contact us using the contact information provided on our website.</li>
+                    </ul>
+                </div>
+                <div class="modal-footer" style="background-color: #f8f9fa; padding: 20px;">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="agreeBtn">Agree</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @push('scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <script>
     function updateTotal(shippingCost) {
         // Calculate subtotal (pass the subtotal from server to JavaScript)
@@ -372,6 +422,14 @@
     document.addEventListener('DOMContentLoaded', () => {
         const defaultShipping = document.querySelector('input[name="shipping"]:checked').value;
         updateTotal(defaultShipping);
+    });
+</script>
+
+<script>
+    document.getElementById('agreeBtn').addEventListener('click', function() {
+        alert('You have agreed to the Terms & Conditions.');
+        // Additional actions upon agreeing (e.g., form submission or redirect)
+        model.close();
     });
 </script>
 @endpush

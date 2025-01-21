@@ -5,6 +5,12 @@
 @endsection
 
 @push('styles')
+<style>
+    .payment-way img {
+        width: 116px;
+        margin-right: 10px;
+    }
+</style>
 @endpush
 
 @section('content')
@@ -120,13 +126,15 @@
                                 <h2> We Accept </h2>
                                 <ul>
                                     <li>
-                                        <img src="{{ asset('frontend/assets/img/icon/visa.png') }}" class="img-responsive" alt="visa" title="visa">
+                                        <img src="{{ asset('frontend/assets/img/icon/Bhim_upi.webp') }}" class="img-responsive" alt="visa" title="visa" style="width: 60px !important; height: 40px !important;">
                                     </li>
+
                                     <li>
-                                        <img src="{{ asset('frontend/assets/img/icon/mastercard.jpg') }}" class="img-responsive" alt="mastercard" title="mastercard">
+                                        <img src="{{ asset('frontend/assets/img/icon/phone_pay.png') }}" class="img-responsive" alt="american express" title="american express" style="width: 80px !important; height: 80px !important; border-radius: 50%;">
                                     </li>
+
                                     <li>
-                                        <img src="{{ asset('frontend/assets/img/icon/american-express.png') }}" class="img-responsive" alt="american express" title="american express">
+                                        <img src="{{ asset('frontend/assets/img/icon/gpay-icon.png') }}" class="img-responsive" alt="mastercard" title="mastercard" style="width: 80px !important; height: 140px !important;">
                                     </li>
                                 </ul>
                             </div>

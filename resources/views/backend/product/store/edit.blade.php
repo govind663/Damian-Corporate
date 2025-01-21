@@ -343,7 +343,7 @@ Damian Corporate | Edit Product
                     </thead>
                     <tbody>
                         @if(!empty($productOtherImages))
-                            @foreach($productOtherImages as $index => $image)
+                            @foreach($productOtherImages as $key => $image)
                                 <tr id="banner-image-row-{{ $key }}">
                                     <td width="85%">
                                         <div class="row d-flex col-sm-8 col-md-8">
