@@ -56,7 +56,7 @@ use App\Http\Controllers\backend\ProductSubCategoryController;
 use App\Http\Controllers\backend\ProductColorsController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\ProductFaqController;
-
+use App\Http\Controllers\backend\ProductImageController;
 
 Route::get('/login', function () {
     // check if the user session expire web guard then redirect to admin.login page else redirect to frontend.login page
@@ -314,6 +314,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web']], function () {
 
     // ==== Product Management
     Route::resource('product', ProductController::class);
+
+    // ==== Product Image Management
+    Route::resource('product-image', ProductImageController::class);
 
     // ==== Product FAQ Management
     Route::resource('product-faq', ProductFaqController::class);

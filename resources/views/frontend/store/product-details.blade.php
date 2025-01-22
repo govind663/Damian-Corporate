@@ -161,10 +161,10 @@
                         <!-- Main Slider -->
                         <div class="swiper-container main-slider pro-details-slider-sec">
                             <div class="swiper-wrapper">
-                                @foreach ($productOtherImages as $index => $image)
+                                @foreach ($productImages as $index => $image)
                                     <div class="swiper-slide">
                                         <div class="magic-zoom">
-                                            <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}">
+                                            <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image->product_other_images) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}">
                                         </div>
                                     </div>
                                 @endforeach
@@ -180,10 +180,10 @@
 
                         <!-- Thumbnail Slider -->
                         <div class="swiper-container thumbnail-slider pro-details-thumbnail-nav-sec">
-                            <div class="swiper-wrapper">
-                                @foreach($productOtherImages as $image)
+                            <div class="swiper-wrapper" style="align-items: center;">
+                                @foreach($productImages as $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}">
+                                        <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image->product_other_images) }}" alt="Product Image {{ $index + 1 }}" title="Product Image {{ $index + 1 }}">
                                     </div>
                                 @endforeach
                             </div>
@@ -235,7 +235,7 @@
                                 {{-- Quantity --}}
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                     <div class="quantity-sec-new p-relative">
-                                        <input type="number" class="quantity-input-number" value="1" min="1" data-product-id="{{ $product->id }}" />
+                                        <input type="number" class="quantity-input-number" value="{{ $product->quantity ?? 1 }}" min="1" data-product-id="{{ $product->id }}" />
                                         <div class="qty_button cart-minus tp-cart-minus" data-action="decrement" data-product-id="{{ $product->id }}">
                                             <i class="fa-solid fa-caret-down"></i>
                                         </div>

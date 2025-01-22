@@ -20,7 +20,6 @@ class Product extends Model
         'slug',
         'description',
         'image',
-        'product_other_images',
         'price',
         'discount_type',
         'discount_price_in_percentage',

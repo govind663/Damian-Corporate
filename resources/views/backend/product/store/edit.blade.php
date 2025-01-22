@@ -5,11 +5,6 @@ Damian Corporate | Edit Product
 @endsection
 
 @push('styles')
-<style>
-    .table-bordered, .table-bordered td, .table-bordered th {
-        border: 1px solid #0924b9;
-    }
-</style>
 @endpush
 
 @section('content')
@@ -40,7 +35,7 @@ Damian Corporate | Edit Product
         </div>
 
 
-        <form method="POST" action="{{ route('product.update', $product->id) }}" class="form-horizontal" enctype="multipart/form-data" id="product-form') }}" class="form-horizontal">
+        <form method="POST" action="{{ route('product.update', $product->id) }}" class="form-horizontal" enctype="multipart/form-data" id="product-form') }}" class="dropzone" d="my-awesome-dropzone">
             @csrf
             @method('PATCH')
 
@@ -331,90 +326,6 @@ Damian Corporate | Edit Product
                     </div>
                 </div>
 
-                <h5 class="text-justify text-primary">Other Product Image :</h5>
-                <hr>
-
-                <table class="table table-bordered p-3" id="dynamicBannerImageTable">
-                    <thead>
-                        <tr>
-                            <th>Product Image : <span class="text-danger">*</span></th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    @php
-                        $bannerImages = is_string($product->product_other_images)
-                                        ? json_decode($product->product_other_images, true)
-                                        : $product->product_other_images;
-
-                        $bannerImages = $bannerImages ?? []; // Ensure it's always an array
-                    @endphp
-
-                    <tbody>
-                        @if (!empty($bannerImages))
-                            @foreach ($bannerImages as $key => $image)
-                                <tr id="banner-image-row-{{ $key }}">
-                                    <td width="85%">
-                                        <div class="row d-flex col-sm-8 col-md-8">
-                                            @if (!empty($image))
-                                                <img src="{{ asset('/damian_corporate/product/product_other_images/' . $image) }}"
-                                                     alt="{{ $image }}"
-                                                     class="img-thumbnail"
-                                                     style="max-width: 150px; max-height: 150px;">
-                                            @endif
-                                            <div id="banner-container-{{ $key }}">
-                                                <div id="file-banner-{{ $key }}"></div>
-                                            </div>
-                                            <input type="file"
-                                                   onchange="bannerPreviewFiles({{ $key }})"
-                                                   accept=".png, .jpg, .jpeg, .webp"
-                                                   name="product_other_images[]"
-                                                   id="product_other_images_{{ $key }}"
-                                                   class="form-control mt-2 @error('product_other_images.*') is-invalid @enderror">
-                                            <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
-                                            <br>
-                                            <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
-                                            @error('product_other_images.*')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </td>
-                                    <td width="15%">
-                                        @if ($loop->first)
-                                            <button type="button" class="btn btn-primary" id="addBannerImageRow">Add More</button>
-                                        @else
-                                            <button type="button" class="btn btn-danger removeBannerImageRow">Remove</button>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @else
-                            <tr id="banner-image-row-0">
-                                <td>
-                                    <input type="file"
-                                           onchange="bannerPreviewFiles(0)"
-                                           accept=".png, .jpg, .jpeg, .webp"
-                                           name="product_other_images[]"
-                                           id="product_other_images_0"
-                                           class="form-control @error('product_other_images.*') is-invalid @enderror">
-                                    <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
-                                    <br>
-                                    <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
-                                    @error('product_other_images.0')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-primary" id="addBannerImageRow">Add More</button>
-                                </td>
-                            </tr>
-                        @endif
-                    </tbody>
-                </table>
-
                 <div class="form-group row mt-4">
                     <label class="col-md-3"></label>
                     <div class="col-md-9" style="display: flex; justify-content: flex-end;">
@@ -559,56 +470,50 @@ Damian Corporate | Edit Product
 {{-- Add More Banner Image or View both Image and PDF --}}
 <script>
     $(document).ready(function () {
-        let rowId = $('#dynamicBannerImageTable tbody tr').length - 1;
+        let rowId = 0;
 
-        // Add a new row for banner image
+        // Restore old inputs if validation fails
+        let oldBannerImages = @json(old('product_other_images', []));
+        oldBannerImages.forEach(function (_, index) {
+            if (index > 0) {
+                rowId++;
+                $('#addBannerImageRow').click(); // Simulates adding a new row
+            }
+        });
+
+        // Add a new row with validation
         $('#addBannerImageRow').click(function () {
             rowId++;
-            const newRow = `
-                <tr id="banner-image-row-${rowId}">
-                    <td>
-                        <div class="col-sm-12 col-md-12">
-                            <div id="banner-container-${rowId}">
-                                <div id="file-banner-${rowId}"></div>
-                            </div>
-                            <input type="file" onchange="bannerPreviewFiles(${rowId})" accept=".png, .jpg, .jpeg, .webp" name="product_other_images[]" id="product_other_images_${rowId}" class="form-control @error('product_other_images.*') is-invalid @enderror">
-                            <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
-                            <br>
-                            <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
+            var newRow = `<tr>
+                <td>
+                    <div class="col-sm-12 col-md-12">
+                        <div id="banner-container-${rowId}">
+                            <div id="file-banner-${rowId}"></div>
                         </div>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-danger removeBannerImageRow" data-row-id="${rowId}">Remove</button>
-                    </td>
-                </tr>`;
+                        <input type="file" onchange="bannerPreviewFiles(${rowId})" accept=".png, .jpg, .jpeg, .webp" name="product_other_images[]" id="product_other_images_${rowId}" class="form-control @error('product_other_images.*') is-invalid @enderror">
+                        <small class="text-secondary"><b>Note : The file size  should be less than 2MB .</b></small>
+                        <br>
+                        <small class="text-secondary"><b>Note : Only files in .jpg, .jpeg, .png, .webp format can be uploaded .</b></small>
+                        <br>
+                        @error('product_other_images.${rowId}')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </td>
+                <td><button type="button" class="btn btn-danger removeBannerImageRow">Remove</button></td>
+            </tr>`;
             $('#dynamicBannerImageTable tbody').append(newRow);
         });
 
         // Remove a row
         $(document).on('click', '.removeBannerImageRow', function () {
-            const row = $(this).closest('tr');
-            const tableBody = $('#dynamicBannerImageTable tbody');
-            const remainingRows = tableBody.find('tr').length;
-
-            if (remainingRows === 1) {
-                // If only one row is left, prevent removal
-                alert('At least one image must be present. Please add a new image before removing this one.');
-            } else {
-                const imageName = row.find('img').attr('alt'); // Get the image name from alt attribute
-
-                if (imageName) {
-                    // Add the image name to a hidden field for removal
-                    const removeInput = `<input type="hidden" name="images_to_remove[]" value="${imageName}">`;
-                    $('#dynamicBannerImageTable').append(removeInput);
-                }
-
-                row.remove(); // Remove the row
-            }
+            $(this).closest('tr').remove();
         });
-
     });
 
-    // Function for banner image preview
+    // Banner Image Preview
     function bannerPreviewFiles(rowId) {
         const fileInput = document.getElementById(`product_other_images_${rowId}`);
         const previewContainer = document.getElementById(`banner-container-${rowId}`);
@@ -618,23 +523,27 @@ Damian Corporate | Edit Product
         if (file) {
             const fileType = file.type;
             const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+            const validPdfTypes = ['application/pdf'];
 
             if (validImageTypes.includes(fileType)) {
                 // Image preview
                 const reader = new FileReader();
-                reader.onload = function (e) {
-                    filePreview.innerHTML = `<img src="${e.target.result}" alt="File Preview" class="img-thumbnail" style="width:150px; height:150px;">`;
+                reader.onload = function(e) {
+                    filePreview.innerHTML = `<img src="${e.target.result}" alt="File Preview" style="width:150px; height:60px !important;">`;
                 };
                 reader.readAsDataURL(file);
+            } else if (validPdfTypes.includes(fileType)) {
+                // PDF preview using an embed element
+                filePreview.innerHTML =
+                    `<embed src="${URL.createObjectURL(file)}" type="application/pdf" width="100%" height="25%" />`;
             } else {
                 // Unsupported file type
-                filePreview.innerHTML = '<p class="text-danger">Unsupported file type. Please upload .jpg, .jpeg, .png, or .webp.</p>';
+                filePreview.innerHTML = '<p>Unsupported file type</p>';
             }
 
             previewContainer.style.display = 'block';
         } else {
             // No file selected
-            filePreview.innerHTML = '';
             previewContainer.style.display = 'none';
         }
     }

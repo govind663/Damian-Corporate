@@ -257,6 +257,11 @@
                                 <span class="mtext">Product</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('product-image.index') }}" class="{{ (Route::currentRouteName() === 'product-image.index') || (Route::currentRouteName() === 'product-image.create') || (Route::currentRouteName() === 'product-image.edit') ? 'active' : '' }}">
+                                <span class="mtext">Product Image</span>
+                            </a>
+                        </li>
                         {{-- <li>
                             <a href="{{ route('product-faq.index') }}" class="{{ (Route::currentRouteName() === 'product-faq.index') || (Route::currentRouteName() === 'product-faq.create') || (Route::currentRouteName() === 'product-faq.edit') ? 'active' : '' }}">
                                 <span class="mtext">FAQ</span>

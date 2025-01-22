@@ -4,6 +4,7 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Models\Citizen;
 use App\Models\Order;
@@ -54,15 +55,17 @@ class StoreController extends Controller
         // ==== Fetch Product
         $product = Product::where('slug', $slug)->first();
 
-        // Decode the JSON data for other images
-        $productOtherImages = $product->product_other_images ? json_decode($product->product_other_images, true) : [];
+        // ==== Fetch Product Other Images
+        $productImages = ProductImage::orderBy("id","desc")
+                                    ->where('product_id', $product->id)
+                                    ->whereNull('deleted_at')
+                                    ->get();
 
-        // Ensure $productOtherImages is an array
-        $productOtherImages = is_array($productOtherImages) ? $productOtherImages : [];
+        // dd($productImages);
 
         return view('frontend.store.product-details', [
             'product' => $product,
-            'productOtherImages' => $productOtherImages,
+            'productImages' => $productImages
         ]);
     }
 
@@ -124,7 +127,6 @@ class StoreController extends Controller
         ];
 
         // dd($data);
-
         return response()->json($data);
     }
 
