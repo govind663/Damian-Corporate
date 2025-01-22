@@ -15,10 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         // === PreventBackHistoryMiddleware
-        // $middleware->append(PreventBackHistoryMiddleware::class);
+        $middleware->append(PreventBackHistoryMiddleware::class);
 
         // ==== PreventCitizenBackHistoryMiddleware
-        // $middleware->append(PreventCitizenBackHistoryMiddleware::class);
+        $middleware->append(PreventCitizenBackHistoryMiddleware::class);
 
         // === RemoveTrailingSlash
         // $middleware->append(RemoveTrailingSlash::class);

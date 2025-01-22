@@ -71,7 +71,7 @@ Route::get('/login', function () {
 
 
 // ==== Frontend
-Route::group(['prefix'=> ''],function(){
+Route::group(['prefix'=> '', 'middleware' => [PreventCitizenBackHistoryMiddleware::class]],function(){
 
     // ==== Home
     Route::get('/', [FrontendHomeController::class, 'index'])->name('frontend.home');
@@ -106,7 +106,7 @@ Route::group(['prefix'=> ''],function(){
 });
 
 // ==== Store Product [Ecommerce] Group
-Route::group(['prefix'=> 'store', ], function(){
+Route::group(['prefix'=> 'store', 'middleware' => [PreventCitizenBackHistoryMiddleware::class]], function(){
 
     // ==== Store Register
     Route::get('register', [CitizenRegisterController::class, 'citizenRegister'])->name('frontend.citizen.register');
@@ -142,7 +142,7 @@ Route::group(['prefix'=> 'store', ], function(){
 });
 
 // ==== Citizen Dashboard
-Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen']], function(){
+Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitizenBackHistoryMiddleware::class]], function(){
 
     // ==== My Profile
     Route::get('my-profile', [StoreController::class, 'myProfile'])->name('frontend.myProfile');
@@ -199,12 +199,12 @@ Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen']], function(){
     // ==== Payment Online by Easebuzz
     Route::get('frontend/payment/{transaction_token}/{order_id}/{citizen_id}/{product_id}/{cart_id}', [CheckoutController::class, 'payment'])->name('frontend.payment');
     Route::post('/payment/process/store', [CheckoutController::class, 'processEasebuzzPayment'])->name('frontend.payment.process');
+    
+    // ==== Payment Success/Failure by Easebuzz
+    Route::get('/payment/success', [CheckoutController::class, 'success'])->name('payment.success');
+    Route::get('/payment/failure', [CheckoutController::class, 'failure'])->name('payment.failure');
 
 });
-
-// ==== Payment Success/Failure by Easebuzz
-Route::get('/payment/success', [CheckoutController::class, 'success'])->name('payment.success');
-Route::get('/payment/failure', [CheckoutController::class, 'failure'])->name('payment.failure');
 
 // ===== Admin Register
 Route::get('admin/register', [RegisterController::class,'register'])->name('admin.register');
@@ -224,7 +224,7 @@ Route::get('admin/reset-password/{token}', [ResetPasswordController::class, 'sho
 Route::post('admin/reset-password', [ResetPasswordController::class, 'updatePassword'])->name('admin.password.update');
 
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth:web']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', PreventBackHistoryMiddleware::class]], function () {
 
     // ===== Admin Dashboard
     Route::get('home', [HomeController::class, 'adminHome'])->name('admin.dashboard');
