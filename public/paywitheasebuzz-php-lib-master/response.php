@@ -1,6 +1,9 @@
 <?php
-    // include file
+    // Include the Laravel URL helper
     include_once('easebuzz-lib/easebuzz_payment_gateway.php');
+
+    // Get the base URL dynamically from Laravel
+    $baseUrl = url('/');
 
     // salt for testing env
     $SALT = "CAL3TTCZT";
@@ -11,23 +14,23 @@
     * params string $easebuzzObj - holds the object of Easebuzz class.
     * params array $_POST - holds the API response array.
     * params string $SALT - holds the merchant salt key.
-    * params array $result - holds the API response array after valification of API response.
+    * params array $result - holds the API response array after verification of API response.
     *
     * ##Return values
     *
-    * - return array $result - hoids API response after varification.
+    * - return array $result - holds API response after verification.
     *
     * @params string $easebuzzObj - holds the object of Easebuzz class.
     * @params array $_POST - holds the API response array.
     * @params string $SALT - holds the merchant salt key.
-    * @params array $result - holds the API response array after valification of API response.
+    * @params array $result - holds the API response array after verification of API response.
     *
-    * @return array $result - hoids API response after varification.
+    * @return array $result - holds API response after verification.
     *
     */
     $easebuzzObj = new Easebuzz($MERCHANT_KEY = null, $SALT, $ENV = null);
 
-    $result = $easebuzzObj->easebuzzResponse( $_POST );
+    $result = $easebuzzObj->easebuzzResponse($_POST);
 
     $response = json_decode($result, true);
 
@@ -35,19 +38,19 @@
     // print_r($response = json_decode($result, true));
     // echo '</pre>';
 
-    if($response['status'] == 1) {
+    if ($response['status'] == 1) {
         echo "Transaction is successful.";
-        // === redirect to success page ===
-        header("Location: /payment/success");
-        exit;
-    } elseif($response['status'] == 2) {
-        echo "Transaction is failed.";
-        // === redirect to failure page ===
-        header("Location: /payment/failure");
-        exit;
-    }else {
-        echo "Transaction has been failed.";
+        // === Redirect to success page dynamically ===
+        // header("Location: " . $baseUrl . "/store/payment/success");
+        return redirect()->route('payment.success');
+        // exit;
+    } elseif ($response['status'] == 2) {
+        echo "Transaction failed.";
+        // === Redirect to failure page dynamically ===
+        // header("Location: " . $baseUrl . "/store/payment/failure");
+        return redirect()->route('payment.failure');
+        // exit;
+    } else {
+        echo "Transaction has failed.";
     }
-
 ?>
-

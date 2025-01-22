@@ -109,9 +109,9 @@ class CheckoutController extends Controller
             $mailData = [
                 'order' => $order,
                 'user' => $user,
-                'product' => $product,
+                'product' => $request->product_id,
                 'billingAddress' => $billingAddress,
-                'cart' => $cart,
+                'cart' => $request->cart_id,
             ];
 
             // Handle redirect based on payment method
@@ -127,15 +127,15 @@ class CheckoutController extends Controller
                     'transaction_token' => $order->transaction_token,
                     'order_id' => $order->id,
                     'citizen_id' => $citizenId,
-                    'product_id' => $productId,
-                    'cart_id' => $cartId
+                    'product_id' => $request->product_id,
+                    'cart_id' => $request->cart_id
                 ])->with([
                     'payment' => $request->payment,
                     'txnid' => $order->transaction_token,
                     'order_id' => $order->id,
                     'citizenId' => $citizenId,
-                    'productId' => $productId,
-                    'cartId' => $cartId,
+                    'productId' => $request->product_id,
+                    'cartId' => $request->cart_id,
                 ]);
 
             } else if ($request->payment == 3) {
@@ -158,10 +158,10 @@ class CheckoutController extends Controller
     {
         $order = Order::find($order_id);
         $user = Citizen::find($citizenId);
-        $cart = Cart::get();
-        $product = Product::find($productId);
+        $cart = Cart::find($cartId);
+        $product = Product::where('id', $productId)->first();
         $amount = $order->order_total_price;
-        // dd($amount);
+        dd($productId);
 
         return view('frontend.store.online.payment', [
             'order' => $order,

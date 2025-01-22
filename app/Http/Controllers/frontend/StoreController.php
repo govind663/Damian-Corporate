@@ -402,7 +402,12 @@ class StoreController extends Controller
         $products = Product::orderBy("id", "desc")->whereNull('deleted_at')->get();
 
         // ===== Fetch Cart
-        $cartItems = Cart::with('product', 'citizen')->where('citizen_id', Auth::guard('citizen')->user()->id)->orderBy('id', 'desc')->whereNull('deleted_at')->get();
+        $cartItems = Cart::with('product', 'citizen')
+        ->where('payment_status', '1')
+        ->where('citizen_id', Auth::guard('citizen')->user()->id)
+        ->orderBy('id', 'desc')
+        ->whereNull('deleted_at')
+        ->get();
         // dd($cartItems);
 
         $productId = Cart::where('citizen_id', Auth::guard('citizen')->user()->id)->first();
