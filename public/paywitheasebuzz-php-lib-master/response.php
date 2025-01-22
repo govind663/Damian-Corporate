@@ -2,8 +2,11 @@
     // Include the Laravel URL helper
     include_once('easebuzz-lib/easebuzz_payment_gateway.php');
 
-    // Get the base URL dynamically from Laravel
-    $baseUrl = url('/');
+    // Get the success URL dynamically from Laravel
+    $successUrl = 'http://127.0.0.1:8000/store/payment/success';
+
+    // Get the failure URL dynamically from Laravel
+    $failureUrl = 'http://127.0.0.1:8000/store/payment/failure';
 
     // salt for testing env
     $SALT = "CAL3TTCZT";
@@ -39,16 +42,14 @@
     // echo '</pre>';
 
     if ($response['status'] == 1) {
-        echo "Transaction is successful.";
-        // === Redirect to success page dynamically ===
-        // header("Location: " . $baseUrl . "/store/payment/success");
-        return redirect()->route('payment.success');
+        $message = "Transaction successful.";
+        // === Redirect to success page dynamically url (http://127.0.0.1:8000/store/payment/success) ===
+        header("Location: " . $successUrl);
         // exit;
     } elseif ($response['status'] == 2) {
-        echo "Transaction failed.";
+        $message = "Transaction failed.";
         // === Redirect to failure page dynamically ===
-        // header("Location: " . $baseUrl . "/store/payment/failure");
-        return redirect()->route('payment.failure');
+        header("Location: " . $failureUrl);
         // exit;
     } else {
         echo "Transaction has failed.";

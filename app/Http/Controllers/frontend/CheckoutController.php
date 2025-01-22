@@ -90,32 +90,33 @@ class CheckoutController extends Controller
                 'notes' => $request->notes,
             ];
 
-            $order = Order::find($order->id); // Get the order from database
-            $product = Product::find($order->product_id); // Get product info based on order
-            $user = Citizen::find($order->citizen_id); // Get user info based on order
-            $cart = Cart::find($order->cart_id); // Get cart info based on order
-
-
-            $billingAddress = [
-                'postcode' => $request->postcode,
-                'city' => $request->city,
-                'state' => $request->state,
-                'country' => $request->country,
-                'address' => $request->street_address,
-                'apartment_address' => $request->apartment_address,
-            ];
-
-            // Prepare data to send
-            $mailData = [
-                'order' => $order,
-                'user' => $user,
-                'product' => $request->product_id,
-                'billingAddress' => $billingAddress,
-                'cart' => $request->cart_id,
-            ];
 
             // Handle redirect based on payment method
             if ($request->payment == 1) {
+
+                $order = Order::find($order->id); // Get the order from database
+                $product = Product::find($order->product_id); // Get product info based on order
+                $user = Citizen::find($order->citizen_id); // Get user info based on order
+                $cart = Cart::find($order->cart_id); // Get cart info based on order
+
+
+                $billingAddress = [
+                    'postcode' => $request->postcode,
+                    'city' => $request->city,
+                    'state' => $request->state,
+                    'country' => $request->country,
+                    'address' => $request->street_address,
+                    'apartment_address' => $request->apartment_address,
+                ];
+
+                // Prepare data to send
+                $mailData = [
+                    'order' => $order,
+                    'user' => $user,
+                    'product' => $product ,
+                    'billingAddress' => $billingAddress,
+                    'cart' => $cart,
+                ];
 
                 // Send the email with the invoice attached
                 Mail::to($user['email'], 'Damian Corporate')
@@ -140,6 +141,31 @@ class CheckoutController extends Controller
 
             } else if ($request->payment == 3) {
 
+
+                $order = Order::find($order->id); // Get the order from database
+                $product = Product::find($order->product_id); // Get product info based on order
+                $user = Citizen::find($order->citizen_id); // Get user info based on order
+                $cart = Cart::find($order->cart_id); // Get cart info based on order
+
+
+                $billingAddress = [
+                    'postcode' => $request->postcode,
+                    'city' => $request->city,
+                    'state' => $request->state,
+                    'country' => $request->country,
+                    'address' => $request->street_address,
+                    'apartment_address' => $request->apartment_address,
+                ];
+
+                // Prepare data to send
+                $mailData = [
+                    'order' => $order,
+                    'user' => $user,
+                    'product' => $product ,
+                    'billingAddress' => $billingAddress,
+                    'cart' => $cart,
+                ];
+
                 // Send the email with the invoice attached
                 Mail::to($user['email'], 'Damian Corporate')
                 // ->cc(['shweta@matrixbricks.com','riddhi@matrixbricks.com'])
@@ -161,7 +187,7 @@ class CheckoutController extends Controller
         $cart = Cart::find($cartId);
         $product = Product::where('id', $productId)->first();
         $amount = $order->order_total_price;
-        dd($productId);
+        // dd($productId);
 
         return view('frontend.store.online.payment', [
             'order' => $order,

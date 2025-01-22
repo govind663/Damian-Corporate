@@ -55,7 +55,7 @@
 
                         <div class="form-field">
                             <label for="amount"><b>Amount : <sup>(should be float)*</sup></b></label>
-                            <input id="amount" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ number_format(old('amount') ?? $amount, 2) }}"  placeholder="125.25">
+                            <input id="amount" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount', isset($amount) ? number_format($amount, 2, '.', '') : '') }}"  placeholder="125.25">
                             @error('amount')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
