@@ -274,16 +274,16 @@
                                     <li class="tp-order-info-list-shipping">
                                         <span>Shipping</span>
                                         <div class="tp-order-info-list-shipping-item d-flex flex-column align-items-end">
-                                            <span>
+                                            {{-- <span>
                                                 <input id="flat_rate" type="radio" name="shipping" value="{{ 200 ?? 0 }}" onclick="updateTotal(200)" checked>
                                                 <label for="flat_rate">Flat rate: <span>₹ 200</span></label>
                                             </span>
                                             <span>
                                                 <input id="local_pickup" type="radio" name="shipping" value="{{ 200 ?? 0 }}" onclick="updateTotal(200)">
                                                 <label for="local_pickup">Local pickup: <span>₹ 200</span></label>
-                                            </span>
+                                            </span> --}}
                                             <span>
-                                                <input id="free_shipping" type="radio" name="shipping" value="{{ 0 ?? 0 }}" onclick="updateTotal(0)">
+                                                <input id="free_shipping" type="radio" name="shipping" value="{{ 0 ?? 0 }}" onclick="updateTotal(0)" checked>
                                                 <label for="free_shipping">Free shipping</label>
                                             </span>
                                         </div>
@@ -331,16 +331,17 @@
 
                             <div class="tp-checkout-agree">
                                 <div class="checkout-option-sec">
-                                    <input id="read_all" type="checkbox">
-                                    <label>
-                                        <b>
-                                            <a href="javascript:void(0)" data-toggle="modal" data-target=".bd-tc-modal-lg" class="text-white text-bold">
-                                                I have read and agree to the website.
-                                            </a>
-
-                                            {{-- <span class="text-danger">*</span> --}}
-                                        </b>
-                                    </label>
+                                    <div class="tp-checkout-agree-item">
+                                        <input id="agree" type="checkbox" required value="1" checked>
+                                        <label>
+                                            <b>
+                                                <a href="javascript:void(0)" data-toggle="modal" data-target=".bd-tc-modal-lg" class="text-white text-bold">
+                                                    I have read and agree to the website.
+                                                </a>
+                                                {{-- <span class="text-danger">*</span> --}}
+                                            </b>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
 

@@ -1,7 +1,7 @@
 <!-- header area start -->
 <header>
     <!-- Only For Store Header -->
-    @if(Route::currentRouteName() === 'frontend.products' || Route::currentRouteName() === 'frontend.product.details' || Route::currentRouteName() === 'frontend.cart' || Route::currentRouteName() === 'frontend.wishlist' || Route::currentRouteName() === 'frontend.checkout' || Route::currentRouteName() === 'frontend.citizen.logout' || Route::currentRouteName() === 'frontend.myProfile' || Route::currentRouteName() === 'frontend.orders' || Route::currentRouteName() === 'frontend.address' || Route::currentRouteName() === 'frontend.accountDetails' || Route::currentRouteName() === 'frontend.citizen.login' || Route::currentRouteName() === 'frontend.citizen.register' || Route::currentRouteName() === 'frontend.change-password' || Route::currentRouteName() === 'frontend.citizen.forget-password.request' || Route::currentRouteName() === 'frontend.citizen.password.reset')
+    @if(Route::currentRouteName() === 'frontend.products' || Route::currentRouteName() === 'frontend.product.details' || Route::currentRouteName() === 'frontend.cart' || Route::currentRouteName() === 'frontend.wishlist' || Route::currentRouteName() === 'frontend.checkout' || Route::currentRouteName() === 'frontend.citizen.logout' || Route::currentRouteName() === 'frontend.myProfile' || Route::currentRouteName() === 'frontend.orders' || Route::currentRouteName() === 'frontend.address' || Route::currentRouteName() === 'frontend.accountDetails' || Route::currentRouteName() === 'frontend.citizen.login' || Route::currentRouteName() === 'frontend.citizen.register' || Route::currentRouteName() === 'frontend.change-password' || Route::currentRouteName() === 'frontend.citizen.forget-password.request' || Route::currentRouteName() === 'frontend.citizen.password.reset' || Route::currentRouteName() === 'payment.thankyou')
         <div class="tp-header-area tp-header-tranparent ">
             <div class="container-fluid">
                 <div class="row tp-header-2-menu align-items-center">
@@ -367,7 +367,7 @@
     <!-- Only For Store Header End-->
 
     <!-- Without Store Header -->
-    @if(Route::currentRouteName() == 'frontend.home' || Route::currentRouteName() === 'frontend.project.details' || Route::currentRouteName() == 'frontend.about' || Route::currentRouteName() == 'frontend.services' || Route::currentRouteName() == 'frontend.awards' || Route::currentRouteName() == 'frontend.careers' || Route::currentRouteName() == 'frontend.contact')
+    @if(Route::currentRouteName() == 'frontend.home' || Route::currentRouteName() === 'frontend.project.details' || Route::currentRouteName() == 'frontend.about' || Route::currentRouteName() == 'frontend.services' || Route::currentRouteName() == 'frontend.awards' || Route::currentRouteName() == 'frontend.careers' || Route::currentRouteName() == 'frontend.contact' || Route::currentRouteName() === 'payment.thankyou')
         <div class="tp-header-area tp-header-tranparent ">
             <div class="container-fluid">
                 <div class="row tp-header-2-menu align-items-center">

@@ -26464,3 +26464,38 @@ input[type=number] {
         padding: 0;
     }
 }
+
+
+
+/*Thank You Page*/
+.thank-you-section {
+    padding: 80px 0;
+}
+
+.thank-you-section .thank-you-img-area img {
+    width: 300px;
+}
+
+.thank-you-section .thank-you-content-sec h3 {
+    text-align: center;
+    font-family: Averta-Regular;
+    text-transform: capitalize;
+    margin-bottom: 0;
+    font-size: 58px;
+    font-weight: 100;
+}
+
+.thank-you-section .thank-you-content-sec p {
+    font-family: Averta-Regular;
+    margin-bottom: 20px;
+}
+
+.thank-you-section .thank-you-content-sec a {
+    margin-top: 20px;
+}
+
+@media (max-width: 991px) {
+    .thank-you-section {
+        padding: 40px 0;
+    }
+}

@@ -33,8 +33,8 @@ class CheckoutController extends Controller
 
             $order = new Order();
 
-            $order->product_id = $productId;
-            $order->citizen_id = $citizenId;
+            $order->product_id = $request->product_id;
+            $order->citizen_id = $request->citizen_id;
             $order->cart_id = $request->cart_id;
             $order->transaction_token = Carbon::now()->format('ymd') . str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
             $order->order_status = 1; // Order status as 'Placed'
@@ -45,17 +45,17 @@ class CheckoutController extends Controller
             // dd($order->cart_id);
 
             // Set payment status and payment date based on payment method
-            if ($request->payment == 4 || $request->payment == 1) {
+            if ($request->payment == 1) {
                 // PayPal or Bank Transfer
-                $order->payment_status = 1; // Pending
+                $order->payment_status = 3; // Pending
                 $order->payment_date = null; // No payment date yet
                 // Generate Tranx Id
                 $order->payment_transaction_id = $easebuzzPaymentService->generateTranxId(
                     $order->transaction_token . '-' . $productId . '-' . $citizenId . '-' . $cartId . '-' . Carbon::now()->toDateTimeString()
                 );
-            } else if ($request->payment == 2 || $request->payment == 3) {
+            } else if ($request->payment == 3) {
                 // Cheque Payment or Cash On Delivery
-                $order->payment_status = 3; // Completed (for offline payments)
+                $order->payment_status = 2; // Processing
                 $order->payment_date = Carbon::now(); // Payment received
                 // Generate Tranx Id
                 $order->payment_transaction_id = $easebuzzPaymentService->generateTranxId(
@@ -63,13 +63,14 @@ class CheckoutController extends Controller
                 );
             }
 
+            // payment_transaction_id
             $order->inserted_at = Carbon::now();
             $order->inserted_by = Auth::guard('citizen')->user()->id;
 
             // update cart Payment Status
             $cart = Cart::find($request->cart_id);
             if ($cart) {
-                $cart->payment_status = $order->payment_status; // Paid
+                $cart->payment_status = 3; // Paid
                 $cart->save();
             }
 
@@ -89,35 +90,37 @@ class CheckoutController extends Controller
                 'notes' => $request->notes,
             ];
 
+            $order = Order::find($order->id); // Get the order from database
+            $product = Product::find($order->product_id); // Get product info based on order
+            $user = Citizen::find($order->citizen_id); // Get user info based on order
+            $cart = Cart::find($order->cart_id); // Get cart info based on order
+
+
+            $billingAddress = [
+                'postcode' => $request->postcode,
+                'city' => $request->city,
+                'state' => $request->state,
+                'country' => $request->country,
+                'address' => $request->street_address,
+                'apartment_address' => $request->apartment_address,
+            ];
+
+            // Prepare data to send
+            $mailData = [
+                'order' => $order,
+                'user' => $user,
+                'product' => $product,
+                'billingAddress' => $billingAddress,
+                'cart' => $cart,
+            ];
+
             // Handle redirect based on payment method
-            if ($request->payment == 4 || $request->payment == 1) {
+            if ($request->payment == 1) {
 
-                // $order = Order::find($order->id); // Get the order from database
-                // $product = Product::find($order->product_id); // Get product info based on order
-                // $user = Citizen::find($order->citizen_id); // Get user info based on order
-                // $cart = Cart::find($order->cart_id); // Get cart info based on order
-                // $billingAddress = [
-                //     'postcode' => $request->postcode,
-                //     'city' => $request->city,
-                //     'state' => $request->state,
-                //     'country' => $request->country,
-                //     'address' => $request->street_address,
-                //     'apartment_address' => $request->apartment_address,
-                // ];
-
-                // // Prepare data to send
-                // $mailData = [
-                //     'order' => $order,
-                //     'user' => $user,
-                //     'product' => $product,
-                //     'billingAddress' => $billingAddress,
-                //     'cart' => $cart,
-                // ];
-
-                // // Send the email with the invoice attached
-                // Mail::to($user['email'], 'Damian Corporate')
+                // Send the email with the invoice attached
+                Mail::to($user['email'], 'Damian Corporate')
                 // ->cc(['shweta@matrixbricks.com','riddhi@matrixbricks.com'])
-                // ->send(new OrderInvoiceMail($mailData));
+                ->send(new OrderInvoiceMail($mailData));
 
 
                 return redirect()->route('frontend.payment', [
@@ -135,36 +138,14 @@ class CheckoutController extends Controller
                     'cartId' => $cartId,
                 ]);
 
-            } else if ($request->payment == 2 || $request->payment == 3) {
-
-                $order = Order::find($order->id); // Get the order from database
-                $product = Product::find($order->product_id); // Get product info based on order
-                $user = Citizen::find($order->citizen_id); // Get user info based on order
-                $cart = Cart::find($order->cart_id); // Get cart info based on order
-                $billingAddress = [
-                    'postcode' => $request->postcode,
-                    'city' => $request->city,
-                    'state' => $request->state,
-                    'country' => $request->country,
-                    'address' => $request->street_address,
-                    'apartment_address' => $request->apartment_address,
-                ];
-
-                // Prepare data to send
-                $mailData = [
-                    'order' => $order,
-                    'user' => $user,
-                    'product' => $product,
-                    'billingAddress' => $billingAddress,
-                    'cart' => $cart,
-                ];
+            } else if ($request->payment == 3) {
 
                 // Send the email with the invoice attached
                 Mail::to($user['email'], 'Damian Corporate')
-                ->cc(['shweta@matrixbricks.com','riddhi@matrixbricks.com'])
+                // ->cc(['shweta@matrixbricks.com','riddhi@matrixbricks.com'])
                 ->send(new OrderInvoiceMail($mailData));
 
-                return redirect()->route('frontend.orders')->with('message', 'Order placed successfully!');
+                return redirect()->route('payment.thankyou')->with('message', 'Order placed successfully!');
             }
 
         } catch (\Exception $ex) {
@@ -205,23 +186,23 @@ class CheckoutController extends Controller
             $order = Order::where('transaction_token', $request->txnid)->first();
 
             if (!$order) {
-                return redirect()->route('frontend.orders')->with('error', 'Order not found!');
+                return redirect()->route('payment.thankyou')->with('error', 'Order not found!');
             }
 
             // Update order payment status to successful based on payment method
-            if ($request->payment == 4 || $request->payment == 1) {
+            if ($request->payment == 1) {
                 $order->payment_status = 3; // Paid
                 $order->payment_date = Carbon::now();
-            } else if ($request->payment == 2 || $request->payment == 3) {
-                $order->payment_status = 3; // Pending payment
+            } else if ($request->payment == 3) {
+                $order->payment_status = 1; // Pending payment
                 $order->payment_date = Carbon::now();
             }
 
             $order->save();
 
-            return redirect()->route('frontend.orders')->with('message', 'Payment successful and order placed successfully!');
+            return redirect()->route('payment.thankyou')->with('message', 'Payment successful and order placed successfully!');
         } catch (\Exception $e) {
-            return redirect()->route('frontend.orders')->with('error', 'Something went wrong: ' . $e->getMessage());
+            return redirect()->route('payment.thankyou')->with('error', 'Something went wrong: ' . $e->getMessage());
         }
     }
 
@@ -234,7 +215,7 @@ class CheckoutController extends Controller
             $order = Order::where('transaction_token', $request->txnid)->first();
 
             if (!$order) {
-                return redirect()->route('frontend.orders')->with('error', 'Order not found!');
+                return redirect()->route('payment.thankyou')->with('error', 'Order not found!');
             }
 
             // Update order payment status to failed based on payment method
@@ -248,10 +229,16 @@ class CheckoutController extends Controller
 
             $order->save();
 
-            return redirect()->route('frontend.orders')->with('error', 'Payment failed. Please try again.');
+            return redirect()->route('payment.thankyou')->with('error', 'Payment failed. Please try again.');
         } catch (\Exception $e) {
-            return redirect()->route('frontend.orders')->with('error', 'Something went wrong: ' . $e->getMessage());
+            return redirect()->route('payment.thankyou')->with('error', 'Something went wrong: ' . $e->getMessage());
         }
+    }
+
+    // ====== Payment Thank You Page
+    public function paymentThankYou(Request $request)
+    {
+        return view('frontend.store.online.thankyou');
     }
 
 }

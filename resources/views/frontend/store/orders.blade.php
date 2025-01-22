@@ -175,7 +175,7 @@
                                                     <th>Order Status</th>
                                                     <th>Payment Method</th>
                                                     <th>Payment Status</th>
-                                                    <th>Total Amount (₹)</th>
+                                                    <th>Total Amount</th>
                                                     {{-- <th>Invoice</th> --}}
                                                 </tr>
                                             </thead>
@@ -186,7 +186,7 @@
                                                         <tr>
                                                             <td data-label="No">{{ ++$key }}</td>
                                                             <td data-label="Product Name">{{ $order->product->name }}</td>
-                                                            <td data-label="Order Date">{{ $order->order_date }}</td>
+                                                            <td data-label="Order Date">{{ date('d-m-Y', strtotime($order->order_date)) }}</td>
                                                             <td data-label="Order Status">
                                                                 @if ($order->order_status == 1)
                                                                     <span class="bg badge-primary">Pending</span>
@@ -204,7 +204,7 @@
                                                                 $paymentMethod = '';
 
                                                                 if ($order->payment_method == 1) {
-                                                                    $paymentMethod = 'Bank Transfer';
+                                                                    $paymentMethod = 'Online Payment';
                                                                 } elseif ($order->payment_method == 2) {
                                                                     $paymentMethod = 'Check Payment';
                                                                 } elseif ($order->payment_method == 3) {
@@ -226,7 +226,7 @@
                                                                     <span class="bg badge-danger">Delivered</span>
                                                                 @endif
                                                             </td>
-                                                            <td data-label="Total">{{ number_format($order->order_total_price, 0) }}</td>
+                                                            <td data-label="Total">₹ {{ number_format($order->order_total_price, 0) }}</td>
                                                             {{-- <td data-label="Action">
                                                                 <a class="tp-btn-theme height pro-btn-sec" href="#" title="View">
                                                                     <i class="fa fa-eye"></i>

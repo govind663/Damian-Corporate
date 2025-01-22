@@ -199,10 +199,13 @@ Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitize
     // ==== Payment Online by Easebuzz
     Route::get('frontend/payment/{transaction_token}/{order_id}/{citizen_id}/{product_id}/{cart_id}', [CheckoutController::class, 'payment'])->name('frontend.payment');
     Route::post('/payment/process/store', [CheckoutController::class, 'processEasebuzzPayment'])->name('frontend.payment.process');
-    
+
     // ==== Payment Success/Failure by Easebuzz
     Route::get('/payment/success', [CheckoutController::class, 'success'])->name('payment.success');
     Route::get('/payment/failure', [CheckoutController::class, 'failure'])->name('payment.failure');
+
+    // ==== Payment Thank You
+    Route::get('/payment/thankyou', [CheckoutController::class, 'paymentThankYou'])->name('payment.thankyou');
 
 });
 

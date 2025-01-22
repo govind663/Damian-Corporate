@@ -317,6 +317,7 @@ class StoreController extends Controller
 
         // Calculate the total price
         $totalPrice = Cart::where('citizen_id', $userId)
+            ->where('payment_status', '1')
             ->whereNull('deleted_at')
             ->sum('product_total_price');
 
