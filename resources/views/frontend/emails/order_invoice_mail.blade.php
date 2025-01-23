@@ -209,11 +209,18 @@
                             </div>
 
                             @php
-                                $orderlist = DB::table('orders')
-                                            ->where('product_id', $mailData['product']->id)
-                                            ->where('citizen_id', $mailData['user']->id)
-                                            // ->where('payment_status', '3')
-                                            ->get();
+                                $total = 0;
+                                $grandTotal = 0;
+
+                                $total = $mailData['product']->price * $mailData['cart']->quantity;
+                                $grandTotal = $total - ($total * $mailData['product']->discount_price_in_percentage / 100);
+
+                                $cartItems = DB::table('carts')
+                                                ->select('carts.*', 'products.name', 'products.price', 'products.discount_price_in_percentage', 'products.sku')                                                     
+                                                ->join('products', 'carts.product_id', '=', 'products.id')
+                                                ->where('transaction_token', $mailData['order']->transaction_token)
+                                                ->where('user_id', $mailData['user']->id)
+                                                ->get();
                             @endphp
 
                             <table class="order-table">
@@ -225,21 +232,23 @@
                                         <th>Price</th>
                                         <th>Discount</th>
                                         <th>Total</th>
-                                    </tr>
+                                    </tr>   
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>{{ $mailData['product']->product_sku }}</td>
-                                        <td>{{ $mailData['product']->name }}</td>
-                                        <td>{{ $mailData['cart']->quantity }}</td>
-                                        <td>₹ {{ number_format($mailData['product']->price, 0) }}</td>
-                                        <td><span class="bg badge-danger">{{ $mailData['product']->discount_price_in_percentage }} (%)</span></td>
-                                        <td>₹ {{ number_format($mailData['order']->order_total_price, 0) }}</td>
-                                    </tr>
+                                    @foreach($cartItems as $cartItem)
+                                        <tr>
+                                            <td>{{ $cartItem->sku ?? 'N/A' }}</td>
+                                            <td>{{ $cartItem->name ?? 'N/A' }}</td>
+                                            <td>{{ $cartItem->quantity  }}</td>
+                                            <td>₹ {{ number_format($cartItem->price, 0) }}</td>
+                                            <td><span class="bg badge-danger">{{ $cartItem->discount_price_in_percentage }} (%)</span></td>
+                                            <td>₹ {{ number_format($grandTotal, 0) }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
 
-                            <p class="total-price"><strong>Total Amount:</strong> ₹ {{ number_format($mailData['order']->order_total_price, 0) }}</p>
+                            <p class="total-price"><strong>Total Amount:</strong> ₹ {{ number_format($grandTotal, 0) }}</p>
                         </td>
                     </tr>
 

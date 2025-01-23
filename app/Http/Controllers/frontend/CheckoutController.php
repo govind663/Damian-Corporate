@@ -71,6 +71,7 @@ class CheckoutController extends Controller
             $cart = Cart::find($request->cart_id);
             if ($cart) {
                 $cart->payment_status = 3; // Paid
+                $cart->transaction_token = $order->transaction_token;
                 $cart->save();
             }
 
