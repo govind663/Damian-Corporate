@@ -203,7 +203,7 @@
                                         <div class="col-md-12">
                                             <div class="checkout-input-sec">
                                                 <label><b>Street address : <span>*</span></b></label>
-                                                <input type="text" id="street_address" name="street_address" class="@error('street_address') is-invalid @enderror" value="{{ old('street_address') }}" value="{{ old('street_address') }}" placeholder="House number and street name">
+                                                <input type="text" id="street_address" name="street_address" class="@error('street_address') is-invalid @enderror" value="{{ old('street_address') }}" value="{{ old('street_address') }}" placeholder="House number and street name" required>
                                                 @error('street_address')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -304,7 +304,7 @@
 
                             <div class="tp-checkout-payment">
                                 <div class="tp-checkout-payment-item">
-                                    <input type="radio" id="back_transfer" name="payment" value="1">
+                                    <input type="radio" id="back_transfer" name="payment" value="1" required>
                                     <label for="back_transfer" data-bs-toggle="direct-bank-transfer">
                                         Online Payment
                                     </label>
@@ -314,7 +314,7 @@
                                     <label for="cheque_payment">Cheque Payment</label>
                                 </div> --}}
                                 <div class="tp-checkout-payment-item">
-                                    <input type="radio" id="cod" name="payment" value="3">
+                                    <input type="radio" id="cod" name="payment" value="3" required>
                                     <label for="cod">Cash on Delivery</label>
                                 </div>
                                 {{-- <div class="tp-checkout-payment-item paypal-payment">
