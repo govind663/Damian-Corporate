@@ -29,7 +29,7 @@ class ProductRequest extends FormRequest
                 'name' => 'required|string|max:255',
                 'slug' => 'required|string|max:255',
                 'description' => 'required|string',
-                'project_image' => 'mimes:jpeg,png,jpg|max:2048',
+                'project_image' => 'mimes:jpeg,png,jpg,webp|max:2048',
                 // 'product_other_images.*' => 'nullable|mimes:jpeg,png,jpg,webp|max:2048',
                 'price' => 'required|numeric',
                 'discount_type' => 'required|numeric',
@@ -49,7 +49,7 @@ class ProductRequest extends FormRequest
                 'name' => 'required|string|max:255',
                 'slug' => 'required|string|max:255',
                 'description' => 'required|string',
-                'project_image' => 'required|mimes:jpeg,png,jpg|max:2048',
+                'project_image' => 'required|mimes:jpeg,png,jpg,webp|max:2048',
                 // 'product_other_images.*' => 'required|mimes:jpeg,png,jpg,webp|max:2048',
                 'price' => 'required|numeric',
                 'discount_type' => 'required|numeric',
@@ -89,7 +89,7 @@ class ProductRequest extends FormRequest
             'description.string' => __('Product Description must be a string'),
 
             'project_image.required' => __('Product Image is required'),
-            'project_image.mimes' => __('Product Image must be a jpeg, png, jpg'),
+            'project_image.mimes' => __('Product Image must be a jpeg, png, jpg, webp'),
             'project_image.max' => __('Product Image size must be less than or equal to 2MB'),
 
             // 'product_other_images.*.required' => __('Product Other Images is required'),

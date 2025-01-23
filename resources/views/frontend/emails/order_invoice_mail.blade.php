@@ -208,6 +208,14 @@
                                 </div>
                             </div>
 
+                            @php
+                                $orderlist = DB::table('orders')
+                                            ->where('product_id', $mailData['product']->id)
+                                            ->where('citizen_id', $mailData['user']->id)
+                                            // ->where('payment_status', '3')
+                                            ->get();
+                            @endphp
+
                             <table class="order-table">
                                 <thead>
                                     <tr>
