@@ -333,12 +333,11 @@
                                 <div class="checkout-option-sec">
                                     <div class="tp-checkout-agree-item">
                                         <input id="agree" type="checkbox" required value="1" checked>
-                                        <label>
+                                        <label for="agree">
                                             <b>
                                                 <a href="javascript:void(0)" data-toggle="modal" data-target=".bd-tc-modal-lg" class="text-white text-bold">
                                                     I have read and agree to the website.
                                                 </a>
-                                                {{-- <span class="text-danger">*</span> --}}
                                             </b>
                                         </label>
                                     </div>

@@ -433,7 +433,11 @@ class StoreController extends Controller
     // ==== Orders
     public function orders()
     {
-        $orders = Order::where('citizen_id', Auth::guard('citizen')->user()->id)->whereNull('deleted_at')->orderBy('id', 'desc')->get();
+        $orders = Order::where('citizen_id', Auth::guard('citizen')->user()->id)
+                        ->whereNull('deleted_at')
+                        ->orderBy('id', 'desc')
+                        ->groupBy('inserted_at')
+                        ->get();
         // dd($orders);
 
         foreach ($orders as $key => $order) {
