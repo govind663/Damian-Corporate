@@ -39,7 +39,6 @@
                     <div class="thank-you-content-sec">
                         <h3 class="title">Thank You</h3>
 
-                        @if(Auth::guard('citizen')->check())
                             <p class="text-center m-0 text-justify">
                                 Thank you for placing your order with us! Your trust in our services means a lot to us.
                                 If you have any questions or need further assistance, please don't hesitate to contact us.
@@ -52,18 +51,6 @@
                                     <span>View Order</span>
                                 </a>
                             </div>
-                        @else
-                            <p class="text-center m-0 text-justify">
-                                We appreciate your trust in our services. For any inquiries or updates,
-                                please feel free to contact us.
-                            </p>
-                            <div class="cta-btn text-center">
-                                <a class="tp-btn-black" href="{{ route('frontend.home') }}" title="Back to Home">
-                                    <i class="fa-solid fa-house"></i>
-                                    <span>Back to Home</span>
-                                </a>
-                            </div>
-                        @endif
 
                     </div>
                 </div>

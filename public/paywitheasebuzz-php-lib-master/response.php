@@ -3,10 +3,10 @@
     include_once('easebuzz-lib/easebuzz_payment_gateway.php');
 
     // Get the success URL dynamically from Laravel
-    $successUrl = 'http://127.0.0.1:8000/store/payment/success';
+    $successUrl = 'http://127.0.0.1:8000/payment/success';
 
     // Get the failure URL dynamically from Laravel
-    $failureUrl = 'http://127.0.0.1:8000/store/payment/failure';
+    $failureUrl = 'http://127.0.0.1:8000/payment/failure';
 
     // salt for testing env
     $SALT = "CAL3TTCZT";

@@ -436,7 +436,6 @@ class StoreController extends Controller
         $orders = Order::where('citizen_id', Auth::guard('citizen')->user()->id)
                         ->whereNull('deleted_at')
                         ->orderBy('id', 'desc')
-                        ->groupBy('inserted_at')
                         ->get();
         // dd($orders);
 
