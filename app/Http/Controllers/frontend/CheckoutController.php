@@ -28,11 +28,9 @@ class CheckoutController extends Controller
     // ==== Checkout Store
     public function checkoutStore(Request $request, EasebuzzPaymentService $easebuzzPaymentService, string $citizenId, string $cartId, string $productId)
     {
-        // $request->validated();
         try {
-
+            // Step 1: Initialize order
             $order = new Order();
-
             $order->product_id = $request->product_id;
             $order->citizen_id = $request->citizen_id;
             $order->cart_id = $request->cart_id;
@@ -42,141 +40,105 @@ class CheckoutController extends Controller
             $total = preg_replace('/[^\d.]/', '', $request->total); // Remove non-numeric characters
             $order->order_total_price = round((float) $total, 2);
             $order->payment_method = $request->payment;
-            // dd($order->cart_id);
 
-            // Set payment status and payment date based on payment method
-            if ($request->payment == 1) {
-                // PayPal or Bank Transfer
-                $order->payment_status = 3; // Pending
-                $order->payment_date = null; // No payment date yet
-                // Generate Tranx Id
-                $order->payment_transaction_id = $easebuzzPaymentService->generateTranxId(
-                    $order->transaction_token . '-' . $productId . '-' . $citizenId . '-' . $cartId . '-' . Carbon::now()->toDateTimeString()
-                );
-            } else if ($request->payment == 3) {
-                // Cheque Payment or Cash On Delivery
-                $order->payment_status = 2; // Processing
-                $order->payment_date = Carbon::now(); // Payment received
-                // Generate Tranx Id
-                $order->payment_transaction_id = $easebuzzPaymentService->generateTranxId(
-                    $order->transaction_token . '-' . $productId . '-' . $citizenId . '-' . $cartId . '-' . Carbon::now()->toDateTimeString()
-                );
-            }
+            // Step 2: Set payment status and payment date
+            $this->setPaymentStatus($order, $request, $easebuzzPaymentService, $citizenId, $cartId, $productId);
 
-            // payment_transaction_id
+            // Step 3: Save the order
             $order->inserted_at = Carbon::now();
             $order->inserted_by = Auth::guard('citizen')->user()->id;
-
-            // update cart Payment Status
-            $updatedCart = [
-                'payment_status' => 3,
-                'transaction_token' => $order->transaction_token,
-            ];
-            Cart::where('citizen_id', $citizenId)->where('payment_status', 1)->update($updatedCart);
-
             $order->save();
 
-            // User Basic Details
-            $user = [
-                'name' => Auth::guard('citizen')->user()->name . ' ' . Auth::guard('citizen')->user()->last_name,
-                'email' => Auth::guard('citizen')->user()->email,
-                'phone' => Auth::guard('citizen')->user()->phone,
-                'postcode' => $request->postcode,
-                'city' => $request->city,
-                'state' => $request->state,
-                'country' => $request->country,
-                'address' => $request->street_address,
-                'apartment_address' => $request->apartment_address,
-                'notes' => $request->notes,
-            ];
+            // Step 4: Update cart Payment Status
+            Cart::where('citizen_id', $citizenId)->where('payment_status', 1)
+                ->update(['payment_status' => 3, 'transaction_token' => $order->transaction_token]);
 
+            // Step 5: Get user and related data
+            $user = Citizen::find($order->citizen_id);
+            $product = Product::find($order->product_id);
+            $cart = Cart::find($order->cart_id);
 
-            // Handle redirect based on payment method
-            if ($request->payment == 1) {
+            // Step 6: Prepare billing address
+            $billingAddress = $this->prepareBillingAddress($request);
 
-                $order = Order::find($order->id); // Get the order from database
-                $product = Product::find($order->product_id); // Get product info based on order
-                $user = Citizen::find($order->citizen_id); // Get user info based on order
-                $cart = Cart::find($order->cart_id); // Get cart info based on order
+            // Step 7: Send email with invoice
+            $this->sendInvoiceEmail($user, $order, $product, $cart, $billingAddress);
 
-
-                $billingAddress = [
-                    'postcode' => $request->postcode,
-                    'city' => $request->city,
-                    'state' => $request->state,
-                    'country' => $request->country,
-                    'address' => $request->street_address,
-                    'apartment_address' => $request->apartment_address,
-                ];
-
-                // Prepare data to send
-                $mailData = [
-                    'order' => $order,
-                    'user' => $user,
-                    'product' => $product ,
-                    'billingAddress' => $billingAddress,
-                    'cart' => $cart,
-                ];
-
-                // Send the email with the invoice attached
-                Mail::to($user['email'], 'Damian Corporate')
-                // ->cc(['shweta@matrixbricks.com','riddhi@matrixbricks.com'])
-                ->send(new OrderInvoiceMail($mailData));
-
-
-                return redirect()->route('frontend.payment', [
-                    'transaction_token' => $order->transaction_token,
-                    'order_id' => $order->id,
-                    'citizen_id' => $citizenId,
-                    'product_id' => $request->product_id,
-                    'cart_id' => $request->cart_id
-                ])->with([
-                    'payment' => $request->payment,
-                    'txnid' => $order->transaction_token,
-                    'order_id' => $order->id,
-                    'citizenId' => $citizenId,
-                    'productId' => $request->product_id,
-                    'cartId' => $request->cart_id,
-                ]);
-
-            } else if ($request->payment == 3) {
-
-
-                $order = Order::find($order->id); // Get the order from database
-                $product = Product::find($order->product_id); // Get product info based on order
-                $user = Citizen::find($order->citizen_id); // Get user info based on order
-                $cart = Cart::find($order->cart_id); // Get cart info based on order
-
-
-                $billingAddress = [
-                    'postcode' => $request->postcode,
-                    'city' => $request->city,
-                    'state' => $request->state,
-                    'country' => $request->country,
-                    'address' => $request->street_address,
-                    'apartment_address' => $request->apartment_address,
-                ];
-
-                // Prepare data to send
-                $mailData = [
-                    'order' => $order,
-                    'user' => $user,
-                    'product' => $product ,
-                    'billingAddress' => $billingAddress,
-                    'cart' => $cart,
-                ];
-
-                // Send the email with the invoice attached
-                Mail::to($user['email'], 'Damian Corporate')
-                // ->cc(['shweta@matrixbricks.com','riddhi@matrixbricks.com'])
-                ->send(new OrderInvoiceMail($mailData));
-
-                return redirect()->route('payment.thankyou')->with('message', 'Order placed successfully!');
-            }
+            // Step 8: Handle redirect based on payment method
+            return $this->handleRedirect($request, $order, $citizenId, $productId, $cartId);
 
         } catch (\Exception $ex) {
-            return redirect()->back()->with('error', 'Something went wrong - ' . $ex->getMessage());
+            return redirect()->back()->with('error', 'Something went wrong: ' . $ex->getMessage());
         }
+    }
+
+    private function setPaymentStatus(Order $order, Request $request, EasebuzzPaymentService $easebuzzPaymentService, string $citizenId, string $cartId, string $productId)
+    {
+        if ($request->payment == 1) {
+            // PayPal or Bank Transfer
+            $order->payment_status = 3; // Pending
+            $order->payment_date = null; // No payment date yet
+        } elseif ($request->payment == 3) {
+            // Cheque Payment or Cash On Delivery
+            $order->payment_status = 2; // Processing
+            $order->payment_date = Carbon::now(); // Payment received
+        }
+
+        // Generate Transaction ID
+        $order->payment_transaction_id = $easebuzzPaymentService->generateTranxId(
+            $order->transaction_token . '-' . $productId . '-' . $citizenId . '-' . $cartId . '-' . Carbon::now()->toDateTimeString()
+        );
+    }
+
+    private function prepareBillingAddress(Request $request)
+    {
+        return [
+            'postcode' => $request->postcode,
+            'city' => $request->city,
+            'state' => $request->state,
+            'country' => $request->country,
+            'address' => $request->street_address,
+            'apartment_address' => $request->apartment_address,
+        ];
+    }
+
+    private function sendInvoiceEmail($user, $order, $product, $cart, $billingAddress)
+    {
+        $mailData = [
+            'order' => $order,
+            'user' => $user,
+            'product' => $product,
+            'billingAddress' => $billingAddress,
+            'cart' => $cart,
+        ];
+
+        Mail::to($user['email'], 'Damian Corporate')
+            // ->cc(['shweta@matrixbricks.com','riddhi@matrixbricks.com'])
+            ->send(new OrderInvoiceMail($mailData));
+    }
+
+    private function handleRedirect(Request $request, Order $order, string $citizenId, string $productId, string $cartId)
+    {
+        if ($request->payment == 1) {
+            return redirect()->route('frontend.payment', [
+                'transaction_token' => $order->transaction_token,
+                'order_id' => $order->id,
+                'citizen_id' => $citizenId,
+                'product_id' => $productId,
+                'cart_id' => $cartId
+            ])->with([
+                'payment' => $request->payment,
+                'txnid' => $order->transaction_token,
+                'order_id' => $order->id,
+                'citizenId' => $citizenId,
+                'productId' => $productId,
+                'cartId' => $cartId,
+            ]);
+        } elseif ($request->payment == 3) {
+            return redirect()->route('payment.thankyou')->with('message', 'Order placed successfully!');
+        }
+
+        return redirect()->back()->with('error', 'Unknown payment method');
     }
 
     public function payment(Request $request, $txnid , $order_id, $citizenId, $productId, $cartId)

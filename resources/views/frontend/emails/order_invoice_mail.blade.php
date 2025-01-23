@@ -257,9 +257,9 @@
                                         <th>Product SKU</th>
                                         <th>Product Name</th>
                                         <th>Quantity</th>
-                                        <th>Price</th>
+                                        <th>Price (RS)</th>
                                         <th>Discount</th>
-                                        <th>Total</th>
+                                        <th>Total (RS)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -273,22 +273,22 @@
                                             <td>{{ $cartItem->product_sku ?? '' }}</td>
                                             <td>{{ $cartItem->name ?? '' }}</td>
                                             <td>{{ $cartItem->quantity ?? '' }}</td>
-                                            <td>₹ {{ number_format($cartItem->price, 2) }}</td>
+                                            <td>{{ number_format($cartItem->price, 2) }}</td>
                                             <td><span class="bg badge-danger">{{ $cartItem->discount_price_in_percentage ?? '' }}%</span></td>
-                                            <td>₹ {{ number_format($discountedTotal, 2) }}</td>
+                                            <td>{{ number_format($discountedTotal, 2) }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td colspan="5" style="text-align: right;"><strong>Grand Total:</strong></td>
-                                        <td><strong>₹ {{ number_format($grandTotal, 2) }}</strong></td>
+                                        <td><strong>RS {{ number_format($grandTotal, 2) }}</strong></td>
                                     </tr>
                                 </tfoot>
                             </table>
 
                             <p class="total-price">
-                                <strong>Total Amount:</strong> ₹ {{ number_format($grandTotal, 0) }}
+                                <strong>Total Amount:</strong>Rs {{ number_format($grandTotal, 0) }}
                             </p>
                         </td>
                     </tr>
