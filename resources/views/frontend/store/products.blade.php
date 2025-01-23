@@ -268,7 +268,6 @@
 @endsection
 
 @push('scripts')
-{{-- Add to Cart and Wishlist --}}
 <script>
     $(document).ready(function () {
         // Set up CSRF token for AJAX
@@ -277,6 +276,9 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+        let addedToCart = [];  // Array to track added products in the cart
+        let addedToWishlist = [];  // Array to track added products to the wishlist
 
         // Check if the user is logged in
         let citizenId = @json(Auth::guard('citizen')->check() ? Auth::guard('citizen')->id() : null);
@@ -284,119 +286,107 @@
         // Function to handle login check
         function handleLoginCheck(action) {
             if (!citizenId) {
-                // Show toaster message with time duration
                 let message = 'Please log in to ' + action + ' this product.';
                 toastr.error(message, 'Login Required', {
                     timeOut: 5000 // 5 seconds duration
                 });
 
-                // Redirect to login page after 5 seconds
                 setTimeout(function () {
-                    window.location.href = '{{ route("frontend.citizen.login") }}'; // Redirect to login page
-                }, 5000); // Wait for 5 seconds before redirecting
+                    window.location.href = '{{ route("frontend.citizen.login") }}';
+                }, 5000);
 
                 return false;
             }
             return true;
         }
 
-        // Add to Cart
-        $('.add-to-cart').on('click', function (e) {
-            e.preventDefault(); // Prevent the default behavior (i.e., redirection)
+        // Add to Cart (Delegated Event)
+        $('#product-grid').on('click', '.add-to-cart', function (e) {
+            e.preventDefault();
 
-            let productId = $(this).data('product-id'); // Get the product ID from the data attribute
+            let productId = $(this).data('product-id');
 
-            // Check if the user is logged in
             if (!handleLoginCheck('add to cart')) return;
 
-            // Perform AJAX request to add to cart
+            if (addedToCart.includes(productId)) {
+                toastr.error('This product is already in your cart!');
+                return;
+            }
+
+            // Disable the button to prevent multiple clicks
+            $(this).prop('disabled', true);
+
             $.ajax({
-                url: '{{ route('frontend.addToCart') }}', // Your cart add route
+                url: '{{ route('frontend.addToCart') }}',
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
                     product_id: productId,
-                    citizen_id: citizenId, // Pass citizen_id
+                    citizen_id: citizenId,
                 },
                 success: function (response) {
                     if (response.success) {
-                        toastr.success(response.message); // Show success toaster message
-                        location.reload(); // Reload the page to reflect the changes
+                        toastr.success(response.message);
+                        addedToCart.push(productId); // Add product ID to the cart tracker
                     } else {
-                        toastr.error(response.message); // Show error toaster message
+                        toastr.error(response.message);
                     }
                 },
                 error: function () {
                     toastr.error('An error occurred. Please try again later.');
+                },
+                complete: function () {
+                    // Re-enable the button after request completion
+                    $('.add-to-cart').prop('disabled', false);
+                    location.reload(); // Reload the page to reflect the changes
                 }
             });
         });
 
-        // Add to Wishlist
-        $('.quick-view').on('click', function (e) {
-            e.preventDefault(); // Prevent the default behavior (i.e., redirection)
+        // Add to Wishlist (Delegated Event)
+        $('#product-grid').on('click', '.quick-view', function (e) {
+            e.preventDefault();
 
-            let productId = $(this).data('product-id'); // Get the product ID from the data attribute
+            let productId = $(this).data('product-id');
 
-            // Check if the user is logged in
             if (!handleLoginCheck('add to wishlist')) return;
 
-            // Perform AJAX request to add to wishlist
+            if (addedToWishlist.includes(productId)) {
+                toastr.error('This product is already in your wishlist!');
+                return;
+            }
+
+            // Disable the button to prevent multiple clicks
+            $(this).prop('disabled', true);
+
             $.ajax({
-                url: '{{ route('frontend.addToWishlist') }}', // Your wishlist add route
+                url: '{{ route('frontend.addToWishlist') }}',
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
                     product_id: productId,
-                    citizen_id: citizenId, // Pass citizen_id
+                    citizen_id: citizenId,
                 },
                 success: function (response) {
                     if (response.success) {
-                        toastr.success(response.message); // Show success toaster message
-                        location.reload(); // Reload the page to reflect the changes
+                        toastr.success(response.message);
+                        addedToWishlist.push(productId); // Add product ID to the wishlist tracker
                     } else {
-                        toastr.error(response.message); // Show error toaster message
+                        toastr.error(response.message);
                     }
                 },
                 error: function () {
                     toastr.error('An error occurred. Please try again later.');
+                },
+                complete: function () {
+                    // Re-enable the button after request completion
+                    $('.quick-view').prop('disabled', false);
+                    location.reload(); // Reload the page to reflect the changes
                 }
             });
         });
-    });
-</script>
 
-{{-- Filter Products --}}
-<script>
-    $(document).ready(function () {
-
-        // Check if the user is logged in
-        let citizenId = @json(Auth::guard('citizen')->check() ? Auth::guard('citizen')->id() : null);
-
-        // Handle Login Check Function
-        function handleLoginCheck(action) {
-            // Check if the user is logged in (this depends on your application's logic)
-            let isLoggedIn = {{ auth()->check() ? 'true' : 'false' }}; // Check if the user is logged in
-
-            if (!isLoggedIn) {
-                // If not logged in, show a message or redirect to login page
-                toastr.error('Please log in to ' + action + '.');
-                // Optionally, you can redirect the user to the login page
-                window.location.href = '{{ route("login") }}';
-                return false;
-            }
-
-            return true;
-        }
-
-        // Set up CSRF token for AJAX
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        // Function to fetch filtered products
+        // Filter Products
         function fetchProducts() {
             let categories = [];
             let subCategories = [];
@@ -404,40 +394,32 @@
             let minPrice = $('#min_price').val();
             let maxPrice = $('#max_price').val();
 
-            // Get selected categories
             $("input[name='categories[]']:checked").each(function () {
                 categories.push($(this).val());
             });
 
-            // Get selected subcategories
             $("input[name='sub_categories[]']:checked").each(function () {
                 subCategories.push($(this).val());
             });
 
-            // Get selected colors
             $("input[name='colors[]']:checked").each(function () {
                 colors.push($(this).val());
             });
 
-            // AJAX request to send data
             $.ajax({
-                url: "{{ route('frontend.products.filter') }}", // Update this route as per your backend logic
+                url: "{{ route('frontend.products.filter') }}",
                 method: "POST",
                 data: {
-                    categories_id: categories,  // Send selected category IDs
-                    subCategories_id: subCategories,  // Send selected subcategory IDs
-                    color_id: colors,  // Send selected color IDs
-                    minPrice: minPrice,  // Send min price
-                    maxPrice: maxPrice,  // Send max price
-                    _token: "{{ csrf_token() }}",  // CSRF token
+                    categories_id: categories,
+                    subCategories_id: subCategories,
+                    color_id: colors,
+                    minPrice: minPrice,
+                    maxPrice: maxPrice,
+                    _token: "{{ csrf_token() }}",
                 },
                 success: function (response) {
-                    // Clear previous products
                     $('#product-grid').empty();
-
-                    // Check if products are found
                     if (response.products.length === 0) {
-                        // Display the "No products found" message
                         $('#product-grid').append(`
                             <div class="empty-cart">
                                 <h3 class="text-center">No products found</h3>
@@ -446,22 +428,9 @@
                                     <br>
                                     Please try adjusting the filters to find what you're looking for.
                                 </p>
-                                <div class="sign-up-btn-wrap text-center">
-                                    <div class="btn-sec">
-                                        <a href="{{ route('frontend.products') }}">
-                                            <button class="tp-btn-theme" type="button">
-                                                <span>
-                                                    <i class="fa-solid fa-cart-shopping"></i>
-                                                    Continue Shopping
-                                                </span>
-                                            </button>
-                                        </a>
-                                    </div>
-                                </div>
                             </div>
                         `);
                     } else {
-                        // Update the product list with the fetched data
                         $.each(response.products, function (index, product) {
                             $('#product-grid').append(`
                                 <div class="col-md-4 col-sm-4 col-xs-12">
@@ -505,108 +474,15 @@
                                 </div>
                             `);
                         });
-
-                        // Rebind the event handlers for the new "Add to Cart" and "Add to Wishlist" buttons
-                        bindCartWishlistEvents();
                     }
-                },
-                error: function (xhr) {
-                    console.error(xhr.responseText); // Log any errors
-                },
-                complete: function () {
-                    // Reset the CSRF token
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                },
-                beforeSend: function () {
-                    // Show loading indicator
-                    $('#product-grid').append(`
-                        <div class="col-md-12">
-                            <div class="loading">
-                                <i class="fas fa-spinner fa-pulse"></i>
-                            </div>
-                        </div>
-                    `);
                 }
             });
         }
 
-        // Event listeners for filters
         $("input[name='categories[]'], input[name='sub_categories[]'], input[name='colors[]']").on('change', fetchProducts);
         $('#min_price, #max_price').on('input', fetchProducts);
 
-        // Function to bind the Add to Cart and Wishlist events
-        function bindCartWishlistEvents() {
-            // Add to Cart
-            $('.add-to-cart').on('click', function (e) {
-                e.preventDefault(); // Prevent the default behavior (i.e., redirection)
-
-                let productId = $(this).data('product-id'); // Get the product ID from the data attribute
-
-                // Check if the user is logged in
-                if (!handleLoginCheck('add to cart')) return;
-
-                // Perform AJAX request to add to cart
-                $.ajax({
-                    url: '{{ route('frontend.addToCart') }}', // Your cart add route
-                    method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        product_id: productId,
-                        citizen_id: citizenId, // Pass citizen_id
-                    },
-                    success: function (response) {
-                        if (response.success) {
-                            toastr.success(response.message); // Show success toaster message
-                            location.reload(); // Reload the page to reflect the changes
-                        } else {
-                            toastr.error(response.message); // Show error toaster message
-                        }
-                    },
-                    error: function () {
-                        toastr.error('An error occurred. Please try again later.');
-                    }
-                });
-            });
-
-            // Add to Wishlist
-            $('.quick-view').on('click', function (e) {
-                e.preventDefault(); // Prevent the default behavior (i.e., redirection)
-
-                let productId = $(this).data('product-id'); // Get the product ID from the data attribute
-
-                // Check if the user is logged in
-                if (!handleLoginCheck('add to wishlist')) return;
-
-                // Perform AJAX request to add to wishlist
-                $.ajax({
-                    url: '{{ route('frontend.addToWishlist') }}', // Your wishlist add route
-                    method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        product_id: productId,
-                        citizen_id: citizenId, // Pass citizen_id
-                    },
-                    success: function (response) {
-                        if (response.success) {
-                            toastr.success(response.message); // Show success toaster message
-                            location.reload(); // Reload the page to reflect the changes
-                        } else {
-                            toastr.error(response.message); // Show error toaster message
-                        }
-                    },
-                    error: function () {
-                        toastr.error('An error occurred. Please try again later.');
-                    }
-                });
-            });
-        }
-
-        // Call this function initially to bind the events when the page loads
-        bindCartWishlistEvents();
     });
 </script>
+
 @endpush
