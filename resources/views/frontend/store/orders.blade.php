@@ -181,58 +181,53 @@
                                             </thead>
 
                                             <tbody>
-                                                @if (count($orders) > 0)
-                                                    @foreach ($orders as $key => $order)
-                                                        <tr>
-                                                            <td data-label="No">{{ ++$key }}</td>
-                                                            <td data-label="Product Name">{{ $order->product->name }}</td>
-                                                            <td data-label="Order Date">{{ date('d-m-Y', strtotime($order->order_date)) }}</td>
-                                                            <td data-label="Order Status">
-                                                                @if ($order->order_status == 1)
-                                                                    <span class="bg badge-primary">Pending</span>
-                                                                @elseif ($order->order_status == 2)
-                                                                    <span class="bg badge-warning">Processing</span>
-                                                                @elseif ($order->order_status == 3)
-                                                                    <span class="bg badge-info">Shipped</span>
-                                                                @elseif ($order->order_status == 4)
-                                                                    <span class="bg badge-success">Delivered</span>
-                                                                @endif
-                                                            </td>
+                                                @if (count($orderDetails) > 0)
+                                                    @foreach ($orderDetails as $key => $orderDetail)
+                                                        @foreach ($orderDetail['cart_items'] as $cartItem)
+                                                            <tr>
+                                                                <td data-label="No">{{ ++$key }}</td>
+                                                                <td data-label="Product Name">{{ $cartItem->product_name }}</td>
+                                                                <td data-label="Order Date">{{ Carbon\Carbon::parse($orderDetail['order']->order_date)->format('d-m-Y') }}</td>
+                                                                <td data-label="Order Status">
+                                                                    @if ($orderDetail['order']->order_status == 1)
+                                                                        <span class="bg badge-primary">Pending</span>
+                                                                    @elseif ($orderDetail['order']->order_status == 2)
+                                                                        <span class="bg badge-warning">Processing</span>
+                                                                    @elseif ($orderDetail['order']->order_status == 3)
+                                                                        <span class="bg badge-info">Shipped</span>
+                                                                    @elseif ($orderDetail['order']->order_status == 4)
+                                                                        <span class="bg badge-success">Delivered</span>
+                                                                    @endif
+                                                                </td>
 
-                                                            {{-- 1 => Bank Transfer, 2 => Check Payment , 3 => Cash On Delivery, 4 => PayPal --}}
-                                                            @php
-                                                                $paymentMethod = '';
+                                                                @php
+                                                                    $paymentMethod = '';
+                                                                    if ($orderDetail['order']->payment_method == 1) {
+                                                                        $paymentMethod = 'Online Payment';
+                                                                    } elseif ($orderDetail['order']->payment_method == 2) {
+                                                                        $paymentMethod = 'Check Payment';
+                                                                    } elseif ($orderDetail['order']->payment_method == 3) {
+                                                                        $paymentMethod = 'Cash On Delivery';
+                                                                    } elseif ($orderDetail['order']->payment_method == 4) {
+                                                                        $paymentMethod = 'PayPal';
+                                                                    }
+                                                                @endphp
+                                                                <td data-label="Payment Method">{{ $paymentMethod }}</td>
 
-                                                                if ($order->payment_method == 1) {
-                                                                    $paymentMethod = 'Online Payment';
-                                                                } elseif ($order->payment_method == 2) {
-                                                                    $paymentMethod = 'Check Payment';
-                                                                } elseif ($order->payment_method == 3) {
-                                                                    $paymentMethod = 'Cash On Delivery';
-                                                                } elseif ($order->payment_method == 4) {
-                                                                    $paymentMethod = 'PayPal';
-                                                                }
-                                                            @endphp
-                                                            <td data-label="Payment Method">{{ $paymentMethod }}</td>
-
-                                                            <td data-label="Payment Status">
-                                                                @if ($order->payment_status == 1)
-                                                                    <span class="bg badge-primary">Pending</span>
-                                                                @elseif ($order->payment_status == 2)
-                                                                    <span class="bg badge-warning">Processing</span>
-                                                                @elseif ($order->payment_status == 3)
-                                                                    <span class="bg badge-success">Completed</span>
-                                                                @elseif ($order->payment_status == 4)
-                                                                    <span class="bg badge-danger">Delivered</span>
-                                                                @endif
-                                                            </td>
-                                                            <td data-label="Total">₹ {{ number_format($order->order_total_price, 0) }}</td>
-                                                            {{-- <td data-label="Action">
-                                                                <a class="tp-btn-theme height pro-btn-sec" href="#" title="View">
-                                                                    <i class="fa fa-eye"></i>
-                                                                </a>
-                                                            </td> --}}
-                                                        </tr>
+                                                                <td data-label="Payment Status">
+                                                                    @if ($orderDetail['order']->payment_status == 1)
+                                                                        <span class="bg badge-primary">Pending</span>
+                                                                    @elseif ($orderDetail['order']->payment_status == 2)
+                                                                        <span class="bg badge-warning">Processing</span>
+                                                                    @elseif ($orderDetail['order']->payment_status == 3)
+                                                                        <span class="bg badge-success">Completed</span>
+                                                                    @elseif ($orderDetail['order']->payment_status == 4)
+                                                                        <span class="bg badge-danger">Failed</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td data-label="Total">₹ {{ number_format($cartItem->product_price, 0) }}</td>
+                                                            </tr>
+                                                        @endforeach
                                                     @endforeach
                                                 @else
                                                     <tr>
@@ -256,7 +251,6 @@
                                                         </td>
                                                     </tr>
                                                 @endif
-
                                             </tbody>
                                         </table>
                                     </div>

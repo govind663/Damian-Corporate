@@ -68,12 +68,11 @@ class CheckoutController extends Controller
             $order->inserted_by = Auth::guard('citizen')->user()->id;
 
             // update cart Payment Status
-            $cart = Cart::find($request->cart_id);
-            if ($cart) {
-                $cart->payment_status = 3; // Paid
-                $cart->transaction_token = $order->transaction_token;
-                $cart->save();
-            }
+            $updatedCart = [
+                'payment_status' => 3,
+                'transaction_token' => $order->transaction_token,
+            ];
+            Cart::where('citizen_id', $citizenId)->where('payment_status', 1)->update($updatedCart);
 
             $order->save();
 
@@ -179,7 +178,6 @@ class CheckoutController extends Controller
             return redirect()->back()->with('error', 'Something went wrong - ' . $ex->getMessage());
         }
     }
-
 
     public function payment(Request $request, $txnid , $order_id, $citizenId, $productId, $cartId)
     {

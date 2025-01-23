@@ -18,7 +18,7 @@
     <title>Invoice for Order #{{ $mailData['order']->transaction_token }} - Damian Corporate</title>
 
     <style type="text/css">
-        /* Global Styles */
+        /* Reset and Global Styles */
         * {
             margin: 0;
             padding: 0;
@@ -27,7 +27,7 @@
         }
 
         body {
-            background-color: #f9f9f9;
+            background-color: #f3f4f6;
             color: #333;
             font-size: 14px;
             line-height: 1.6;
@@ -39,129 +39,161 @@
         }
 
         td {
-            padding: 12px;
+            padding: 15px;
             vertical-align: top;
         }
 
-        /* Header Section */
-        .logo {
-            text-align: center;
-            margin-bottom: 20px;
+        a {
+            text-decoration: none;
+            color: #4a90e2;
         }
 
+        /* Logo Section */
         .logo img {
-            width: 200px;
-            height: auto;
+            width: 180px;
+            margin: 0 auto;
+            display: block;
         }
 
-        h2 {
-            font-size: 20px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
-            text-decoration: underline;
+        /* Invoice Wrapper */
+        .invoice-container {
+            max-width: 700px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
-        /* Invoice Details Section */
+        .invoice-header {
+            background-color: #121315;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .invoice-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .invoice-header p {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
         .invoice-details {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
             padding: 30px;
-            margin-bottom: 20px;
         }
 
+        /* Billing Info Section */
         .billing-info {
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
         }
 
         .billing-info div {
             width: 48%;
         }
 
-        .billing-info p {
-            margin-bottom: 10px;
+        .billing-info div p {
+            margin-bottom: 8px;
+            color: #666;
         }
 
-        .billing-info p strong {
+        .billing-info strong {
+            font-weight: 600;
             color: #333;
         }
 
-        /* Table Styles */
+        /* Order Table */
         .order-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
-        .order-table th,
-        .order-table td {
-            padding: 12px;
-            border: 1px solid #ddd;
+        .order-table thead th {
+            background-color: #f3f4f6;
+            color: #333;
+            font-weight: 700;
             text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid #e5e7eb;
         }
 
-        .order-table th {
-            background-color: #f7f7f7;
-            font-weight: bold;
+        .order-table tbody td {
+            padding: 10px;
+            border-bottom: 1px solid #e5e7eb;
+            color: #555;
         }
 
-        .order-table td {
-            background-color: #fafafa;
+        .order-table tbody tr:hover {
+            background-color: #f9fafb;
         }
 
-        /* Price and Discount */
+        .order-table .badge-danger {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            font-size: 12px;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        /* Grand Total */
+        .order-table tfoot td {
+            font-weight: 700;
+            color: #333;
+            text-align: right;
+            padding: 15px;
+        }
+
         .total-price {
             font-size: 18px;
-            font-weight: bold;
-            color: #333;
+            font-weight: 700;
+            color: #333638;
             text-align: right;
             margin-top: 20px;
         }
 
-        /* Price and Discount */
-        .badge-danger {
-            background-color: #e74c3c; /* Danger red color */
-            color: white; /* White text color */
-            font-size: 12px;
-            padding: 2px 8px;
-            border-radius: 5px;
-        }
-
-        /* Footer */
+        /* Footer Section */
         .footer {
+            background-color: #f3f4f6;
             text-align: center;
+            padding: 15px;
+            color: #666;
             font-size: 14px;
-            color: #888;
-            margin-top: 40px;
         }
 
         .footer a {
-            color: #000;
-            text-decoration: none;
+            color: #5885b9;
+            font-weight: 600;
         }
 
         /* Responsive Styles */
         @media (max-width: 768px) {
             .billing-info {
                 flex-direction: column;
-                align-items: flex-start;
             }
 
             .billing-info div {
                 width: 100%;
-                margin-bottom: 20px;
+                margin-bottom: 15px;
             }
 
-            .order-table th, .order-table td {
+            .order-table th,
+            .order-table td {
                 padding: 10px;
+                font-size: 12px;
             }
 
             .total-price {
-                font-size: 16px;
-                text-align: left;
+                font-size: 15px;
             }
         }
     </style>
@@ -209,18 +241,14 @@
                             </div>
 
                             @php
-                                $total = 0;
-                                $grandTotal = 0;
-
-                                $total = $mailData['product']->price * $mailData['cart']->quantity;
-                                $grandTotal = $total - ($total * $mailData['product']->discount_price_in_percentage / 100);
-
                                 $cartItems = DB::table('carts')
-                                                ->select('carts.*', 'products.name', 'products.price', 'products.discount_price_in_percentage', 'products.sku')                                                     
-                                                ->join('products', 'carts.product_id', '=', 'products.id')
+                                                ->select('carts.*', 'products.name', 'products.price', 'products.discount_price_in_percentage', 'products.product_sku')
+                                                ->leftJoin('products', 'carts.product_id', '=', 'products.id')
                                                 ->where('transaction_token', $mailData['order']->transaction_token)
-                                                ->where('user_id', $mailData['user']->id)
+                                                ->where('citizen_id', $mailData['user']->id)
                                                 ->get();
+
+                                $grandTotal = 0; // Initialize grand total for all products
                             @endphp
 
                             <table class="order-table">
@@ -232,23 +260,36 @@
                                         <th>Price</th>
                                         <th>Discount</th>
                                         <th>Total</th>
-                                    </tr>   
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($cartItems as $cartItem)
+                                        @php
+                                            $total = $cartItem->price * $cartItem->quantity; // Total for this product
+                                            $discountedTotal = $total - ($total * $cartItem->discount_price_in_percentage / 100); // Apply discount
+                                            $grandTotal += $discountedTotal; // Add to grand total
+                                        @endphp
                                         <tr>
-                                            <td>{{ $cartItem->sku ?? 'N/A' }}</td>
-                                            <td>{{ $cartItem->name ?? 'N/A' }}</td>
-                                            <td>{{ $cartItem->quantity  }}</td>
-                                            <td>₹ {{ number_format($cartItem->price, 0) }}</td>
-                                            <td><span class="bg badge-danger">{{ $cartItem->discount_price_in_percentage }} (%)</span></td>
-                                            <td>₹ {{ number_format($grandTotal, 0) }}</td>
+                                            <td>{{ $cartItem->product_sku ?? '' }}</td>
+                                            <td>{{ $cartItem->name ?? '' }}</td>
+                                            <td>{{ $cartItem->quantity ?? '' }}</td>
+                                            <td>₹ {{ number_format($cartItem->price, 2) }}</td>
+                                            <td><span class="bg badge-danger">{{ $cartItem->discount_price_in_percentage ?? '' }}%</span></td>
+                                            <td>₹ {{ number_format($discountedTotal, 2) }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5" style="text-align: right;"><strong>Grand Total:</strong></td>
+                                        <td><strong>₹ {{ number_format($grandTotal, 2) }}</strong></td>
+                                    </tr>
+                                </tfoot>
                             </table>
 
-                            <p class="total-price"><strong>Total Amount:</strong> ₹ {{ number_format($grandTotal, 0) }}</p>
+                            <p class="total-price">
+                                <strong>Total Amount:</strong> ₹ {{ number_format($grandTotal, 0) }}
+                            </p>
                         </td>
                     </tr>
 

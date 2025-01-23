@@ -17,6 +17,7 @@ use App\Models\State;
 use App\Models\Wishlist;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
@@ -403,11 +404,11 @@ class StoreController extends Controller
 
         // ===== Fetch Cart
         $cartItems = Cart::with('product', 'citizen')
-        ->where('payment_status', '1')
-        ->where('citizen_id', Auth::guard('citizen')->user()->id)
-        ->orderBy('id', 'desc')
-        ->whereNull('deleted_at')
-        ->get();
+                        ->where('payment_status', '1')
+                        ->where('citizen_id', Auth::guard('citizen')->user()->id)
+                        ->orderBy('id', 'desc')
+                        ->whereNull('deleted_at')
+                        ->get();
         // dd($cartItems);
 
         $productId = Cart::where('citizen_id', Auth::guard('citizen')->user()->id)->first();
@@ -433,11 +434,36 @@ class StoreController extends Controller
     // ==== Orders
     public function orders()
     {
+        // Fetch orders for the authenticated citizen user
         $orders = Order::where('citizen_id', Auth::guard('citizen')->user()->id)
                         ->whereNull('deleted_at')
                         ->orderBy('id', 'desc')
                         ->get();
-        // dd($orders);
+
+        // Initialize an empty collection for order details
+        $orderDetails = collect();
+
+        // Loop through each order to fetch corresponding cart items
+        foreach ($orders as $order) {
+            $cartItems = DB::table('carts')
+                            ->select(
+                                'carts.*',
+                                'products.name as product_name',
+                                'products.price as product_price',
+                                'products.discount_price_in_percentage',
+                                'products.product_sku'
+                            )
+                            ->leftJoin('products', 'carts.product_id', '=', 'products.id')
+                            ->where('carts.transaction_token', $order->transaction_token)
+                            ->where('carts.citizen_id', Auth::guard('citizen')->user()->id)
+                            ->whereNull('carts.deleted_at')
+                            ->get();
+
+            $orderDetails->push([
+                'order' => $order,
+                'cart_items' => $cartItems
+            ]);
+        }
 
         foreach ($orders as $key => $order) {
             $order->order_date = Carbon::parse($order->order_date)->format('d M, Y');
@@ -446,7 +472,8 @@ class StoreController extends Controller
         // dd($orders);
 
         return view('frontend.store.orders', [
-            'orders' => $orders
+            'orders' => $orders,
+            'orderDetails' => $orderDetails
         ]);
     }
 
