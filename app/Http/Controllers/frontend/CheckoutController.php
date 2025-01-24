@@ -14,7 +14,9 @@ use App\Services\EasebuzzPaymentService;
 use Illuminate\Support\Facades\Log;
 use App\Mail\OrderInvoiceMail;
 use App\Models\Product;
+use App\Services\EasebuzzService;
 use Illuminate\Support\Facades\Mail;
+use Easebuzz\PaymentGateway\Easebuzz;
 
 class CheckoutController extends Controller
 {
@@ -120,23 +122,58 @@ class CheckoutController extends Controller
     private function handleRedirect(Request $request, Order $order, string $citizenId, string $productId, string $cartId)
     {
         if ($request->payment == 1) {
-            return redirect()->route('frontend.payment', [
-                'transaction_token' => $order->transaction_token,
-                'order_id' => $order->id,
-                'citizen_id' => $citizenId,
-                'product_id' => $productId,
-                'cart_id' => $cartId
-            ])->with([
-                'payment' => $request->payment,
+            // If you have a route to handle the response
+            $responseUrl = route('payment.response'); // Use Laravel's route helper to create the URL
+
+            // Prepare request parameters for Easebuzz
+            $params = [
                 'txnid' => $order->transaction_token,
-                'order_id' => $order->id,
-                'citizenId' => $citizenId,
-                'productId' => $productId,
-                'cartId' => $cartId,
-            ]);
-        } elseif ($request->payment == 3) {
-            return redirect()->route('payment.thankyou')->with('message', 'Order placed successfully!');
-        }
+                'amount' => $order->total_amount,
+                'productinfo' => 'Product',
+                'firstname' => Auth::guard('citizen')->user()->f_name . ' ' . Auth::guard('citizen')->user()->l_name,
+                'email' => Auth::guard('citizen')->user()->email,
+                'phone' => Auth::guard('citizen')->user()->phone,
+                'surl' => $responseUrl,
+                'furl' => $responseUrl,
+            ];
+
+            // try {
+                // Construct the file path correctly
+                $filePath = base_path('paywitheasebuzz-php-lib-master/Easebuzz.php'); // Assuming it's located in the root directory or another appropriate location
+                if (!file_exists($filePath)) {
+                    throw new \Exception("Easebuzz library file not found at: " . $filePath);
+                }
+
+                // Include the file dynamically
+                require_once $filePath;
+
+                // Define the merchant details
+                $SALT = "CAL3TTCZT";
+                $MERCHANT_KEY = "Z1J63NDE8";
+                $ENV = "test"; // Change to 'live' for production
+
+                // Initialize the Easebuzz object with correct parameters
+                $easebuzzObj = new Easebuzz($MERCHANT_KEY, $SALT, $ENV);
+
+                // Call the response method
+                $result = $easebuzzObj->easebuzzResponse($_POST);
+
+                // Decode the response
+                $response = json_decode($result, true);
+
+                // Log the response for debugging
+                Log::info('Easebuzz Response', ['response' => $response]);
+
+                return $response;
+
+            // } catch (\Exception $e) {
+                // Log the error and return a response
+                Log::error('Easebuzz Payment Error', ['message' => $e->getMessage()]);
+                return redirect()->back()->with('error', 'Failed to initiate payment. Please try again.');
+            }
+        // } elseif ($request->payment == 3) {
+        //     return redirect()->route('payment.thankyou')->with('message', 'Order placed successfully!');
+        // }
 
         return redirect()->back()->with('error', 'Unknown payment method');
     }

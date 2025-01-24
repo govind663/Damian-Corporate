@@ -22,7 +22,7 @@ use App\Http\Controllers\frontend\Auth\RegisterController as CitizenRegisterCont
 use App\Http\Controllers\frontend\Auth\ForgotPasswordController as CitizenForgotPasswordController;
 use App\Http\Controllers\frontend\Auth\ResetPasswordController as CitizenResetPasswordController;
 use App\Http\Controllers\frontend\CheckoutController;
-
+use App\Http\Controllers\frontend\EasebuzzResponseController;
 
 // ===== Backend Controllers
 use App\Http\Controllers\backend\Auth\RegisterController;
@@ -201,6 +201,9 @@ Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitize
     Route::post('/payment/process/store', [CheckoutController::class, 'processEasebuzzPayment'])->name('frontend.payment.process');
 
 });
+
+// ==== Payment Response by Easebuzz
+Route::post('/payment/response', [EasebuzzResponseController::class, 'handleResponse'])->name('payment.response');
 
 // ==== Payment Success/Failure by Easebuzz
 Route::get('/payment/success', [CheckoutController::class, 'success'])->name('payment.success');
