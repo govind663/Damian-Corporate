@@ -327,24 +327,24 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', PreventBackHisto
 });
 
 // ==== Robots
-// Route::get('/robots.txt', function () {
-//     return response("User-agent: *\nDisallow:", 200)
-//         ->header('Content-Type', 'text/plain')
-//         ->header('X-Robots-Tag', 'noindex')
-//         ->header('X-Content-Type-Options', 'nosniff')
-//         ->header('X-XSS-Protection', '1; mode=block')
-//         ->header('X-Frame-Options', 'SAMEORIGIN');
-// });
+Route::get('/robots.txt', function () {
+    return response("User-agent: *\nDisallow:", 200)
+        ->header('Content-Type', 'text/plain')
+        ->header('X-Robots-Tag', 'noindex')
+        ->header('X-Content-Type-Options', 'nosniff')
+        ->header('X-XSS-Protection', '1; mode=block')
+        ->header('X-Frame-Options', 'SAMEORIGIN');
+});
 
 // ==== Sitemap
-// Route::get('/sitemap.xml', function () {
-//     return response()->view('sitemap')
-//         ->header('Content-Type', 'text/xml')
-//         ->header('X-Robots-Tag', 'noindex')
-//         ->header('X-Content-Type-Options', 'nosniff')
-//         ->header('X-XSS-Protection', '1; mode=block')
-//         ->header('X-Frame-Options', 'SAMEORIGIN')
-//         ->header('Content-Type', 'application/xml')
-//         ->header('Content-Disposition', 'attachment; filename="sitemap.xml"')
-//         ->header('Content-Transfer-Encoding', 'binary');
-// });
+Route::get('/sitemap.xml', function () {
+    return response()->view('sitemap')
+        ->header('Content-Type', 'text/xml')
+        ->header('X-Robots-Tag', 'noindex')
+        ->header('X-Content-Type-Options', 'nosniff')
+        ->header('X-XSS-Protection', '1; mode=block')
+        ->header('X-Frame-Options', 'SAMEORIGIN')
+        ->header('Content-Type', 'application/xml')
+        ->header('Content-Disposition', 'attachment; filename="sitemap.xml"')
+        ->header('Content-Transfer-Encoding', 'binary');
+});
