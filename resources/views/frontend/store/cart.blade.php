@@ -126,15 +126,15 @@
                                 <h2> We Accept </h2>
                                 <ul>
                                     <li>
-                                        <img src="{{ asset('frontend/assets/img/icon/Bhim_upi.webp') }}" class="img-responsive" alt="visa" title="visa" style="width: 60px !important; height: 40px !important;">
+                                        <img src="{{ asset('frontend/assets/img/icon/Bhim_upi.webp') }}" class="img-responsive" alt="visa" title="visa" style="width: 97px !important; height: 60px !important;">
                                     </li>
 
                                     <li>
-                                        <img src="{{ asset('frontend/assets/img/icon/phone_pay.png') }}" class="img-responsive" alt="american express" title="american express" style="width: 80px !important; height: 80px !important; border-radius: 50%;">
+                                        <img src="{{ asset('frontend/assets/img/icon/phone_pay.webp') }}" class="img-responsive" alt="american express" title="american express" style="width: 80px !important; height: 80px !important;">
                                     </li>
 
                                     <li>
-                                        <img src="{{ asset('frontend/assets/img/icon/gpay-icon.png') }}" class="img-responsive" alt="mastercard" title="mastercard" style="width: 80px !important; height: 140px !important;">
+                                        <img src="{{ asset('frontend/assets/img/icon/gpay-icon.webp') }}" class="img-responsive" alt="mastercard" title="mastercard" style="width: 120px !important; height: 65px !important;">
                                     </li>
                                 </ul>
                             </div>

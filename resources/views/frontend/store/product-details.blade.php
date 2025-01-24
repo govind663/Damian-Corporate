@@ -188,8 +188,8 @@
                                 @endforeach
                             </div>
 
-                            <div class="thumbnail-button-next"></div>
-                            <div class="thumbnail-button-prev"></div>
+                            {{-- <div class="thumbnail-button-next"></div>
+                            <div class="thumbnail-button-prev"></div> --}}
                         </div>
                     </div>
                 </div>
