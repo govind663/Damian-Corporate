@@ -82,16 +82,15 @@ class StoreController extends Controller
         // ===== Fetch Product Colors
         $colors = ProductColors::orderBy("id", "asc")->whereNull('deleted_at')->get();
 
-        // ==== Fetch Product Faq
+        // ===== Fetch Product FAQs
         $productfaqs = ProductFaq::orderBy("id", "asc")->whereNull('deleted_at')->get();
 
         // Fetch filters from the request
         $categories = $request->input('categories_id', []);
         $subCategories = $request->input('subCategories_id', []);
-        $selectedColors = $request->input('color_id', []);
+        $selectedColors = $request->input('color_id', []); // Array of selected color IDs
         $minPrice = $request->input('minPrice', null);
         $maxPrice = $request->input('maxPrice', null);
-        // dd($minPrice, $maxPrice, $categories, $subCategories, $selectedColors);
 
         // Initialize query
         $query = Product::query()->whereNull('deleted_at');
@@ -103,6 +102,7 @@ class StoreController extends Controller
         if (!empty($subCategories)) {
             $query->whereIn('product_sub_category_id', $subCategories);
         }
+        // Apply color filter only if colors are selected
         if (!empty($selectedColors)) {
             $query->whereIn('product_colors_id', $selectedColors);
         }
@@ -110,10 +110,10 @@ class StoreController extends Controller
             $query->whereBetween('discount_price_after_percentage', [(float) $minPrice, (float) $maxPrice]);
         }
 
+        // Fetch filtered products
         $products = $query->orderBy('id', 'desc')->get();
-        // dd($products);
 
-        // Return only the products section
+        // Prepare the response data
         $data = [
             'products' => $products,
             'productCategories' => $productCategories,
@@ -122,12 +122,12 @@ class StoreController extends Controller
             'productfaqs' => $productfaqs,
             'categories_id' => $categories,
             'subCategories_id' => $subCategories,
-            'color_id' => $colors,
+            'color_id' => $selectedColors,
             'minPrice' => $minPrice,
             'maxPrice' => $maxPrice,
         ];
 
-        // dd($data);
+        // Return the response as JSON
         return response()->json($data);
     }
 

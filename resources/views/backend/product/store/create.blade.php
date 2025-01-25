@@ -103,7 +103,7 @@ Damian Corporate | Add Product
                 </div>
 
                 <div class="form-group row mt-3">
-                    <label class="col-sm-2"><b>Product Color : </b></label>
+                    {{-- <label class="col-sm-2"><b>Product Color : </b></label>
                     <div class="col-sm-4 col-md-4">
                         <select name="product_colors_id" id="product_colors_id" class="custom-select2 form-control @error('product_colors_id') is-invalid @enderror">
                             <option value="">Select Product Color</option>
@@ -112,6 +112,24 @@ Damian Corporate | Add Product
                             @endforeach
                         </select>
                         @error('product_colors_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div> --}}
+
+                    <label class="col-sm-2"><b>Product Type : <span class="text-danger">*</span></b></label>
+                    <div class="col-sm-4 col-md-4">
+                        <select name="product_type" id="product_type" class="custom-select2 form-control @error('product_type') is-invalid @enderror">
+                            <option value=" " >Select Product Type</option>
+                            <optgroup label="Product Type">
+                                <option value="1" {{ old('product_type') == '1' ? 'selected' : '' }}>New</option>
+                                <option value="2" {{ old('product_type') == '2' ? 'selected' : '' }}>Sale</option>
+                                <option value="3" {{ old('product_type') == '3' ? 'selected' : '' }}>Best Seller</option>
+                                <option value="4" {{ old('product_type') == '4' ? 'selected' : '' }}>Featured</option>
+                            </optgroup>
+                        </select>
+                        @error('product_type')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -136,23 +154,7 @@ Damian Corporate | Add Product
                 </div>
 
                 <div class="form-group row mt-3">
-                    <label class="col-sm-2"><b>Product Type : <span class="text-danger">*</span></b></label>
-                    <div class="col-sm-4 col-md-4">
-                        <select name="product_type" id="product_type" class="custom-select2 form-control @error('product_type') is-invalid @enderror">
-                            <option value=" " >Select Product Type</option>
-                            <optgroup label="Product Type">
-                                <option value="1" {{ old('product_type') == '1' ? 'selected' : '' }}>New</option>
-                                <option value="2" {{ old('product_type') == '2' ? 'selected' : '' }}>Sale</option>
-                                <option value="3" {{ old('product_type') == '3' ? 'selected' : '' }}>Best Seller</option>
-                                <option value="4" {{ old('product_type') == '4' ? 'selected' : '' }}>Featured</option>
-                            </optgroup>
-                        </select>
-                        @error('product_type')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
+
                 </div>
 
                 <div class="form-group row mt-3">

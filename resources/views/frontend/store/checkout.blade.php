@@ -245,17 +245,26 @@
                                     <!-- header -->
                                     <li class="order-info-list-header-sec">
                                         <h4>Product</h4>
+                                        <h4>Quantity</h4>
+                                        <h4>Price</h4>
                                         <h4>Total</h4>
                                     </li>
 
                                     <!-- item list -->
                                     @foreach($cartItems as $key => $value)
                                     <li class="tp-order-info-list-desc">
-                                        <p>
-                                            {{ $value['product']['name'] }}
-                                            <span> x {{ $value['quantity'] }}</span>
+                                        <p class="text-start">
+                                            {{ $value->product->name }}
                                         </p>
-                                        <span>₹ {{ number_format($value['product']['discount_price_after_percentage'] * $value['quantity'], 2) }}</span>
+                                        <p class="text-end">
+                                            {{ $value->quantity }}
+                                        </p>
+                                        <p class="text-end">
+                                            ₹ {{ number_format($value->product->discount_price_after_percentage, 2) }}
+                                        </p>
+                                        <p class="text-end">
+                                            ₹ {{ number_format($value->product->discount_price_after_percentage * $value->quantity, 2) }}
+                                        </p>
                                     </li>
                                     @endforeach
 
@@ -263,11 +272,11 @@
                                     <li class="order-info-list-subtotal-sec">
                                         <span>Subtotal</span>
                                         <input type="hidden" id="subtotal" name="subtotal" value="{{ $cartItems->sum(function($item) {
-                                            return (float) $item['product']['discount_price_after_percentage'] * (int) $item['quantity'];
+                                            return (float) $item->product->discount_price_after_percentage * (int) $item->quantity;
                                         }) }}">
                                         <span id="subtotal-amount">₹ {{ number_format($cartItems->sum(function($item) {
                                             return (float) $item['product']['discount_price_after_percentage'] * (int) $item['quantity'];
-                                        }), 0) }}</span>
+                                        }), 2) }}</span>
                                     </li>
 
                                     <!-- Shipping -->

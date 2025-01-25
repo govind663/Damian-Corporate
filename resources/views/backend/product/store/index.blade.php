@@ -70,11 +70,11 @@ Damian Corporate | Manaage Product
                         <tr>
                             <td>{{ ++$key }}</td>
 
-                            <td class="text-wrap text-justify">{{ $value->product_sku }}</td>
+                            <td class="text-wrap text-justify">{{ $value->product_sku ?? '' }}</td>
 
                             <td class="text-wrap text-justify">{{ $value->product_category?->name }}</td>
 
-                            <td class="text-wrap text-justify">{{ $value->product_sub_category->name }}</td>
+                            <td class="text-wrap text-justify">{{ $value->product_sub_category?->name }}</td>
 
                             @if($value->image)
                             <td class="text-wrap text-justify">
@@ -82,9 +82,9 @@ Damian Corporate | Manaage Product
                             </td>
                             @endif
 
-                            <td class="text-wrap text-justify">{{ $value->name }}</td>
+                            <td class="text-wrap text-justify">{{ $value->name ?? '' }}</td>
 
-                            <td class="text-wrap text-justify">{{ $value->slug }}</td>
+                            <td class="text-wrap text-justify">{{ $value->slug ?? '' }}</td>
 
                             @if ($value->status == 1)
                                 <td class="text-wrap text-justify"><span class="badge badge-success">Active</span></td>

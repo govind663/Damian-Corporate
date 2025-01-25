@@ -122,7 +122,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="accordion-item">
+                                {{-- <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
                                             Colours
@@ -144,7 +144,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="true" aria-controls="panelsStayOpen-collapseFour">
