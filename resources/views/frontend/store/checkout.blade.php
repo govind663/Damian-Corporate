@@ -256,7 +256,7 @@
                                         <p class="text-start">
                                             {{ $value->product->name }}
                                         </p>
-                                        <p class="text-center">
+                                        <p class="text-end">
                                             {{ $value->quantity }}
                                         </p>
                                         <p class="text-end">
