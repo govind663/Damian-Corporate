@@ -14,9 +14,8 @@ use App\Services\EasebuzzPaymentService;
 use Illuminate\Support\Facades\Log;
 use App\Mail\OrderInvoiceMail;
 use App\Models\Product;
-use App\Services\EasebuzzService;
 use Illuminate\Support\Facades\Mail;
-use Easebuzz\PaymentGateway\Easebuzz;
+use Easebuzz\PayWithEasebuzzLaravel\PayWithEasebuzzLib;
 
 class CheckoutController extends Controller
 {
@@ -122,8 +121,6 @@ class CheckoutController extends Controller
     private function handleRedirect(Request $request, Order $order, string $citizenId, string $productId, string $cartId)
     {
         if ($request->payment == 1) {
-            // If you have a route to handle the response
-            $responseUrl = route('payment.response'); // Use Laravel's route helper to create the URL
 
             // Prepare request parameters for Easebuzz
             $params = [
@@ -133,49 +130,42 @@ class CheckoutController extends Controller
                 'firstname' => Auth::guard('citizen')->user()->f_name . ' ' . Auth::guard('citizen')->user()->l_name,
                 'email' => Auth::guard('citizen')->user()->email,
                 'phone' => Auth::guard('citizen')->user()->phone,
-                'surl' => $responseUrl,
-                'furl' => $responseUrl,
+                'surl' => route('payment.success'),
+                'furl' => route('payment.failure'),
             ];
 
-            // try {
-                // Construct the file path correctly
-                $filePath = base_path('paywitheasebuzz-php-lib-master/Easebuzz.php'); // Assuming it's located in the root directory or another appropriate location
-                if (!file_exists($filePath)) {
-                    throw new \Exception("Easebuzz library file not found at: " . $filePath);
+            try {
+                // Initialize the Easebuzz object
+                $easebuzz = new PayWithEasebuzzLib(
+                    config('easebuzz.key'),  // Fetch key from config
+                    config('easebuzz.salt'), // Fetch salt from config
+                    config('easebuzz.env')  // Fetch environment ('test' or 'live') from config
+                );
+
+                // Initiate the payment and retrieve the response
+                $response = $easebuzz->initiatePaymentAPI($params);
+
+                // Log the response for debugging purposes
+                Log::info('Easebuzz Payment Initiated', ['params' => $params, 'response' => $response]);
+
+                // Check if the response contains a payment URL
+                if (isset($response['payment_url'])) {
+                    // Redirect the user to the payment page
+                    return redirect()->away($response['payment_url']);
                 }
 
-                // Include the file dynamically
-                require_once $filePath;
-
-                // Define the merchant details
-                $SALT = "CAL3TTCZT";
-                $MERCHANT_KEY = "Z1J63NDE8";
-                $ENV = "test"; // Change to 'live' for production
-
-                // Initialize the Easebuzz object with correct parameters
-                $easebuzzObj = new Easebuzz($MERCHANT_KEY, $SALT, $ENV);
-
-                // Call the response method
-                $result = $easebuzzObj->easebuzzResponse($_POST);
-
-                // Decode the response
-                $response = json_decode($result, true);
-
-                // Log the response for debugging
-                Log::info('Easebuzz Response', ['response' => $response]);
-
-                return $response;
-
-            // } catch (\Exception $e) {
-                // Log the error and return a response
-                Log::error('Easebuzz Payment Error', ['message' => $e->getMessage()]);
+                // Handle cases where the response does not contain a URL
+                return redirect()->back()->with('error', 'Failed to initiate payment. Please try again.');
+            } catch (\Exception $e) {
+                // Log any exception that occurs
+                Log::error('Easebuzz Payment Error', ['error' => $e->getMessage()]);
                 return redirect()->back()->with('error', 'Failed to initiate payment. Please try again.');
             }
-        // } elseif ($request->payment == 3) {
-        //     return redirect()->route('payment.thankyou')->with('message', 'Order placed successfully!');
-        // }
+        } elseif ($request->payment == 3) {
+            return redirect()->route('payment.thankyou')->with('message', 'Order placed successfully!');
+        }
 
-        return redirect()->back()->with('error', 'Unknown payment method');
+        return redirect()->back()->with('error', 'Unknown payment method selected.');
     }
 
     public function payment(Request $request, $txnid , $order_id, $citizenId, $productId, $cartId)

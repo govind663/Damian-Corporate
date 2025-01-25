@@ -924,6 +924,42 @@
             "install-path": "../dragonmantank/cron-expression"
         },
         {
+            "name": "easebuzz/pay-with-easebuzz-laravel",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/easebuzz/paywitheasebuzz-laravel-lib.git",
+                "reference": "384e876f8b98e6a3e957a62856e2266438591fbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/easebuzz/paywitheasebuzz-laravel-lib/zipball/384e876f8b98e6a3e957a62856e2266438591fbc",
+                "reference": "384e876f8b98e6a3e957a62856e2266438591fbc",
+                "shasum": ""
+            },
+            "time": "2023-09-12T14:35:10+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Easebuzz\\PayWithEasebuzzLaravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "easebuzz",
+                    "email": "pgsupport@easebuzz.in"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/easebuzz/paywitheasebuzz-laravel-lib/issues",
+                "source": "https://github.com/easebuzz/paywitheasebuzz-laravel-lib/tree/1.0.0"
+            },
+            "install-path": "../easebuzz/pay-with-easebuzz-laravel"
+        },
+        {
             "name": "egulias/email-validator",
             "version": "4.0.3",
             "version_normalized": "4.0.3.0",

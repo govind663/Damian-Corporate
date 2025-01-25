@@ -157,6 +157,7 @@ class ComposerStaticInit68db4035bde94a60b4860d0b508037f2
         'E' => 
         array (
             'Egulias\\EmailValidator\\' => 23,
+            'Easebuzz\\PayWithEasebuzzLaravel\\' => 32,
         ),
         'D' => 
         array (
@@ -501,6 +502,10 @@ class ComposerStaticInit68db4035bde94a60b4860d0b508037f2
         'Egulias\\EmailValidator\\' => 
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/src',
+        ),
+        'Easebuzz\\PayWithEasebuzzLaravel\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/easebuzz/pay-with-easebuzz-laravel/src',
         ),
         'Dotenv\\' => 
         array (
@@ -1389,6 +1394,9 @@ class ComposerStaticInit68db4035bde94a60b4860d0b508037f2
         'Dotenv\\Util\\Regex' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Util/Regex.php',
         'Dotenv\\Util\\Str' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Util/Str.php',
         'Dotenv\\Validator' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Validator.php',
+        'Easebuzz\\PayWithEasebuzzLaravel\\Lib\\EasebuzzLib\\Easebuzz' => __DIR__ . '/..' . '/easebuzz/pay-with-easebuzz-laravel/src/Lib/EasebuzzLib/Easebuzz.php',
+        'Easebuzz\\PayWithEasebuzzLaravel\\PayWithEasebuzzLib' => __DIR__ . '/..' . '/easebuzz/pay-with-easebuzz-laravel/src/PayWithEasebuzzLib.php',
+        'Easebuzz\\PayWithEasebuzzLaravel\\PayWithEasebuzzServiceProvider' => __DIR__ . '/..' . '/easebuzz/pay-with-easebuzz-laravel/src/PayWithEasebuzzServiceProvider.php',
         'Egulias\\EmailValidator\\EmailLexer' => __DIR__ . '/..' . '/egulias/email-validator/src/EmailLexer.php',
         'Egulias\\EmailValidator\\EmailParser' => __DIR__ . '/..' . '/egulias/email-validator/src/EmailParser.php',
         'Egulias\\EmailValidator\\EmailValidator' => __DIR__ . '/..' . '/egulias/email-validator/src/EmailValidator.php',

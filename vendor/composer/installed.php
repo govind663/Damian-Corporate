@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => 'baebec86a1768b09ff37e193db06985332e32ebc',
+        'reference' => 'a04a34df010c6305a286f32f540e94921be7804e',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -136,6 +136,15 @@
             'reference' => '8c784d071debd117328803d86b2097615b457500',
             'type' => 'library',
             'install_path' => __DIR__ . '/../dragonmantank/cron-expression',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'easebuzz/pay-with-easebuzz-laravel' => array(
+            'pretty_version' => '1.0.0',
+            'version' => '1.0.0.0',
+            'reference' => '384e876f8b98e6a3e957a62856e2266438591fbc',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../easebuzz/pay-with-easebuzz-laravel',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -451,7 +460,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => 'baebec86a1768b09ff37e193db06985332e32ebc',
+            'reference' => 'a04a34df010c6305a286f32f540e94921be7804e',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -871,8 +880,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '3.0.0',
-                1 => '1.0|2.0|3.0',
+                0 => '1.0|2.0|3.0',
+                1 => '3.0.0',
             ),
         ),
         'psr/simple-cache' => array(
