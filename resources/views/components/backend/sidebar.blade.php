@@ -247,11 +247,11 @@
                                 <span class="mtext">Product Sub Category</span>
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="{{ route('product-colors.index') }}" class="{{ (Route::currentRouteName() === 'product-colors.index') || (Route::currentRouteName() === 'product-colors.create') || (Route::currentRouteName() === 'product-colors.edit') ? 'active' : '' }}">
                                 <span class="mtext">Product Color</span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li>
                             <a href="{{ route('product.index') }}" class="{{ (Route::currentRouteName() === 'product.index') || (Route::currentRouteName() === 'product.create') || (Route::currentRouteName() === 'product.edit') ? 'active' : '' }}">
                                 <span class="mtext">Product</span>
