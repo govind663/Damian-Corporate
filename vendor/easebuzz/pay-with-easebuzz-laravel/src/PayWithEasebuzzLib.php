@@ -19,7 +19,7 @@ class PayWithEasebuzzLib
     *
     * @param  string $key - holds the merchant key.
     * @param  string $salt - holds the merchant salt key.
-    * @param  string $env - holds the env(enviroment). 
+    * @param  string $env - holds the env(enviroment).
     *
     */
     function __construct($key, $salt, $env){
@@ -41,7 +41,7 @@ class PayWithEasebuzzLib
         * ##Return values
         *
         * - return array ApiResponse['status']== 1 means successful.
-        * 
+        *
         * - return array ApiResponse['status']== 0 means error.
         *
         * @param array $params - holds the $_POST data which is pass from the html form.
@@ -52,7 +52,7 @@ class PayWithEasebuzzLib
         * ##Helper methods for initiate payment(payment.php)
         *
         * - initiate_payment(arg1, arg2, arg3, arg4) :- call all method initiate payment and dispaly payment page.
-        * 
+        *
         * - _payment(arg1, arg2, arg3, arg4) :- use for initiate payment.
         *
         * - _paymentResponse(arg1) :- use for show api response (like error, payment page etc.).
@@ -110,7 +110,7 @@ class PayWithEasebuzzLib
         * ##Return values
         *
         * - return array ApiResponse['status']== 1 means successful.
-        * 
+        *
         * - return array ApiResponse['status']== 0 means error.
         *
         * @param array $params - holds the $_POST data which is pass from the html form.
@@ -137,7 +137,7 @@ class PayWithEasebuzzLib
         * - _email_validation(arg1) :- check email format validation.
         *
         * - _getURL(arg1) :- get URL based on set enviroment.
-        * 
+        *
         * - _getTransaction(arg1, arg2, arg3) :- initiate transaction.
         *
         * ## below method call from _getTransaction() method.
@@ -179,7 +179,7 @@ class PayWithEasebuzzLib
         * ##Return values
         *
         * - return array ApiResponse['status']== 1 means successful.
-        * 
+        *
         * - return array ApiResponse['status']== 0 means error.
         *
         * @param array $params - holds the $_POST data which is pass from the html form.
@@ -204,7 +204,7 @@ class PayWithEasebuzzLib
         * - _email_validation(arg1) :- check email format validation.
         *
         * - _getURL(arg1) :- get URL based on set enviroment.
-        * 
+        *
         * - _getDateTransaction(arg1, arg2, arg3) :- initiate date transaction.
         *
         * ## below method call from _getDateTransaction() method.
@@ -241,7 +241,7 @@ class PayWithEasebuzzLib
         * ##Return values
         *
         * - return array ApiResponse['status']== 1 means successful.
-        * 
+        *
         * - return array ApiResponse['status']== 0 means error.
         *
         * @param array $params - holds the $_POST data which is pass from the html form.
@@ -266,7 +266,7 @@ class PayWithEasebuzzLib
         * - _email_validation(arg1) :- check email format validation.
         *
         * - _getURL(arg1) :- get URL based on set enviroment.
-        * 
+        *
         * - _refundPayment(arg1, arg2, arg3) :- initiate refund.
         *
         * ## below method call from _refundPayment() method.
@@ -312,7 +312,7 @@ class PayWithEasebuzzLib
         * ##Return values
         *
         * - return array ApiResponse['status']== 1 means successful.
-        * 
+        *
         * - return array ApiResponse['status']== 0 means error.
         *
         * @param array $params - holds the $_POST data which is pass from the html form.
@@ -337,7 +337,7 @@ class PayWithEasebuzzLib
         * - _email_validation(arg1) :- check email format validation.
         *
         * - _getURL(arg1) :- get URL based on set enviroment.
-        * 
+        *
         * - _payoutPayment(arg1, arg2, arg3) :- initiate payout payment.
         *
         * ## below method call from _payoutPayment() method.

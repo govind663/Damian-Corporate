@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Middleware\DisableCsrfForPaymentResponse;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\PreventBackHistoryMiddleware;
 use App\Http\Middleware\PreventCitizenBackHistoryMiddleware;
-use App\Http\Middleware\RemoveTrailingSlash;
 
 // ===== Frontend Controllers
 use App\Http\Controllers\frontend\HomeController as FrontendHomeController;
@@ -22,7 +22,6 @@ use App\Http\Controllers\frontend\Auth\RegisterController as CitizenRegisterCont
 use App\Http\Controllers\frontend\Auth\ForgotPasswordController as CitizenForgotPasswordController;
 use App\Http\Controllers\frontend\Auth\ResetPasswordController as CitizenResetPasswordController;
 use App\Http\Controllers\frontend\CheckoutController;
-use App\Http\Controllers\frontend\EasebuzzResponseController;
 
 // ===== Backend Controllers
 use App\Http\Controllers\backend\Auth\RegisterController;
@@ -200,17 +199,17 @@ Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitize
     Route::get('frontend/payment/{transaction_token}/{order_id}/{citizen_id}/{product_id}/{cart_id}', [CheckoutController::class, 'payment'])->name('frontend.payment');
     Route::post('/payment/process/store', [CheckoutController::class, 'processEasebuzzPayment'])->name('frontend.payment.process');
 
+    // ==== Payment Success/Failure by Easebuzz
+    Route::get('/payment/success', [CheckoutController::class, 'success'])->name('payment.success');
+    Route::get('/payment/failure', [CheckoutController::class, 'failure'])->name('payment.failure');
+
+    // ==== Payment Thank You
+    Route::get('/payment/thankyou', [CheckoutController::class, 'paymentThankYou'])->name('payment.thankyou');
 });
 
 // ==== Payment Response by Easebuzz
-Route::post('/payment/response', [EasebuzzResponseController::class, 'handleResponse'])->name('payment.response');
+Route::post('/payment/response', [CheckoutController::class, 'response'])->name('payment.response');
 
-// ==== Payment Success/Failure by Easebuzz
-Route::get('/payment/success', [CheckoutController::class, 'success'])->name('payment.success');
-Route::get('/payment/failure', [CheckoutController::class, 'failure'])->name('payment.failure');
-
-// ==== Payment Thank You
-Route::get('/payment/thankyou', [CheckoutController::class, 'paymentThankYou'])->name('payment.thankyou');
 
 // ===== Admin Register
 Route::get('admin/register', [RegisterController::class,'register'])->name('admin.register');
