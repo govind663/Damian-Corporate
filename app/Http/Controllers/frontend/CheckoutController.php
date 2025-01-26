@@ -142,7 +142,7 @@ class CheckoutController extends Controller
             }
 
             try {
-                // Prepare payment parameters
+                // Prepare payment parameters with CSRF token
                 $params = $this->preparePaymentParams($order);
 
                 if (empty($params)) {
@@ -186,7 +186,7 @@ class CheckoutController extends Controller
         return redirect()->back()->with('error', 'Invalid payment method selected.');
     }
 
-    private function preparePaymentParams(Order $order): array
+    private function preparePaymentParams(Order $order)
     {
         $user = Auth::guard('citizen')->user();
 
@@ -199,6 +199,7 @@ class CheckoutController extends Controller
             'phone' => $user->phone,
             'surl' => route('payment.response'), // Success URL
             'furl' => route('payment.response'), // Failure URL
+            'csrf_token' => csrf_token(),  // Append CSRF token
         ];
     }
 
@@ -226,66 +227,74 @@ class CheckoutController extends Controller
 
     public function response(Request $request)
     {
+        $order = Order::get();
+        dd($order);
         try {
-            $params = $request->all();
-            dd($params);
+            $params = $request->all(); // Retrieve all parameters sent by Easebuzz
 
-            // Call the verifyPayment method
-            $response = $this->verifyPayment($params);
+            // Log the response for debugging
+            Log::info('Easebuzz Payment Response', ['response' => $params]);
 
-            Log::info('Easebuzz Payment Response', ['response' => $response]);
+            // Validate the response hash
+            if (!$this->validateEasebuzzResponse($params)) {
+                Log::error('Easebuzz Payment Hash Validation Failed', ['response' => $params]);
+                return redirect()->route('payment.failed')->with('error', 'Payment response validation failed. Please contact support.');
+            }
 
-            // Check the response status and handle accordingly
-            if (isset($response['status']) && $response['status'] === 'success') {
-                // Payment successful
-                // Optionally, update your database with the payment status
-
-                // Redirect to the success URL (surl)
-                return redirect()->away($response['surl'])->with('message', 'Payment successful. Also, check your email for receipt. Order Placed Successfully!');
-            } elseif (isset($response['status']) && $response['status'] === 'failure') {
-                // Payment failed
-                // Optionally, update your database with the payment status
-
-                // Redirect to the failure URL (furl)
-                return redirect()->away($response['furl'])->with('error', 'Payment failed.');
+            // Check the status in the response
+            if (isset($params['status']) && $params['status'] === 'success') {
+                // Payment success - Update your database
+                $this->updateOrderStatus($params, 'success');
+                return redirect()->route('payment.thankyou')->with('message', 'Payment successful. Order placed successfully!');
+            } elseif (isset($params['status']) && $params['status'] === 'failure') {
+                // Payment failure - Update your database
+                $this->updateOrderStatus($params, 'failure');
+                return redirect()->route('payment.failed')->with('error', 'Payment failed. Please try again.');
             } else {
-                // Payment status unknown
-                // Redirect to a fallback page or back with an error message
-                return redirect()->back()->with('error', 'Payment status unknown. Please try again.');
+                // Unknown payment status
+                return redirect()->back()->with('error', 'Payment status unknown. Please contact support.');
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage());
+            Log::error('Easebuzz Payment Response Error', ['error' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'An error occurred while processing the payment response.');
         }
     }
 
-    private function verifyPayment(array $params): array
+    private function validateEasebuzzResponse(array $params): bool
     {
-        // Example logic for verifying payment (replace with actual logic for your payment gateway)
-        // Assuming the response contains a checksum that needs to be verified
-        $checksum = $params['checksum']; // Or the relevant field based on your gateway
-        unset($params['checksum']); // Remove checksum from parameters for verification
+        // Get Easebuzz key and salt from config
+        $key = config('easebuzz.key');
+        $salt = config('easebuzz.salt');
 
-        // Your secret key for generating checksum
-        $secretKey = 'your_secret_key_here';
+        // Extract hash from the response
+        $responseHash = $params['hash'] ?? '';
 
-        // Generate the checksum again using the response data and the secret key
-        $generatedChecksum = $this->generateChecksum($params, $secretKey);
+        // Remove hash and other unnecessary parameters
+        unset($params['hash']);
+        unset($params['unnecessary_field']); // Remove other fields if required
 
-        // Compare the generated checksum with the received one
-        if ($checksum === $generatedChecksum) {
-            // Check if the status is success
-            return ['status' => 'success'];
-        } else {
-            return ['status' => 'failure'];
-        }
+        // Sort parameters alphabetically
+        ksort($params);
+
+        // Prepare the hash string
+        $hashString = $salt . '|' . implode('|', array_reverse($params)) . '|' . $key;
+
+        // Generate the hash using SHA512
+        $generatedHash = hash('sha512', $hashString);
+
+        // Compare generated hash with the response hash
+        return hash_equals($responseHash, $generatedHash);
     }
 
-    private function generateChecksum(array $params, string $secretKey): string
+    private function updateOrderStatus(array $response, string $status)
     {
-        // Example checksum generation logic (replace with actual method)
-        ksort($params); // Sort the parameters in alphabetical order
-        $queryString = http_build_query($params);
-        return hash('sha256', $queryString . $secretKey);
+        $order = Order::where('transaction_token', $response['txnid'])->first();
+
+        if ($order) {
+            // $order->payment_status = $status;
+            // $order->payment_response = json_encode($response); // Save the response for reference
+            $order->save();
+        }
     }
 
     // ====== Handle payment success

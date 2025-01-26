@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Middleware\DisableCsrfForPaymentResponse;
 use App\Http\Middleware\PreventBackHistoryMiddleware;
 use App\Http\Middleware\PreventCitizenBackHistoryMiddleware;
-use App\Http\Middleware\RemoveTrailingSlash;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -23,9 +21,6 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // === RemoveTrailingSlash
         // $middleware->append(RemoveTrailingSlash::class);
-
-        // === DisableCsrfForPaymentResponse
-        $middleware->append(DisableCsrfForPaymentResponse::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
