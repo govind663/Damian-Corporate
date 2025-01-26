@@ -199,6 +199,9 @@ Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitize
     Route::get('frontend/payment/{transaction_token}/{order_id}/{citizen_id}/{product_id}/{cart_id}', [CheckoutController::class, 'payment'])->name('frontend.payment');
     Route::post('/payment/process/store', [CheckoutController::class, 'processEasebuzzPayment'])->name('frontend.payment.process');
 
+    // ==== Payment Response by Easebuzz
+    Route::post('/payment/response', [CheckoutController::class, 'response'])->name('payment.response');
+
     // ==== Payment Success/Failure by Easebuzz
     Route::get('/payment/success', [CheckoutController::class, 'success'])->name('payment.success');
     Route::get('/payment/failure', [CheckoutController::class, 'failure'])->name('payment.failure');
@@ -206,9 +209,6 @@ Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitize
     // ==== Payment Thank You
     Route::get('/payment/thankyou', [CheckoutController::class, 'paymentThankYou'])->name('payment.thankyou');
 });
-
-// ==== Payment Response by Easebuzz
-Route::post('/payment/response', [CheckoutController::class, 'response'])->name('payment.response');
 
 
 // ===== Admin Register

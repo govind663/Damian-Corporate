@@ -228,6 +228,7 @@ class CheckoutController extends Controller
     {
         try {
             $params = $request->all();
+            dd($params);
 
             // Call the verifyPayment method
             $response = $this->verifyPayment($params);
