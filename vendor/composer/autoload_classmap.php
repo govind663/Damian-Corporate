@@ -59,7 +59,6 @@ return array(
     'App\\Http\\Controllers\\frontend\\HomeController' => $baseDir . '/app/Http/Controllers/frontend/HomeController.php',
     'App\\Http\\Controllers\\frontend\\ServicesController' => $baseDir . '/app/Http/Controllers/frontend/ServicesController.php',
     'App\\Http\\Controllers\\frontend\\StoreController' => $baseDir . '/app/Http/Controllers/frontend/StoreController.php',
-    'App\\Http\\Middleware\\DisableCsrfForPaymentResponse' => $baseDir . '/app/Http/Middleware/DisableCsrfForPaymentResponse.php',
     'App\\Http\\Middleware\\PreventBackHistoryMiddleware' => $baseDir . '/app/Http/Middleware/PreventBackHistoryMiddleware.php',
     'App\\Http\\Middleware\\PreventCitizenBackHistoryMiddleware' => $baseDir . '/app/Http/Middleware/PreventCitizenBackHistoryMiddleware.php',
     'App\\Http\\Middleware\\RemoveTrailingSlash' => $baseDir . '/app/Http/Middleware/RemoveTrailingSlash.php',

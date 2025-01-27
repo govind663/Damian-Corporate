@@ -236,26 +236,41 @@ class CheckoutController extends Controller
             // Validate the response hash
             if (!$this->validateEasebuzzResponse($params)) {
                 Log::error('Easebuzz Payment Hash Validation Failed', ['response' => $params]);
-                return redirect()->route('payment.failed')->with('error', 'Payment response validation failed. Please contact support.');
+                return $this->redirectWithMessage('failure', 'Payment response validation failed. Please contact support.');
             }
 
-            // Check the status in the response
-            if (isset($params['status']) && $params['status'] === 'success') {
-                // Payment success - Update your database
+            // Handle payment statuses
+            $status = $params['status'];
+            if ($status === 'success') {
+                // Payment successful - update order status
                 $this->updateOrderStatus($params, 'success');
-                return redirect()->route('payment.thankyou')->with('message', 'Payment successful. Order placed successfully!');
-            } elseif (isset($params['status']) && $params['status'] === 'failure') {
-                // Payment failure - Update your database
+                return $this->redirectWithMessage('thankyou', 'Payment successful. Order placed successfully!');
+            } elseif ($status === 'failure') {
+                // Payment failed - update order status
                 $this->updateOrderStatus($params, 'failure');
-                return redirect()->route('payment.failed')->with('error', 'Payment failed. Please try again.');
+                return $this->redirectWithMessage('failure', 'Payment failed. Please try again.');
             } else {
-                // Unknown payment status
-                return redirect()->back()->with('error', 'Payment status unknown. Please contact support.');
+                // Handle unknown status
+                return $this->redirectWithMessage('failure', 'Payment status unknown. Please contact support.');
             }
         } catch (\Exception $e) {
+            // Log the exception for debugging
             Log::error('Easebuzz Payment Response Error', ['error' => $e->getMessage()]);
-            return redirect()->back()->with('error', 'An error occurred while processing the payment response.');
+            return $this->redirectWithMessage('failure', 'An error occurred while processing the payment response.');
         }
+    }
+
+    private function redirectWithMessage($route, $message)
+    {
+        // For success, redirect directly to thank you page
+        if ($route == 'thankyou') {
+            $url = route("payment.$route", ['message' => urlencode($message)]);
+            return redirect($url);
+        }
+
+        // For failure, redirect to failure page
+        $url = route("payment.$route", ['message' => urlencode($message)]);
+        return redirect($url);
     }
 
     private function validateEasebuzzResponse(array $params): bool
@@ -267,9 +282,9 @@ class CheckoutController extends Controller
         // Extract hash from the response
         $responseHash = $params['hash'] ?? '';
 
-        // Remove hash and other unnecessary parameters
+        // Remove hash and any unnecessary parameters
         unset($params['hash']);
-        unset($params['unnecessary_field']); // Remove other fields if required
+        unset($params['unnecessary_field']); // Adjust/remove fields as necessary
 
         // Sort parameters alphabetically
         ksort($params);
@@ -280,7 +295,7 @@ class CheckoutController extends Controller
         // Generate the hash using SHA512
         $generatedHash = hash('sha512', $hashString);
 
-        // Compare generated hash with the response hash
+        // Compare the generated hash with the response hash
         return hash_equals($responseHash, $generatedHash);
     }
 
