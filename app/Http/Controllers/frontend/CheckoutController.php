@@ -227,8 +227,6 @@ class CheckoutController extends Controller
 
     public function response(Request $request)
     {
-        $order = Order::get();
-        dd($order);
         try {
             $params = $request->all(); // Retrieve all parameters sent by Easebuzz
 

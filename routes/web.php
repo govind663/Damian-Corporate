@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\PreventBackHistoryMiddleware;
@@ -199,7 +200,7 @@ Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitize
     Route::post('/payment/process/store', [CheckoutController::class, 'processEasebuzzPayment'])->name('frontend.payment.process');
 
     // ==== Payment Response by Easebuzz
-    Route::post('/payment/response', [CheckoutController::class, 'response'])->name('payment.response');
+    Route::post('/payment/response', [CheckoutController::class, 'response'])->name('payment.response')->withoutMiddleware([VerifyCsrfToken::class, PreventCitizenBackHistoryMiddleware::class]);
 
     // ==== Payment Success/Failure by Easebuzz
     Route::get('/payment/success', [CheckoutController::class, 'success'])->name('payment.success');
