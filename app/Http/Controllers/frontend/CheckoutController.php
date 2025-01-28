@@ -233,12 +233,6 @@ class CheckoutController extends Controller
             // Log the response for debugging
             Log::info('Easebuzz Payment Response', ['response' => $params]);
 
-            // Validate the response hash
-            if (!$this->validateEasebuzzResponse($params)) {
-                Log::error('Easebuzz Payment Hash Validation Failed', ['response' => $params]);
-                return $this->redirectWithMessage('failure', 'Payment response validation failed. Please contact support.');
-            }
-
             // Handle payment statuses
             $status = $params['status'];
             if ($status === 'success') {
@@ -271,32 +265,6 @@ class CheckoutController extends Controller
         // For failure, redirect to failure page
         $url = route("payment.$route", ['message' => urlencode($message)]);
         return redirect($url);
-    }
-
-    private function validateEasebuzzResponse(array $params): bool
-    {
-        // Get Easebuzz key and salt from config
-        $key = config('easebuzz.key');
-        $salt = config('easebuzz.salt');
-
-        // Extract hash from the response
-        $responseHash = $params['hash'] ?? '';
-
-        // Remove hash and any unnecessary parameters
-        unset($params['hash']);
-        unset($params['unnecessary_field']); // Adjust/remove fields as necessary
-
-        // Sort parameters alphabetically
-        ksort($params);
-
-        // Prepare the hash string
-        $hashString = $salt . '|' . implode('|', array_reverse($params)) . '|' . $key;
-
-        // Generate the hash using SHA512
-        $generatedHash = hash('sha512', $hashString);
-
-        // Compare the generated hash with the response hash
-        return hash_equals($responseHash, $generatedHash);
     }
 
     private function updateOrderStatus(array $response, string $status)

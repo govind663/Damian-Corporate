@@ -208,7 +208,6 @@ Route::group(['prefix'=> 'store', 'middleware' => ['auth:citizen', PreventCitize
         PreventBackHistoryMiddleware::class,
         'auth:citizen',
         'auth:web',
-        'session',
     ]);
 
 
