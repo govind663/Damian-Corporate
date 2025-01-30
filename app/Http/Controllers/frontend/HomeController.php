@@ -102,7 +102,7 @@ class HomeController extends Controller
 
             // Send Mail
             $mailData = [
-                'email' => $request->email,
+                'email' => $request->email_id,
             ];
 
             // Send Mail with attachments
