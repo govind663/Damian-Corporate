@@ -113,10 +113,12 @@
                     <div class="tp-project-filter masonary-menu text-center pb-30">
                         <!-- Dynamically Generated Category Buttons -->
                         @foreach ($categories as $category)
-                            <button data-filter=".{{ Str::slug($category->category_name) }}" class="{{ request('category') == $category->id ? 'active' : '' }}" style="margin-bottom: 30px;">
+                            <button data-filter=".{{ Str::slug($category->category_name) }}"
+                                class="{{ request('category') == $category->id ? 'active' : '' }}"
+                                style="margin-bottom: 30px;"
+                                data-category="{{ $category->id }}">
                                 @php
                                     $categoryName = '';
-
                                     if ($category->unique_number == '1') {
                                         $categoryName = 'Architectural';
                                     } elseif ($category->unique_number == '2') {
@@ -168,20 +170,45 @@
 @endsection
 
 @push('scripts')
-    <script>
-        $(document).ready(function () {
-            var $grid = $('.grid').isotope({
-                itemSelector: '.grid-item',
-                layoutMode: 'fitRows'
-            });
+<!-- Include jQuery first -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-            $('.tp-project-filter button').on('click', function () {
-                $('.tp-project-filter button').removeClass('active');
-                $(this).addClass('active');
+<!-- Then include Isotope -->
+<script src="https://cdn.jsdelivr.net/npm/isotope-layout@3.0.6/dist/isotope.pkgd.min.js"></script>
 
-                var filterValue = $(this).attr('data-filter');
-                $grid.isotope({ filter: filterValue });
-            });
+<script>
+    $(document).ready(function () {
+        var $grid = $('.grid').isotope({
+            itemSelector: '.grid-item',
+            layoutMode: 'fitRows'
         });
-    </script>
+
+        // Handle category button clicks
+        $('.tp-project-filter button').on('click', function () {
+            var categoryId = $(this).data('category');
+            var filterValue = $(this).attr('data-filter');
+
+            // Update the URL with the selected category
+            var url = new URL(window.location);
+            url.searchParams.set('category', categoryId);
+            window.history.pushState({}, '', url);
+
+            // Set active class for the clicked button
+            $('.tp-project-filter button').removeClass('active');
+            $(this).addClass('active');
+
+            // Filter the grid items
+            $grid.isotope({ filter: filterValue });
+        });
+
+        // Retain the filter state on page load based on URL parameter
+        var categoryParam = new URLSearchParams(window.location.search).get('category');
+        if (categoryParam) {
+            var activeButton = $('.tp-project-filter button[data-category="' + categoryParam + '"]');
+            activeButton.addClass('active');
+            var filterValue = activeButton.attr('data-filter');
+            $grid.isotope({ filter: filterValue });
+        }
+    });
+</script>
 @endpush

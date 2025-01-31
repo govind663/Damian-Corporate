@@ -5,45 +5,6 @@
 @endsection
 
 @push('styles')
-<style>
-    /*.bre-sec {*/
-    /*    height: 200px;*/
-    /*}*/
-
-    /*.bre-sec .breadcrumb-content {*/
-    /*    padding: 155px 0 0;*/
-    /*}*/
-
-    /*@media (max-width: 480px) {*/
-    /*    .bre-sec {*/
-    /*        height: 135px !important;*/
-    /*    }*/
-
-    /*    .bre-sec .breadcrumb-content {*/
-    /*        padding: 100px 0 0 !important;*/
-    /*    }*/
-    /*}*/
-
-    /*@media only screen and (min-width: 481px) and (max-width: 767px) {*/
-    /*    .bre-sec {*/
-    /*        height: 180px !important;*/
-    /*    }*/
-
-    /*    .bre-sec .breadcrumb-content {*/
-    /*        padding: 140px 0 0 !important;*/
-    /*    }*/
-    /*}*/
-
-    /*@media only screen and (min-width: 768px) and (max-width:991px) {*/
-    /*    .bre-sec {*/
-    /*        height: 120px;*/
-    /*    }*/
-
-    /*    .bre-sec .breadcrumb-content {*/
-    /*        padding: 80px 0 0;*/
-    /*    }*/
-    /*}*/
-</style>
 @endpush
 
 @section('content')
@@ -459,7 +420,7 @@
                                                 <li>
                                                     <a href="javascript:void(0)" class="add-to-cart addToCart" data-product-id="${product.id}">
                                                         <i class="fas fa-shopping-bag"></i>
-                                                        Add to Cart
+                                                        Cart
                                                     </a>
                                                 </li>
                                                 <li>
