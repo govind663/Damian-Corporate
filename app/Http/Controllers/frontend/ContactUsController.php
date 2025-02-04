@@ -77,12 +77,19 @@ class ContactUsController extends Controller
             Mail::to($request->email, $request->name)
                 ->send(new sendContactUsThankYouMail($mailData));
 
-            return redirect()->back()->with('message','Thank you for your interest. We will get back to you within 24 hours.');
+            return redirect()->route('frontend.thank-you-contact')->with('message','Thank you for your interest. We will get back to you within 24 hours.');
 
         } catch(\Exception $ex){
 
             return redirect()->back()->with('error','Something Went Wrong  - '.$ex->getMessage());
         }
+    }
+
+
+    // ==== Thank You Mail For Careers
+    public function thankYouContact(Request $request)
+    {
+        return view('frontend.thank-you-contact');
     }
 
 }

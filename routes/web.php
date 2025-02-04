@@ -95,9 +95,15 @@ Route::group(['prefix'=> '', 'middleware' => [PreventCitizenBackHistoryMiddlewar
     Route::get('/careers', [CareersController::class, 'careers'])->name('frontend.careers');
     Route::post('send-career-email', [CareersController::class, 'sendCareerEmail'])->name('send-career-email');
 
+    // ==== Thank You Mail For Careers
+    Route::get('/thank-you-careers', [CareersController::class, 'thankYouCareers'])->name('frontend.thank-you-careers');
+
     // ==== Contact US
     Route::get('/contact-us', [ContactUsController::class, 'contact'])->name('frontend.contact');
     Route::post('send-contact-email', [ContactUsController::class, 'sendContactEmail'])->name('send-contact-email');
+
+    // ==== Thank You Mail For Contact US
+    Route::get('/thank-you-contact-us', [ContactUsController::class, 'thankYouContact'])->name('frontend.thank-you-contact');
 
     // ==== Subscribe Newsletter
     Route::post('subscribe-newsletter', [FrontendHomeController::class, 'subscribeNewsletter'])->name('subscribe-newsletter');
