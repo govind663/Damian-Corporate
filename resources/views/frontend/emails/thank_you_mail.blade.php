@@ -53,16 +53,21 @@
                 <table style="background-color: #f2f3f8; max-width:670px; margin:0 auto;" width="100%" border="0"
                     align="center" cellpadding="0" cellspacing="0">
                     <tr>
-                        <td style="height:40px;">&nbsp;</td>
+                        <td style="height:80px;">&nbsp;</td>
                     </tr>
-                    <td style="text-align:center; padding:0 35px;">
-                        <img width="220" height="80" src="https://mbihosting.in/damiancorporate/demo1/assets/img/logo/damian-logo.png" title="Damian Corporate" alt="logo">
-                    </td><br><br>
                     <tr>
                         <td>
                             <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" style="max-width:670px;background:#fff; border-radius:3px; text-align:left;-webkit-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);-moz-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);box-shadow:0 6px 18px 0 rgba(0,0,0,.06);">
                                 <tr>
                                     <td style="height:40px;">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="padding: 0 35px;">
+                                        <img width="220" height="80" src="https://mbihosting.in/damiancorporate/demo1/assets/img/logo/damian-logo.png" title="Damian Corporate" alt="logo">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="height: 20px;">&nbsp;</td>
                                 </tr>
                                 <td style="padding:0 35px; text-align:left;">
                                     <h1 style="color:#1e1e2d; font-weight:500; margin:0; font-size:25px;">

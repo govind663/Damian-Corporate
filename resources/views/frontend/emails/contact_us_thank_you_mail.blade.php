@@ -62,9 +62,14 @@
                                 <tr>
                                     <td style="height:40px;">&nbsp;</td>
                                 </tr>
-                                <td style="text-align:center; padding:0 35px;">
-                                    <img width="220" height="80" src="https://mbihosting.in/damiancorporate/demo1/assets/img/logo/damian-logo.png" title="Damian Corporate" alt="logo">
-                                </td><br><br>
+                                <tr>
+                                    <td align="center" style="padding: 0 35px;">
+                                        <img width="220" height="80" src="https://mbihosting.in/damiancorporate/demo1/assets/img/logo/damian-logo.png" title="Damian Corporate" alt="logo">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="height: 20px;">&nbsp;</td>
+                                </tr>
                                 <td style="padding:0 35px; text-align:left;">
                                     <h1 style="color:#1e1e2d; font-weight:500; margin:0; font-size:25px;">
                                         Thank You for Contacting Us!

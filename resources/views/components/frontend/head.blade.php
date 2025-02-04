@@ -10,6 +10,9 @@
     <meta name="keywords" content="Damian Corporate, Damian, Corporate">
     <meta name="author" content="Damian Corporate,">
 
+    {{-- Robots Meta Tags --}}
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
     {{-- Security Policy --}}
     {{-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self';"> --}}
 
