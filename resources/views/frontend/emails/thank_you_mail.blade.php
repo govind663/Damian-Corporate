@@ -47,15 +47,17 @@
 
 <body marginheight="0" topmargin="0" marginwidth="0" style="margin: 0px; background-color: #f2f3f8;">
     <!--100% body table-->
-    <table cellspacing="0" border="0" cellpadding="0" width="100%" bgcolor="#f2f3f8"
-        style="@import url(https://fonts.googleapis.com/css?family=Rubik:300,400,500,700|Open+Sans:300,400,600,700); font-family: 'Open Sans', sans-serif;">
+    <table cellspacing="0" border="0" cellpadding="0" width="100%" bgcolor="#f2f3f8" style="@import url(https://fonts.googleapis.com/css?family=Rubik:300,400,500,700|Open+Sans:300,400,600,700); font-family: 'Open Sans', sans-serif;">
         <tr>
             <td>
                 <table style="background-color: #f2f3f8; max-width:670px; margin:0 auto;" width="100%" border="0"
                     align="center" cellpadding="0" cellspacing="0">
                     <tr>
-                        <td style="height:80px;">&nbsp;</td>
+                        <td style="height:40px;">&nbsp;</td>
                     </tr>
+                    <td style="text-align:center; padding:0 35px;">
+                        <img width="220" height="80" src="https://mbihosting.in/damiancorporate/demo1/assets/img/logo/damian-logo.png" title="Damian Corporate" alt="logo">
+                    </td><br><br>
                     <tr>
                         <td>
                             <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" style="max-width:670px;background:#fff; border-radius:3px; text-align:left;-webkit-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);-moz-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);box-shadow:0 6px 18px 0 rgba(0,0,0,.06);">
