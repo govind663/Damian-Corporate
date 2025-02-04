@@ -13,6 +13,34 @@
     {{-- Robots Meta Tags --}}
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
+    <!-- Meta Pixel Code -->
+    <script>
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script'
+            , 'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1372951323690549');
+        fbq('track', 'PageView');
+
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1372951323690549&ev=PageView&noscript=1" /></noscript>
+
+    <!-- End Meta Pixel Code -->
+
     {{-- Security Policy --}}
     {{-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self';"> --}}
 
