@@ -84,15 +84,15 @@
                                         <p class="details" style="color:#44474d; font-size:18px;line-height:24px; margin:0; text-align: justify;">
                                             <strong>Experience:</strong> {{ $mailData['experience'] }}
                                         </p>
-                                        <p class="details" style="color:#44474d; font-size:18px;line-height:24px; margin:0; text-align: justify;">
+                                        {{-- <p class="details" style="color:#44474d; font-size:18px;line-height:24px; margin:0; text-align: justify;">
                                             <strong>Job Position:</strong> {{ $mailData['job_position'] }}
-                                        </p><br><br>
+                                        </p><br><br> --}}
                                         <!--<p style="color:#44474d; font-size:16px;line-height:24px; margin:20px 0 0; text-align: justify;">-->
                                         <!--    Thank you for reaching out to us. We will respond to your inquiry as soon as possible.-->
                                         <!--</p>-->
                                         <!--<p class="mb-0" style="font-size: 16px;color: #2d2c2c; margin-top: 10px; text-align: justify;">-->
                                         <!--    Thanks & Regards.-->
-                                          
+
                                         <!--</p>-->
                                     </td>
                                 </tr>
@@ -116,10 +116,10 @@
                         <!--        </strong>-->
                         <!--    </p>-->
                         <!--</td>-->
-                        
+
                         <td style="text-align:center;">
                             <p style="font-size:16px; color:rgba(69, 80, 86, 0.7411764705882353); line-height:18px; margin:0 0 0;">
-                                &copy; {{ date('Y') }} 
+                                &copy; {{ date('Y') }}
                                 <strong>
                                     <a href="{{ route('frontend.home') }}" title="Damian Corporate" target="_blank" style="color: #000000;">
                                         Damian Corporate

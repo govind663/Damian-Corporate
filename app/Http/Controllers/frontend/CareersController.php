@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\SendCarrerEmailRequest;
 use App\Mail\sendCareerApplyMail;
+use App\Mail\sendThankYouMail;
 use App\Models\SendCareerEmail;
 use App\Models\AboutCareer;
 use App\Models\Career;
@@ -123,9 +124,18 @@ class CareersController extends Controller
             $portfolioPath = public_path('/damian_corporate/send_carrer_email/portfolio/' . $sendCareerEmail->portfolio);
 
             // Send Mail with attachments
-            Mail::to('codingthunder1997@gmail.com', 'Damian Corporate')
-                ->cc(['shweta@matrixbricks.com', 'codingthunder1997@gmail.com', 'riddhi@matrixbricks.com'])
+            Mail::to('careers@damiancorporate.com', 'Damian Corporate')
+                // ->cc(['shweta@matrixbricks.com'])
                 ->send(new sendCareerApplyMail($mailData, $resumePath, $portfolioPath));
+
+            // Send Thank You Mail to User
+            $mailData = [
+                'name' => $request->name,
+                'job_position' => $job_position_name,
+            ];
+
+            Mail::to($request->email, $request->name)
+                ->send(new sendThankYouMail($mailData));
 
             return redirect()->route('frontend.careers')->with('message','Thank you for your interest. We will get back to you within 24 hours.');
 

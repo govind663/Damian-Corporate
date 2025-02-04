@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\SendContactEmailRequest;
 use App\Mail\sendContactMail;
+use App\Mail\sendContactUsThankYouMail;
 use App\Models\CompanyInformation;
 use App\Models\SendContactEmail;
 use Carbon\Carbon;
@@ -67,10 +68,14 @@ class ContactUsController extends Controller
                 'message' => $request->messege,
             ];
 
-            // Send Mail with attachments
-            Mail::to('codingthunder1997@gmail.com', 'Damian Corporate')
-                ->cc(['shweta@matrixbricks.com', 'codingthunder1997@gmail.com','riddhi@matrixbricks.com'])
+            // Send Mail contact@damiancorporate.com
+            Mail::to('contact@damiancorporate.com', 'Damian Corporate')
+                ->cc(['shweta@matrixbricks.com'])
                 ->send(new sendContactMail($mailData));
+
+            // Send Thank You Mail to User
+            Mail::to($request->email, $request->name)
+                ->send(new sendContactUsThankYouMail($mailData));
 
             return redirect()->back()->with('message','Thank you for your interest. We will get back to you within 24 hours.');
 
